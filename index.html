@@ -304,6 +304,10 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   </header>
 
   <!-- AGENDA -->
+  <div class="banner-inst" id="bannerNova" hidden style="background:#DDF3E6">
+    <div class="tx">✨ Nova versão do app<small id="novaTxt">Toque para atualizar. Seus dados continuam salvos.</small></div>
+    <button class="sim" id="novaSim" style="background:var(--ok)">Atualizar</button>
+  </div>
   <div class="banner-inst" id="bannerInst" hidden>
     <div class="tx">📲 Instale o app no celular<small>Abre direto da tela inicial, como um aplicativo</small></div>
     <button class="sim" id="bannerSim">Instalar</button>
@@ -382,6 +386,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div class="acoes-app">
       <div id="areaInst"></div>
       <button class="mini-app" id="btnShare">📤 Compartilhar</button>
+      <button class="mini-app" id="btnAtualizar" style="grid-column:1/-1">🔄 Atualizar app</button>
     </div>
 
     <details class="dob" open><summary>📖 Como usar o app</summary><div class="cont">
@@ -395,6 +400,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Assinatura:</b> em <b>Mais → WhatsApp Business</b>, confira o nome que vai no fim das mensagens.</li>
         <li><b>Compartilhar:</b> em <b>Mais → 📤 Compartilhar app</b> você manda o link do app pelo WhatsApp ou copia para enviar a quem for usar.</li>
         <li><b>Horário de atendimento:</b> em <b>Mais → Meu estúdio</b> escolha o primeiro e o último horário do dia.</li>
+        <li><b>Atualizar:</b> quando tiver versão nova, aparece uma faixa verde "✨ Nova versão do app" no topo. Toque em <b>Atualizar</b>. Também dá pra conferir em <b>Mais → 🔄 Atualizar app</b>. A agenda e as clientes não se perdem.</li>
       </ol></div></details>
 
       <details class="dob"><summary>📅 Agenda e calendário</summary><div class="cont"><ul>
@@ -538,7 +544,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 
     <details class="dob"><summary>👨‍💻 Desenvolvedor</summary><div class="cont">
       <div class="dev"><div class="av">LS</div><div><b>Luís Ricardo de Almeida Siqueira</b><br><span style="color:var(--suave);font-size:.88rem">Desenvolvedor responsável pelo app e pelas atualizações</span></div></div>
-      <p style="margin-top:12px">App: <b>Marisa Depilação</b> · versão 1.1</p>
+      <p style="margin-top:12px">App: <b>Marisa Depilação</b> · <b class="ver-app"></b></p>
       <p style="font-size:.85rem;color:var(--suave);margin-top:14px">Área de teste (só para o desenvolvedor):</p>
       <div class="links-est"><a href="#" id="resetar">Carregar exemplos</a><a href="#" id="zerar" style="color:var(--alerta);border-color:var(--alerta)">Apagar tudo</a></div>
       <p>© 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.</p>
@@ -561,7 +567,9 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 
   <footer>
     Desenvolvido por Luís Ricardo de Almeida Siqueira<br>
-    © 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.
+    © 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.<br>
+    <span class="ver-app" style="font-weight:700"></span><br>
+    <button class="chip" id="btnAtualizar2" style="margin-top:8px">🔄 Verificar atualização</button>
   </footer>
 </div>
 
@@ -1436,6 +1444,39 @@ document.querySelectorAll('.folha').forEach(f=>{
   b.onclick=()=>{ const c=SAIR[f.id]&&document.querySelector(SAIR[f.id]); if(c) c.click(); else fecharFolhas(); };
   f.prepend(b);
 });
+
+// ===== Versão do app (mude junto com o sw.js) =====
+const APP_VERSAO='16', APP_DATA='29/09/2026';
+document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO} · atualizado em ${APP_DATA}`);
+
+// ===== Atualizar app =====
+async function versaoOnline(){
+  const r=await fetch('index.html?v='+Date.now(),{cache:'no-store'});
+  if(!r.ok) throw new Error('falhou');
+  const m=(await r.text()).match(/APP_VERSAO='(\d+)'/);
+  return m?m[1]:null;
+}
+async function aplicarAtualizacao(){
+  aviso('Atualizando… o app vai recarregar');
+  try{
+    if('serviceWorker' in navigator){ const regs=await navigator.serviceWorker.getRegistrations(); for(const r of regs){ try{ await r.update(); }catch(e){} } }
+    if(window.caches){ const ks=await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); }
+  }catch(e){}
+  setTimeout(()=>location.reload(),600);
+}
+async function verificarAtualizacao(manual){
+  try{
+    const v=await versaoOnline();
+    if(v && +v>+APP_VERSAO){
+      if(manual) return aplicarAtualizacao();
+      $('#novaTxt').textContent=`Versão ${v} disponível. Toque para atualizar. Seus dados continuam salvos.`;
+      $('#bannerNova').hidden=false;
+    } else if(manual){ aviso(`✓ Você já está na versão mais recente (${APP_VERSAO})`); }
+  }catch(e){ if(manual) aviso('Sem internet agora. Tente de novo mais tarde.'); }
+}
+['#btnAtualizar','#btnAtualizar2'].forEach(id=>{ const b=$(id); if(b) b.onclick=()=>{ aviso('Verificando…'); verificarAtualizacao(true); }; });
+$('#novaSim').onclick=aplicarAtualizacao;
+if(location.protocol==='https:'||location.hostname==='localhost'){ setTimeout(()=>verificarAtualizacao(false),2500); }
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 const _renderBase=render; render=function(){ _renderBase(); esconderVazios(); };

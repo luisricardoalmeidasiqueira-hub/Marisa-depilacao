@@ -1,0 +1,29 @@
+MARISA DEPILAÇÃO — como subir no GitHub
+=======================================
+
+Arquivos (suba TODOS, soltos, sem pasta):
+  index.html          -> o app
+  manifest.json       -> permite instalar como aplicativo
+  sw.js               -> faz o app abrir sem internet e receber atualizações
+  papel-de-parede.png -> papel de parede (aparece em Mais > Meu estúdio)
+  icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
+                      -> ícones do app (Android e iPhone)
+
+Passo a passo:
+  1. Crie um repositório (ex.: marisa-depilacao).
+  2. Add file > Upload files > selecione os 9 arquivos de uma vez.
+  3. Commit changes.
+  4. Settings > Pages > Branch: main / (root) > Save.
+  5. Abra o link https://SEU-USUARIO.github.io/marisa-depilacao/ no celular.
+  6. No app, toque em "Instalar".
+
+Para atualizar depois:
+  - Troque o index.html.
+  - No index.html, mude a linha:  const APP_VERSAO='16', APP_DATA='29/09/2026';
+    (ex.: '17' e a data do dia)
+  - No sw.js, mude a versão para o MESMO número:  marisa-v16 -> marisa-v17
+  - A versão aparece no rodapé do app e em Mais > Desenvolvedor.
+    Assim dá pra conferir se o celular já pegou a versão nova.
+
+Desenvolvido por Luís Ricardo de Almeida Siqueira
+© 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.
