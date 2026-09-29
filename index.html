@@ -150,8 +150,8 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 .opc input:checked+label{background:var(--ameixa);border-color:var(--ameixa);color:#fff}
 .total{margin-top:14px;font-weight:800;font-size:1.1rem}
 .btn{width:100%;border:0;border-radius:14px;padding:14px;font-weight:800;background:var(--ameixa);color:#fff;margin-top:16px}
-:root[data-theme="dark"] .btn{color:#1A1115}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#1A1115}}
+:root[data-theme="dark"] .btn:not(.sec):not(.perigo){color:#1A1115}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn:not(.sec):not(.perigo){color:#1A1115}}
 .btn.sec{background:transparent;color:var(--ameixa);border:1.5px solid var(--ameixa);margin-top:8px}
 
 .aviso{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--texto);color:var(--fundo);padding:10px 16px;border-radius:12px;font-weight:700;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
@@ -159,6 +159,15 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 .demo{margin-top:26px;background:var(--mel-claro);border-radius:14px;padding:12px 14px;font-size:.85rem}
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 .tela{display:none}.tela.ativa{display:block}
+.pos{border:2px solid var(--mel);background:var(--card);border-radius:18px;padding:12px 14px;margin-bottom:10px}
+.pos .t{font-weight:800;color:var(--mel);font-size:.9rem;margin-bottom:4px}
+.pos .lin{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--linha)}
+.pos .lin:first-of-type{border-top:0}
+.pos .lin b{display:block}
+.pos .lin span{font-size:.82rem;color:var(--suave)}
+.pos .lin a{flex:none;text-decoration:none;background:#25D366;color:#fff;font-weight:800;border-radius:10px;padding:9px 12px;font-size:.85rem}
+.bv h2{font-size:1.7rem}
+.bv .passos li{font-size:1rem}
 .ret.sumida{background:var(--po)}
 .ret .chamada{color:var(--ok);font-weight:800;font-size:.8rem}
 .banner-inst{display:flex;align-items:center;gap:10px;background:var(--mel-claro);border-radius:16px;padding:10px 12px;margin:6px 0 4px}
@@ -321,6 +330,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     </div>
 
     <div id="blocoLemb"></div>
+    <div id="blocoPos"></div>
 
     <div class="secao"><h2 id="tituloDia">Agenda de hoje</h2><small id="diaSel"></small></div>
     <button class="btn-dia" id="agendarDia">+ Agendar neste dia</button>
@@ -386,7 +396,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Assinatura:</b> em <b>Mais → WhatsApp Business</b>, confira o nome que vai no fim das mensagens.</li>
         <li><b>Ative o alerta:</b> no fim da Agenda, toque em <b>🔔 Ativar alerta no celular 1 hora antes</b> e permita as notificações.</li>
         <li><b>Compartilhar:</b> em <b>Mais → 📤 Compartilhar app</b> você manda o link do app pelo WhatsApp ou copia para enviar a quem for usar.</li>
-        <li><b>Os exemplos:</b> o app vem com clientes de exemplo para você testar. Quando for começar de verdade, é só cancelar os horários e excluir os cadastros de exemplo.</li>
+        <li><b>Horário de atendimento:</b> em <b>Mais → Meu estúdio</b> escolha o primeiro e o último horário do dia.</li>
       </ol></div></details>
 
       <details class="dob"><summary>📅 Agenda e calendário</summary><div class="cont"><ul>
@@ -403,6 +413,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <details class="dob"><summary>💬 Mensagens no WhatsApp</summary><div class="cont">
         <p>Todos os botões verdes abrem o WhatsApp com a mensagem <b>já escrita</b>. É só conferir e apertar enviar.</p><ul>
         <li><b>Confirmar no WhatsApp:</b> em cada horário, para confirmar com a cliente.</li>
+        <li><b>Pós-atendimento 💬:</b> no dia seguinte ao atendimento concluído, aparece um cartão no topo da Agenda para perguntar como a cliente está. Toque em <b>Enviar</b>. O cartão fica até 3 dias e some depois de enviado.</li>
         <li><b>Aviso 1 hora antes:</b> quando falta 1 hora, aparece um cartão verde no topo da Agenda. Toque em <b>Enviar lembrete no WhatsApp</b> e a cliente fica marcada <b>✓ avisada</b>. Com o alerta ativado, o celular vibra e mostra uma notificação. O aviso funciona com o app aberto ou em segundo plano.</li>
         <li><b>Aniversário 🎂:</b> no dia, aparece um cartão com a mensagem de parabéns e 10% de desconto de presente.</li>
         <li><b>Hora de chamar de volta:</b> clientes que estão na época de refazer o serviço, com o botão <b>Chamar</b>.</li>
@@ -450,6 +461,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 
       <details class="dob"><summary>⚙️ Ajustes em "Mais"</summary><div class="cont"><ul>
         <li><b>Meu estúdio:</b> foto, endereço, WhatsApp, Instagram, link do mapa e papel de parede.</li>
+        <li><b>Mensagens:</b> mude o texto da confirmação e do pós-atendimento.</li>
         <li><b>Clientes sumidas:</b> escolha depois de quantos dias do retorno a cliente conta como sumida (7, 15 ou 30) e edite a mensagem. Use <b>{nome}</b> e <b>{servico}</b> no texto.</li>
         <li><b>WhatsApp Business:</b> assinatura das mensagens e dicas de catálogo, etiquetas e mensagem de ausência.</li>
         <li><b>Privacidade e LGPD</b> e informações do <b>Desenvolvedor</b>.</li>
@@ -473,7 +485,19 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div><label for="cfgWhats">WhatsApp do estúdio</label><input id="cfgWhats" type="tel" inputmode="tel"></div>
         <div><label for="cfgInsta">Instagram</label><input id="cfgInsta" placeholder="sem o @"></div>
       </div>
+      <label>Horário de atendimento</label>
+      <div class="duas"><div><input id="cfgAbre" type="time" step="1800" aria-label="Primeiro horário"></div><div><input id="cfgFecha" type="time" step="1800" aria-label="Último horário"></div></div>
+      <p style="color:var(--suave);font-size:.82rem;margin-top:4px">Primeiro e último horário que aparecem como livres na agenda (de 30 em 30 minutos).</p>
       <div class="wall-prev"><img src="papel-de-parede.png" alt="" onerror="this.parentElement.style.display='none'"><div><b>Papel de parede</b><br><a href="papel-de-parede.png" target="_blank" rel="noopener" style="color:var(--ameixa);font-weight:800">Abrir para salvar no celular</a><br><span style="font-size:.8rem;color:var(--suave)">Abra, toque e segure na imagem e salve nas fotos.</span></div></div>
+    </div></details>
+
+    <details class="dob"><summary>✉️ Mensagens</summary><div class="cont">
+      <p style="color:var(--suave);font-size:.85rem">O app troca sozinho: <b>{nome}</b> pelo nome da cliente, <b>{dia}</b> por hoje/amanhã/data, <b>{hora}</b> pelo horário e <b>{servico}</b> pelo serviço.</p>
+      <label for="cfgConf">Confirmação do horário</label>
+      <textarea id="cfgConf" rows="5"></textarea>
+      <label for="cfgPos">Pós-atendimento (no dia seguinte)</label>
+      <textarea id="cfgPos" rows="5"></textarea>
+      <button class="chip" id="cfgMsgsPadrao" style="margin-top:10px">Voltar às mensagens padrão</button>
     </div></details>
 
     <details class="dob"><summary>💔 Clientes sumidas</summary><div class="cont">
@@ -516,7 +540,9 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 
     <details class="dob"><summary>👨‍💻 Desenvolvedor</summary><div class="cont">
       <div class="dev"><div class="av">LS</div><div><b>Luís Ricardo de Almeida Siqueira</b><br><span style="color:var(--suave);font-size:.88rem">Desenvolvedor responsável pelo app e pelas atualizações</span></div></div>
-      <p style="margin-top:12px">App: <b>Marisa Depilação</b> · versão 1.0 (demonstração)</p>
+      <p style="margin-top:12px">App: <b>Marisa Depilação</b> · versão 1.1</p>
+      <p style="font-size:.85rem;color:var(--suave);margin-top:14px">Área de teste (só para o desenvolvedor):</p>
+      <div class="links-est"><a href="#" id="resetar">Carregar exemplos</a><a href="#" id="zerar" style="color:var(--alerta);border-color:var(--alerta)">Apagar tudo</a></div>
       <p>© 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.</p>
     </div></details>
   </section>
@@ -533,7 +559,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div id="ranking"></div>
   </section>
 
-  <div class="demo">Versão de demonstração: os dados ficam salvos só neste aparelho. <button class="chip" id="resetar" style="margin-top:8px">Restaurar exemplos</button></div>
+
 
   <footer>
     Desenvolvido por Luís Ricardo de Almeida Siqueira<br>
@@ -651,6 +677,19 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <button class="btn sec" id="shFechar">Fechar</button>
 </div>
 
+<div class="folha bv" id="folhaBV" role="dialog" aria-modal="true" aria-labelledby="bvTit">
+  <div class="puxador"></div>
+  <h2 id="bvTit">Bem-vinda, Marisa! 💕</h2>
+  <p>Seu app de agenda está pronto. É bem simples:</p>
+  <ol class="passos">
+    <li><div><b>Para marcar:</b> toque no dia no calendário e depois num <b>horário verde</b>.</div></li>
+    <li><div><b>Botões verdes</b> abrem o WhatsApp com a mensagem pronta. É só apertar enviar.</div></li>
+    <li><div><b>Depois do atendimento</b>, toque em <b>Marcar concluído</b>. No dia seguinte o app lembra de mandar o pós-atendimento.</div></li>
+    <li><div>Qualquer dúvida: <b>☰ Mais → Como usar</b>.</div></li>
+  </ol>
+  <button class="btn" id="bvOk">Começar</button>
+</div>
+
 <div class="aviso" id="aviso" role="status"></div>
 
 <script>
@@ -707,6 +746,7 @@ function exemplos(){
   for(let k=1;k<=8;k++) lista.push({id:nid++,nome:'Mariana Lopes',tel:'15998761234',data:iso(addDias(h,-20*k)),hora:'09:00',serv:['s1'],feito:true,obs:''});
   lista.push({id:nid++,nome:'Fernanda Dias',tel:'15993334455',data:iso(addDias(h,-45)),hora:'15:00',serv:['s1'],feito:false,falta:true,obs:''});
   lista.push({id:nid++,nome:'Fernanda Dias',tel:'15993334455',data:iso(addDias(h,-70)),hora:'16:00',serv:['s2'],feito:false,falta:true,obs:''});
+  lista.push({id:nid++,nome:'Aline Martins',tel:'15994445566',data:iso(addDias(h,-1)),hora:'14:00',serv:['s5','s8'],feito:true,obs:''});
   lista.push({id:nid++,nome:'Débora Castro',tel:'15998887766',data:iso(addDias(h,-75)),hora:'10:00',serv:['s7'],feito:true,obs:''});
   lista.push({id:nid++,nome:'Carla Souza',tel:'15997002211',data:iso(addDias(h,-30)),hora:'10:30',serv:['s7'],feito:true,obs:''});
   const daqui=new Date(h.getTime()+50*60000); daqui.setMinutes(Math.ceil(daqui.getMinutes()/5)*5);
@@ -723,7 +763,7 @@ function clientesExemplo(){
   };
 }
 let CLI;
-try { CLI = JSON.parse(localStorage.getItem('marisa-clientes')) || clientesExemplo(); } catch(e){ CLI = clientesExemplo(); }
+try { CLI = JSON.parse(localStorage.getItem('marisa-clientes')) || {}; } catch(e){ CLI = {}; }
 function salvarCli(){ try{ localStorage.setItem('marisa-clientes',JSON.stringify(CLI)); return true; }catch(e){ return false; } }
 const cad = tel => CLI[tel] || {};
 const niverHoje = c => c.nasc && c.nasc.slice(5)===HOJE.slice(5);
@@ -732,7 +772,14 @@ function cuidados(c){ const l=[]; if(c.sens)l.push('Pele sensível'); if(c.acido
 function alertaCuid(tel){ const c=cad(tel); const l=[]; if(c.sens)l.push('Pele sensível'); if(c.acido)l.push('Usa ácido/retinol'); if(c.gest)l.push('Gestante'); return l.length?`<button class="cuid" data-editcuid="${tel}" aria-label="Editar cuidados">⚠️ ${l.join(' · ')}${c.cera&&c.cera!=='Sem preferência'?' · cera '+c.cera.toLowerCase():''} <span style="float:right">✏️</span></button>`:''; }
 const telFmt = t => t.replace(/(\d{2})(\d{4,5})(\d{4})/,'($1) $2-$3');
 let dados;
-try { dados = JSON.parse(localStorage.getItem('arcoecera')) || exemplos(); } catch(e){ dados = exemplos(); }
+try { dados = JSON.parse(localStorage.getItem('arcoecera')) || []; } catch(e){ dados = []; }
+// remove uma vez os exemplos que vinham no app (Carla, Mariana...)
+try { if(localStorage.getItem('marisa-sem-exemplos')!=='1'){
+  const telsEx=['15998761234','15997002211','15996554433','15991112233','15992223344','15993334455','15994445566','15995556677','15998887766','15990001122'];
+  dados=dados.filter(a=>!(a.id<1000000 && telsEx.includes(a.tel)));
+  telsEx.forEach(t=>{ if(CLI[t]) delete CLI[t]; });
+  localStorage.setItem('arcoecera',JSON.stringify(dados)); localStorage.setItem('marisa-clientes',JSON.stringify(CLI));
+  localStorage.setItem('marisa-sem-exemplos','1'); } } catch(e){}
 function salvar(){ try{ localStorage.setItem('arcoecera',JSON.stringify(dados)); }catch(e){} }
 
 const sv = id => SERVICOS.find(s=>s.id===id) || {id, n:'Serviço removido', cat:'Depilação', p:0, m:0, ret:30};
@@ -745,10 +792,14 @@ function tags(a){
   if(t.has('Estética')) h+='<span class="tag sob">estética</span>';
   return h;
 }
+function diaTexto(d){ if(d===HOJE) return 'hoje'; if(d===iso(addDias(new Date(HOJE+'T12:00'),1))) return 'amanhã'; return 'dia '+dataBR(d); }
+function preencher(t,a){ return t.replace(/\{nome\}/g,a.nome.split(' ')[0]).replace(/\{dia\}/g,diaTexto(a.data)).replace(/\{hora\}/g,a.hora).replace(/\{servico\}/g,a.serv.map(i=>sv(i).n.toLowerCase()).join(' e ')); }
 const linhaEnd=()=> CFG.endMsg&&CFG.endereco ? '\n\n📍 '+CFG.endereco+'\n'+mapaURL() : '';
 const mapaURL=()=> 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent((CFG.endereco||'')+', Brasil');
 const MSG_SUMIDA_PADRAO="Oi, {nome}! Tudo bem? 💕 Estou com saudade de você por aqui! Já faz um tempinho desde {servico}. Que tal marcar um horário esta semana? Vou adorar te atender!";
-const CFG_PADRAO=()=>({assinatura:'Marisa Almeida · Depilação 💕',tolerancia:15,msgSumida:MSG_SUMIDA_PADRAO,endereco:'R. Profa. Zilá de Aquino, 1206 – Tatuí/SP',whats:'15996542859',insta:'marisaalmeida.epiladora',endMsg:true});
+const MSG_CONF_PADRAO='✨ Olá, {nome} 🌸\nPassando para confirmar nosso horário agendado {dia} às {hora}.\nSerá um prazer recebê-la e proporcionar esse momento especial de autocuidado. 💆‍♀️✨';
+const MSG_POS_PADRAO='✨ Olá, {nome}, tudo bem?\nEspero que esteja se sentindo confortável e satisfeita com o atendimento. Qualquer sensibilidade ou desconforto, estarei à disposição.\nObrigada pela confiança! 🙏🥰';
+const CFG_PADRAO=()=>({abre:'07:00',fecha:'19:30',msgConf:MSG_CONF_PADRAO,msgPos:MSG_POS_PADRAO,assinatura:'Marisa Almeida · Depilação 💕',tolerancia:15,msgSumida:MSG_SUMIDA_PADRAO,endereco:'R. Profa. Zilá de Aquino, 1206 – Tatuí/SP',whats:'15996542859',insta:'marisaalmeida.epiladora',endMsg:true});
 let CFG; try{ CFG=Object.assign(CFG_PADRAO(),JSON.parse(localStorage.getItem('marisa-config'))||{}); if(CFG.assinatura==='Marisa Depilação 💕') CFG.assinatura='Marisa Almeida · Depilação 💕'; }catch(e){ CFG=CFG_PADRAO(); }
 function salvarCfg(){ try{ localStorage.setItem('marisa-config',JSON.stringify(CFG)); }catch(e){} }
 function zap(a,msg,assinar=true){ const t=assinar&&CFG.assinatura?msg+'\n\n'+CFG.assinatura:msg; return 'https://wa.me/55'+a.tel.replace(/\D/g,'')+'?text='+encodeURIComponent(t); }
@@ -758,7 +809,7 @@ const semana = s => new Date(s+'T12:00').toLocaleDateString('pt-BR',{weekday:'sh
 function itemAgenda(a,mostrarDia){
   const nomes=a.serv.map(i=>sv(i).n).join(' + ');
   const primeiro=a.nome.split(' ')[0];
-  const msg=`Oi, ${primeiro}! Passando pra confirmar seu horário ${a.data===HOJE?'hoje':'dia '+dataBR(a.data)} às ${a.hora} (${nomes}). Posso confirmar? 💕${linhaEnd()}`;
+  const msg=preencher(CFG.msgConf||MSG_CONF_PADRAO,a)+linhaEnd();
   return `<li class="ag ${a.feito?'concluido':''} ${a.falta?'faltou':''}">
     <div class="hora">${mostrarDia?`<div style="font-size:.75rem;color:var(--suave)">${semana(a.data)} ${dataBR(a.data)}</div>`:''}${a.hora}</div>
     <div>
@@ -782,11 +833,14 @@ function render(){
   const d=new Date();
   $('#hojeData').textContent=d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
   const pend=hoje.filter(a=>!a.feito&&!a.falta);
-  $('#hojeFrase').textContent = !hoje.length?'Agenda livre hoje':(pend.length?`Próxima: ${pend[0].nome.split(' ')[0]} às ${pend[0].hora}`:'Dia encerrado, tudo feito');
+  const agoraHM=String(new Date().getHours()).padStart(2,'0')+':'+String(new Date().getMinutes()).padStart(2,'0');
+  const proxH=pend.find(a=>a.hora>=agoraHM);
+  $('#hojeFrase').textContent = !hoje.length?'Agenda livre hoje':proxH?`Próxima: ${proxH.nome.split(' ')[0]} às ${proxH.hora}`:pend.length?`Marque ${pend.length===1?'1 atendimento':pend.length+' atendimentos'} como concluído`:'Dia encerrado, tudo feito ✓';
   $('#nAtend').textContent=hoje.length;
   $('#nPrev').textContent=brl(hoje.filter(a=>!a.falta).reduce((t,a)=>t+valor(a),0)).replace(',00','');
   $('#nFeito').textContent=hoje.filter(a=>a.feito).length;
   renderLembretes();
+  renderPos();
   const nivers=clientes().filter(c=>niverHoje(c));
   $('#blocoNiver').innerHTML=nivers.map(c=>{
     const msg=`Parabéns, ${c.nome.split(' ')[0]}! 🎉🎂 Desejo um ano lindo pra você! De presente, você ganha 10% de desconto no seu próximo horário este mês.`;
@@ -929,7 +983,15 @@ $('#btnMais').onclick=()=>{
   document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
   $('#t-mais').classList.add('ativa'); $('#cfgAss').value=CFG.assinatura||''; carregaCfgSumida(); carregaEstudio(); window.scrollTo(0,0);
 };
+function carregaMsgs(){ $('#cfgConf').value=CFG.msgConf; $('#cfgPos').value=CFG.msgPos; $('#cfgAbre').value=CFG.abre; $('#cfgFecha').value=CFG.fecha; }
+$('#cfgConf').addEventListener('change',()=>{ CFG.msgConf=$('#cfgConf').value.trim()||MSG_CONF_PADRAO; salvarCfg(); render(); aviso('Mensagem salva'); });
+$('#cfgPos').addEventListener('change',()=>{ CFG.msgPos=$('#cfgPos').value.trim()||MSG_POS_PADRAO; salvarCfg(); render(); aviso('Mensagem salva'); });
+$('#cfgMsgsPadrao').onclick=()=>{ CFG.msgConf=MSG_CONF_PADRAO; CFG.msgPos=MSG_POS_PADRAO; salvarCfg(); carregaMsgs(); render(); aviso('Mensagens padrão restauradas'); };
+['#cfgAbre','#cfgFecha'].forEach(id=>$(id).addEventListener('change',()=>{ const a=$('#cfgAbre').value||'07:00', f=$('#cfgFecha').value||'19:30';
+  if(a>f) return aviso('O primeiro horário precisa ser antes do último');
+  CFG.abre=a; CFG.fecha=f; salvarCfg(); render(); aviso('Horário salvo'); }));
 function carregaEstudio(){
+  carregaMsgs();
   $('#cfgEnd').value=CFG.endereco||''; $('#cfgEndMsg').checked=!!CFG.endMsg;
   $('#cfgWhats').value=CFG.whats?telFmt(CFG.whats):''; $('#cfgInsta').value=CFG.insta||'';
   const l=[];
@@ -983,7 +1045,8 @@ $('#salvar').onclick=()=>{
 $('#busca').addEventListener('input',renderClientes);
 $('#filtros').addEventListener('click',e=>{ const b=e.target.closest('[data-f]'); if(!b)return;
   filtro=b.dataset.f; document.querySelectorAll('#filtros [data-f]').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderClientes(); });
-$('#resetar').onclick=()=>{ if(confirm('Apagar tudo (agenda e tabela de preços) e voltar aos exemplos?')){ dados=exemplos(); salvar(); CLI=clientesExemplo(); salvarCli(); CFG=CFG_PADRAO(); salvarCfg(); SERVICOS=JSON.parse(JSON.stringify(SERVICOS_PADRAO)); salvarServ(); render(); aviso('Exemplos restaurados'); } };
+$('#zerar').onclick=e=>{ e.preventDefault(); if(confirm('Apagar TODOS os dados (agenda, clientes e fotos)? Não dá pra desfazer.')&&confirm('Tem certeza?')){ dados=[]; salvar(); CLI={}; salvarCli(); render(); aviso('Tudo apagado'); } };
+$('#resetar').onclick=e=>{ e.preventDefault(); if(confirm('Apagar os dados atuais e carregar os exemplos de teste?')){ dados=exemplos(); salvar(); CLI=clientesExemplo(); salvarCli(); CFG=CFG_PADRAO(); salvarCfg(); SERVICOS=JSON.parse(JSON.stringify(SERVICOS_PADRAO)); salvarServ(); render(); aviso('Exemplos restaurados'); } };
 
 // ===== Aviso 1 hora antes =====
 const minutosAte = a => Math.round((new Date(a.data+'T'+a.hora) - new Date())/60000);
@@ -992,6 +1055,15 @@ function msgLembrete(a){
   const nomes=a.serv.map(i=>sv(i).n).join(' + ');
   return `Oi, ${a.nome.split(' ')[0]}! Passando pra lembrar do seu horário hoje às ${a.hora} (${nomes}). Te espero daqui a pouquinho! 💕${linhaEnd()}`;
 }
+function renderPos(){
+  const ontem=iso(addDias(new Date(HOJE+'T12:00'),-1)), limite=iso(addDias(new Date(HOJE+'T12:00'),-3));
+  const lista=dados.filter(a=>a.feito&&!a.posEnviado&&a.data<HOJE&&a.data>=limite&&!/^x/.test(a.tel)).sort((x,y)=>(y.data+y.hora).localeCompare(x.data+x.hora));
+  $('#blocoPos').innerHTML = lista.length ? `<div class="pos"><div class="t">💬 Pós-atendimento: pergunte como ela está</div>
+    ${lista.map(a=>`<div class="lin"><div><b>${a.nome}</b><span>${a.serv.map(i=>sv(i).n).join(' + ')} · ${a.data===ontem?'ontem':dataBR(a.data)}</span></div>
+    <a href="${zap(a,preencher(CFG.msgPos||MSG_POS_PADRAO,a))}" target="_blank" rel="noopener" data-pos="${a.id}">Enviar</a></div>`).join('')}</div>` : '';
+}
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-pos]'); if(!b) return;
+  const a=dados.find(x=>x.id==b.dataset.pos); if(a){ a.posEnviado=true; salvar(); setTimeout(()=>{ render(); aviso('Pós-atendimento enviado ✓'); },400); } });
 function renderLembretes(){
   const pend=dados.filter(a=>a.data===HOJE && !a.feito && !a.falta && !a.avisado)
     .map(a=>({a,m:minutosAte(a)})).filter(x=>x.m<=60 && x.m>-15).sort((x,y)=>x.m-y.m);
@@ -1218,7 +1290,7 @@ $('#cExcluir').onclick=()=>{
 
 // ===== Calendário =====
 let diaSel=HOJE, mesVis=new Date(HOJE.slice(0,7)+'-01T12:00');
-const ABRE='08:00', FECHA='19:00', PASSO=30;
+const PASSO=30;
 const min = h => { const [a,b]=h.split(':').map(Number); return a*60+b; };
 const hhmm = m => String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
 const duracao = a => a.serv.reduce((t,i)=>t+(sv(i).m||30),0)||30;
@@ -1226,7 +1298,7 @@ function livresDo(dia){
   const ocup=dados.filter(a=>a.data===dia&&!a.falta).map(a=>[min(a.hora),min(a.hora)+duracao(a)]);
   const agora=new Date(), agoraM=agora.getHours()*60+agora.getMinutes();
   const l=[];
-  for(let t=min(ABRE);t+PASSO<=min(FECHA);t+=PASSO){
+  for(let t=min(CFG.abre||'07:00');t<=min(CFG.fecha||'19:30');t+=PASSO){
     if(dia===HOJE&&t<=agoraM) continue;
     if(ocup.some(([i,f])=>t<f&&t+PASSO>i)) continue;
     l.push(hhmm(t));
@@ -1353,7 +1425,7 @@ $('#shCopiar').onclick=async()=>{ const t=$('#shLink');
 $('#shFechar').onclick=fecharFolhas;
 
 // ===== Botão ✕ em todas as janelas =====
-const SAIR={folha:'#cancelar',folhaServ:'#sCancelar',folhaCli:'#cCancelar',folhaDados:'#dFechar',folhaInstalar:'#iFechar',folhaShare:'#shFechar'};
+const SAIR={folhaBV:'#bvOk',folha:'#cancelar',folhaServ:'#sCancelar',folhaCli:'#cCancelar',folhaDados:'#dFechar',folhaInstalar:'#iFechar',folhaShare:'#shFechar'};
 document.querySelectorAll('.folha').forEach(f=>{
   const b=document.createElement('button');
   b.className='fechar-x folha-x'; b.type='button'; b.textContent='✕'; b.setAttribute('aria-label','Fechar');
@@ -1364,6 +1436,8 @@ document.querySelectorAll('.folha').forEach(f=>{
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 render();
 atualizaInstalar();
+try{ if(localStorage.getItem('marisa-bv')!=='1'){ setTimeout(()=>abrirFolha('folhaBV'),400); } }catch(e){}
+$('#bvOk').onclick=()=>{ try{ localStorage.setItem('marisa-bv','1'); }catch(e){} fecharFolhas(); };
 </script>
 </body>
 </html>
