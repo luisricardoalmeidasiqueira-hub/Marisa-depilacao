@@ -164,6 +164,11 @@ footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;lin
 .banner-inst button{border:0;border-radius:10px;font-weight:800;font-size:.85rem;padding:8px 12px}
 .banner-inst .sim{background:var(--mel);color:#fff}
 .banner-inst .nao{background:transparent;color:var(--suave);padding:8px 4px}
+.acoes-app{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px}
+.acoes-app #areaInst{display:contents}
+.mini-app{border:1.5px solid var(--linha);background:var(--card);color:var(--ameixa);border-radius:12px;padding:9px 6px;font-weight:800;font-size:.85rem;width:100%}
+.mini-app.inst{background:var(--mel-claro);border-color:var(--mel-claro);color:var(--mel)}
+.mini-app.ok{color:var(--ok);cursor:default}
 .btn-inst{width:100%;border:0;border-radius:14px;padding:14px;font-weight:800;background:var(--mel);color:#fff;margin-top:4px;font-size:1rem}
 .inst-ok{background:var(--card);border:1px solid var(--linha);border-radius:14px;padding:12px;font-weight:800;color:var(--ok);text-align:center}
 .passos{counter-reset:p;list-style:none;padding:0;margin:10px 0}
@@ -362,8 +367,10 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <!-- CAIXA -->
   <section class="tela" id="t-mais">
     <div class="secao"><h2>Mais</h2></div>
-    <div id="areaInst"></div>
-    <button class="btn-inst" id="btnShare" style="background:var(--ameixa);margin-top:8px">📤 Compartilhar app</button>
+    <div class="acoes-app">
+      <div id="areaInst"></div>
+      <button class="mini-app" id="btnShare">📤 Compartilhar</button>
+    </div>
 
     <details class="dob" open><summary>📖 Como usar o app</summary><div class="cont">
       <p>Toque em cada assunto para abrir a explicação.</p>
@@ -1273,8 +1280,8 @@ function atualizaInstalar(){
   const inst=instalado();
   $('#bannerInst').hidden = inst || bannerFechado();
   $('#areaInst').innerHTML = inst
-    ? '<div class="inst-ok">✓ App instalado neste aparelho</div>'
-    : '<button class="btn-inst" id="btnInstMais">📲 Instalar app no celular</button>';
+    ? '<div class="mini-app ok" style="text-align:center">✓ Instalado</div>'
+    : '<button class="mini-app inst" id="btnInstMais">📲 Instalar app</button>';
   const b=$('#btnInstMais'); if(b) b.onclick=instalar;
 }
 function instalar(){
