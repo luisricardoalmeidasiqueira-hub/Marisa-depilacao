@@ -349,7 +349,6 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div class="secao"><h2>Próximos dias</h2></div>
     <ul class="agenda" id="listaProx"></ul>
 
-    <button class="ativar-not" id="ativarNot">🔔 Ativar alerta no celular 1 hora antes</button>
   </section>
 
   <!-- SERVIÇOS -->
@@ -394,7 +393,6 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Dados do estúdio:</b> em <b>Mais → 📍 Meu estúdio</b> estão o endereço, o WhatsApp e o Instagram. O endereço, com o link do mapa, vai junto nas mensagens de confirmação e lembrete (dá pra desligar ali).</li>
         <li><b>Papel de parede:</b> também em <b>Meu estúdio</b>. Abra a imagem, toque e segure para salvar, e coloque como fundo do celular.</li>
         <li><b>Assinatura:</b> em <b>Mais → WhatsApp Business</b>, confira o nome que vai no fim das mensagens.</li>
-        <li><b>Ative o alerta:</b> no fim da Agenda, toque em <b>🔔 Ativar alerta no celular 1 hora antes</b> e permita as notificações.</li>
         <li><b>Compartilhar:</b> em <b>Mais → 📤 Compartilhar app</b> você manda o link do app pelo WhatsApp ou copia para enviar a quem for usar.</li>
         <li><b>Horário de atendimento:</b> em <b>Mais → Meu estúdio</b> escolha o primeiro e o último horário do dia.</li>
       </ol></div></details>
@@ -414,7 +412,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <p>Todos os botões verdes abrem o WhatsApp com a mensagem <b>já escrita</b>. É só conferir e apertar enviar.</p><ul>
         <li><b>Confirmar no WhatsApp:</b> em cada horário, para confirmar com a cliente.</li>
         <li><b>Pós-atendimento 💬:</b> no dia seguinte ao atendimento concluído, aparece um cartão no topo da Agenda para perguntar como a cliente está. Toque em <b>Enviar</b>. O cartão fica até 3 dias e some depois de enviado.</li>
-        <li><b>Aviso 1 hora antes:</b> quando falta 1 hora, aparece um cartão verde no topo da Agenda. Toque em <b>Enviar lembrete no WhatsApp</b> e a cliente fica marcada <b>✓ avisada</b>. Com o alerta ativado, o celular vibra e mostra uma notificação. O aviso funciona com o app aberto ou em segundo plano.</li>
+        <li><b>Aviso 1 hora antes:</b> quando falta 1 hora, aparece um cartão verde no topo da Agenda. Toque em <b>Enviar lembrete no WhatsApp</b> e a cliente fica marcada <b>✓ avisada</b>. O aviso funciona com o app aberto ou em segundo plano.</li>
         <li><b>Aniversário 🎂:</b> no dia, aparece um cartão com a mensagem de parabéns e 10% de desconto de presente.</li>
         <li><b>Hora de chamar de volta:</b> clientes que estão na época de refazer o serviço, com o botão <b>Chamar</b>.</li>
         <li><b>Clientes sumidas 💔:</b> quem passou do retorno e não voltou. O botão <b>Mandar mensagem</b> envia a mensagem de saudade, e a cliente fica <b>✓ Chamada</b> por 30 dias, para não repetir.</li>
@@ -1055,6 +1053,11 @@ function msgLembrete(a){
   const nomes=a.serv.map(i=>sv(i).n).join(' + ');
   return `Oi, ${a.nome.split(' ')[0]}! Passando pra lembrar do seu horário hoje às ${a.hora} (${nomes}). Te espero daqui a pouquinho! 💕${linhaEnd()}`;
 }
+function esconderVazios(){
+  ['#listaRet','#listaSum','#listaProx'].forEach(id=>{ const el=$(id); if(!el) return;
+    const vazio=!el.children.length||!!el.querySelector('.vazio');
+    el.style.display=vazio?'none':''; const t=el.previousElementSibling; if(t&&t.classList.contains('secao')) t.style.display=vazio?'none':''; });
+}
 function renderPos(){
   const ontem=iso(addDias(new Date(HOJE+'T12:00'),-1)), limite=iso(addDias(new Date(HOJE+'T12:00'),-3));
   const lista=dados.filter(a=>a.feito&&!a.posEnviado&&a.data<HOJE&&a.data>=limite&&!/^x/.test(a.tel)).sort((x,y)=>(y.data+y.hora).localeCompare(x.data+x.hora));
@@ -1085,14 +1088,6 @@ document.addEventListener('click',e=>{
   const av=e.target.closest('[data-avisar]');
   if(av){ const a=dados.find(x=>x.id==av.dataset.avisar); a.avisado=true; salvar(); setTimeout(()=>{render();aviso('Lembrete marcado como enviado');},400); }
 });
-function botaoNot(){
-  const b=$('#ativarNot');
-  if(!('Notification' in window)){ b.textContent='🔔 Alerta 1 hora antes ativo com o app aberto'; b.disabled=true; return; }
-  if(Notification.permission==='granted'){ b.textContent='🔔 Alertas ativados'; b.disabled=true; }
-  else if(Notification.permission==='denied'){ b.textContent='🔕 Notificações bloqueadas nas configurações do navegador'; b.disabled=true; }
-}
-$('#ativarNot').onclick=async()=>{ try{ await Notification.requestPermission(); }catch(e){} botaoNot(); };
-botaoNot();
 setInterval(()=>{ renderLembretes(); },30000);
 
 // ===== Editar serviços =====
@@ -1338,9 +1333,10 @@ function renderCal(){
   $('#agendarDia').style.display=passado?'none':'block';
   const liv=passado?[]:livresDo(diaSel);
   $('#livresTit').style.display=passado?'none':'block';
-  $('#livresTit').textContent=liv.length?`${liv.length} horários livres (toque para marcar)`:'Dia lotado, sem horários livres';
+  const passouHoje=diaSel===HOJE&&!liv.length&&!lista.some(x=>x.hora>=String(new Date().getHours()).padStart(2,'0')+':00');
+  $('#livresTit').textContent=liv.length?(liv.length===1?'1 horário livre (toque para marcar)':`${liv.length} horários livres (toque para marcar)`):passouHoje?'Os horários de hoje já acabaram. Escolha outro dia no calendário.':'Dia lotado, sem horários livres';
   $('#livres').innerHTML=liv.map(h=>`<button data-livre="${h}">${h}</button>`).join('');
-  $('#listaHoje').innerHTML=lista.length?lista.map(a=>itemAgenda(a,false)).join(''):`<div class="vazio">${passado?'Nenhum atendimento neste dia.':'Nenhum horário marcado. Toque em um horário livre para agendar.'}</div>`;
+  $('#listaHoje').innerHTML=lista.length?lista.map(a=>itemAgenda(a,false)).join(''):`<div class="vazio">${passado?'Nenhum atendimento neste dia.':(liv.length?'Nenhum horário marcado. Toque em um horário verde para agendar.':'Nenhum horário marcado neste dia.')}</div>`;
 }
 let calAberto=false;
 function moveSemana(n){ const d=addDias(new Date(diaSel+'T12:00'),n); diaSel=iso(d); mesVis=new Date(diaSel.slice(0,7)+'-01T12:00'); renderCal(); }
@@ -1442,6 +1438,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
+const _renderBase=render; render=function(){ _renderBase(); esconderVazios(); };
 render();
 atualizaInstalar();
 try{ if(localStorage.getItem('marisa-bv')!=='1'){ setTimeout(()=>abrirFolha('folhaBV'),400); } }catch(e){}
