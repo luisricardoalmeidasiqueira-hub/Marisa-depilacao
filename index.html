@@ -389,7 +389,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <p>Toque em cada assunto para abrir a explicação.</p>
 
       <details class="dob"><summary>🚀 Primeiros passos</summary><div class="cont"><ol>
-        <li><b>Instale o app:</b> toque em <b>Instalar</b> na faixa amarela do topo ou em <b>Mais → Instalar app no celular</b>. No iPhone, siga o passo a passo que aparece (precisa ser no Safari). Depois, abra sempre pelo ícone.</li>
+        <li><b>Instale o app:</b> toque em <b>Instalar</b> na faixa amarela do topo ou em <b>Mais → Instalar app</b>. No Android com Chrome instala na hora. No iPhone (Safari ou Chrome) aparecem 3 passos simples. Depois, abra sempre pelo ícone.</li>
         <li><b>Confira os preços:</b> na aba <b>Serviços</b>, ajuste valores e tempos para os do seu estúdio.</li>
         <li><b>Dados do estúdio:</b> em <b>Mais → 📍 Meu estúdio</b> estão o endereço, o WhatsApp e o Instagram. O endereço, com o link do mapa, vai junto nas mensagens de confirmação e lembrete (dá pra desligar ali).</li>
         <li><b>Papel de parede:</b> também em <b>Meu estúdio</b>. Abra a imagem, toque e segure para salvar, e coloque como fundo do celular.</li>
@@ -1379,20 +1379,28 @@ function instalar(){
     promptInst.userChoice.then(r=>{ if(r.outcome==='accepted') aviso('Instalando o app…'); promptInst=null; atualizaInstalar(); });
     return;
   }
+  const ua=navigator.userAgent;
+  const chromeIOS=/crios/i.test(ua), outroIOS=/fxios|edgios|opios/i.test(ua);
+  const dicaZap='<p class="dica" style="margin-top:0">Se você abriu pelo link do <b>WhatsApp</b> e não achar a opção, toque em <b>abrir no navegador</b> primeiro (o ícone da bússola 🧭 ou os três pontinhos).</p>';
   let h;
-  if(ehIOS){
-    h = (ehSafari?'':'<p style="color:var(--alerta);font-weight:800">No iPhone, abra este link no <b>Safari</b> para instalar.</p>') + `
-    <ol class="passos">
-      <li><div>Toque no botão <b>Compartilhar</b> <span class="ic-share">⬆️</span> na barra do Safari (embaixo ou em cima).</div></li>
-      <li><div>Role a lista e toque em <b>Adicionar à Tela de Início</b>.</div></li>
-      <li><div>Toque em <b>Adicionar</b>. O ícone da Marisa Depilação aparece na tela do iPhone.</div></li>
-    </ol>`;
+  if(ehIOS && chromeIOS){
+    h = `<ol class="passos">
+      <li><div>No Chrome, toque no botão <b>Compartilhar</b> <span class="ic-share">⬆️</span>, no <b>canto de cima, ao lado do endereço</b>.</div></li>
+      <li><div>Toque em <b>Adicionar à Tela de Início</b>. Se não aparecer, role a lista ou toque em <b>Mais</b>.</div></li>
+      <li><div>Toque em <b>Adicionar</b>. Pronto, o ícone da Marisa aparece na tela.</div></li>
+    </ol>` + dicaZap;
+  } else if(ehIOS){
+    h = `<ol class="passos">
+      <li><div>Toque no botão <b>Compartilhar</b> <span class="ic-share">⬆️</span> ${outroIOS?'do navegador':'do Safari (embaixo ou em cima)'}.</div></li>
+      <li><div>Toque em <b>Adicionar à Tela de Início</b>. Se não aparecer, role a lista para baixo.</div></li>
+      <li><div>Toque em <b>Adicionar</b>. Pronto, o ícone da Marisa aparece na tela.</div></li>
+    </ol>` + dicaZap;
   } else {
     h = `<ol class="passos">
-      <li><div>No Chrome, toque no menu <b>⋮</b> (três pontinhos, no canto de cima).</div></li>
+      <li><div>No Chrome, toque nos <b>três pontinhos ⋮</b>, no canto de cima.</div></li>
       <li><div>Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</div></li>
       <li><div>Confirme em <b>Instalar</b>. O ícone aparece junto dos outros aplicativos.</div></li>
-    </ol>`;
+    </ol>` + dicaZap;
   }
   $('#instPassos').innerHTML = h + '<p class="dica">Depois de instalado, abra sempre pelo ícone. Os dados continuam salvos no aparelho.</p>';
   abrirFolha('folhaInstalar');
