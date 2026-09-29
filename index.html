@@ -183,6 +183,7 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 .aviso.on{opacity:1}
 .demo{margin-top:26px;background:var(--mel-claro);border-radius:14px;padding:12px 14px;font-size:.85rem}
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
+[hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
 .btn-bloq{width:100%;border:1.5px dashed var(--alerta);background:transparent;color:var(--alerta);border-radius:14px;padding:10px;font-weight:800;margin:0 0 6px}
 .bloq-card{display:flex;align-items:center;gap:10px;justify-content:space-between;border:2px solid var(--alerta);border-radius:14px;padding:10px 12px;margin:8px 0;background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(192,57,43,.07) 8px 14px)}
@@ -457,7 +458,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="automatica sozinha enviar mensagem"><b>❓ As mensagens vão sozinhas?</b><p>Não. O app <b>deixa a mensagem pronta</b> no WhatsApp, você só confere e aperta <b>enviar</b>.</p></div>
         <div class="faq" data-k="pos depois atendimento seguinte obrigada"><b>❓ E a mensagem de pós-atendimento?</b><p>No dia seguinte aparece um cartão amarelo no topo da Agenda. Toque em <b>Enviar</b>.</p></div>
         <div class="faq" data-k="promocao desconto combo dois duas mais barato junto valor combinado"><b>❓ A cliente fez 2 ou mais serviços. Como dou desconto?</b><p>Ao marcar 2 ou mais serviços aparece o campo verde <b>💝 Promoção</b>. Coloque o valor que vai cobrar e o app usa esse valor no dia e no caixa. Para sobrancelha com buço já tem o serviço <b>Sobrancelha + buço (R$ 62)</b>.</p></div>
-        <div class="faq" data-k="bloquear travar medico folga viagem riscar fechar agenda dia"><b>❓ Vou ao médico. Como travo a agenda?</b><p>Toque no dia no calendário → <b>🚫 Bloquear horário</b>. Escolha <b>Dia inteiro</b> ou tire o ✓ e escolha <b>das … até as …</b>. O dia fica riscado em vermelho e os horários somem. Para liberar, toque em <b>Desbloquear</b>.</p></div>
+        <div class="faq" data-k="bloquear travar medico folga viagem riscar fechar agenda dia"><b>❓ Vou ao médico. Como travo a agenda?</b><p>Toque em <b>🚫 Bloquear horário</b>, escolha <b>o dia</b> (ou do dia … até o dia …, para viagem) e marque <b>Dia inteiro</b> ou tire o ✓ e escolha <b>das … até as …</b>. O dia fica riscado em vermelho e os horários somem. Para liberar, toque em <b>Desbloquear</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -789,7 +790,12 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 <div class="folha" id="folhaBloq" role="dialog" aria-modal="true" aria-labelledby="bqTit">
   <div class="puxador"></div>
   <h2 id="bqTit">Bloquear horário</h2>
-  <p class="dica" id="bqDiaTxt"></p>
+  <p class="dica">Ninguém consegue ser marcado no horário bloqueado.</p>
+  <div class="duas">
+    <div><label for="bqData">Do dia</label><input id="bqData" type="date"></div>
+    <div><label for="bqAteDia">Até o dia</label><input id="bqAteDia" type="date"></div>
+  </div>
+  <p style="color:var(--suave);font-size:.82rem;margin:4px 0 0">Para um dia só, deixe as duas datas iguais. Para viagem, escolha o primeiro e o último dia.</p>
   <div class="checks"><label><input type="checkbox" id="bqTodo" checked> <b>Dia inteiro</b></label></div>
   <div class="duas" id="bqPeriodo" hidden>
     <div><label for="bqDe">Das</label><input id="bqDe" type="time" step="1800" value="13:00"></div>
@@ -797,7 +803,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   </div>
   <label for="bqMotivo">Motivo (opcional)</label>
   <input id="bqMotivo" placeholder="Ex.: médico, folga, viagem">
-  <button class="btn" id="bqSalvar" style="background:var(--alerta)">🚫 Bloquear</button>
+  <button class="btn" id="bqSalvar" style="background:var(--alerta);color:#fff">🚫 Bloquear</button>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -1598,7 +1604,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_VERSAO='24', APP_DATA='29/09/2026';
+const APP_VERSAO='25', APP_DATA='29/09/2026';
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1684,18 +1690,27 @@ document.addEventListener('click',e=>{
 
 // ===== Bloquear horário =====
 $('#bloquearDia').onclick=()=>{
-  $('#bqDiaTxt').textContent='Dia '+new Date(diaSel+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})+'. Ninguém consegue ser marcado no horário bloqueado.';
+  const d0=diaSel<HOJE?HOJE:diaSel; $('#bqData').value=d0; $('#bqAteDia').value=d0; $('#bqData').min=HOJE; $('#bqAteDia').min=HOJE;
   $('#bqTodo').checked=true; $('#bqPeriodo').hidden=true; $('#bqMotivo').value='';
   abrirFolha('folhaBloq');
 };
 $('#bqTodo').addEventListener('change',()=>{ $('#bqPeriodo').hidden=$('#bqTodo').checked; });
+$('#bqData').addEventListener('change',()=>{ if(!$('#bqAteDia').value||$('#bqAteDia').value<$('#bqData').value) $('#bqAteDia').value=$('#bqData').value; });
 $('#bqSalvar').onclick=()=>{
   const todo=$('#bqTodo').checked, de=$('#bqDe').value, ate=$('#bqAte').value;
+  const d1=$('#bqData').value, d2=$('#bqAteDia').value||d1;
+  if(!d1) return aviso('Escolha o dia');
+  if(d2<d1) return aviso('O "até o dia" precisa ser depois do "do dia"');
   if(!todo&&(!de||!ate||de>=ate)) return aviso('O "até as" precisa ser depois do "das"');
-  const b={id:Date.now(),data:diaSel,diaTodo:todo,de:todo?'00:00':de,ate:todo?'23:59':ate,motivo:$('#bqMotivo').value.trim()};
-  const marcadas=dados.filter(a=>a.data===diaSel&&!a.falta&&!a.feito&&(todo||(mm(a.hora)>=mm(de)&&mm(a.hora)<mm(ate))));
-  BLOQ.push(b); salvarBloq(); fecharFolhas(); render();
-  aviso(marcadas.length?`Bloqueado. Atenção: ${marcadas.length===1?'1 cliente já estava marcada':marcadas.length+' clientes já estavam marcadas'} nesse horário!`:'Horário bloqueado 🚫');
+  const dias=[]; for(let d=new Date(d1+'T12:00'); iso(d)<=d2 && dias.length<90; d=addDias(d,1)) dias.push(iso(d));
+  let marcadas=0;
+  dias.forEach((dia,k)=>{
+    BLOQ.push({id:Date.now()+k,data:dia,diaTodo:todo,de:todo?'00:00':de,ate:todo?'23:59':ate,motivo:$('#bqMotivo').value.trim()});
+    marcadas+=dados.filter(a=>a.data===dia&&!a.falta&&!a.feito&&(todo||(mm(a.hora)>=mm(de)&&mm(a.hora)<mm(ate)))).length;
+  });
+  salvarBloq(); diaSel=d1; mesVis=new Date(d1.slice(0,7)+'-01T12:00'); fecharFolhas(); render();
+  const txt=dias.length>1?`${dias.length} dias bloqueados 🚫`:'Horário bloqueado 🚫';
+  aviso(marcadas?`${txt} Atenção: ${marcadas===1?'1 cliente já estava marcada':marcadas+' clientes já estavam marcadas'}!`:txt);
 };
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-desbloq]'); if(!b) return;
   if(confirm('Desbloquear e liberar esse horário de novo?')){ BLOQ=BLOQ.filter(x=>x.id!=b.dataset.desbloq); salvarBloq(); render(); aviso('Horário liberado ✓'); } });

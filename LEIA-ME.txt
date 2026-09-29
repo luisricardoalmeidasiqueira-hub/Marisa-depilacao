@@ -19,9 +19,9 @@ Passo a passo:
 
 Para atualizar depois:
   - Troque o index.html.
-  - No index.html, mude a linha:  const APP_VERSAO='24', APP_DATA='29/09/2026';
-    (ex.: '25' e a data do dia)
-  - No sw.js, mude a versão para o MESMO número:  marisa-v24 -> marisa-v25
+  - No index.html, mude a linha:  const APP_VERSAO='25', APP_DATA='29/09/2026';
+    (ex.: '26' e a data do dia)
+  - No sw.js, mude a versão para o MESMO número:  marisa-v25 -> marisa-v26
   - A versão aparece no rodapé do app e em Mais > Desenvolvedor.
     Assim dá pra conferir se o celular já pegou a versão nova.
 
