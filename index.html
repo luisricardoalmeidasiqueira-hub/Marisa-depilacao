@@ -363,6 +363,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <section class="tela" id="t-mais">
     <div class="secao"><h2>Mais</h2></div>
     <div id="areaInst"></div>
+    <button class="btn-inst" id="btnShare" style="background:var(--ameixa);margin-top:8px">📤 Compartilhar app</button>
 
     <details class="dob" open><summary>📖 Como usar o app</summary><div class="cont">
       <p>Toque em cada assunto para abrir a explicação.</p>
@@ -374,6 +375,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Papel de parede:</b> também em <b>Meu estúdio</b>. Abra a imagem, toque e segure para salvar, e coloque como fundo do celular.</li>
         <li><b>Assinatura:</b> em <b>Mais → WhatsApp Business</b>, confira o nome que vai no fim das mensagens.</li>
         <li><b>Ative o alerta:</b> no fim da Agenda, toque em <b>🔔 Ativar alerta no celular 1 hora antes</b> e permita as notificações.</li>
+        <li><b>Compartilhar:</b> em <b>Mais → 📤 Compartilhar app</b> você manda o link do app pelo WhatsApp ou copia para enviar a quem for usar.</li>
         <li><b>Os exemplos:</b> o app vem com clientes de exemplo para você testar. Quando for começar de verdade, é só cancelar os horários e excluir os cadastros de exemplo.</li>
       </ol></div></details>
 
@@ -627,6 +629,16 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <h2 id="iTit">Instalar o app</h2>
   <div id="instPassos"></div>
   <button class="btn sec" id="iFechar">Entendi</button>
+</div>
+
+<div class="folha" id="folhaShare" role="dialog" aria-modal="true" aria-labelledby="shTit">
+  <div class="puxador"></div>
+  <h2 id="shTit">Compartilhar app</h2>
+  <p class="dica">Mande o link para quem vai usar. A pessoa abre, toca em <b>Instalar</b> e pronto.</p>
+  <input id="shLink" readonly>
+  <a class="btn" id="shZap" style="display:block;text-align:center;text-decoration:none;background:#25D366" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+  <button class="btn sec" id="shCopiar">Copiar link</button>
+  <button class="btn sec" id="shFechar">Fechar</button>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -1297,6 +1309,24 @@ $('#iFechar').onclick=fecharFolhas;
 if('serviceWorker' in navigator && location.protocol==='https:'){
   try{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }catch(e){}
 }
+
+// ===== Compartilhar app =====
+const linkApp=()=>location.origin+location.pathname.replace(/index\.html$/,'');
+const textoShare='Marisa Depilação 💕 Agenda de depilação e sobrancelhas. Abra o link e toque em "Instalar" para colocar o app no celular:';
+$('#btnShare').onclick=async()=>{
+  const url=linkApp();
+  if(navigator.share){
+    try{ await navigator.share({title:'Marisa Depilação',text:textoShare,url}); return; }
+    catch(e){ if(e&&e.name==='AbortError') return; }
+  }
+  $('#shLink').value=url;
+  $('#shZap').href='https://wa.me/?text='+encodeURIComponent(textoShare+'\n'+url);
+  abrirFolha('folhaShare');
+};
+$('#shCopiar').onclick=async()=>{ const t=$('#shLink');
+  try{ await navigator.clipboard.writeText(t.value); aviso('Link copiado'); }
+  catch(e){ t.focus(); t.select(); try{ document.execCommand('copy'); aviso('Link copiado'); }catch(_){ aviso('Selecione o link e copie'); } } };
+$('#shFechar').onclick=fecharFolhas;
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 render();
