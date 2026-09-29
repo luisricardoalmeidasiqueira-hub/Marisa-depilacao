@@ -141,6 +141,9 @@ nav.abas .mais .ic{width:52px;height:52px;border-radius:50%;background:var(--mel
 label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 6px}
 input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--linha);background:var(--card)}
 .duas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.duas>div{min-width:0}
+input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-width:0;max-width:100%;display:block;min-height:46px;text-align:left}
+.folha-x{position:sticky;top:0;float:right;margin:-4px -4px 0 8px;z-index:3;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .opc{display:flex;flex-wrap:wrap;gap:8px}
 .opc input{display:none}
 .opc label{margin:0;font-weight:600;font-size:.85rem;border:1px solid var(--linha);background:var(--card);border-radius:999px;padding:8px 12px}
@@ -576,7 +579,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <label for="sNome">Nome do serviço</label>
   <input id="sNome" placeholder="Ex.: Design de sobrancelha">
   <label for="sCat">Categoria</label>
-  <select id="sCat"><option>Sobrancelha</option><option>Depilação</option></select>
+  <select id="sCat"><option>Sobrancelha</option><option>Depilação</option><option>Estética</option></select>
   <div class="duas">
     <div><label for="sPreco">Preço (R$)</label><input id="sPreco" type="number" inputmode="decimal" min="0" step="0.01"></div>
     <div><label for="sMin">Tempo (min)</label><input id="sMin" type="number" inputmode="numeric" min="5" step="5"></div>
@@ -652,19 +655,32 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 
 <script>
 const SERVICOS_PADRAO = [
-  {id:'s1',cat:'Sobrancelha',n:'Design de sobrancelha',p:35,m:30,ret:20},
-  {id:'s2',cat:'Sobrancelha',n:'Design com henna',p:50,m:45,ret:20},
-  {id:'s3',cat:'Sobrancelha',n:'Brow lamination',p:120,m:60,ret:45},
-  {id:'s4',cat:'Sobrancelha',n:'Buço na linha',p:15,m:10,ret:20},
-  {id:'s5',cat:'Depilação',n:'Axila (cera)',p:20,m:15,ret:30},
-  {id:'s6',cat:'Depilação',n:'Meia perna (cera)',p:40,m:30,ret:30},
-  {id:'s7',cat:'Depilação',n:'Perna inteira (cera)',p:65,m:45,ret:30},
-  {id:'s8',cat:'Depilação',n:'Virilha completa (cera)',p:55,m:40,ret:30},
-  {id:'s9',cat:'Depilação',n:'Buço (cera)',p:12,m:10,ret:20},
-  {id:'s10',cat:'Depilação',n:'Rosto completo (cera)',p:40,m:25,ret:30}
+  {id:'s1',cat:'Sobrancelha',n:'Sobrancelha',p:40,m:30,ret:20},
+  {id:'s2',cat:'Sobrancelha',n:'Henna',p:20,m:15,ret:20},
+  {id:'s3',cat:'Sobrancelha',n:'Tintura',p:20,m:15,ret:30},
+  {id:'s10',cat:'Depilação',n:'Facial',p:60,m:20,ret:30},
+  {id:'s9',cat:'Depilação',n:'Buço',p:25,m:10,ret:20},
+  {id:'s4',cat:'Depilação',n:'Buço e queixo',p:30,m:15,ret:20},
+  {id:'s5',cat:'Depilação',n:'Axila',p:30,m:15,ret:30},
+  {id:'s11',cat:'Depilação',n:'Abdômen',p:40,m:20,ret:30},
+  {id:'s12',cat:'Depilação',n:'Costas',p:40,m:30,ret:30},
+  {id:'s13',cat:'Depilação',n:'Faixa abdominal',p:20,m:10,ret:30},
+  {id:'s14',cat:'Depilação',n:'Nádegas',p:35,m:20,ret:30},
+  {id:'s8',cat:'Depilação',n:'Virilha',p:60,m:30,ret:30},
+  {id:'s15',cat:'Depilação',n:'Virilha premium',p:70,m:40,ret:30},
+  {id:'s16',cat:'Depilação',n:'Ânus',p:30,m:10,ret:30},
+  {id:'s6',cat:'Depilação',n:'Meia perna',p:40,m:30,ret:30},
+  {id:'s17',cat:'Depilação',n:'Coxa',p:45,m:30,ret:30},
+  {id:'s7',cat:'Depilação',n:'Perna inteira',p:70,m:45,ret:30},
+  {id:'s18',cat:'Estética',n:'Limpeza de pele',p:100,m:60,ret:30}
 ];
 let SERVICOS;
+const TABELA_VERSAO='2';
 try { SERVICOS = JSON.parse(localStorage.getItem('marisa-servicos')) || JSON.parse(JSON.stringify(SERVICOS_PADRAO)); } catch(e){ SERVICOS = JSON.parse(JSON.stringify(SERVICOS_PADRAO)); }
+try { if(localStorage.getItem('marisa-tabela-versao')!==TABELA_VERSAO){
+  const antigos=SERVICOS.filter(x=>!SERVICOS_PADRAO.some(n=>n.id===x.id)).map(x=>({...x,ativo:false}));
+  SERVICOS=JSON.parse(JSON.stringify(SERVICOS_PADRAO)).concat(antigos);
+  localStorage.setItem('marisa-servicos',JSON.stringify(SERVICOS)); localStorage.setItem('marisa-tabela-versao',TABELA_VERSAO); } } catch(e){}
 function salvarServ(){ try{ localStorage.setItem('marisa-servicos',JSON.stringify(SERVICOS)); }catch(e){} }
 const ativos = () => SERVICOS.filter(s=>s.ativo!==false);
 const $ = s => document.querySelector(s);
@@ -726,6 +742,7 @@ function tags(a){
   const t=new Set(tipo(a)); let h='';
   if(t.has('Sobrancelha')) h+='<span class="tag sob">sobrancelha</span>';
   if(t.has('Depilação')) h+='<span class="tag cera">cera</span>';
+  if(t.has('Estética')) h+='<span class="tag sob">estética</span>';
   return h;
 }
 const linhaEnd=()=> CFG.endMsg&&CFG.endereco ? '\n\n📍 '+CFG.endereco+'\n'+mapaURL() : '';
@@ -801,7 +818,7 @@ function render(){
 
   // Serviços
   let hs='';
-  ['Sobrancelha','Depilação'].forEach(c=>{
+  ['Sobrancelha','Depilação','Estética'].forEach(c=>{
     hs+=`<div class="cat">${c}</div><div class="servicos">`+(ativos().filter(s=>s.cat===c).map(s=>
       `<button class="sv" data-editserv="${s.id}"><div><div class="n">${s.n}</div><div class="d">${s.m} min · retorno em ${s.ret} dias</div></div><div class="p">${brl(s.p)}<span class="lapis">✏️</span></div></button>`).join('')||'<div class="vazio">Nenhum serviço nesta categoria.</div>')+'</div>';
   });
@@ -1061,7 +1078,7 @@ function abrirFicha(tel){
   let idade=''; if(c.nasc){ const n=new Date(c.nasc+'T12:00'), h=new Date(); let i=h.getFullYear()-n.getFullYear(); if(HOJE.slice(5)<c.nasc.slice(5))i--; idade=`🎂 ${c.nasc.slice(8)}/${c.nasc.slice(5,7)} · ${i} anos${niverHoje(c)?' · é hoje!':''}`; }
   const fotos=(CLI[tel]&&CLI[tel].fotos)||[];
   $('#fichaCorpo').innerHTML=`
-    <div class="fic-topo"><div><h2>${c.nome}</h2></div><button class="fechar-x" aria-label="Fechar" onclick="fecharFolhas()">✕</button></div>
+    <div class="fic-topo"><div><h2>${c.nome}</h2></div></div>
     <div class="fic-sub">${c.estrelas?estrHTML(c,true)+' · '+c.v180+' visita(s) nos últimos 6 meses<br>':'Ainda sem visitas nos últimos 6 meses<br>'}${telFmt(c.tel)}${idade?'<br>'+idade:''}<br>${c.vezes} visita(s) · já gastou ${brl(c.total)}</div>
     <div class="fic-acoes">
       <a class="z" href="${zap(c,'Oi, '+prim+'! ',false)}" target="_blank" rel="noopener">WhatsApp</a>
@@ -1334,6 +1351,15 @@ $('#shCopiar').onclick=async()=>{ const t=$('#shLink');
   try{ await navigator.clipboard.writeText(t.value); aviso('Link copiado'); }
   catch(e){ t.focus(); t.select(); try{ document.execCommand('copy'); aviso('Link copiado'); }catch(_){ aviso('Selecione o link e copie'); } } };
 $('#shFechar').onclick=fecharFolhas;
+
+// ===== Botão ✕ em todas as janelas =====
+const SAIR={folha:'#cancelar',folhaServ:'#sCancelar',folhaCli:'#cCancelar',folhaDados:'#dFechar',folhaInstalar:'#iFechar',folhaShare:'#shFechar'};
+document.querySelectorAll('.folha').forEach(f=>{
+  const b=document.createElement('button');
+  b.className='fechar-x folha-x'; b.type='button'; b.textContent='✕'; b.setAttribute('aria-label','Fechar');
+  b.onclick=()=>{ const c=SAIR[f.id]&&document.querySelector(SAIR[f.id]); if(c) c.click(); else fecharFolhas(); };
+  f.prepend(b);
+});
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 render();
