@@ -46,7 +46,18 @@ button{cursor:pointer}
 :focus-visible{outline:3px solid var(--mel);outline-offset:2px}
 
 /* Topo */
-.topo{padding:20px 0 8px;display:flex;align-items:center;gap:12px}
+.topo{padding:20px 0 8px;display:flex;align-items:center;gap:12px;position:relative}
+.btn-pontos{border:0;background:var(--po);color:var(--ameixa);border-radius:14px;width:36px;height:52px;font-size:1.4rem;font-weight:800;line-height:1;flex:none;margin-left:-4px}
+.topo h1{font-size:clamp(1.3rem,6vw,1.7rem)!important}
+.topo>div{min-width:0}
+.topo p{font-size:.82rem!important}
+.btn-mais{flex:none}
+.menu-pontos{position:absolute;right:0;top:calc(100% - 4px);z-index:15;background:var(--card);border:1px solid var(--linha);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);padding:6px;min-width:230px}
+.menu-pontos[hidden]{display:none}
+.menu-pontos button,.menu-pontos .it{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;padding:12px;border-radius:10px;font-weight:700;font-size:.95rem;color:var(--texto)}
+.menu-pontos button:active{background:var(--po)}
+.menu-pontos .ok{color:var(--ok)}
+.menu-pontos .ver{font-size:.78rem;color:var(--suave);padding:6px 12px 8px;border-top:1px solid var(--linha);margin-top:4px}
 .topo svg{flex:none}
 .foto-topo{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 2px var(--fundo),0 0 0 4px var(--mel)}
 .estudio{display:flex;gap:14px;align-items:center;margin-bottom:10px}
@@ -170,6 +181,9 @@ footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;lin
 .bv .passos li{font-size:1rem}
 .ret.sumida{background:var(--po)}
 .ret .chamada{color:var(--ok);font-weight:800;font-size:.8rem}
+.banner-inst[hidden]{display:none!important}
+.banner-inst.nova .tx{color:#1D4D33}
+.banner-inst.nova .tx small{color:#2F6B4A}
 .banner-inst{display:flex;align-items:center;gap:10px;background:var(--mel-claro);border-radius:16px;padding:10px 12px;margin:6px 0 4px}
 .banner-inst .tx{flex:1;font-size:.88rem;font-weight:700}
 .banner-inst .tx small{display:block;font-weight:400;color:var(--suave)}
@@ -301,10 +315,17 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <p>Marisa Almeida · depilação e sobrancelhas</p>
     </div>
     <button class="btn-mais" id="btnMais" aria-label="Mais: como usar, WhatsApp, LGPD e desenvolvedor"><span>☰</span>Mais</button>
+    <button class="btn-pontos" id="btnPontos" aria-label="Opções do app" aria-expanded="false">⋮</button>
+    <div class="menu-pontos" id="menuPontos" hidden role="menu">
+      <div id="menuInst"></div>
+      <button id="btnShare" role="menuitem">📤 Compartilhar app</button>
+      <button id="btnAtualizar" role="menuitem">🔄 Atualizar app</button>
+      <div class="ver ver-app"></div>
+    </div>
   </header>
 
   <!-- AGENDA -->
-  <div class="banner-inst" id="bannerNova" hidden style="background:#DDF3E6">
+  <div class="banner-inst nova" id="bannerNova" hidden style="background:#DDF3E6">
     <div class="tx">✨ Nova versão do app<small id="novaTxt">Toque para atualizar. Seus dados continuam salvos.</small></div>
     <button class="sim" id="novaSim" style="background:var(--ok)">Atualizar</button>
   </div>
@@ -383,24 +404,19 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <!-- CAIXA -->
   <section class="tela" id="t-mais">
     <div class="secao"><h2>Mais</h2></div>
-    <div class="acoes-app">
-      <div id="areaInst"></div>
-      <button class="mini-app" id="btnShare">📤 Compartilhar</button>
-      <button class="mini-app" id="btnAtualizar" style="grid-column:1/-1">🔄 Atualizar app</button>
-    </div>
 
     <details class="dob" open><summary>📖 Como usar o app</summary><div class="cont">
       <p>Toque em cada assunto para abrir a explicação.</p>
 
       <details class="dob"><summary>🚀 Primeiros passos</summary><div class="cont"><ol>
-        <li><b>Instale o app:</b> toque em <b>Instalar</b> na faixa amarela do topo ou em <b>Mais → Instalar app</b>. No Android com Chrome instala na hora. No iPhone (Safari ou Chrome) aparecem 3 passos simples. Depois, abra sempre pelo ícone.</li>
+        <li><b>Instale o app:</b> toque em <b>Instalar</b> na faixa amarela do topo ou nos <b>⋮ três pontinhos → Instalar app</b>. No Android com Chrome instala na hora. No iPhone (Safari ou Chrome) aparecem 3 passos simples. Depois, abra sempre pelo ícone.</li>
         <li><b>Confira os preços:</b> na aba <b>Serviços</b>, ajuste valores e tempos para os do seu estúdio.</li>
         <li><b>Dados do estúdio:</b> em <b>Mais → 📍 Meu estúdio</b> estão o endereço, o WhatsApp e o Instagram. O endereço, com o link do mapa, vai junto nas mensagens de confirmação e lembrete (dá pra desligar ali).</li>
         <li><b>Papel de parede:</b> também em <b>Meu estúdio</b>. Abra a imagem, toque e segure para salvar, e coloque como fundo do celular.</li>
         <li><b>Assinatura:</b> em <b>Mais → WhatsApp Business</b>, confira o nome que vai no fim das mensagens.</li>
-        <li><b>Compartilhar:</b> em <b>Mais → 📤 Compartilhar app</b> você manda o link do app pelo WhatsApp ou copia para enviar a quem for usar.</li>
+        <li><b>Compartilhar:</b> em <b>⋮ (três pontinhos) → 📤 Compartilhar app</b> você manda o link do app pelo WhatsApp ou copia para enviar a quem for usar.</li>
         <li><b>Horário de atendimento:</b> em <b>Mais → Meu estúdio</b> escolha o primeiro e o último horário do dia.</li>
-        <li><b>Atualizar:</b> quando tiver versão nova, aparece uma faixa verde "✨ Nova versão do app" no topo. Toque em <b>Atualizar</b>. Também dá pra conferir em <b>Mais → 🔄 Atualizar app</b>. A agenda e as clientes não se perdem.</li>
+        <li><b>Atualizar:</b> quando tiver versão nova, aparece uma faixa verde "✨ Nova versão do app" no topo. Toque em <b>Atualizar</b>. Também dá pra conferir em <b>⋮ (três pontinhos) → 🔄 Atualizar app</b>. A agenda e as clientes não se perdem.</li>
       </ol></div></details>
 
       <details class="dob"><summary>📅 Agenda e calendário</summary><div class="cont"><ul>
@@ -1372,10 +1388,10 @@ function bannerFechado(){ try{ return localStorage.getItem('marisa-inst-off')===
 function atualizaInstalar(){
   const inst=instalado();
   $('#bannerInst').hidden = inst || bannerFechado();
-  $('#areaInst').innerHTML = inst
-    ? '<div class="mini-app ok" style="text-align:center">✓ Instalado</div>'
-    : '<button class="mini-app inst" id="btnInstMais">📲 Instalar app</button>';
-  const b=$('#btnInstMais'); if(b) b.onclick=instalar;
+  $('#menuInst').innerHTML = inst
+    ? '<div class="it ok">✓ App instalado</div>'
+    : '<button id="btnInstMais" role="menuitem">📲 Instalar app</button>';
+  const b=$('#btnInstMais'); if(b) b.onclick=()=>{ fecharMenu(); instalar(); };
 }
 function instalar(){
   if(promptInst){
@@ -1446,7 +1462,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_VERSAO='16', APP_DATA='29/09/2026';
+const APP_VERSAO='17', APP_DATA='29/09/2026';
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1477,6 +1493,13 @@ async function verificarAtualizacao(manual){
 ['#btnAtualizar','#btnAtualizar2'].forEach(id=>{ const b=$(id); if(b) b.onclick=()=>{ aviso('Verificando…'); verificarAtualizacao(true); }; });
 $('#novaSim').onclick=aplicarAtualizacao;
 if(location.protocol==='https:'||location.hostname==='localhost'){ setTimeout(()=>verificarAtualizacao(false),2500); }
+
+// ===== Menu ⋮ =====
+function fecharMenu(){ $('#menuPontos').hidden=true; $('#btnPontos').setAttribute('aria-expanded','false'); }
+$('#btnPontos').onclick=e=>{ e.stopPropagation(); const m=$('#menuPontos'); m.hidden=!m.hidden; $('#btnPontos').setAttribute('aria-expanded',String(!m.hidden)); };
+document.addEventListener('click',e=>{ if(!e.target.closest('#menuPontos')&&!e.target.closest('#btnPontos')) fecharMenu(); });
+$('#btnShare').addEventListener('click',fecharMenu);
+$('#btnAtualizar').addEventListener('click',fecharMenu);
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 const _renderBase=render; render=function(){ _renderBase(); esconderVazios(); };
