@@ -186,6 +186,7 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.dia-cab{list-style:none;background:var(--po);color:var(--ameixa);font-weight:800;border-radius:10px;padding:8px 12px;margin:14px 0 2px;font-size:.95rem}
 .sino{position:absolute;right:12px;top:12px;z-index:2;border:0;background:rgba(255,255,255,.22);border-radius:999px;padding:7px 12px;font-size:1.3rem;line-height:1;color:inherit}
 .sino-est{border-radius:14px;padding:12px;font-weight:800;text-align:center;margin:8px 0}
 .sino-est.on{background:#E9F6EE;color:#1D4D33} .sino-est.off{background:var(--po);color:var(--suave)}
@@ -475,6 +476,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="sino sininho lembrete aviso 1 hora antes notificacao proxima cliente alarme"><b>❓ Como ligo o lembrete 1 hora antes?</b><p>Na faixa roxa da agenda, toque no sininho <b>🔕</b> → <b>🔔 Ligar lembrete</b> e permita as notificações. Com ele ligado (🔔), 1 hora antes de cada cliente o celular vibra e avisa quem é a próxima. Funciona com o app aberto ou minimizado. Para aviso <b>garantido</b> mesmo com o app fechado, use nos <b>⋯</b> do horário: <b>📅 Salvar no Google Agenda</b>.</p></div>
         <div class="faq" data-k="cancelado cancelou desmarcou faltou diferenca presente"><b>❓ Qual a diferença entre Faltou e Cancelado?</b><p><b>❌ Faltou:</b> a cliente não apareceu e não avisou (conta como falta na ficha dela). <b>🚫 Cancelado:</b> a cliente avisou que não vem. O horário fica livre de novo e <b>não</b> conta como falta. Nenhum dos dois entra no caixa.</p></div>
         <div class="faq" data-k="google agenda calendario iphone salvar agenda celular lembrete"><b>❓ Como salvo a cliente no Google Agenda?</b><p>Nos <b>⋯</b> do horário → <b>📅 Salvar no Google Agenda</b> → confira e toque em <b>Salvar</b>. Para abrir sozinho toda vez que marcar, ligue no sininho 🔔 a opção <b>"Ao marcar uma cliente, abrir o Google Agenda"</b>. No iPhone também tem <b>🍎 Salvar no Calendário do iPhone</b>. <b>Dica:</b> no Google Agenda, em Configurações → Notificações padrão, coloque <b>1 hora antes</b>.</p></div>
+        <div class="faq" data-k="ordem horario errado 3h madrugada 15h tarde corrigir"><b>❓ Apareceu 3h em vez de 15h. O que faço?</b><p>3h é de madrugada, por isso ela aparece antes das outras. O app mostra um aviso amarelo no horário: toque em <b>"Toque aqui para corrigir"</b> e ele muda para 15h. Lembre: <b>13h = 1 da tarde, 15h = 3 da tarde</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -995,6 +997,7 @@ function zap(a,msg,assinar=true){ const t=assinar&&CFG.assinatura?msg+'\n\n'+CFG
 const dataBR = s => { const [y,m,d]=s.split('-'); return d+'/'+m; };
 const semana = s => new Date(s+'T12:00').toLocaleDateString('pt-BR',{weekday:'short'}).replace('.','');
 
+const chaveH = a => a.data+' '+String(mm(a.hora||'00:00')).padStart(4,'0');
 function itemAgenda(a,mostrarDia){
   const nomes=a.serv.map(i=>sv(i).n).join(' + ');
   const primeiro=a.nome.split(' ')[0];
@@ -1006,6 +1009,7 @@ function itemAgenda(a,mostrarDia){
       <div class="serv">${nomes} · ${a.promo!=null?`<s>${brl(valorCheio(a))}</s> <b style="color:var(--ok)">${brl(valor(a))}</b> 💝`:brl(valor(a))}</div>
       ${a.obs?`<div class="serv">📝 ${a.obs}</div>`:''}
       ${fora(a)?'':alertaCuid(a.tel)}
+      ${!fora(a)&&!a.feito&&+a.hora.slice(0,2)<6?`<button class="cuid" data-pm="${a.id}">⚠️ ${fmtH(a.hora)} é de madrugada. Era ${fmtH(String(+a.hora.slice(0,2)+12).padStart(2,'0')+a.hora.slice(2))} (da tarde)? Toque aqui para corrigir</button>`:''}
       <div class="acoes">
         ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.cancelado?'<span class="st-b falta" style="color:var(--suave)">🚫 Cancelado</span>':a.feito?'<span class="st-b ok">✅ Presente</span>':a.data<=HOJE?
           `<button class="grande veio" data-feito="${a.id}">✅ Presente</button><button class="grande faltou" data-falta="${a.id}">❌ Faltou</button><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`:
@@ -1017,7 +1021,7 @@ function itemAgenda(a,mostrarDia){
 
 function render(){
   MAPA={}; clientes().forEach(c=>MAPA[c.tel]=c);
-  const hoje=dados.filter(a=>a.data===HOJE).sort((x,y)=>x.hora.localeCompare(y.hora));
+  const hoje=dados.filter(a=>a.data===HOJE).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)));
   const d=new Date();
   { const hr=new Date().getHours(), sd=hr<12?'Bom dia':hr<18?'Boa tarde':'Boa noite';
     $('#hojeData').innerHTML=`<b style="font-size:1.05rem;opacity:1">${sd}, Marisa! 💕</b><br>${d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}`; }
@@ -1042,8 +1046,14 @@ function render(){
   }).join('');
   renderCal();
 
-  const prox=dados.filter(a=>a.data>HOJE).sort((x,y)=>(x.data+x.hora).localeCompare(y.data+y.hora));
-  $('#listaProx').innerHTML = prox.length?prox.map(a=>itemAgenda(a,true)).join(''):'<div class="vazio">Sem horários nos próximos dias.</div>';
+  const prox=dados.filter(a=>a.data>HOJE).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)));
+  let diaAnt='';
+  $('#listaProx').innerHTML = prox.length?prox.map(a=>{
+    let cab='';
+    if(a.data!==diaAnt){ diaAnt=a.data; const dt=new Date(a.data+'T12:00'); const amanha=a.data===iso(addDias(new Date(HOJE+'T12:00'),1));
+      const t=dt.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}); cab=`<li class="dia-cab">📅 ${amanha?'Amanhã · ':''}${t.charAt(0).toUpperCase()+t.slice(1)}</li>`; }
+    return cab+itemAgenda(a,false);
+  }).join(''):'<div class="vazio">Sem horários nos próximos dias.</div>';
 
   // Retornos: último atendimento concluído de cada cliente, sem agendamento futuro
   const ult={};
@@ -1247,6 +1257,8 @@ $('#salvar').onclick=()=>{
   if(!nome) return aviso('Informe o nome da cliente');
   if(tel.length<10) return aviso('Informe o WhatsApp com DDD');
   if(!serv.length) return aviso('Escolha pelo menos um serviço');
+  const hs=$('#fHora').value;
+  if((hs<(CFG.abre||'07:00')||hs>(CFG.fecha||'19:30'))&&!confirm(`${fmtH(hs)} está fora do seu horário de atendimento (${fmtH(CFG.abre||'07:00')} às ${fmtH(CFG.fecha||'19:30')}). Marcar mesmo assim?`)) return;
   const bqx=bloqueioEm($('#fData').value,$('#fHora').value);
   if(bqx&&!confirm(`Esse horário está BLOQUEADO${bqx.motivo?' ('+bqx.motivo+')':''}. Marcar mesmo assim?`)) return;
   const choque=dados.find(a=>a.id!==editId&&!fora(a)&&a.data===$('#fData').value&&a.hora===$('#fHora').value);
@@ -1557,7 +1569,7 @@ function renderCal(){
   $('#calProx').setAttribute('aria-label',calAberto?'Próximo mês':'Próxima semana');
   $('#calHoje').style.visibility=(diaSel===HOJE&&(!calAberto||mesVis.getMonth()===new Date(HOJE+'T12:00').getMonth()))?'hidden':'visible';
 
-  const lista=dados.filter(a=>a.data===diaSel).sort((x,y)=>x.hora.localeCompare(y.hora));
+  const lista=dados.filter(a=>a.data===diaSel).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)));
   const dt=new Date(diaSel+'T12:00');
   $('#tituloDia').textContent= diaSel===HOJE?'Agenda de hoje':'Agenda de '+dt.toLocaleDateString('pt-BR',{weekday:'long'});
   $('#diaSel').textContent=dt.toLocaleDateString('pt-BR',{day:'numeric',month:'short'});
@@ -1679,7 +1691,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='34', APP_VERSAO_TXT='1.4', APP_DATA='30/09/2026'; // APP_VERSAO='34' (compatibilidade com versões antigas)
+const APP_BUILD='36', APP_VERSAO_TXT='1.6', APP_DATA='30/09/2026'; // APP_VERSAO='36' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1866,6 +1878,12 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-agcel]');
 
 $('#abrirWall').onclick=()=>abrirFolha('folhaWall');
 $('#wlFechar').onclick=fecharFolhas;
+
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-pm]'); if(!b) return;
+  const a=dados.find(x=>x.id==b.dataset.pm); if(!a) return;
+  const nova=String(+a.hora.slice(0,2)+12).padStart(2,'0')+a.hora.slice(2);
+  if(!confirm(`Mudar o horário de ${a.nome.split(' ')[0]} de ${fmtH(a.hora)} para ${fmtH(nova)}?`)) return;
+  a.hora=nova; a.alertado=false; salvar(); render(); aviso(`Horário corrigido para ${fmtH(nova)} ✓`); });
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
