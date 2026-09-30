@@ -89,7 +89,7 @@ button{cursor:pointer}
 
 /* Linha do tempo da agenda */
 .agenda{list-style:none;margin:0;padding:0}
-.ag{display:grid;grid-template-columns:58px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--linha)}
+.ag{display:grid;grid-template-columns:58px 1fr;gap:10px;padding:12px 0;border-bottom:2px solid var(--ameixa-2)}
 .ag .hora{font-weight:800;font-size:1.05rem;color:var(--ameixa);padding-top:2px}
 .ag .nome{font-weight:700}
 .ag .serv{color:var(--suave);font-size:.9rem}
@@ -186,7 +186,9 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
-.dia-cab{list-style:none;background:var(--po);color:var(--ameixa);font-weight:800;border-radius:10px;padding:8px 12px;margin:14px 0 2px;font-size:.95rem}
+.dia-cab{list-style:none;background:var(--ameixa);color:#fff;font-weight:800;border-radius:12px;padding:11px 14px;margin:18px 0 4px;font-size:1.08rem;letter-spacing:.2px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+:root[data-theme="dark"] .dia-cab{color:#1A1115}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dia-cab{color:#1A1115}}
 .sino{position:absolute;right:12px;top:12px;z-index:2;border:0;background:rgba(255,255,255,.22);border-radius:999px;padding:7px 12px;font-size:1.3rem;line-height:1;color:inherit}
 .sino-est{border-radius:14px;padding:12px;font-weight:800;text-align:center;margin:8px 0}
 .sino-est.on{background:#E9F6EE;color:#1D4D33} .sino-est.off{background:var(--po);color:var(--suave)}
@@ -1691,7 +1693,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='36', APP_VERSAO_TXT='1.6', APP_DATA='30/09/2026'; // APP_VERSAO='36' (compatibilidade com versões antigas)
+const APP_BUILD='37', APP_VERSAO_TXT='1.7', APP_DATA='30/09/2026'; // APP_VERSAO='37' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
