@@ -99,6 +99,7 @@ button{cursor:pointer}
 .acoes .veio{border-color:var(--ok);color:var(--ok)}
 .acoes .faltou{border-color:var(--alerta);color:var(--alerta)}
 .acoes .zapb{background:#25D366;border-color:#25D366;color:#fff}
+.acoes .cancb{border-color:var(--suave);color:var(--suave)}
 .acoes .opc{padding:10px 14px;font-size:1.1rem;color:var(--suave)}
 .st-b{display:inline-flex;align-items:center;font-weight:800;font-size:.9rem;padding:10px 4px}
 .st-b.ok{color:var(--ok)} .st-b.falta{color:var(--alerta)}
@@ -185,6 +186,10 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.sino{position:absolute;right:12px;top:12px;z-index:2;border:0;background:rgba(255,255,255,.22);border-radius:999px;padding:7px 12px;font-size:1.3rem;line-height:1;color:inherit}
+.sino-est{border-radius:14px;padding:12px;font-weight:800;text-align:center;margin:8px 0}
+.sino-est.on{background:#E9F6EE;color:#1D4D33} .sino-est.off{background:var(--po);color:var(--suave)}
+.sino-nota{background:var(--mel-claro);border-radius:12px;padding:10px 12px;font-size:.88rem;margin-top:10px}
 .btn-horarios{width:100%;border:1.5px solid var(--ok);background:transparent;color:var(--ok);border-radius:14px;padding:11px;font-weight:800;font-size:.95rem}
 .sel-hora{font-size:1.05rem;font-weight:700}
 .btn-bloq{width:100%;border:1.5px dashed var(--alerta);background:transparent;color:var(--alerta);border-radius:14px;padding:10px;font-weight:800;margin:0 0 6px}
@@ -379,6 +384,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     </div>
 
     <div class="hoje">
+      <button class="sino" id="btnSino" aria-label="Lembrete 1 hora antes">🔕</button>
       <svg class="arco" width="170" height="90" viewBox="0 0 170 90" aria-hidden="true"><path d="M8 80 C 50 10, 120 5, 162 50" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
       <div class="data" id="hojeData"></div>
       <div class="grande" id="hojeFrase"></div>
@@ -453,8 +459,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="faltou falta nao veio excluir apagar sumiu"><b>❓ A cliente não veio. Tenho que excluir?</b><p><b>Não.</b> Toque em <b>❌ Faltou</b> no horário dela. Fica registrado como falta e <b>não entra na conta do dia nem no caixa</b>.</p></div>
         <div class="faq" data-k="mais servico adicionar somar acrescentar outro"><b>❓ A cliente quis fazer mais um serviço.</b><p>No horário dela, toque nos <b>⋯</b> → <b>➕ Adicionar serviço</b>, marque o que foi a mais e toque em <b>Salvar</b>. O valor soma sozinho.</p></div>
         <div class="faq" data-k="remarcar mudar editar trocar horario dia hora"><b>❓ Como mudo o dia ou a hora?</b><p>Toque nos <b>⋯</b> do horário → <b>✏️ Mudar dia, hora ou dados</b>.</p></div>
-        <div class="faq" data-k="desmarcou cancelou cancelar excluir apagar desistiu"><b>❓ A cliente desmarcou antes.</b><p>Toque nos <b>⋯</b> → <b>🗑️ Excluir horário</b>.</p></div>
-        <div class="faq" data-k="errado engano desfazer voltar desmarcar"><b>❓ Apertei errado no ✅ Veio ou ❌ Faltou.</b><p>Toque nos <b>⋯</b> → <b>↩️ Desmarcar</b> ou <b>↩️ Desfazer falta</b>.</p></div>
+        <div class="faq" data-k="desmarcou cancelou cancelar excluir apagar desistiu"><b>❓ A cliente desmarcou antes.</b><p>Toque em <b>🚫 Cancelado</b> no horário dela. O horário fica livre para outra cliente e fica registrado. (Para apagar de vez: ⋯ → 🗑️ Excluir horário.)</p></div>
+        <div class="faq" data-k="errado engano desfazer voltar desmarcar"><b>❓ Apertei errado no ✅ Presente ou ❌ Faltou.</b><p>Toque nos <b>⋯</b> → <b>↩️ Desmarcar</b> ou <b>↩️ Desfazer falta</b>.</p></div>
         <div class="faq" data-k="conta caixa valor dinheiro falta total"><b>❓ Falta entra no valor do dia?</b><p><b>Não.</b> Falta não entra no valor do dia, no caixa, nem nas estrelas da cliente.</p></div>
         <div class="faq" data-k="confirmar mensagem whatsapp lembrete avisar"><b>❓ Como confirmo o horário com a cliente?</b><p>Nos próximos dias, toque em <b>💬 Confirmar</b>. No dia, fica nos <b>⋯</b>. E 1 hora antes aparece um cartão verde para mandar o lembrete.</p></div>
         <div class="faq" data-k="automatica sozinha enviar mensagem"><b>❓ As mensagens vão sozinhas?</b><p>Não. O app <b>deixa a mensagem pronta</b> no WhatsApp, você só confere e aperta <b>enviar</b>.</p></div>
@@ -465,7 +471,9 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="tres pontinhos opcoes menu pontos"><b>❓ Pra que servem os ⋯ e o ⋮?</b><p>Os <b>⋯</b> ficam em cada horário e têm as opções daquela cliente (adicionar serviço, mudar, excluir…). O <b>⋮</b> fica no topo e tem as opções do app (instalar, compartilhar, atualizar).</p></div>
         <div class="faq" data-k="cera premium tradicional preferida"><b>❓ Como escolho a cera da cliente?</b><p>Na ficha dela → <b>Editar ficha</b> → <b>Cera preferida</b> → <b>Cera premium</b> ou <b>Cera tradicional</b> → <b>Salvar</b>.</p></div>
         <div class="faq" data-k="hora horario 24 tarde noite 13 14 manha"><b>❓ 13h é que horas?</b><p>O app usa 24 horas: <b>13h = 1 da tarde</b>, 14h = 2 da tarde, 18h = 6 da tarde, 19h30 = 7 e meia da noite.</p></div>
-        <div class="faq" data-k="caixa valor dinheiro recebido receber salvar servico entra aparece zerado"><b>❓ Salvei um serviço. O valor já vai para o caixa?</b><p><b>Não.</b> Salvar em Serviços só muda a tabela de preços. O valor entra no caixa quando tem cliente: ao <b>agendar</b> vai para <b>A receber</b>; ao tocar em <b>✅ Veio</b> passa para <b>Recebido</b>. <b>❌ Faltou</b> não conta.</p></div>
+        <div class="faq" data-k="caixa valor dinheiro recebido receber salvar servico entra aparece zerado"><b>❓ Salvei um serviço. O valor já vai para o caixa?</b><p><b>Não.</b> Salvar em Serviços só muda a tabela de preços. O valor entra no caixa quando tem cliente: ao <b>agendar</b> vai para <b>A receber</b>; ao tocar em <b>✅ Presente</b> passa para <b>Recebido</b>. <b>❌ Faltou</b> não conta.</p></div>
+        <div class="faq" data-k="sino sininho lembrete aviso 1 hora antes notificacao proxima cliente alarme"><b>❓ Como ligo o lembrete 1 hora antes?</b><p>Na faixa roxa da agenda, toque no sininho <b>🔕</b> → <b>🔔 Ligar lembrete</b> e permita as notificações. Com ele ligado (🔔), 1 hora antes de cada cliente o celular vibra e avisa quem é a próxima. Funciona com o app aberto ou minimizado. Para aviso <b>garantido</b> mesmo com o app fechado, use nos <b>⋯</b> do horário: <b>📅 Pôr na agenda do celular</b>.</p></div>
+        <div class="faq" data-k="cancelado cancelou desmarcou faltou diferenca presente"><b>❓ Qual a diferença entre Faltou e Cancelado?</b><p><b>❌ Faltou:</b> a cliente não apareceu e não avisou (conta como falta na ficha dela). <b>🚫 Cancelado:</b> a cliente avisou que não vem. O horário fica livre de novo e <b>não</b> conta como falta. Nenhum dos dois entra no caixa.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -496,7 +504,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>A cliente quis fazer mais alguma coisa?</b> No horário dela, toque nos <b>⋯</b> → <b>➕ Adicionar serviço</b>, marque o que foi a mais e toque em <b>Salvar</b>. O valor soma sozinho.</li>
         <li><b>A cliente não veio?</b> <b>Não exclua.</b> Toque em <b>❌ Faltou</b>. O horário fica marcado como falta, <b>não entra no valor do dia nem no caixa</b>, e a falta fica guardada na ficha dela.</li>
         <li><b>Os ⋯ de cada horário</b> têm tudo o resto: confirmar no WhatsApp, adicionar serviço, mudar dia ou hora, ver a ficha e excluir. Excluir é só quando a cliente desmarca antes.</li>
-        <li><b>Depois do atendimento:</b> toque em <b>✅ Veio</b>. Se a cliente não veio, toque em <b>❌ Faltou</b>. Só isso.</li>
+        <li><b>Depois do atendimento:</b> toque em <b>✅ Presente</b>. Se a cliente não apareceu, <b>❌ Faltou</b>. Se ela avisou que não vem, <b>🚫 Cancelado</b> (o horário fica livre de novo).</li>
+        <li><b>🔔 Lembrete 1 hora antes:</b> toque no sininho da faixa roxa e ligue. O celular vibra e avisa qual é a próxima cliente. Para aviso garantido com o app fechado, use nos ⋯ → <b>📅 Pôr na agenda do celular</b>.</li>
         <li>A faixa roxa mostra o resumo do dia: próxima cliente, quantos atendimentos, valor previsto e quantos já foram concluídos.</li>
               <li><b>Horários em 24 horas:</b> aparecem como <b>7h, 9h30, 13h, 19h30</b>. 13h é 1 hora da tarde.</li>
         <li><b>🚫 Bloquear horário:</b> para médico, folga ou viagem. Toque em <b>🚫 Bloquear horário</b>, escolha <b>do dia … até o dia …</b> e marque <b>Dia inteiro</b> ou escolha <b>das … até as …</b>. O dia fica riscado de vermelho e ninguém consegue ser marcado. Para liberar, toque em <b>Desbloquear</b>.</li>
@@ -556,7 +565,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <details class="dob"><summary>💰 Caixa</summary><div class="cont"><ul>
         <li><b>Salvar um serviço na aba Serviços não põe dinheiro no caixa.</b> Lá é só a tabela de preços.</li>
         <li><b>Agendou a cliente</b> → o valor aparece em <b>A receber</b>.</li>
-        <li><b>Tocou em ✅ Veio</b> → o valor passa para <b>Recebido</b>.</li>
+        <li><b>Tocou em ✅ Presente</b> → o valor passa para <b>Recebido</b>.</li>
         <li><b>Tocou em ❌ Faltou</b> → o valor sai do caixa e não conta.</li>
         <li><b>➕ Lançar serviço feito</b> (na ficha) → vai direto para <b>Recebido</b>.</li>
         <li>Com <b>💝 promoção</b>, entra o valor combinado.</li>
@@ -798,7 +807,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <ol class="passos">
     <li><div><b>Para marcar:</b> toque no dia no calendário, depois em <b>🕐 Ver horários livres</b> e num <b>horário verde</b>.</div></li>
     <li><div><b>Botões verdes</b> abrem o WhatsApp com a mensagem pronta. É só apertar enviar.</div></li>
-    <li><div><b>Depois do atendimento</b>, toque em <b>✅ Veio</b> ou <b>❌ Faltou</b>. No dia seguinte o app lembra de mandar o pós-atendimento.</div></li>
+    <li><div><b>Depois do atendimento</b>, toque em <b>✅ Presente</b>, <b>❌ Faltou</b> ou <b>🚫 Cancelado</b>. No dia seguinte o app lembra de mandar o pós-atendimento.</div></li>
     <li><div>Qualquer dúvida: <b>☰ Mais → Como usar</b>.</div></li>
   </ol>
   <button class="btn" id="bvOk">Começar</button>
@@ -828,6 +837,16 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <label for="bqMotivo">Motivo (opcional)</label>
   <input id="bqMotivo" placeholder="Ex.: médico, folga, viagem">
   <button class="btn" id="bqSalvar" style="background:var(--alerta);color:#fff">🚫 Bloquear</button>
+</div>
+
+<div class="folha" id="folhaSino" role="dialog" aria-modal="true" aria-labelledby="snTit">
+  <div class="puxador"></div>
+  <h2 id="snTit">🔔 Lembrete 1 hora antes</h2>
+  <p>Com o sininho ligado, <b>1 hora antes de cada cliente</b> o celular vibra e mostra um aviso com o nome e o horário.</p>
+  <div class="sino-est" id="snEst"></div>
+  <button class="btn" id="snLigar"></button>
+  <button class="btn sec" id="snTeste">Testar aviso agora</button>
+  <div class="sino-nota" id="snNota"></div>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -940,6 +959,7 @@ try { if(localStorage.getItem('marisa-sem-exemplos')!=='1'){
 function salvar(){ try{ localStorage.setItem('arcoecera',JSON.stringify(dados)); }catch(e){} }
 
 const sv = id => SERVICOS.find(s=>s.id===id) || {id, n:'Serviço removido', cat:'Depilação', p:0, m:0, ret:30};
+const fora = a => !!(a.falta||a.cancelado);
 const valorCheio = a => a.serv.reduce((t,i,k)=>t+(a.precos?a.precos[k]:sv(i).p),0);
 const valor = a => (a.promo!=null&&a.promo!=='') ? +a.promo : valorCheio(a);
 const tipo = a => a.serv.map(i=>sv(i).cat);
@@ -969,17 +989,17 @@ function itemAgenda(a,mostrarDia){
   const nomes=a.serv.map(i=>sv(i).n).join(' + ');
   const primeiro=a.nome.split(' ')[0];
   const msg=preencher(CFG.msgConf||MSG_CONF_PADRAO,a)+linhaEnd();
-  return `<li class="ag ${a.feito?'concluido':''} ${a.falta?'faltou':''}">
+  return `<li class="ag ${a.feito?'concluido':''} ${fora(a)?'faltou':''}">
     <div class="hora">${mostrarDia?`<div style="font-size:.75rem;color:var(--suave)">${semana(a.data)} ${dataBR(a.data)}</div>`:''}${fmtH(a.hora)}</div>
     <div>
-      <div class="nome">${a.nome}${estrHTML(MAPA[a.tel])}${niverHoje(cad(a.tel))?' 🎂':''}${tags(a)}${a.falta?'<span class="tag falta">faltou</span>':''}${a.avisado?'<span class="ok-av">✓ avisada</span>':''}</div>
+      <div class="nome">${a.nome}${estrHTML(MAPA[a.tel])}${niverHoje(cad(a.tel))?' 🎂':''}${tags(a)}${a.falta?'<span class="tag falta">faltou</span>':a.cancelado?'<span class="tag falta">cancelado</span>':''}${a.avisado?'<span class="ok-av">✓ avisada</span>':''}</div>
       <div class="serv">${nomes} · ${a.promo!=null?`<s>${brl(valorCheio(a))}</s> <b style="color:var(--ok)">${brl(valor(a))}</b> 💝`:brl(valor(a))}</div>
       ${a.obs?`<div class="serv">📝 ${a.obs}</div>`:''}
-      ${a.falta?'':alertaCuid(a.tel)}
+      ${fora(a)?'':alertaCuid(a.tel)}
       <div class="acoes">
-        ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.feito?'<span class="st-b ok">✅ Veio</span>':a.data<=HOJE?
-          `<button class="grande veio" data-feito="${a.id}">✅ Veio</button><button class="grande faltou" data-falta="${a.id}">❌ Faltou</button>`:
-          `<a class="grande zapb" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar</a>`}
+        ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.cancelado?'<span class="st-b falta" style="color:var(--suave)">🚫 Cancelado</span>':a.feito?'<span class="st-b ok">✅ Presente</span>':a.data<=HOJE?
+          `<button class="grande veio" data-feito="${a.id}">✅ Presente</button><button class="grande faltou" data-falta="${a.id}">❌ Faltou</button><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`:
+          `<a class="grande zapb" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar</a><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`}
         <button class="grande opc" data-opc="${a.id}" aria-label="Mais opções">⋯</button>
       </div>
     </div></li>`;
@@ -991,15 +1011,16 @@ function render(){
   const d=new Date();
   { const hr=new Date().getHours(), sd=hr<12?'Bom dia':hr<18?'Boa tarde':'Boa noite';
     $('#hojeData').innerHTML=`<b style="font-size:1.05rem;opacity:1">${sd}, Marisa! 💕</b><br>${d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}`; }
-  const pend=hoje.filter(a=>!a.feito&&!a.falta);
+  const pend=hoje.filter(a=>!a.feito&&!fora(a));
   const agoraHM=String(new Date().getHours()).padStart(2,'0')+':'+String(new Date().getMinutes()).padStart(2,'0');
   const proxH=pend.find(a=>a.hora>=agoraHM);
-  $('#hojeFrase').textContent = !hoje.length?'Agenda livre hoje':proxH?`Próxima: ${proxH.nome.split(' ')[0]} às ${fmtH(proxH.hora)}`:pend.length?`Falta marcar ✅ Veio ou ❌ Faltou em ${pend.length===1?'1 cliente':pend.length+' clientes'}`:'Dia encerrado, tudo feito ✓';
+  $('#hojeFrase').textContent = !hoje.length?'Agenda livre hoje':proxH?`Próxima: ${proxH.nome.split(' ')[0]} às ${fmtH(proxH.hora)}`:pend.length?`Marque a presença de ${pend.length===1?'1 cliente':pend.length+' clientes'}`:'Dia encerrado, tudo feito ✓';
   const faltasHoje=hoje.filter(a=>a.falta).length;
-  $('#nAtend').textContent=hoje.length-faltasHoje;
+  const validosHoje=hoje.filter(a=>!fora(a)).length;
+  $('#nAtend').textContent=validosHoje;
   $('#nFaltas').textContent=faltasHoje; $('#boxFaltas').hidden=!faltasHoje;
-  const pl=(n,u,v)=>n===1?u:v; $('#lnAtend').textContent=pl(hoje.length-faltasHoje,'atendimento','atendimentos'); $('#lnFeito').textContent=pl(hoje.filter(a=>a.feito).length,'concluído','concluídos'); $('#lnFaltas').textContent=pl(faltasHoje,'falta','faltas');
-  $('#nPrev').textContent=brl(hoje.filter(a=>!a.falta).reduce((t,a)=>t+valor(a),0)).replace(',00','');
+  const pl=(n,u,v)=>n===1?u:v; $('#lnAtend').textContent=pl(validosHoje,'atendimento','atendimentos'); $('#lnFeito').textContent=pl(hoje.filter(a=>a.feito).length,'concluído','concluídos'); $('#lnFaltas').textContent=pl(faltasHoje,'falta','faltas');
+  $('#nPrev').textContent=brl(hoje.filter(a=>!fora(a)).reduce((t,a)=>t+valor(a),0)).replace(',00','');
   $('#nFeito').textContent=hoje.filter(a=>a.feito).length;
   renderLembretes();
   renderPos();
@@ -1017,7 +1038,7 @@ function render(){
   // Retornos: último atendimento concluído de cada cliente, sem agendamento futuro
   const ult={};
   dados.filter(a=>a.feito).forEach(a=>{ if(!ult[a.tel]||a.data>ult[a.tel].data) ult[a.tel]=a; });
-  const futuros=new Set(dados.filter(a=>a.data>=HOJE&&!a.feito&&!a.falta).map(a=>a.tel));
+  const futuros=new Set(dados.filter(a=>a.data>=HOJE&&!a.feito&&!fora(a)).map(a=>a.tel));
   const ret=Object.values(ult).filter(a=>!futuros.has(a.tel)).map(a=>{
     const dias=Math.min(...a.serv.map(i=>sv(i).ret));
     const volta=addDias(new Date(a.data+'T12:00'),dias);
@@ -1046,10 +1067,10 @@ function render(){
   const mes=HOJE.slice(0,7);
   const doMes=dados.filter(a=>a.data.startsWith(mes));
   const rec=doMes.filter(a=>a.feito).reduce((t,a)=>t+valor(a),0);
-  const prev=doMes.filter(a=>!a.feito&&!a.falta).reduce((t,a)=>t+valor(a),0);
+  const prev=doMes.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
   $('#mesNome').textContent=d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
   $('#cxRec').textContent=brl(rec); $('#cxPrev').textContent=brl(prev);
-  const validos=doMes.filter(a=>!a.falta);
+  const validos=doMes.filter(a=>!fora(a));
   $('#cxQt').textContent=validos.length;
   $('#cxMed').textContent=brl(validos.length?(rec+prev)/validos.length:0);
   const cont={}; dados.forEach(a=>a.serv.forEach(i=>cont[i]=(cont[i]||0)+1));
@@ -1066,8 +1087,8 @@ function clientes(){
     if(a.feito&&a.data>=iso(addDias(new Date(),-180))) c.v180=(c.v180||0)+1;
     if(a.feito){ c.vezes++; c.total+=valor(a); if(!c.ultAt||a.data>c.ultAt.data)c.ultAt=a;
       if(a.serv.some(i=>sv(i).cat==='Sobrancelha')) c.sob++; }
-    if(a.data>=HOJE&&!a.feito&&!a.falta) c.futuro=true;
-    if(a.data>c.ult&&!a.falta) c.ult=a.data; });
+    if(a.data>=HOJE&&!a.feito&&!fora(a)) c.futuro=true;
+    if(a.data>c.ult&&!fora(a)) c.ult=a.data; });
   Object.values(m).forEach(c=>{
     c.ret=null; c.dias=null;
     if(c.ultAt){ const d=Math.min(...c.ultAt.serv.map(i=>sv(i).ret));
@@ -1174,7 +1195,7 @@ $('#cfgAss').addEventListener('change',()=>{ CFG.assinatura=$('#cfgAss').value.t
 // Ações da agenda
 document.addEventListener('click',e=>{
   const f=e.target.closest('[data-feito]'), ap=e.target.closest('[data-apagar]');
-  if(f){ const a=dados.find(x=>x.id==f.dataset.feito); a.feito=!a.feito; if(a.feito)a.falta=false; salvar(); render(); aviso(a.feito?'Atendimento concluído':'Marcado como pendente'); }
+  if(f){ const a=dados.find(x=>x.id==f.dataset.feito); a.feito=!a.feito; if(a.feito){a.falta=false;a.cancelado=false;} salvar(); render(); aviso(a.feito?'Atendimento concluído':'Marcado como pendente'); }
   if(ap){ const ax=dados.find(x=>x.id==ap.dataset.apagar); const passou=ax&&ax.data<=HOJE&&!ax.feito; if(confirm((passou?'Se a cliente só NÃO VEIO, use ❌ Faltou (assim fica registrado).\n\n':'')+'Excluir este horário de vez?')){ dados=dados.filter(x=>x.id!=ap.dataset.apagar); salvar(); render(); aviso('Horário excluído'); } }
 });
 
@@ -1218,7 +1239,7 @@ $('#salvar').onclick=()=>{
   if(!serv.length) return aviso('Escolha pelo menos um serviço');
   const bqx=bloqueioEm($('#fData').value,$('#fHora').value);
   if(bqx&&!confirm(`Esse horário está BLOQUEADO${bqx.motivo?' ('+bqx.motivo+')':''}. Marcar mesmo assim?`)) return;
-  const choque=dados.find(a=>a.id!==editId&&!a.falta&&a.data===$('#fData').value&&a.hora===$('#fHora').value);
+  const choque=dados.find(a=>a.id!==editId&&!fora(a)&&a.data===$('#fData').value&&a.hora===$('#fHora').value);
   if(choque&&!confirm(`Já tem ${choque.nome} nesse horário. Agendar mesmo assim?`)) return;
   if(editId){
     const a=dados.find(x=>x.id===editId);
@@ -1262,7 +1283,7 @@ function renderPos(){
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-pos]'); if(!b) return;
   const a=dados.find(x=>x.id==b.dataset.pos); if(a){ a.posEnviado=true; salvar(); setTimeout(()=>{ render(); aviso('Pós-atendimento enviado ✓'); },400); } });
 function renderLembretes(){
-  const pend=dados.filter(a=>a.data===HOJE && !a.feito && !a.falta && !a.avisado)
+  const pend=dados.filter(a=>a.data===HOJE && !a.feito && !fora(a) && !a.avisado)
     .map(a=>({a,m:minutosAte(a)})).filter(x=>x.m<=60 && x.m>-15).sort((x,y)=>x.m-y.m);
   $('#blocoLemb').innerHTML = pend.map(({a,m})=>`<div class="lemb ${jaAlertado.has(a.id)?'':'urgente'}">
     <div class="t">⏰ ${m>0?`Começa em ${m} min`:'Horário chegando'} — hora de avisar</div>
@@ -1385,7 +1406,7 @@ function abrirFicha(tel){
     </div>
     <div class="bloco"><h3>Histórico</h3>
       ${hist.length?`<ul class="hist">${hist.map(a=>`<li><div>${dataBR(a.data)}/${a.data.slice(2,4)} · ${a.serv.map(i=>sv(i).n).join(' + ')}${a.obs?`<br><span style="font-size:.82rem;color:var(--suave)">📝 ${a.obs}</span>`:''}<br>
-      <span class="st" style="color:${a.falta?'var(--alerta)':a.feito?'var(--ok)':'var(--mel)'}">${a.falta?'Faltou':a.feito?'Concluído':'Agendado'}</span></div><b>${a.falta?'—':brl(valor(a))}</b></li>`).join('')}</ul>`:'<p style="color:var(--suave)">Sem atendimentos ainda.</p>'}
+      <span class="st" style="color:${a.falta?'var(--alerta)':a.cancelado?'var(--suave)':a.feito?'var(--ok)':'var(--mel)'}">${a.falta?'Faltou':a.cancelado?'Cancelado':a.feito?'Presente':'Agendado'}</span></div><b>${fora(a)?'—':brl(valor(a))}</b></li>`).join('')}</ul>`:'<p style="color:var(--suave)">Sem atendimentos ainda.</p>'}
     </div>`;
   $('#fReag').onclick=()=>{
     fecharFolhas(); abrir(); $('#fNome').value=c.nome; $('#fTel').value=c.tel;
@@ -1405,7 +1426,7 @@ function abrirFicha(tel){
     linhas.push(`Fotos guardadas: ${(cc.fotos||[]).length}`);
     linhas.push(`Autorização LGPD: ${cc.lgpd?dataBR(cc.lgpd)+'/'+cc.lgpd.slice(0,4):'não registrada'}`);
     linhas.push('','Atendimentos:');
-    hist.forEach(a=>linhas.push(`- ${dataBR(a.data)}/${a.data.slice(0,4)} ${fmtH(a.hora)} · ${a.serv.map(i=>sv(i).n).join(' + ')} · ${a.falta?'faltou':a.feito?'concluído '+brl(valor(a)):'agendado'}${a.obs?' · obs: '+a.obs:''}`));
+    hist.forEach(a=>linhas.push(`- ${dataBR(a.data)}/${a.data.slice(0,4)} ${fmtH(a.hora)} · ${a.serv.map(i=>sv(i).n).join(' + ')} · ${a.cancelado?'cancelado':a.falta?'faltou':a.feito?'concluído '+brl(valor(a)):'agendado'}${a.obs?' · obs: '+a.obs:''}`));
     $('#dTexto').value=linhas.join('\n'); abrirFolha('folhaDados');
   };
   $('#fApagarTudo').onclick=()=>{
@@ -1423,7 +1444,7 @@ function abrirFicha(tel){
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b) abrirFicha(b.dataset.ficha);
   const ec=e.target.closest('[data-editcuid]'); if(ec){ abrirCadastro(ec.dataset.editcuid,false); setTimeout(()=>$('#cSens').closest('.checks').scrollIntoView({block:'center'}),300); }
   const ap=e.target.closest('[data-apagafoto]'); if(ap&&confirm('Apagar esta foto?')){ CLI[fichaTel].fotos.splice(+ap.dataset.apagafoto,1); salvarCli(); abrirFicha(fichaTel); }
-  const fa=e.target.closest('[data-falta]'); if(fa){ const a=dados.find(x=>x.id==fa.dataset.falta); a.falta=!a.falta; if(a.falta)a.avisado=a.avisado; salvar(); render(); aviso(a.falta?'Falta registrada':'Falta desfeita'); }
+  const fa=e.target.closest('[data-falta]'); if(fa){ const a=dados.find(x=>x.id==fa.dataset.falta); a.falta=(!fora(a)); if(a.falta)a.cancelado=false; salvar(); render(); aviso(a.falta?'Falta registrada':'Falta desfeita'); }
 });
 
 function comprimir(file){ return new Promise((res,rej)=>{ const r=new FileReader();
@@ -1488,7 +1509,7 @@ const hhmm = m => String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padS
 const duracao = a => a.serv.reduce((t,i)=>t+(sv(i).m||30),0)||30;
 function livresDo(dia){
   if(diaBloqueado(dia)) return [];
-  const ocup=dados.filter(a=>a.data===dia&&!a.falta).map(a=>[min(a.hora),min(a.hora)+duracao(a)])
+  const ocup=dados.filter(a=>a.data===dia&&!fora(a)).map(a=>[min(a.hora),min(a.hora)+duracao(a)])
     .concat(bloqDo(dia).map(b=>[min(b.de),min(b.ate)]));
   const agora=new Date(), agoraM=agora.getHours()*60+agora.getMinutes();
   const l=[];
@@ -1504,7 +1525,7 @@ function renderCal(){
   const mt=mesVis.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); $('#calMes').textContent=mt.charAt(0).toUpperCase()+mt.slice(1);
   const ano=mesVis.getFullYear(), mes=mesVis.getMonth();
   const inicio=new Date(ano,mes,1).getDay(), total=new Date(ano,mes+1,0).getDate();
-  const cont={}; dados.forEach(a=>{ if(!a.falta) cont[a.data]=(cont[a.data]||0)+1; });
+  const cont={}; dados.forEach(a=>{ if(!fora(a)) cont[a.data]=(cont[a.data]||0)+1; });
   let dias=[], h='';
   if(calAberto){
     for(let i=0;i<inicio;i++) h+='<span></span>';
@@ -1647,7 +1668,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='31', APP_VERSAO_TXT='1.1', APP_DATA='30/09/2026'; // APP_VERSAO='31' (compatibilidade com versões antigas)
+const APP_BUILD='32', APP_VERSAO_TXT='1.2', APP_DATA='30/09/2026'; // APP_VERSAO='32' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1694,11 +1715,13 @@ function abrirOpc(id){
   $('#opcSub').textContent=(a.data===HOJE?'Hoje':dataBR(a.data))+' · '+nomes+' · '+brl(valor(a));
   const msg=preencher(CFG.msgConf||MSG_CONF_PADRAO,a)+linhaEnd();
   const it=[];
-  if(!a.feito&&!a.falta) it.push(`<a class="z" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar no WhatsApp</a>`);
-  if(!a.falta) it.push(`<button data-editar="${a.id}" data-modo="serv">➕ Adicionar serviço</button>`);
+  if(!a.feito&&!fora(a)) it.push(`<a class="z" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar no WhatsApp</a>`);
+  if(!fora(a)) it.push(`<button data-editar="${a.id}" data-modo="serv">➕ Adicionar serviço</button>`);
   it.push(`<button data-editar="${a.id}">✏️ Mudar dia, hora ou dados</button>`);
   it.push(`<button data-ficha="${a.tel}">👤 Ver ficha da cliente</button>`);
-  if(a.feito) it.push(`<button data-feito="${a.id}">↩️ Desmarcar "veio"</button>`);
+  if(a.feito) it.push(`<button data-feito="${a.id}">↩️ Desmarcar "presente"</button>`);
+  if(a.cancelado) it.push(`<button data-cancel="${a.id}">↩️ Desfazer cancelamento</button>`);
+  if(!a.feito&&!fora(a)) it.push(`<button data-agcel="${a.id}">📅 Pôr na agenda do celular (lembrete 1h antes)</button>`);
   if(a.falta) it.push(`<button data-falta="${a.id}">↩️ Desfazer falta</button>`);
   it.push(`<button class="x" data-apagar="${a.id}">🗑️ Excluir horário</button>`);
   $('#opcLista').innerHTML=it.join('');
@@ -1749,7 +1772,7 @@ $('#bqSalvar').onclick=()=>{
   let marcadas=0;
   dias.forEach((dia,k)=>{
     BLOQ.push({id:Date.now()+k,data:dia,diaTodo:todo,de:todo?'00:00':de,ate:todo?'23:59':ate,motivo:$('#bqMotivo').value.trim()});
-    marcadas+=dados.filter(a=>a.data===dia&&!a.falta&&!a.feito&&(todo||(mm(a.hora)>=mm(de)&&mm(a.hora)<mm(ate)))).length;
+    marcadas+=dados.filter(a=>a.data===dia&&!fora(a)&&!a.feito&&(todo||(mm(a.hora)>=mm(de)&&mm(a.hora)<mm(ate)))).length;
   });
   salvarBloq(); diaSel=d1; mesVis=new Date(d1.slice(0,7)+'-01T12:00'); fecharFolhas(); render();
   const txt=dias.length>1?`${dias.length} dias bloqueados 🚫`:'Horário bloqueado 🚫';
@@ -1758,8 +1781,79 @@ $('#bqSalvar').onclick=()=>{
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-desbloq]'); if(!b) return;
   if(confirm('Desbloquear e liberar esse horário de novo?')){ BLOQ=BLOQ.filter(x=>x.id!=b.dataset.desbloq); salvarBloq(); render(); aviso('Horário liberado ✓'); } });
 
+document.addEventListener('click',e=>{ const c=e.target.closest('[data-cancel]'); if(!c) return;
+  const a=dados.find(x=>x.id==c.dataset.cancel); if(!a) return;
+  if(!a.cancelado && !confirm(`${a.nome.split(' ')[0]} cancelou o horário das ${fmtH(a.hora)}?\n\nO horário fica livre para outra cliente e não entra no caixa.`)) return;
+  a.cancelado=!a.cancelado; if(a.cancelado){ a.falta=false; a.feito=false; }
+  salvar(); render(); aviso(a.cancelado?'Horário cancelado. Ficou livre de novo ✓':'Cancelamento desfeito'); });
+
+// ===== Sininho: lembrete 1h antes para a Marisa =====
+function permNotif(){ return ('Notification' in window)?Notification.permission:'indisponivel'; }
+function notificar(titulo,texto,tag){
+  try{ navigator.vibrate&&navigator.vibrate([300,120,300,120,300]); }catch(e){}
+  if(permNotif()!=='granted') return;
+  const op={body:texto,icon:'icon-192.png',badge:'icon-192.png',tag:tag||'lembrete',vibrate:[300,120,300],requireInteraction:true};
+  try{
+    if('serviceWorker' in navigator && navigator.serviceWorker.controller){ navigator.serviceWorker.ready.then(r=>r.showNotification(titulo,op)).catch(()=>{ try{ new Notification(titulo,op); }catch(e){} }); }
+    else new Notification(titulo,op);
+  }catch(e){}
+}
+function atualizaSino(){
+  const on=!!CFG.lembrete; $('#btnSino').textContent=on?'🔔':'🔕';
+  $('#btnSino').setAttribute('aria-label',on?'Lembrete ligado':'Lembrete desligado');
+  const p=permNotif();
+  $('#snEst').className='sino-est '+(on?'on':'off');
+  $('#snEst').textContent=on?'🔔 Lembrete LIGADO':'🔕 Lembrete desligado';
+  $('#snLigar').textContent=on?'🔕 Desligar lembrete':'🔔 Ligar lembrete';
+  $('#snLigar').style.background=on?'':'var(--ok)'; $('#snLigar').style.color=on?'':'#fff';
+  $('#snTeste').hidden=!on;
+  let n='<b>Importante:</b> o aviso funciona com o app <b>aberto ou minimizado</b>. Se fechar o app de vez, o celular pode não avisar.<br><br>Para aviso <b>garantido</b>, nos <b>⋯</b> de cada horário toque em <b>📅 Pôr na agenda do celular</b>: a agenda do próprio celular avisa 1 hora antes, mesmo com o app fechado.';
+  if(on&&p==='denied') n='<b>As notificações estão bloqueadas neste celular.</b> O app ainda vibra e mostra o cartão verde, mas o aviso não aparece na tela.<br>Para liberar: <b>Configurações do celular → Apps → Chrome (ou Marisa) → Notificações → Permitir</b>.<br><br>'+n;
+  if(p==='indisponivel') n='Neste celular os avisos só aparecem com o app <b>instalado</b> (⋮ → Instalar app). Enquanto isso, o app vibra e mostra o cartão verde.<br><br>'+n;
+  $('#snNota').innerHTML=n;
+}
+$('#btnSino').onclick=()=>{ atualizaSino(); abrirFolha('folhaSino'); };
+$('#snLigar').onclick=async()=>{
+  if(CFG.lembrete){ CFG.lembrete=false; salvarCfg(); atualizaSino(); return aviso('Lembrete desligado 🔕'); }
+  CFG.lembrete=true; salvarCfg();
+  try{ if(permNotif()==='default') await Notification.requestPermission(); }catch(e){}
+  atualizaSino(); aviso('Lembrete ligado 🔔');
+  if(permNotif()==='granted') notificar('Lembrete ligado 🔔','Vou avisar 1 hora antes de cada cliente.','teste');
+};
+$('#snTeste').onclick=()=>{ notificar('Próxima cliente: Maria às 14h','Sobrancelha · em 1 hora','teste'); if(permNotif()!=='granted') aviso('Aviso só com vibração: as notificações não estão liberadas'); };
+function checarLembreteMarisa(){
+  if(!CFG.lembrete) return;
+  let mudou=false;
+  dados.filter(a=>a.data===HOJE&&!a.feito&&!fora(a)&&!a.alertado).forEach(a=>{
+    const m=minutosAte(a);
+    if(m<=60&&m>-5){ a.alertado=true; mudou=true;
+      notificar(`Próxima cliente: ${a.nome.split(' ')[0]} às ${fmtH(a.hora)}`, `${a.serv.map(i=>sv(i).n).join(' + ')} · ${m>1?'em '+m+' minutos':'agora'}`, 'cli-'+a.id); }
+  });
+  if(mudou) salvar();
+}
+setInterval(checarLembreteMarisa,30000);
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden){ checarLembreteMarisa(); renderLembretes(); } });
+
+// ===== Pôr na agenda do celular =====
+function agendaCelular(a){
+  const ini=new Date(a.data+'T'+a.hora+':00'), fim=new Date(ini.getTime()+duracao(a)*60000);
+  const f=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'T'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0')+'00';
+  const titulo=`💕 ${a.nome} — ${a.serv.map(i=>sv(i).n).join(' + ')}`, det=`Cliente: ${a.nome} · WhatsApp ${telFmt(a.tel)}${a.obs?' · '+a.obs:''}`;
+  if(ehIOS){
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Marisa//Agenda//PT','BEGIN:VEVENT','UID:marisa-'+a.id,'DTSTAMP:'+f(new Date()),'DTSTART:'+f(ini),'DTEND:'+f(fim),'SUMMARY:'+titulo,'DESCRIPTION:'+det,'BEGIN:VALARM','TRIGGER:-PT60M','ACTION:DISPLAY','DESCRIPTION:'+titulo,'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const url=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+    const l=document.createElement('a'); l.href=url; l.download='cliente-'+a.hora.replace(':','h')+'.ics'; document.body.appendChild(l); l.click(); l.remove();
+    aviso('Toque em "Adicionar" para salvar na agenda do iPhone');
+  } else {
+    window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(titulo)+'&dates='+f(ini)+'/'+f(fim)+'&ctz=America/Sao_Paulo&details='+encodeURIComponent(det+'\n\nLembrete: 1 hora antes'),'_blank');
+    aviso('No Google Agenda, coloque a notificação "1 hora antes" e toque em Salvar');
+  }
+}
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-agcel]'); if(!b) return; const a=dados.find(x=>x.id==b.dataset.agcel); if(a){ fecharFolhas(); agendaCelular(a); } });
+
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
+atualizaSino();
 const _renderBase=render; render=function(){ _renderBase(); esconderVazios(); };
 render();
 atualizaInstalar();

@@ -1,6 +1,6 @@
 // Marisa Depilação — service worker
 // Ao atualizar o app, troque a versão abaixo (v2, v3...) para os celulares baixarem a nova versão.
-const CACHE = 'marisa-v31';
+const CACHE = 'marisa-v32';
 const ARQUIVOS = ['./', './index.html', './manifest.json',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png', './papel-de-parede.png'];
 
@@ -22,4 +22,13 @@ self.addEventListener('fetch', e => {
       return r;
     }).catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
   );
+});
+
+// Ao tocar no aviso de "próxima cliente", abre o app
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(self.clients.matchAll({type:'window', includeUncontrolled:true}).then(cs => {
+    for (const c of cs) { if ('focus' in c) return c.focus(); }
+    return self.clients.openWindow('./');
+  }));
 });
