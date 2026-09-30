@@ -17,13 +17,14 @@ Passo a passo:
   5. Abra o link https://SEU-USUARIO.github.io/marisa-depilacao/ no celular.
   6. No app, toque em "Instalar".
 
-Para atualizar depois:
-  - Troque o index.html.
-  - No index.html, mude a linha:  const APP_VERSAO='30', APP_DATA='29/09/2026';
-    (ex.: '31' e a data do dia)
-  - No sw.js, mude a versão para o MESMO número:  marisa-v30 -> marisa-v31
-  - A versão aparece no rodapé do app e em Mais > Desenvolvedor.
-    Assim dá pra conferir se o celular já pegou a versão nova.
+Para atualizar depois (o Claude já faz isso a cada mudança):
+  - No index.html, na linha:
+      const APP_BUILD='31', APP_VERSAO_TXT='1.1', APP_DATA='30/09/2026'; // APP_VERSAO='31' ...
+    * APP_BUILD: número interno, sempre +1 (31 -> 32). O app usa ele para saber se tem versão nova.
+    * APP_VERSAO_TXT: a versão que aparece para a Marisa (1.1 -> 1.2 -> 1.3...).
+    * APP_DATA: data do dia.
+    * No comentário do fim, APP_VERSAO='31' acompanha o APP_BUILD (serve para celulares com versão antiga).
+  - No sw.js, a versão acompanha o APP_BUILD:  marisa-v31 -> marisa-v32
 
 Desenvolvido por Luís Ricardo de Almeida Siqueira
 © 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.

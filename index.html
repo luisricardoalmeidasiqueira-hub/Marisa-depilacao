@@ -185,6 +185,7 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.btn-horarios{width:100%;border:1.5px solid var(--ok);background:transparent;color:var(--ok);border-radius:14px;padding:11px;font-weight:800;font-size:.95rem}
 .sel-hora{font-size:1.05rem;font-weight:700}
 .btn-bloq{width:100%;border:1.5px dashed var(--alerta);background:transparent;color:var(--alerta);border-radius:14px;padding:10px;font-weight:800;margin:0 0 6px}
 .bloq-card{display:flex;align-items:center;gap:10px;justify-content:space-between;border:2px solid var(--alerta);border-radius:14px;padding:10px 12px;margin:8px 0;background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(192,57,43,.07) 8px 14px)}
@@ -489,7 +490,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li>O calendário no topo mostra <b>a semana</b>. As setinhas <b>‹ ›</b> passam as semanas. <b>▾ Ver mês inteiro</b> abre o mês todo.</li>
         <li>As <b>bolinhas</b> embaixo do dia mostram quantos horários tem. Bolinha <b>vermelha</b> quer dizer dia lotado.</li>
         <li>Toque no dia para ver os atendimentos dele. O botão <b>Hoje</b> volta para o dia de hoje.</li>
-        <li><b>Para agendar:</b> toque num <b>horário livre (verde)</b> e o dia e a hora já vêm preenchidos. Também dá pelo botão <b>+ Agendar neste dia</b> ou pelo <b>+</b> amarelo embaixo.</li>
+        <li><b>Para agendar:</b> toque em <b>🕐 Ver horários livres</b> e depois num <b>horário verde</b> e o dia e a hora já vêm preenchidos. Também dá pelo botão <b>+ Agendar neste dia</b> ou pelo <b>+</b> amarelo embaixo.</li>
         <li>No agendamento, escolha a cliente (se já tiver cadastro, o telefone vem sozinho), marque um ou mais serviços e o app soma o <b>valor e o tempo</b>. Se já tiver alguém no mesmo horário, ele avisa.</li>
         <li>O app bloqueia os horários pelo tempo de cada serviço. Uma perna inteira de 45 min ocupa também o horário seguinte.</li>
         <li><b>A cliente quis fazer mais alguma coisa?</b> No horário dela, toque nos <b>⋯</b> → <b>➕ Adicionar serviço</b>, marque o que foi a mais e toque em <b>Salvar</b>. O valor soma sozinho.</li>
@@ -795,7 +796,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <h2 id="bvTit">Bem-vinda, Marisa! 💕</h2>
   <p>Seu app de agenda está pronto. É bem simples:</p>
   <ol class="passos">
-    <li><div><b>Para marcar:</b> toque no dia no calendário e depois num <b>horário verde</b>.</div></li>
+    <li><div><b>Para marcar:</b> toque no dia no calendário, depois em <b>🕐 Ver horários livres</b> e num <b>horário verde</b>.</div></li>
     <li><div><b>Botões verdes</b> abrem o WhatsApp com a mensagem pronta. É só apertar enviar.</div></li>
     <li><div><b>Depois do atendimento</b>, toque em <b>✅ Veio</b> ou <b>❌ Faltou</b>. No dia seguinte o app lembra de mandar o pós-atendimento.</div></li>
     <li><div>Qualquer dúvida: <b>☰ Mais → Como usar</b>.</div></li>
@@ -1498,6 +1499,7 @@ function livresDo(dia){
   }
   return l;
 }
+let livresAberto=false, ultimoDiaLivres=null;
 function renderCal(){
   const mt=mesVis.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); $('#calMes').textContent=mt.charAt(0).toUpperCase()+mt.slice(1);
   const ano=mesVis.getFullYear(), mes=mesVis.getMonth();
@@ -1535,9 +1537,15 @@ function renderCal(){
   $('#livresTit').style.display=passado?'none':'block';
   const passouHoje=diaSel===HOJE&&!liv.length&&!lista.some(x=>x.hora>=String(new Date().getHours()).padStart(2,'0')+':00');
   if(diaBloqueado(diaSel)){ $('#livresTit').style.display='none'; }
-  $('#livresTit').textContent=liv.length?(liv.length===1?'1 horário livre (toque para marcar)':`${liv.length} horários livres (toque para marcar)`):passouHoje?'Os horários de hoje já acabaram. Escolha outro dia no calendário.':'Dia lotado, sem horários livres';
-  $('#livres').innerHTML=liv.map(h=>`<button data-livre="${h}">${fmtH(h)}</button>`).join('');
-  $('#listaHoje').innerHTML=lista.length?lista.map(a=>itemAgenda(a,false)).join(''):`<div class="vazio">${passado?'Nenhum atendimento neste dia.':(liv.length?'Nenhum horário marcado. Toque em um horário verde para agendar.':'Nenhum horário marcado neste dia.')}</div>`;
+  if(diaSel!==ultimoDiaLivres){ livresAberto=false; ultimoDiaLivres=diaSel; }
+  if(liv.length){
+    $('#livresTit').innerHTML=`<button class="btn-horarios" id="togLivres">🕐 ${livresAberto?'Esconder horários livres ▴':(liv.length===1?'Ver 1 horário livre ▾':`Ver ${liv.length} horários livres ▾`)}</button>`;
+    $('#togLivres').onclick=()=>{ livresAberto=!livresAberto; renderCal(); };
+  } else {
+    $('#livresTit').textContent=passouHoje?'Os horários de hoje já acabaram. Escolha outro dia no calendário.':'Dia lotado, sem horários livres';
+  }
+  $('#livres').innerHTML=livresAberto?liv.map(h=>`<button data-livre="${h}">${fmtH(h)}</button>`).join(''):'';
+  $('#listaHoje').innerHTML=lista.length?lista.map(a=>itemAgenda(a,false)).join(''):`<div class="vazio">${passado?'Nenhum atendimento neste dia.':(liv.length?'Nenhum horário marcado neste dia.':'Nenhum horário marcado neste dia.')}</div>`;
 }
 let calAberto=false;
 function moveSemana(n){ const d=addDias(new Date(diaSel+'T12:00'),n); diaSel=iso(d); mesVis=new Date(diaSel.slice(0,7)+'-01T12:00'); renderCal(); }
@@ -1639,15 +1647,15 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_VERSAO='30', APP_DATA='29/09/2026';
-document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO} · atualizado em ${APP_DATA}`);
+const APP_BUILD='31', APP_VERSAO_TXT='1.1', APP_DATA='30/09/2026'; // APP_VERSAO='31' (compatibilidade com versões antigas)
+document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
 async function versaoOnline(){
   const r=await fetch('index.html?v='+Date.now(),{cache:'no-store'});
   if(!r.ok) throw new Error('falhou');
-  const m=(await r.text()).match(/APP_VERSAO='(\d+)'/);
-  return m?m[1]:null;
+  const t=await r.text(); const b=t.match(/APP_BUILD='(\d+)'/), v=t.match(/APP_VERSAO_TXT='([^']+)'/);
+  return b?{b:b[1],v:v?v[1]:b[1]}:null;
 }
 async function aplicarAtualizacao(){
   aviso('Atualizando… o app vai recarregar');
@@ -1660,11 +1668,11 @@ async function aplicarAtualizacao(){
 async function verificarAtualizacao(manual){
   try{
     const v=await versaoOnline();
-    if(v && +v>+APP_VERSAO){
+    if(v && +v.b>+APP_BUILD){
       if(manual) return aplicarAtualizacao();
-      $('#novaTxt').textContent=`Versão ${v} disponível. Toque para atualizar. Seus dados continuam salvos.`;
+      $('#novaTxt').textContent=`Versão ${v.v} disponível. Toque para atualizar. Seus dados continuam salvos.`;
       $('#bannerNova').hidden=false;
-    } else if(manual){ aviso(`✓ Você já está na versão mais recente (${APP_VERSAO})`); }
+    } else if(manual){ aviso(`✓ Você já está na versão mais recente (${APP_VERSAO_TXT})`); }
   }catch(e){ if(manual) aviso('Sem internet agora. Tente de novo mais tarde.'); }
 }
 ['#btnAtualizar','#btnAtualizar2'].forEach(id=>{ const b=$(id); if(b) b.onclick=()=>{ aviso('Verificando…'); verificarAtualizacao(true); }; });
