@@ -464,6 +464,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="tres pontinhos opcoes menu pontos"><b>❓ Pra que servem os ⋯ e o ⋮?</b><p>Os <b>⋯</b> ficam em cada horário e têm as opções daquela cliente (adicionar serviço, mudar, excluir…). O <b>⋮</b> fica no topo e tem as opções do app (instalar, compartilhar, atualizar).</p></div>
         <div class="faq" data-k="cera premium tradicional preferida"><b>❓ Como escolho a cera da cliente?</b><p>Na ficha dela → <b>Editar ficha</b> → <b>Cera preferida</b> → <b>Cera premium</b> ou <b>Cera tradicional</b> → <b>Salvar</b>.</p></div>
         <div class="faq" data-k="hora horario 24 tarde noite 13 14 manha"><b>❓ 13h é que horas?</b><p>O app usa 24 horas: <b>13h = 1 da tarde</b>, 14h = 2 da tarde, 18h = 6 da tarde, 19h30 = 7 e meia da noite.</p></div>
+        <div class="faq" data-k="caixa valor dinheiro recebido receber salvar servico entra aparece zerado"><b>❓ Salvei um serviço. O valor já vai para o caixa?</b><p><b>Não.</b> Salvar em Serviços só muda a tabela de preços. O valor entra no caixa quando tem cliente: ao <b>agendar</b> vai para <b>A receber</b>; ao tocar em <b>✅ Veio</b> passa para <b>Recebido</b>. <b>❌ Faltou</b> não conta.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -552,9 +553,14 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       </ul></div></details>
 
       <details class="dob"><summary>💰 Caixa</summary><div class="cont"><ul>
-        <li><b>Recebido:</b> atendimentos concluídos no mês.</li>
-        <li><b>A receber:</b> horários do mês ainda não concluídos. Faltas não entram.</li>
-        <li><b>Ticket médio</b> e os <b>serviços mais pedidos</b>.</li>
+        <li><b>Salvar um serviço na aba Serviços não põe dinheiro no caixa.</b> Lá é só a tabela de preços.</li>
+        <li><b>Agendou a cliente</b> → o valor aparece em <b>A receber</b>.</li>
+        <li><b>Tocou em ✅ Veio</b> → o valor passa para <b>Recebido</b>.</li>
+        <li><b>Tocou em ❌ Faltou</b> → o valor sai do caixa e não conta.</li>
+        <li><b>➕ Lançar serviço feito</b> (na ficha) → vai direto para <b>Recebido</b>.</li>
+        <li>Com <b>💝 promoção</b>, entra o valor combinado.</li>
+        <li>O caixa conta pelo <b>mês do atendimento</b>: cliente marcada para outubro aparece no caixa de outubro.</li>
+        <li>Também mostra o <b>ticket médio</b> e os <b>serviços mais pedidos</b> (aparecem depois dos primeiros atendimentos).</li>
       </ul></div></details>
 
       <details class="dob"><summary>⚙️ Ajustes em "Mais"</summary><div class="cont"><ul>
@@ -1633,7 +1639,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_VERSAO='29', APP_DATA='29/09/2026';
+const APP_VERSAO='30', APP_DATA='29/09/2026';
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
