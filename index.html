@@ -449,12 +449,12 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <section class="tela" id="t-mais">
     <div class="secao"><h2>Mais</h2></div>
 
-    <details class="dob" open><summary>📖 Como usar o app</summary><div class="cont">
+    <details class="dob"><summary>📖 Como usar o app</summary><div class="cont">
       <div class="busca-ajuda"><input id="buscaAjuda" type="search" placeholder="🔍 Procure sua dúvida: faltou, preço, instalar…" aria-label="Procurar dúvida"></div>
       <p id="ajudaVazio" class="vazio" hidden>Não achei nada com essa palavra. Tente outra, como <b>falta</b>, <b>preço</b> ou <b>cliente</b>. Se não achar, fale com o Luís.</p>
       <p id="ajudaDica">Toque em cada assunto para abrir a explicação.</p>
 
-      <details class="dob" open><summary>🚀 Primeiros passos e dúvidas</summary><div class="cont">
+      <details class="dob"><summary>🚀 Primeiros passos e dúvidas</summary><div class="cont">
         <p style="font-weight:800;margin-top:0">Dúvidas mais comuns</p>
         <div class="faq" data-k="faltou falta nao veio excluir apagar sumiu"><b>❓ A cliente não veio. Tenho que excluir?</b><p><b>Não.</b> Toque em <b>❌ Faltou</b> no horário dela. Fica registrado como falta e <b>não entra na conta do dia nem no caixa</b>.</p></div>
         <div class="faq" data-k="mais servico adicionar somar acrescentar outro"><b>❓ A cliente quis fazer mais um serviço.</b><p>No horário dela, toque nos <b>⋯</b> → <b>➕ Adicionar serviço</b>, marque o que foi a mais e toque em <b>Salvar</b>. O valor soma sozinho.</p></div>
@@ -487,7 +487,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Instale o app:</b> toque em <b>Instalar</b> na faixa amarela do topo ou nos <b>⋮ três pontinhos → Instalar app</b>. No Android com Chrome instala na hora. No iPhone (Safari ou Chrome) aparecem 3 passos simples. Depois, abra sempre pelo ícone.</li>
         <li><b>Confira os preços:</b> na aba <b>Serviços</b>, ajuste valores e tempos para os do seu estúdio.</li>
         <li><b>Dados do estúdio:</b> em <b>Mais → 📍 Meu estúdio</b> estão o endereço, o WhatsApp e o Instagram. O endereço, com o link do mapa, vai junto nas mensagens de confirmação e lembrete (dá pra desligar ali).</li>
-        <li><b>Papel de parede:</b> também em <b>Meu estúdio</b>. Abra a imagem, toque e segure para salvar, e coloque como fundo do celular.</li>
+        <li><b>Papel de parede:</b> também em <b>Meu estúdio</b>. Toque em <b>🖼️ Ver papel de parede</b>, toque e segure na imagem para salvar, e coloque como fundo do celular. Para sair, toque em <b>Voltar</b> ou no ✕.</li>
         <li><b>Assinatura:</b> em <b>Mais → WhatsApp Business</b>, confira o nome que vai no fim das mensagens.</li>
         <li><b>Compartilhar:</b> em <b>⋮ (três pontinhos) → 📤 Compartilhar app</b> você manda o link do app pelo WhatsApp ou copia para enviar a quem for usar.</li>
         <li><b>Horário de atendimento:</b> em <b>Mais → Meu estúdio</b> escolha o primeiro e o último horário do dia.</li>
@@ -603,7 +603,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <label>Horário de atendimento</label>
       <div class="duas"><div><select id="cfgAbre" class="sel-hora" aria-label="Primeiro horário"></select></div><div><select id="cfgFecha" class="sel-hora" aria-label="Último horário"></select></div></div>
       <p style="color:var(--suave);font-size:.82rem;margin-top:4px">Primeiro e último horário que aparecem como livres na agenda (de 30 em 30 minutos).</p>
-      <div class="wall-prev"><img src="papel-de-parede.png" alt="" onerror="this.parentElement.style.display='none'"><div><b>Papel de parede</b><br><a href="papel-de-parede.png" target="_blank" rel="noopener" style="color:var(--ameixa);font-weight:800">Abrir para salvar no celular</a><br><span style="font-size:.8rem;color:var(--suave)">Abra, toque e segure na imagem e salve nas fotos.</span></div></div>
+      <div class="wall-prev"><img src="papel-de-parede.png" alt="" onerror="this.parentElement.style.display='none'"><div><b>Papel de parede</b><br><button class="chip" id="abrirWall" style="margin-top:6px">🖼️ Ver papel de parede</button></div></div>
     </div></details>
 
     <details class="dob"><summary>✉️ Mensagens</summary><div class="cont">
@@ -847,6 +847,14 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <button class="btn" id="snLigar"></button>
   <button class="btn sec" id="snTeste">Testar aviso agora</button>
   <div class="sino-nota" id="snNota"></div>
+</div>
+
+<div class="folha" id="folhaWall" role="dialog" aria-modal="true" aria-labelledby="wlTit">
+  <div class="puxador"></div>
+  <h2 id="wlTit">Papel de parede</h2>
+  <p class="dica"><b>Para salvar:</b> toque e segure na imagem → <b>Salvar imagem</b> (ou "Adicionar às Fotos"). Depois coloque como fundo do celular.</p>
+  <img src="papel-de-parede.png" alt="Papel de parede da Marisa" style="width:100%;border-radius:16px;display:block;box-shadow:0 4px 16px rgba(0,0,0,.18)">
+  <button class="btn sec" id="wlFechar" style="margin-top:14px">Voltar</button>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -1668,7 +1676,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='32', APP_VERSAO_TXT='1.2', APP_DATA='30/09/2026'; // APP_VERSAO='32' (compatibilidade com versões antigas)
+const APP_BUILD='33', APP_VERSAO_TXT='1.3', APP_DATA='30/09/2026'; // APP_VERSAO='33' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1743,7 +1751,7 @@ document.addEventListener('click',e=>{
     const q=norm(inp.value.trim());
     const itens=[...raiz.querySelectorAll('.faq, details.dob details.dob li')];
     const grupos=[...raiz.querySelectorAll('details.dob details.dob')];
-    if(!q){ itens.forEach(e=>{e.style.display='';e.classList.remove('achou');}); grupos.forEach((g,i)=>{g.style.display=''; g.open=i===0;});
+    if(!q){ itens.forEach(e=>{e.style.display='';e.classList.remove('achou');}); grupos.forEach(g=>{g.style.display=''; g.open=false;});
       raiz.querySelectorAll('.cont > p[style]').forEach(p=>p.style.display=''); $('#ajudaVazio').hidden=true; $('#ajudaDica').hidden=false; return; }
     const palavras=q.split(/\s+/);
     let achou=0;
@@ -1850,6 +1858,9 @@ function agendaCelular(a){
   }
 }
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-agcel]'); if(!b) return; const a=dados.find(x=>x.id==b.dataset.agcel); if(a){ fecharFolhas(); agendaCelular(a); } });
+
+$('#abrirWall').onclick=()=>abrirFolha('folhaWall');
+$('#wlFechar').onclick=fecharFolhas;
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
