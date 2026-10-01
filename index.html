@@ -100,6 +100,8 @@ button{cursor:pointer}
 .acoes .faltou{border-color:var(--alerta);color:var(--alerta)}
 .acoes .zapb{background:#25D366;border-color:#25D366;color:#fff}
 .acoes .cancb{border-color:var(--suave);color:var(--suave)}
+.acoes .pagb{border-color:var(--ok);color:var(--ok);padding:8px 12px;font-size:.88rem}
+.acoes .pagb.deve{border-color:var(--alerta);color:var(--alerta);background:#FDE7E4}
 .acoes .opc{padding:10px 14px;font-size:1.1rem;color:var(--suave)}
 .st-b{display:inline-flex;align-items:center;font-weight:800;font-size:.9rem;padding:10px 4px}
 .st-b.ok{color:var(--ok)} .st-b.falta{color:var(--alerta)}
@@ -186,6 +188,18 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.btn-zaplivres{width:100%;border:0;background:#25D366;color:#fff;border-radius:14px;padding:11px;font-weight:800;margin:0 0 6px;font-size:.95rem}
+.pg-res{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 12px}
+.pg-res div{background:var(--card);border:1px solid var(--linha);border-radius:12px;padding:10px;text-align:center}
+.pg-res small{display:block;color:var(--suave);font-size:.78rem} .pg-res b{font-size:1.05rem}
+.deve-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--linha);font-size:.9rem}
+.deve-item:last-child{border:0}
+.deve-item button{flex:none;border:1.5px solid var(--alerta);background:#FDE7E4;color:var(--alerta);border-radius:10px;padding:7px 10px;font-weight:800;font-size:.82rem}
+.novo-cli{background:var(--mel-claro);border-radius:14px;padding:10px 12px;margin-top:10px}
+.novo-cli .chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0 0;font-weight:700}
+.novo-cli .chk input{width:22px;height:22px;flex:none;margin-top:2px}
+.novo-cli small{display:block;font-weight:400;color:var(--suave);font-size:.8rem}
+.desde{display:inline-block;background:var(--po);color:var(--ameixa);border-radius:8px;padding:3px 8px;font-weight:800;font-size:.85rem;margin-top:4px}
 .foto-c{display:flex;flex-direction:column;gap:4px}
 .ig-b{border:0;border-radius:8px;padding:7px 2px;font-weight:800;font-size:.78rem;color:#fff;background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF)}
 .ig-aut{border:1.5px solid var(--linha);background:var(--card);color:var(--suave);border-radius:8px;padding:5px 2px;font-weight:700;font-size:.7rem}
@@ -463,6 +477,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 
     <div class="secao"><h2 id="tituloDia">Agenda de hoje</h2><small id="diaSel"></small></div>
     <button class="btn-dia" id="agendarDia">+ Agendar neste dia</button>
+    <button class="btn-zaplivres" id="zapLivres">💬 Mandar horários livres no WhatsApp</button>
     <button class="btn-bloq" id="bloquearDia">🚫 Bloquear horário (médico, folga…)</button>
     <button class="btn-verbloq" id="verBloqueios" hidden></button>
     <div id="bloqDia"></div>
@@ -502,6 +517,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <button data-f="melhores">Melhores clientes</button>
       <button data-f="niver">🎂 Aniversário no mês</button>
       <button data-f="faltosas">Faltosas</button>
+      <button data-f="devendo">💸 Devendo</button>
     </div>
     <p class="legenda-estr">★★★ Fiel: 6 ou mais visitas em 6 meses · ★★ Frequente: 3 a 5 · ★ Ocasional: 1 a 2. Duas faltas ou mais tiram uma estrela.</p>
     <div id="listaCli"></div>
@@ -548,6 +564,9 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="cliente salva telefone preencher automatico nome procurar contato"><b>❓ Preciso digitar o telefone toda vez?</b><p><b>Não.</b> A cliente fica salva depois do primeiro agendamento. Ao marcar, comece a digitar o nome: ela aparece <b>embaixo do campo</b> com o telefone. Toque nela e o WhatsApp é preenchido sozinho. Também dá pra abrir a ficha dela em <b>👩 Clientes</b> → <b>Agendar de novo</b>.</p></div>
         <div class="faq" data-k="foto fotos camera trabalho antes depois registrar autorizacao instagram"><b>❓ Como tiro foto do meu trabalho?</b><p>Primeiro ligue em <b>☰ Mais → 📷 Fotos do trabalho</b>. Depois, nos <b>⋯</b> do horário (no dia ou depois), toque em <b>📷 Foto do trabalho</b>. Na primeira vez o app pergunta se a cliente <b>autorizou</b>. Só aparece para sobrancelha e rosto. A foto fica na ficha da cliente. Para postar, peça outra autorização.</p></div>
         <div class="faq" data-k="instagram postar publicar story feed foto legenda"><b>❓ Como posto a foto no Instagram?</b><p>Na <b>ficha</b> da cliente, embaixo da foto, toque em <b>🔒 Postar? Pedir ok</b> e confirme <b>só se a cliente autorizou postar</b>. Aparece o botão <b>📲 Postar</b>: toque nele, escolha <b>Instagram</b> (Feed ou Story) e na legenda <b>cole</b> (a legenda pronta já fica copiada). A legenda pode ser mudada em <b>☰ Mais → 📷 Fotos do trabalho</b>.</p></div>
+        <div class="faq" data-k="salvar contato contatos celular agenda telefone vcf cliente desde antiga quanto tempo"><b>❓ Como salvo a cliente nos contatos do celular? E o "cliente desde"?</b><p>Ao marcar uma <b>cliente nova</b>, aparece um quadro amarelo: marque <b>📇 Salvar nos contatos do celular</b> (pergunte se ela deixa). Depois de salvar o horário, toque no arquivo que aparece e em <b>Salvar</b>. Se ela já é cliente antiga, preencha <b>"Cliente desde"</b> (mês e ano). Na ficha aparece <b>💕 Cliente desde … · há X anos</b>. Para clientes que já estão no app: ficha → <b>📇 Salvar nos contatos</b> ou <b>Editar ficha → Cliente desde</b>.</p></div>
+        <div class="faq" data-k="deve devendo pagou metade pendente fiado pagamento parcial cobrar"><b>❓ A cliente pagou só uma parte. Como anoto?</b><p>Depois de marcar <b>✅ Presente</b>, toque em <b>💵 Pago</b> (ou ⋯ → <b>💵 Pagamento</b>). Digite <b>quanto ela pagou</b> (ex.: 30) e toque em <b>Salvar</b>. Aparece <b>💸 Deve R$ 70</b> no horário, na ficha e em <b>Clientes → 💸 Devendo</b>. Quando ela pagar, toque de novo e em <b>✅ Pagou tudo</b>. Tem também <b>💬 Lembrar a cliente no WhatsApp</b>, com mensagem educada pronta.</p></div>
+        <div class="faq" data-k="mandar horarios livres whatsapp cliente escolher agendar sozinha"><b>❓ Como mando os horários livres para a cliente?</b><p>Toque no dia no calendário → <b>💬 Mandar horários livres no WhatsApp</b> → escolha a cliente. Vai a lista dos horários. Quando ela responder, marque o horário no app.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -619,6 +638,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
               <li><b>➕ Lançar serviço feito / anotar procedimento:</b> registra um serviço que já foi feito (mesmo sem estar na agenda) e o que foi feito, por exemplo "virilha com cera premium, pele reagiu bem". Aparece no histórico e entra no caixa. O botão fica na ficha e também em <b>Editar ficha</b>.</li>
         <li><b>Cera preferida:</b> em Editar ficha, escolha <b>Cera premium</b> ou <b>Cera tradicional</b>.</li>
         <li><b>📲 Postar no Instagram:</b> embaixo de cada foto, marque <b>"Pode postar"</b> só se a cliente autorizou. Depois toque em <b>📲 Postar</b>, escolha o Instagram e cole a legenda pronta.</li>
+        <li><b>💕 Cliente desde:</b> mostra há quanto tempo ela é cliente. Para clientes antigas, coloque o mês e ano em <b>Editar ficha</b>. <b>📇 Salvar nos contatos</b> guarda o número no celular (pergunte antes).</li>
       </ul></div></details>
 
       <details class="dob"><summary>🔒 Autorização da cliente (LGPD)</summary><div class="cont"><ul>
@@ -649,6 +669,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li>Também mostra o <b>ticket médio</b> e os <b>serviços mais pedidos</b> (aparecem depois dos primeiros atendimentos).</li>
         <li><b>O que não entrou:</b> quantos cancelamentos e faltas teve no mês e o valor. O botão <b>📋 Ver cancelados e faltas</b> mostra a lista por dia.</li>
         <li><b>🧴 Reserva p/ material:</b> no 4º quadro do caixa, escolha <b>20%</b>, <b>25%</b> ou <b>0%</b>. O número grande é quanto separar do recebido para comprar material; embaixo, em verde, quanto fica para você. O ticket médio aparece logo abaixo dos quadros.</li>
+        <li><b>💸 Pagamento pendente:</b> o <b>Recebido</b> conta só o que a cliente pagou de verdade. O quadro <b>💸 Clientes devendo</b> mostra quem está devendo e quanto (toque para ver a lista).</li>
       </ul></div></details>
 
       <details class="dob"><summary>⚙️ Ajustes em "Mais"</summary><div class="cont"><ul>
@@ -696,7 +717,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         • Para <b>postar no Instagram</b>, peça outra autorização à cliente.</div>
       <label for="cfgLegenda">Legenda pronta para o Instagram</label>
       <textarea id="cfgLegenda" rows="4"></textarea>
-      <p style="color:var(--suave);font-size:.82rem;margin:4px 0 0">Use <b>{servico}</b> para o nome do serviço. A legenda é copiada sozinha na hora de postar.</p>
+      <p style="color:var(--suave);font-size:.82rem;margin:4px 0 0">O app troca <b>{servico}</b> pelo serviço da foto (ex.: Henna, Sobrancelha + buço). A legenda é copiada sozinha na hora de postar.</p>
     </div></details>
 
     <details class="dob"><summary>🎨 Aparência (claro ou escuro)</summary><div class="cont">
@@ -779,6 +800,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div class="perdas">
       <div class="perda"><span>🚫 Cancelados no mês</span><b id="cxCanc">0</b></div>
       <div class="perda"><span>❌ Faltas no mês</span><b id="cxFalt">0</b></div>
+      <div class="perda" id="cxDeveBox" style="grid-column:1/-1;cursor:pointer"><span>💸 Clientes devendo (toque para ver)</span><b id="cxDeve">0</b></div>
     </div>
     <button class="btn-verbloq" id="verCanc" style="background:var(--po);color:var(--ameixa);margin-top:8px">📋 Ver cancelados e faltas</button>
 
@@ -817,6 +839,13 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div class="sug-cli" id="sugCli"></div>
   <label for="fTel">WhatsApp</label>
   <input id="fTel" type="tel" inputmode="tel" placeholder="(15) 99999-9999">
+  <div class="novo-cli" id="novoCli" hidden>
+    <b>👤 Cliente nova</b>
+    <label class="chk"><input type="checkbox" id="fSalvarCont"> <span>📇 Salvar nos contatos do celular<small>Pergunte se ela deixa salvar o número dela.</small></span></label>
+    <label for="fDesde" style="margin-top:8px">💕 Já é cliente antiga? Cliente desde:</label>
+    <input id="fDesde" type="month">
+    <small style="display:block;color:var(--suave);margin-top:4px">Deixe em branco se é a primeira vez.</small>
+  </div>
   <div class="duas">
     <div><label for="fData">Dia</label><input id="fData" type="date"></div>
     <div><label for="fHora">Horário</label><select id="fHora" class="sel-hora"></select></div>
@@ -873,6 +902,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div><label for="cTel">WhatsApp</label><input id="cTel" type="tel" inputmode="tel" placeholder="(15) 99999-9999"></div>
     <div><label for="cNasc">Aniversário</label><input id="cNasc" type="date"></div>
   </div>
+  <label for="cDesde">💕 Cliente desde (mês e ano)</label>
+  <input id="cDesde" type="month">
   <label>Cuidados</label>
   <div class="checks">
     <label><input type="checkbox" id="cSens"> Pele sensível</label>
@@ -1004,6 +1035,18 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <button class="btn sec" id="tmTabela" hidden></button>
 </div>
 
+<div class="folha" id="folhaPag" role="dialog" aria-modal="true" aria-labelledby="pgTit">
+  <div class="puxador"></div>
+  <h2 id="pgTit">💵 Pagamento</h2>
+  <p class="dica" id="pgSub"></p>
+  <div class="pg-res"><div><small>Total</small><b id="pgTotal"></b></div><div><small>Pago</small><b id="pgPago" style="color:var(--ok)"></b></div><div><small>Falta</small><b id="pgFalta" style="color:var(--alerta)"></b></div></div>
+  <button class="btn" id="pgTudo" style="background:var(--ok);color:#fff">✅ Pagou tudo</button>
+  <label for="pgValor" style="margin-top:14px">Quanto ela pagou <b>até agora</b> (no total)?</label>
+  <input id="pgValor" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex.: 30">
+  <button class="btn sec" id="pgSalvar">Salvar valor pago</button>
+  <a class="btn" id="pgCobrar" style="display:block;text-align:center;text-decoration:none;background:#25D366;color:#fff;margin-top:8px" target="_blank" rel="noopener">💬 Lembrar a cliente no WhatsApp</a>
+</div>
+
 <div class="aviso" id="aviso" role="status"></div>
 
 <script>
@@ -1115,6 +1158,8 @@ function salvar(){ try{ localStorage.setItem('arcoecera',JSON.stringify(dados));
 
 const sv = id => SERVICOS.find(s=>s.id===id) || {id, n:'Serviço removido', cat:'Depilação', p:0, m:0, ret:30};
 const fora = a => !!(a.falta||a.cancelado);
+const pagoDe = a => (a.pago==null? valor(a) : Math.min(+a.pago, valor(a)));
+const deveDe = a => (a.feito&&!fora(a)? Math.max(0, Math.round((valor(a)-pagoDe(a))*100)/100) : 0);
 const valorCheio = a => a.serv.reduce((t,i,k)=>t+(a.precos?a.precos[k]:sv(i).p),0);
 const valor = a => (a.promo!=null&&a.promo!=='') ? +a.promo : valorCheio(a);
 const tipo = a => a.serv.map(i=>sv(i).cat);
@@ -1155,7 +1200,7 @@ function itemAgenda(a,mostrarDia){
       ${fora(a)?'':alertaCuid(a.tel)}
       ${!fora(a)&&!a.feito&&+a.hora.slice(0,2)<6?`<button class="cuid" data-pm="${a.id}">⚠️ ${fmtH(a.hora)} é de madrugada. Era ${fmtH(String(+a.hora.slice(0,2)+12).padStart(2,'0')+a.hora.slice(2))} (da tarde)? Toque aqui para corrigir</button>`:''}
       <div class="acoes">
-        ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.cancelado?'<span class="st-b falta" style="color:var(--suave)">🚫 Cancelado</span>':a.feito?'<span class="st-b ok">✅ Presente</span>':a.data<=HOJE?
+        ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.cancelado?'<span class="st-b falta" style="color:var(--suave)">🚫 Cancelado</span>':a.feito?`<span class="st-b ok">✅ Presente</span>${deveDe(a)>0?`<button class="grande pagb deve" data-pag="${a.id}">💸 Deve ${brl(deveDe(a))}</button>`:`<button class="grande pagb" data-pag="${a.id}">💵 Pago</button>`}`:a.data<=HOJE?
           `<button class="grande veio" data-feito="${a.id}">✅ Presente</button><button class="grande faltou" data-falta="${a.id}">❌ Faltou</button><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`:
           `<a class="grande zapb" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar</a><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`}
         <button class="grande opc" data-opc="${a.id}" aria-label="Mais opções">⋯</button>
@@ -1230,7 +1275,7 @@ function render(){
   // Caixa
   const mes=HOJE.slice(0,7);
   const doMes=dados.filter(a=>a.data.startsWith(mes));
-  const rec=doMes.filter(a=>a.feito).reduce((t,a)=>t+valor(a),0);
+  const rec=doMes.filter(a=>a.feito).reduce((t,a)=>t+pagoDe(a),0);
   const prev=doMes.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
   $('#mesNome').textContent=d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
   $('#cxRec').textContent=brl(rec); $('#cxPrev').textContent=brl(prev);
@@ -1239,6 +1284,7 @@ function render(){
   $('#cxMed').textContent=brl(validos.length?(rec+prev)/validos.length:0);
   const cont={}; dados.filter(a=>!fora(a)).forEach(a=>a.serv.forEach(i=>cont[i]=(cont[i]||0)+1));
   const rk=Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,5); const mx=rk.length?rk[0][1]:1;
+  { const dev=dados.filter(a=>deveDe(a)>0); $('#cxDeve').textContent=`${new Set(dev.map(a=>a.tel)).size} cliente(s) · ${brl(dev.reduce((t,a)=>t+deveDe(a),0))}`; }
   { const canc=doMes.filter(a=>a.cancelado), falt=doMes.filter(a=>a.falta);
     const vc=canc.reduce((t,a)=>t+valor(a),0), vf=falt.reduce((t,a)=>t+valor(a),0);
     $('#cxCanc').textContent=`${canc.length} · ${brl(vc)}`; $('#cxFalt').textContent=`${falt.length} · ${brl(vf)}`;
@@ -1259,8 +1305,11 @@ function clientes(){
     if(a.feito){ c.vezes++; c.total+=valor(a); if(!c.ultAt||a.data>c.ultAt.data)c.ultAt=a;
       if(a.serv.some(i=>sv(i).cat==='Sobrancelha')) c.sob++; }
     if(a.data>=HOJE&&!a.feito&&!fora(a)) c.futuro=true;
-    if(a.data>c.ult&&!fora(a)) c.ult=a.data; });
+    c.deve=(c.deve||0)+deveDe(a);
+    if(a.data>c.ult&&!fora(a)) c.ult=a.data;
+    if(!fora(a)&&(!c.prim||a.data<c.prim)) c.prim=a.data; });
   Object.values(m).forEach(c=>{
+    c.desdeMes=c.desde||(c.prim?c.prim.slice(0,7):null);
     c.ret=null; c.dias=null;
     if(c.ultAt){ const d=Math.min(...c.ultAt.serv.map(i=>sv(i).ret));
       c.ret=Math.round((addDias(new Date(c.ultAt.data+'T12:00'),d)-new Date(HOJE+'T12:00'))/864e5);
@@ -1308,12 +1357,14 @@ function renderClientes(){
   if(filtro==='melhores') f=f.filter(c=>c.total>0).sort((a,b)=>b.total-a.total).slice(0,10);
   if(filtro==='niver') f=f.filter(niverMes).sort((a,b)=>a.nasc.slice(8).localeCompare(b.nasc.slice(8)));
   if(filtro==='faltosas') f=f.filter(c=>c.faltas>0).sort((a,b)=>b.faltas-a.faltas);
-  const vazios={todas:'Nenhuma cliente encontrada.',sumidas:'Nenhuma cliente sumida. Ótimo sinal!',retorno:'Ninguém com retorno atrasado.',melhores:'Ainda sem atendimentos concluídos.',niver:'Nenhuma aniversariante este mês.',faltosas:'Nenhuma falta registrada.'};
+  if(filtro==='devendo') f=f.filter(c=>c.deve>0).sort((a,b)=>b.deve-a.deve);
+  const vazios={todas:'Nenhuma cliente encontrada.',sumidas:'Nenhuma cliente sumida. Ótimo sinal!',retorno:'Ninguém com retorno atrasado.',melhores:'Ainda sem atendimentos concluídos.',niver:'Nenhuma aniversariante este mês.',faltosas:'Nenhuma falta registrada.',devendo:'Ninguém devendo. 👏'};
   $('#listaCli').innerHTML=f.length?f.map((c,i)=>{
     const sel=[];
     if(cuidados(c).length&&(c.sens||c.acido||c.gest)) sel.push('<span class="selo alerta">⚠️ cuidados</span>');
     if(niverHoje(c)) sel.push('<span class="selo">🎂 hoje</span>'); else if(niverMes(c)) sel.push(`<span class="selo">🎂 dia ${c.nasc.slice(8)}</span>`);
     if(c.dispo) sel.push('<span class="selo ouro">🎁 brinde disponível</span>'); else if(c.sob) sel.push(`<span class="selo ouro">🎟️ ${c.carimbos}/10</span>`);
+    if(c.deve>0) sel.push(`<span class="selo alerta">💸 deve ${brl(c.deve)}</span>`);
     if(c.faltas) sel.push(`<span class="selo alerta">${c.faltas} falta(s)</span>`);
     let extra='';
     if(filtro==='sumidas') extra=` · sumida há ${c.dias} dias${c.chamada?' · chamada em '+dataBR(c.chamada):''}`;
@@ -1388,8 +1439,9 @@ $('#fPromo').addEventListener('input',atualizaTotal);
 $('#fServ').addEventListener('change',atualizaTotal);
 const normN=t=>(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim();
 function acharCliente(nome){ const n=normN(nome); return n?clientes().find(c=>normN(c.nome)===n):null; }
-function escolherCliente(c){ $('#fNome').value=c.nome; $('#fTel').value=telFmt(c.tel); $('#sugCli').innerHTML=''; }
-$('#fNome').addEventListener('input',()=>{
+function escolherCliente(c){ $('#fNome').value=c.nome; $('#fTel').value=telFmt(c.tel); $('#sugCli').innerHTML=''; checarNova(); }
+function checarNova(){ const nome=$('#fNome').value.trim(); $('#novoCli').hidden=editId!=null||modoFeito||nome.length<2||!!acharCliente(nome); }
+$('#fNome').addEventListener('input',()=>{ setTimeout(checarNova,0);
   const q=normN($('#fNome').value); const box=$('#sugCli');
   const exata=acharCliente($('#fNome').value); if(exata&&!$('#fTel').value) $('#fTel').value=telFmt(exata.tel);
   if(q.length<2){ box.innerHTML=''; return; }
@@ -1415,7 +1467,7 @@ function abrirEditar(id,soServ){
 }
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-editar]'); if(b) abrirEditar(b.dataset.editar,b.dataset.modo==='serv'); });
 function fechar(){ editId=null; $('#folha').classList.remove('aberta'); $('#fundo').classList.remove('aberta');
-  ['#fNome','#fTel','#fObs','#fPromo','#fMin'].forEach(s=>$(s).value=''); $('#sugCli').innerHTML=''; fMinManual=false; document.querySelectorAll('#fServ input').forEach(i=>i.checked=false); atualizaTotal(); }
+  ['#fNome','#fTel','#fObs','#fPromo','#fMin','#fDesde'].forEach(s=>$(s).value=''); $('#fSalvarCont').checked=false; $('#novoCli').hidden=true; $('#sugCli').innerHTML=''; fMinManual=false; document.querySelectorAll('#fServ input').forEach(i=>i.checked=false); atualizaTotal(); }
 $('#btnNovo').onclick=()=>abrir(diaSel); $('#cancelar').onclick=fechar; $('#fundo').onclick=fechar;
 $('#salvar').onclick=()=>{
   const serv=[...document.querySelectorAll('#fServ input:checked')].map(i=>i.value);
@@ -1441,10 +1493,15 @@ $('#salvar').onclick=()=>{
   }
   dados.push({id:Date.now(),nome,tel,data:$('#fData').value,hora:$('#fHora').value,serv,precos:serv.map(i=>sv(i).p),feito:modoFeito,obs:$('#fObs').value.trim()});
   { const nv=dados[dados.length-1]; nv.promo=serv.length>=2?lerPromo(valorCheio(nv)):null; const dm=+$('#fMin').value; if(fMinManual&&dm>0&&dm!==duracaoTabela(nv)) nv.duracao=dm; }
-  if(!CLI[tel]){ CLI[tel]={nome,tel,nasc:'',sens:false,acido:false,gest:false,cera:'Sem preferência',obs:'',arco:'',henna:'',fotos:[],brindes:0}; salvarCli(); }
+  const eraNova=!clientes().some(c=>c.tel===tel&&c.vezes+(c.faltas||0)>0)&&!CLI[tel];
+  if(!CLI[tel]){ CLI[tel]={nome,tel,nasc:'',sens:false,acido:false,gest:false,cera:'Sem preferência',obs:'',arco:'',henna:'',fotos:[],brindes:0}; }
+  if($('#fDesde').value&&!CLI[tel].desde) CLI[tel].desde=$('#fDesde').value;
+  salvarCli();
+  const salvarNoCel=eraNova&&$('#fSalvarCont').checked;
   const diaMarcado=$('#fData').value; diaSel=diaMarcado; mesVis=new Date(diaMarcado.slice(0,7)+'-01T12:00');
   const eraFeito=modoFeito, novo=dados[dados.length-1]; salvar(); fechar(); render(); aviso(eraFeito?'Serviço lançado ✓':'Agendamento salvo');
   if(!eraFeito&&CFG.autoGoogle&&novo) setTimeout(()=>agendaCelular(novo,'google'),300);
+  if(typeof salvarNoCel!=='undefined'&&salvarNoCel&&novo) setTimeout(()=>baixarContato(novo.tel),CFG.autoGoogle?1500:300);
 };
 $('#busca').addEventListener('input',renderClientes);
 $('#filtros').addEventListener('click',e=>{ const b=e.target.closest('[data-f]'); if(!b)return;
@@ -1552,12 +1609,14 @@ function abrirFicha(tel){
   const fotos=(CLI[tel]&&CLI[tel].fotos)||[];
   $('#fichaCorpo').innerHTML=`
     <div class="fic-topo"><div><h2>${c.nome}</h2></div></div>
+    ${c.desdeMes?`<span class="desde">💕 Cliente desde ${mesAno(c.desdeMes)} · ${haQuanto(c.desdeMes)}</span>`:''}
     <div class="fic-sub">${c.estrelas?estrHTML(c,true)+' · '+c.v180+' visita(s) nos últimos 6 meses<br>':'Ainda sem visitas nos últimos 6 meses<br>'}${telFmt(c.tel)}${idade?'<br>'+idade:''}<br>${c.vezes} visita(s) · já gastou ${brl(c.total)}</div>
     <div class="fic-acoes">
       <a class="z" href="${zap(c,'Oi, '+prim+'! ',false)}" target="_blank" rel="noopener">WhatsApp</a>
       <a href="tel:+55${c.tel}">Ligar</a>
       <button class="ag2" id="fReag">Agendar de novo</button>
       <button id="fEdit">Editar ficha</button>
+      <button id="fContato" style="grid-column:1/-1">📇 Salvar nos contatos do celular</button>
       <button id="fLancar" style="grid-column:1/-1;background:var(--mel-claro);border-color:var(--mel);color:var(--mel)">➕ Lançar serviço feito / anotar procedimento</button>
     </div>
     ${cu.length||c.cera&&c.cera!=='Sem preferência'||c.obs?`<div class="bloco"><h3>Cuidados</h3>
@@ -1591,6 +1650,9 @@ function abrirFicha(tel){
         <button id="fApagarTudo" style="color:var(--alerta);border-color:var(--alerta)">Apagar todos os dados</button>
       </div>
     </div>
+    ${hist.some(a=>deveDe(a)>0)?`<div class="bloco" style="border-color:var(--alerta)"><h3>💸 Pagamento pendente: ${brl(hist.reduce((t,a)=>t+deveDe(a),0))}</h3>
+      ${hist.filter(a=>deveDe(a)>0).map(a=>`<div class="deve-item"><span>${dataBR(a.data)} · ${a.serv.map(i=>sv(i).n).join(' + ')}<br><small style="color:var(--suave)">total ${brl(valor(a))} · pagou ${brl(pagoDe(a))}</small></span><button data-pag="${a.id}">Falta ${brl(deveDe(a))}</button></div>`).join('')}
+    </div>`:''}
     <div class="bloco"><h3>Faltas</h3>
       ${c.faltas?`<p><b>${c.faltas}</b> falta(s): ${hist.filter(a=>a.falta).map(a=>dataBR(a.data)).join(', ')}</p>
       ${c.faltas>=2?'<p style="color:var(--alerta);font-weight:700">Faltou mais de uma vez. Vale pedir sinal antecipado para garantir o horário.</p>':''}`:'<p>Nenhuma falta. 👏</p>'}
@@ -1605,6 +1667,7 @@ function abrirFicha(tel){
     atualizaTotal();
   };
   $('#fEdit').onclick=()=>abrirCadastro(tel);
+  $('#fContato').onclick=()=>{ if(confirm(`${c.nome.split(' ')[0]} deixou salvar o número dela nos seus contatos?`)) baixarContato(tel); };
   $('#fLancar').onclick=()=>abrirLancar(c);
   $('#fVerDados').onclick=()=>{
     const cc=CLI[tel]||{};
@@ -1662,7 +1725,7 @@ function abrirCadastro(tel,voltaFicha=true){
   cadVoltaFicha=voltaFicha;
   cadTel=tel||null; const c=tel?(clientes().find(x=>x.tel===tel)||{}):{};
   $('#cTit').textContent=tel?'Editar ficha':'Nova cliente';
-  $('#cNome').value=c.nome||''; $('#cTel').value=c.tel?telFmt(c.tel):''; $('#cNasc').value=c.nasc||'';
+  $('#cNome').value=c.nome||''; $('#cTel').value=c.tel?telFmt(c.tel):''; $('#cNasc').value=c.nasc||''; $('#cDesde').value=c.desde||'';
   $('#cSens').checked=!!c.sens; $('#cAcido').checked=!!c.acido; $('#cGest').checked=!!c.gest;
   { const cv=c.cera||'Sem preferência', sel=$('#cCera'); if(![...sel.options].some(o=>o.value===cv)){ const o=document.createElement('option'); o.textContent=cv; sel.appendChild(o); } sel.value=cv; } $('#cObs').value=c.obs||''; $('#cArco').value=c.arco||''; $('#cHenna').value=c.henna||'';
   $('#cLgpd').checked=!!c.lgpd;
@@ -1679,7 +1742,7 @@ $('#cSalvar').onclick=()=>{
   if(tel!==cadTel && clientes().some(c=>c.tel===tel)) return aviso('Já existe uma cliente com esse telefone');
   if(($('#cSens').checked||$('#cAcido').checked||$('#cGest').checked)&&!$('#cLgpd').checked){ $('#cLgpd').closest('.lgpd-box').scrollIntoView({block:'center'}); return aviso('Para guardar cuidados de saúde, marque a autorização da cliente (LGPD)'); }
   const antigo=cadTel?CLI[cadTel]||{}:{};
-  const novo={...antigo,nome,tel,nasc:$('#cNasc').value,sens:$('#cSens').checked,acido:$('#cAcido').checked,gest:$('#cGest').checked,
+  const novo={...antigo,nome,tel,desde:$('#cDesde').value||antigo.desde||'',nasc:$('#cNasc').value,sens:$('#cSens').checked,acido:$('#cAcido').checked,gest:$('#cGest').checked,
     cera:$('#cCera').value,lgpd:$('#cLgpd').checked?(antigo.lgpd||HOJE):null,obs:$('#cObs').value.trim(),arco:$('#cArco').value.trim(),henna:$('#cHenna').value.trim(),fotos:antigo.fotos||[],brindes:antigo.brindes||0};
   if(!novo.lgpd && novo.fotos.length){ if(!confirm('Sem autorização, as fotos desta cliente serão apagadas. Continuar?')) return; novo.fotos=[]; }
   if(cadTel&&cadTel!==tel) delete CLI[cadTel];
@@ -1745,6 +1808,7 @@ function renderCal(){
   $('#diaSel').textContent=dt.toLocaleDateString('pt-BR',{day:'numeric',month:'short'});
   const passado=diaSel<HOJE;
   $('#agendarDia').style.display=passado||diaBloqueado(diaSel)?'none':'block';
+  $('#zapLivres').style.display=passado||diaBloqueado(diaSel)?'none':'block';
   $('#bloquearDia').style.display=passado||diaBloqueado(diaSel)?'none':'block';
   $('#bloqDia').innerHTML=bloqDo(diaSel).map(b=>`<div class="bloq-card"><div><b>🚫 ${b.diaTodo?'Dia inteiro bloqueado':'Bloqueado das '+fmtH(b.de)+' às '+fmtH(b.ate)}</b><span>${b.motivo||'Sem motivo anotado'}</span></div><button data-desbloq="${b.id}">Desbloquear</button></div>`).join('');
   const liv=passado?[]:livresDo(diaSel);
@@ -1865,7 +1929,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='47', APP_VERSAO_TXT='2.7', APP_DATA='01/10/2026'; // APP_VERSAO='47' (compatibilidade com versões antigas)
+const APP_BUILD='50', APP_VERSAO_TXT='3.0', APP_DATA='01/10/2026'; // APP_VERSAO='50' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1915,6 +1979,7 @@ function abrirOpc(id){
   if(!a.feito&&!fora(a)) it.push(`<a class="z" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar no WhatsApp</a>`);
   if(!fora(a)) it.push(`<button data-editar="${a.id}" data-modo="serv">➕ Adicionar serviço</button>`);
   it.push(`<button data-editar="${a.id}">✏️ Mudar dia, hora ou dados</button>`);
+  if(a.feito) it.push(`<button data-pag="${a.id}">💵 Pagamento (pago / ficou devendo)</button>`);
   it.push(`<button data-ficha="${a.tel}">👤 Ver ficha da cliente</button>`);
   if(CFG.fotosOn&&!fora(a)&&a.data<=HOJE&&fotoPermitida(a)){
     it.push(cad(a.tel).lgpd
@@ -2173,9 +2238,11 @@ document.addEventListener('change',async e=>{
 });
 
 // ===== Postar no Instagram =====
-const LEGENDA_PADRAO='✨ {servico} feita com muito carinho 💕\n📍 Tatuí/SP · Agende pelo WhatsApp: {whats}\n{insta}';
+const LEGENDA_ANTIGA='✨ {servico} feita com muito carinho 💕\n📍 Tatuí/SP · Agende pelo WhatsApp: {whats}\n{insta}';
+const LEGENDA_PADRAO='✨ {servico} com muito carinho 💕\n📍 Tatuí/SP · Agende pelo WhatsApp: {whats}\n{insta}';
+if(CFG.legenda===LEGENDA_ANTIGA) CFG.legenda=LEGENDA_PADRAO;
 function legendaPara(f){
-  return (CFG.legenda||LEGENDA_PADRAO).replace(/\{servico\}/g,f.leg||'Atendimento').replace(/\{whats\}/g,CFG.whats?telFmt(CFG.whats):'').replace(/\{insta\}/g,CFG.insta?'@'+CFG.insta:'').trim();
+  return (CFG.legenda||LEGENDA_PADRAO).replace(/\{servico\}/g,(!f.leg||/^(antes|depois)$/i.test(f.leg))?'Design de sobrancelha':f.leg).replace(/\{whats\}/g,CFG.whats?telFmt(CFG.whats):'').replace(/\{insta\}/g,CFG.insta?'@'+CFG.insta:'').trim();
 }
 $('#cfgLegenda').value=CFG.legenda||LEGENDA_PADRAO;
 $('#cfgLegenda').addEventListener('change',()=>{ CFG.legenda=$('#cfgLegenda').value.trim()||LEGENDA_PADRAO; salvarCfg(); aviso('Legenda salva ✓'); });
@@ -2202,6 +2269,51 @@ document.addEventListener('click',async e=>{
     $('#folhaWall img').src=f.src; abrirFolha('folhaWall');
   }
 });
+
+// ===== Cliente desde / contato no celular =====
+function mesAno(ym){ const [y,m]=ym.split('-').map(Number); return new Date(y,m-1,15).toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); }
+function haQuanto(ym){ const [y,m]=ym.split('-').map(Number), h=new Date(HOJE+'T12:00'); const meses=(h.getFullYear()-y)*12+(h.getMonth()+1-m);
+  if(meses<1) return 'cliente nova'; if(meses<12) return `há ${meses} ${meses===1?'mês':'meses'}`; const a=Math.floor(meses/12); return `há ${a} ${a===1?'ano':'anos'}`; }
+function baixarContato(tel){
+  const c=clientes().find(x=>x.tel===tel); if(!c) return;
+  const vcf=['BEGIN:VCARD','VERSION:3.0','FN:'+c.nome,'N:;'+c.nome+';;;','TEL;TYPE=CELL:+55'+c.tel,'NOTE:Cliente da Marisa'+(c.desdeMes?' desde '+mesAno(c.desdeMes):''),'END:VCARD'].join('\r\n');
+  const url=URL.createObjectURL(new Blob([vcf],{type:'text/vcard'}));
+  const l=document.createElement('a'); l.href=url; l.download=c.nome.replace(/[^\wÀ-ú ]/g,'')+'.vcf'; document.body.appendChild(l); l.click(); l.remove();
+  aviso('Abra o arquivo e toque em Salvar para guardar nos contatos 📇');
+}
+
+// ===== Pagamentos pendentes =====
+let pagId=null;
+function abrirPag(id){
+  const a=dados.find(x=>x.id==id); if(!a) return; pagId=a.id;
+  $('#pgSub').textContent=`${a.nome} · ${dataBR(a.data)} · ${a.serv.map(i=>sv(i).n).join(' + ')}`;
+  $('#pgTotal').textContent=brl(valor(a)); $('#pgPago').textContent=brl(pagoDe(a)); $('#pgFalta').textContent=brl(Math.max(0,valor(a)-pagoDe(a)));
+  $('#pgValor').value=a.pago==null?'':a.pago;
+  const falta=Math.max(0,valor(a)-pagoDe(a));
+  $('#pgCobrar').hidden=!falta;
+  $('#pgCobrar').href=zap(a,`Oi, ${a.nome.split(' ')[0]}! Tudo bem? 😊 Passando para lembrar do valor de ${brl(falta)} que ficou pendente do atendimento de ${dataBR(a.data)} (${a.serv.map(i=>sv(i).n.toLowerCase()).join(' e ')}). Quando puder, pode ser por Pix ou na próxima vez que vier. Obrigada! 💕`);
+  abrirFolha('folhaPag');
+}
+function salvarPago(v){
+  const a=dados.find(x=>x.id===pagId); if(!a) return;
+  if(v==null||v>=valor(a)) delete a.pago; else a.pago=Math.max(0,Math.round(v*100)/100);
+  salvar(); fecharFolhas(); render(); if(fichaTel&&$('#folhaFicha').classList.contains('aberta')) abrirFicha(fichaTel);
+  aviso(a.pago==null?'Pago tudo ✓':`Ficou devendo ${brl(deveDe(a))} 💸`);
+}
+$('#pgTudo').onclick=()=>salvarPago(null);
+$('#pgSalvar').onclick=()=>{ const v=parseFloat(String($('#pgValor').value).replace(',','.')); if(isNaN(v)) return aviso('Digite quanto ela pagou'); salvarPago(v); };
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-pag]'); if(b){ fecharFolhas(); abrirPag(b.dataset.pag); } });
+
+$('#cxDeveBox').onclick=()=>{ document.querySelector('nav [data-t=clientes]').click(); const b=document.querySelector('#filtros [data-f=devendo]'); if(b) b.click(); };
+
+$('#zapLivres').onclick=()=>{
+  const liv=livresDo(diaSel); const dt=new Date(diaSel+'T12:00');
+  if(!liv.length) return aviso('Não tem horário livre neste dia');
+  const dia=diaSel===HOJE?'hoje':diaSel===iso(addDias(new Date(HOJE+'T12:00'),1))?'amanhã':dt.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'});
+  const grp=[['☀️ Manhã',h=>h<'12:00'],['🌤️ Tarde',h=>h>='12:00'&&h<'18:00'],['🌙 Noite',h=>h>='18:00']].map(([n,f])=>{ const L=liv.filter(f); return L.length?`${n}: ${L.map(fmtH).join(', ')}`:''; }).filter(Boolean).join('\n');
+  const txt=`Oi! 😊 Tenho estes horários livres ${dia}:\n\n${grp}\n\nQual fica melhor pra você? É só me responder com o horário 💕`+(CFG.assinatura?'\n\n'+CFG.assinatura:'');
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+};
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();

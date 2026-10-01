@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 2.7 (01/10/2026)
+App de agenda para celular · Versão 3.0 (01/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -25,6 +25,8 @@ AGENDA
 • Horário que não aparece como livre: abra "Ver horários livres" e veja
   "Por que alguns horários não aparecem?" (mostra quem está ocupando).
 • 💝 Promoção: marcando 2 ou mais serviços, dá para colocar o valor combinado.
+• 💬 Mandar horários livres no WhatsApp: toque no dia e no botão verde; vai a
+  lista de horários livres. Quando a cliente responder, marque no app.
 
 BLOQUEAR HORÁRIO (médico, folga, viagem)
 • "🚫 Bloquear horário": escolha do dia / até o dia, dia inteiro ou das … até as ….
@@ -52,6 +54,10 @@ CLIENTES E FICHA
 • Ficha: cuidados (pele sensível, ácido, gestante), cera preferida
   (premium / tradicional), arco e henna, histórico, faltas, cartão fidelidade.
 • "➕ Lançar serviço feito / anotar procedimento": registra o que foi feito.
+• 💕 Cliente desde: mostra há quanto tempo ela é cliente (para clientes antigas,
+  coloque mês/ano ao marcar a primeira vez ou em Editar ficha).
+• 📇 Salvar nos contatos do celular: ao marcar cliente nova (marque o quadradinho)
+  ou na ficha. Pergunte antes se ela deixa salvar o número.
 • Autorização LGPD: necessária para guardar cuidados de saúde e fotos.
 
 FOTOS DO TRABALHO E INSTAGRAM (opcional)
@@ -60,11 +66,19 @@ FOTOS DO TRABALHO E INSTAGRAM (opcional)
   Na primeira vez o app pergunta se a cliente autorizou.
 • Postar: na ficha, embaixo da foto, "🔒 Postar? Pedir ok" → confirme SÓ se a
   cliente autorizou postar → "📲 Postar" → escolha Instagram → cole a legenda
-  (ela já fica copiada). Legenda editável em ☰ Mais → 📷 Fotos do trabalho.
+  (ela já fica copiada, com o serviço da foto: "✨ Henna com muito carinho 💕").
+  Legenda editável em ☰ Mais → 📷 Fotos do trabalho.
 • Postar na internet precisa de autorização separada de guardar a foto.
 
+PAGAMENTO PENDENTE (cliente pagou só uma parte)
+• Depois de ✅ Presente, toque em "💵 Pago" → digite quanto ela pagou → Salvar.
+• Aparece "💸 Deve R$ …" no horário, na ficha e em Clientes → "💸 Devendo".
+• Quando pagar o resto: toque de novo → "✅ Pagou tudo".
+• "💬 Lembrar a cliente no WhatsApp" manda uma mensagem educada pronta.
+
 CAIXA
-• Agendou → "A receber". ✅ Presente → "Recebido". Faltou/Cancelado não contam.
+• Agendou → "A receber". ✅ Presente → "Recebido" (só o que foi pago de verdade).
+  Faltou/Cancelado não contam. "💸 Clientes devendo" mostra o total pendente.
 • 🧴 Reserva p/ material: 20%, 25% ou 0% do recebido; mostra quanto fica para você.
 • "O que não entrou": cancelados e faltas do mês, com lista por dia.
 
@@ -89,16 +103,19 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='47', APP_VERSAO_TXT='2.7', APP_DATA='01/10/2026'; // APP_VERSAO='47' ...
-  * APP_BUILD: número interno, sempre +1 (47 -> 48). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (2.7 -> 2.8 -> 2.9...).
+    const APP_BUILD='50', APP_VERSAO_TXT='3.0', APP_DATA='01/10/2026'; // APP_VERSAO='50' ...
+  * APP_BUILD: número interno, sempre +1 (50 -> 51). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (3.0 -> 3.1 -> 3.2...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='47' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v47 -> marisa-v48
+  * O comentário APP_VERSAO='50' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v50 -> marisa-v51
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+3.0  Pagamento pendente (pagou parte / ficou devendo); mandar horários livres no WhatsApp.
+2.9  Salvar cliente nos contatos do celular; "Cliente desde".
+2.8  Legenda do Instagram com o serviço certo de cada foto.
 2.7  Postar foto no Instagram (com autorização e legenda pronta).
 2.6  Cliente salva aparece ao digitar o nome (telefone automático); fotos do trabalho opcionais.
 2.5  "Por que alguns horários não aparecem?" nos horários livres.

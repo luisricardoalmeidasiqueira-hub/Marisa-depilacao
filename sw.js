@@ -1,6 +1,6 @@
 // Marisa Depilação — service worker
 // Ao atualizar o app, troque a versão abaixo (v2, v3...) para os celulares baixarem a nova versão.
-const CACHE = 'marisa-v47';
+const CACHE = 'marisa-v50';
 const ARQUIVOS = ['./', './index.html', './manifest.json',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png', './papel-de-parede.png'];
 
