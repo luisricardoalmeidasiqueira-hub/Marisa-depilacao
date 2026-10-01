@@ -1225,9 +1225,10 @@ const MSG_SUMIDA_PADRAO="Oi, {nome}! Tudo bem? 💕 Estou com saudade de você p
 const MSG_CONF_PADRAO='✨ Olá, {nome} 🌸\nPassando para confirmar nosso horário agendado {dia} às {hora}.\nSerá um prazer recebê-la e proporcionar esse momento especial de autocuidado. 💆‍♀️✨';
 const MSG_POS_ANTIGA='✨ Olá, {nome}, tudo bem?\nEspero que esteja se sentindo confortável e satisfeita com o atendimento. Qualquer sensibilidade ou desconforto, estarei à disposição.\nObrigada pela confiança! 🙏🥰';
 const MSG_POS_PADRAO='✨ Olá, {nome}, tudo bem?\nEspero que esteja se sentindo confortável e satisfeita com o atendimento. Qualquer sensibilidade ou desconforto, estarei à disposição.\n\n⭐ Se puder, me conta: de 1 a 5, que nota você dá para o atendimento?\n\nObrigada pela confiança! 🙏🥰';
-const MSG_LIVRES_PADRAO='Oi, tudo bem? 😊💕\nSeparei estes horários pra você {dia}:\n\n{horarios}\n\nQual fica melhor pra você? É só me responder com o horário que eu já deixo reservado! ✨';
+const MSG_LIVRES_V35='Oi, tudo bem? 😊💕\nSeparei estes horários pra você {dia}:\n\n{horarios}\n\nQual fica melhor pra você? É só me responder com o horário que eu já deixo reservado! ✨';
+const MSG_LIVRES_PADRAO='Disponíveis esses horários, qual encaixa melhor pra vc?\n\n{horarios}';
 const CFG_PADRAO=()=>({msgLivres:MSG_LIVRES_PADRAO,abre:'07:00',fecha:'19:30',msgConf:MSG_CONF_PADRAO,msgPos:MSG_POS_PADRAO,assinatura:'Marisa Depilação e Designer de Sobrancelha 💕',tolerancia:15,msgSumida:MSG_SUMIDA_PADRAO,endereco:'R. Profa. Zilá de Aquino, 1206 – Tatuí/SP',whats:'15996542859',insta:'marisaalmeida.epiladora',endMsg:true});
-let CFG; try{ CFG=Object.assign(CFG_PADRAO(),JSON.parse(localStorage.getItem('marisa-config'))||{}); if(CFG.msgPos===MSG_POS_ANTIGA) CFG.msgPos=MSG_POS_PADRAO; if(['Marisa Depilação 💕','Marisa Almeida · Depilação 💕'].includes(CFG.assinatura)) CFG.assinatura='Marisa Depilação e Designer de Sobrancelha 💕'; }catch(e){ CFG=CFG_PADRAO(); }
+let CFG; try{ CFG=Object.assign(CFG_PADRAO(),JSON.parse(localStorage.getItem('marisa-config'))||{}); if(CFG.msgPos===MSG_POS_ANTIGA) CFG.msgPos=MSG_POS_PADRAO; if(CFG.msgLivres===MSG_LIVRES_V35) CFG.msgLivres=MSG_LIVRES_PADRAO; if(['Marisa Depilação 💕','Marisa Almeida · Depilação 💕'].includes(CFG.assinatura)) CFG.assinatura='Marisa Depilação e Designer de Sobrancelha 💕'; }catch(e){ CFG=CFG_PADRAO(); }
 function salvarCfg(){ try{ localStorage.setItem('marisa-config',JSON.stringify(CFG)); }catch(e){} }
 function zap(a,msg,assinar=true){ const t=assinar&&CFG.assinatura?msg+'\n\n'+CFG.assinatura:msg; return 'https://wa.me/55'+a.tel.replace(/\D/g,'')+'?text='+encodeURIComponent(t); }
 const dataBR = s => { const [y,m,d]=s.split('-'); return d+'/'+m; };
@@ -1983,7 +1984,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='55', APP_VERSAO_TXT='3.5', APP_DATA='01/10/2026'; // APP_VERSAO='55' (compatibilidade com versões antigas)
+const APP_BUILD='56', APP_VERSAO_TXT='3.6', APP_DATA='01/10/2026'; // APP_VERSAO='56' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
