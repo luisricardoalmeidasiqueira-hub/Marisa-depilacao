@@ -19,12 +19,12 @@ Passo a passo:
 
 Para atualizar depois (o Claude já faz isso a cada mudança):
   - No index.html, na linha:
-      const APP_BUILD='37', APP_VERSAO_TXT='1.7', APP_DATA='30/09/2026'; // APP_VERSAO='37' ...
-    * APP_BUILD: número interno, sempre +1 (37 -> 38). O app usa ele para saber se tem versão nova.
-    * APP_VERSAO_TXT: a versão que aparece para a Marisa (1.7 -> 1.8 -> 1.9...).
+      const APP_BUILD='38', APP_VERSAO_TXT='1.8', APP_DATA='30/09/2026'; // APP_VERSAO='38' ...
+    * APP_BUILD: número interno, sempre +1 (38 -> 39). O app usa ele para saber se tem versão nova.
+    * APP_VERSAO_TXT: a versão que aparece para a Marisa (1.8 -> 1.9 -> 1.10...).
     * APP_DATA: data do dia.
-    * No comentário do fim, APP_VERSAO='37' ...mpanha o APP_BUILD (serve para celulares com versão antiga).
-  - No sw.js, a versão acompanha o APP_BUILD:  marisa-v37 -> marisa-v38
+    * No comentário do fim, APP_VERSAO='38' ...mpanha o APP_BUILD (serve para celulares com versão antiga).
+  - No sw.js, a versão acompanha o APP_BUILD:  marisa-v38 -> marisa-v39
 
 Desenvolvido por Luís Ricardo de Almeida Siqueira
 © 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.

@@ -186,6 +186,13 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.btn-verbloq{width:100%;border:0;background:#FDE7E4;color:var(--alerta);border-radius:14px;padding:11px;font-weight:800;margin:0 0 8px;font-size:.95rem}
+.cal-grade button.bloqp{box-shadow:inset 0 -4px 0 var(--alerta)}
+.bl-dia{background:var(--alerta);color:#fff;font-weight:800;border-radius:10px;padding:9px 12px;margin:14px 0 4px}
+.bl-item{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1.5px solid var(--linha);border-radius:12px;padding:10px 12px;margin:6px 0;background:var(--card)}
+.bl-item b{display:block} .bl-item span{font-size:.85rem;color:var(--suave)}
+.bl-item .bts{display:flex;gap:6px;flex:none}
+.bl-item button{border:1.5px solid var(--linha);background:var(--fundo);color:var(--texto);border-radius:10px;padding:8px 10px;font-weight:800;font-size:.82rem}
 .dia-cab{list-style:none;background:var(--ameixa);color:#fff;font-weight:800;border-radius:12px;padding:11px 14px;margin:18px 0 4px;font-size:1.08rem;letter-spacing:.2px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
 :root[data-theme="dark"] .dia-cab{color:#1A1115}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dia-cab{color:#1A1115}}
@@ -405,6 +412,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div class="secao"><h2 id="tituloDia">Agenda de hoje</h2><small id="diaSel"></small></div>
     <button class="btn-dia" id="agendarDia">+ Agendar neste dia</button>
     <button class="btn-bloq" id="bloquearDia">🚫 Bloquear horário (médico, folga…)</button>
+    <button class="btn-verbloq" id="verBloqueios" hidden></button>
     <div id="bloqDia"></div>
     <div class="livres-tit" id="livresTit">Horários livres (toque para marcar)</div>
     <div class="livres" id="livres"></div>
@@ -479,6 +487,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="cancelado cancelou desmarcou faltou diferenca presente"><b>❓ Qual a diferença entre Faltou e Cancelado?</b><p><b>❌ Faltou:</b> a cliente não apareceu e não avisou (conta como falta na ficha dela). <b>🚫 Cancelado:</b> a cliente avisou que não vem. O horário fica livre de novo e <b>não</b> conta como falta. Nenhum dos dois entra no caixa.</p></div>
         <div class="faq" data-k="google agenda calendario iphone salvar agenda celular lembrete"><b>❓ Como salvo a cliente no Google Agenda?</b><p>Nos <b>⋯</b> do horário → <b>📅 Salvar no Google Agenda</b> → confira e toque em <b>Salvar</b>. Para abrir sozinho toda vez que marcar, ligue no sininho 🔔 a opção <b>"Ao marcar uma cliente, abrir o Google Agenda"</b>. No iPhone também tem <b>🍎 Salvar no Calendário do iPhone</b>. <b>Dica:</b> no Google Agenda, em Configurações → Notificações padrão, coloque <b>1 hora antes</b>.</p></div>
         <div class="faq" data-k="ordem horario errado 3h madrugada 15h tarde corrigir"><b>❓ Apareceu 3h em vez de 15h. O que faço?</b><p>3h é de madrugada, por isso ela aparece antes das outras. O app mostra um aviso amarelo no horário: toque em <b>"Toque aqui para corrigir"</b> e ele muda para 15h. Lembre: <b>13h = 1 da tarde, 15h = 3 da tarde</b>.</p></div>
+        <div class="faq" data-k="ver bloqueios bloqueados bloqueei lista liberar desbloquear"><b>❓ Como vejo os horários que bloqueei?</b><p>Na agenda, toque em <b>📋 Ver horários bloqueados</b> (fica embaixo do botão Bloquear). Aparece a lista por dia, com <b>Ver dia</b> e <b>Liberar</b>. No calendário, dia inteiro bloqueado fica <b>riscado de vermelho</b> e dia com só uma parte bloqueada tem um <b>tracinho vermelho embaixo</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -513,7 +522,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>🔔 Lembrete 1 hora antes:</b> toque no sininho da faixa roxa e ligue. O celular vibra e avisa qual é a próxima cliente. Para aviso garantido com o app fechado, use nos ⋯ → <b>📅 Salvar no Google Agenda</b>, ou ligue no sininho a opção de abrir o Google Agenda ao marcar.</li>
         <li>A faixa roxa mostra o resumo do dia: próxima cliente, quantos atendimentos, valor previsto e quantos já foram concluídos.</li>
               <li><b>Horários em 24 horas:</b> aparecem como <b>7h, 9h30, 13h, 19h30</b>. 13h é 1 hora da tarde.</li>
-        <li><b>🚫 Bloquear horário:</b> para médico, folga ou viagem. Toque em <b>🚫 Bloquear horário</b>, escolha <b>do dia … até o dia …</b> e marque <b>Dia inteiro</b> ou escolha <b>das … até as …</b>. O dia fica riscado de vermelho e ninguém consegue ser marcado. Para liberar, toque em <b>Desbloquear</b>.</li>
+        <li><b>🚫 Bloquear horário:</b> para médico, folga ou viagem. Toque em <b>🚫 Bloquear horário</b>, escolha <b>do dia … até o dia …</b> e marque <b>Dia inteiro</b> ou escolha <b>das … até as …</b>. O dia fica riscado de vermelho (ou com um tracinho vermelho, se for só uma parte) e ninguém consegue ser marcado. Para ver todos os bloqueios, toque em <b>📋 Ver horários bloqueados</b>. Para liberar, toque em <b>Desbloquear</b> ou <b>Liberar</b>.</li>
         <li><b>Os ⋯ de cada horário:</b> confirmar no WhatsApp, ➕ adicionar serviço, ✏️ mudar dia ou hora, 👤 ver ficha, ↩️ desfazer e 🗑️ excluir.</li>
         <li><b>💝 Promoção:</b> marcando 2 ou mais serviços, aparece o campo verde para colocar o valor combinado. Esse valor é o que entra no dia e no caixa.</li>
         <li><b>📝 Anotação:</b> no agendamento dá pra escrever o que vai ser feito ou alguma observação.</li>
@@ -861,6 +870,13 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <p class="dica"><b>Para salvar:</b> toque e segure na imagem → <b>Salvar imagem</b> (ou "Adicionar às Fotos"). Depois coloque como fundo do celular.</p>
   <img src="papel-de-parede.png" alt="Papel de parede da Marisa" style="width:100%;border-radius:16px;display:block;box-shadow:0 4px 16px rgba(0,0,0,.18)">
   <button class="btn sec" id="wlFechar" style="margin-top:14px">Voltar</button>
+</div>
+
+<div class="folha" id="folhaBloqLista" role="dialog" aria-modal="true" aria-labelledby="blTit">
+  <div class="puxador"></div>
+  <h2 id="blTit">🚫 Horários bloqueados</h2>
+  <p class="dica">Toque em <b>Ver dia</b> para abrir o dia na agenda, ou em <b>Liberar</b> para desbloquear.</p>
+  <div id="blLista"></div>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -1561,8 +1577,8 @@ function renderCal(){
   }
   for(const dd of dias){
     const d=dd.getDate(), ds=iso(dd);
-    const n=cont[ds]||0, bq=diaBloqueado(ds), cheio=!bq&&n&&!livresDo(ds).length;
-    h+=`<button data-dia="${ds}" class="${ds<HOJE?'passado':''} ${ds===HOJE?'hoje-d':''} ${ds===diaSel?'sel':''} ${cheio?'cheio':''} ${bq?'bloq':''}" aria-label="Dia ${d}, ${bq?'bloqueado':n+' horário(s)'}">${d}<span class="pts">${'<i></i>'.repeat(Math.min(n,4))}</span></button>`;
+    const n=cont[ds]||0, bq=diaBloqueado(ds), bqp=!bq&&bloqDo(ds).length>0, cheio=!bq&&n&&!livresDo(ds).length;
+    h+=`<button data-dia="${ds}" class="${ds<HOJE?'passado':''} ${ds===HOJE?'hoje-d':''} ${ds===diaSel?'sel':''} ${cheio?'cheio':''} ${bq?'bloq':''} ${bqp?'bloqp':''}" aria-label="Dia ${d}, ${bq?'bloqueado':bqp?'parte bloqueada':n+' horário(s)'}">${d}<span class="pts">${'<i></i>'.repeat(Math.min(n,4))}</span></button>`;
   }
   $('#calGrade').innerHTML=h;
   if(!calAberto){ const m=new Date(diaSel+'T12:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); $('#calMes').textContent=m.charAt(0).toUpperCase()+m.slice(1); }
@@ -1693,7 +1709,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='37', APP_VERSAO_TXT='1.7', APP_DATA='30/09/2026'; // APP_VERSAO='37' (compatibilidade com versões antigas)
+const APP_BUILD='38', APP_VERSAO_TXT='1.8', APP_DATA='30/09/2026'; // APP_VERSAO='38' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1887,10 +1903,27 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-pm]'); if
   if(!confirm(`Mudar o horário de ${a.nome.split(' ')[0]} de ${fmtH(a.hora)} para ${fmtH(nova)}?`)) return;
   a.hora=nova; a.alertado=false; salvar(); render(); aviso(`Horário corrigido para ${fmtH(nova)} ✓`); });
 
+// ===== Lista de bloqueios =====
+function bloqFuturos(){ return BLOQ.filter(b=>b.data>=HOJE).sort((x,y)=>(x.data+x.de).localeCompare(y.data+y.de)); }
+function renderBotaoBloq(){ const n=bloqFuturos().length; const b=$('#verBloqueios'); b.hidden=!n; b.textContent=`📋 Ver horários bloqueados (${n})`; }
+function abrirListaBloq(){
+  const L=bloqFuturos(); let ant='', h='';
+  L.forEach(b=>{
+    if(b.data!==ant){ ant=b.data; const t=new Date(b.data+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}); h+=`<div class="bl-dia">📅 ${b.data===HOJE?'Hoje · ':''}${t.charAt(0).toUpperCase()+t.slice(1)}</div>`; }
+    h+=`<div class="bl-item"><div><b>${b.diaTodo?'Dia inteiro':'Das '+fmtH(b.de)+' às '+fmtH(b.ate)}</b><span>${b.motivo||'Sem motivo anotado'}</span></div>
+      <div class="bts"><button data-irdia="${b.data}">Ver dia</button><button data-desbloq="${b.id}" style="color:var(--alerta);border-color:var(--alerta)">Liberar</button></div></div>`;
+  });
+  $('#blLista').innerHTML=h||'<div class="vazio">Nenhum horário bloqueado.</div>';
+  abrirFolha('folhaBloqLista');
+}
+$('#verBloqueios').onclick=abrirListaBloq;
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-irdia]'); if(!b) return;
+  diaSel=b.dataset.irdia; mesVis=new Date(diaSel.slice(0,7)+'-01T12:00'); fecharFolhas(); render(); window.scrollTo({top:0,behavior:'smooth'}); });
+
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
 atualizaSino();
-const _renderBase=render; render=function(){ _renderBase(); esconderVazios(); };
+const _renderBase=render; render=function(){ _renderBase(); esconderVazios(); renderBotaoBloq(); if($('#folhaBloqLista').classList.contains('aberta')) abrirListaBloq(); };
 render();
 atualizaInstalar();
 try{ if(localStorage.getItem('marisa-bv')!=='1'){ setTimeout(()=>abrirFolha('folhaBV'),400); } }catch(e){}
