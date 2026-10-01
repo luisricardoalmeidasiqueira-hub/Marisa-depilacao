@@ -1,30 +1,120 @@
-MARISA DEPILAÇÃO — como subir no GitHub
-=======================================
+MARISA ALMEIDA — Epilação e Designer de Sobrancelha
+App de agenda para celular · Versão 2.7 (01/10/2026)
+=====================================================
 
+PARTE 1 — COMO USAR O APP (para a Marisa)
+-----------------------------------------
+Dica: dentro do app tem ajuda com lupa de busca: ☰ Mais → Como usar o app.
+
+AGENDA
+• Calendário no topo: toque no dia. "Ver mês inteiro" abre o mês.
+• Para marcar: toque em "🕐 Ver horários livres" e depois num horário verde
+  (ou "+ Agendar neste dia", ou o botão + amarelo embaixo).
+• Ao marcar, digite o começo do nome: a cliente salva aparece embaixo com o
+  telefone. Toque nela e tudo é preenchido sozinho.
+• Horas em 24h: 13h = 1 da tarde, 15h = 3 da tarde.
+• Os próximos dias aparecem separados por data (faixa vinho).
+• Em cada cliente:
+    ✅ Presente  → foi atendida (entra no caixa)
+    ❌ Faltou    → não veio e não avisou (fica registrado como falta)
+    🚫 Cancelado → avisou que não vem (o horário fica livre de novo)
+    ⋯            → confirmar no WhatsApp, adicionar serviço, mudar dia/hora,
+                   ver ficha, salvar no Google Agenda, foto, excluir
+• ⏱️ Tempo de cada cliente: toque no "⏱️ 13h às 13h30 · 30 min ✏️" para mudar
+  quanto vai demorar. Os horários livres se ajustam sozinhos.
+• Horário que não aparece como livre: abra "Ver horários livres" e veja
+  "Por que alguns horários não aparecem?" (mostra quem está ocupando).
+• 💝 Promoção: marcando 2 ou mais serviços, dá para colocar o valor combinado.
+
+BLOQUEAR HORÁRIO (médico, folga, viagem)
+• "🚫 Bloquear horário": escolha do dia / até o dia, dia inteiro ou das … até as ….
+• "📋 Ver horários bloqueados": lista com "Ver dia" e "Liberar".
+• No calendário: dia inteiro fica riscado de vermelho; parte do dia tem um
+  tracinho vermelho embaixo.
+
+LEMBRETES
+• 🔔 Sininho na faixa roxa: avisa 1 hora antes de cada cliente
+  (com o app aberto ou minimizado).
+• Aviso garantido mesmo com o app fechado: ⋯ → "📅 Salvar no Google Agenda",
+  ou marque no sininho "Ao marcar uma cliente, abrir o Google Agenda".
+• Google Agenda (uma vez só): ☰ → Configurações → sua conta → Eventos →
+  Notificação padrão → 1 hora antes.
+
+MENSAGENS NO WHATSAPP (vão prontas, é só apertar enviar)
+• 💬 Confirmar: mensagem de confirmação com endereço e mapa.
+• Cartão verde 1h antes: lembrete para a cliente.
+• Cartão amarelo no dia seguinte: pós-atendimento.
+• Aniversário 🎂, "Hora de chamar de volta" e "Clientes sumidas 💔".
+• Textos e assinatura: ☰ Mais → Mensagens / WhatsApp Business.
+
+CLIENTES E FICHA
+• Clientes ficam salvas. Busca, filtros e estrelas (★★★ fiel).
+• Ficha: cuidados (pele sensível, ácido, gestante), cera preferida
+  (premium / tradicional), arco e henna, histórico, faltas, cartão fidelidade.
+• "➕ Lançar serviço feito / anotar procedimento": registra o que foi feito.
+• Autorização LGPD: necessária para guardar cuidados de saúde e fotos.
+
+FOTOS DO TRABALHO E INSTAGRAM (opcional)
+• Ligar em: ☰ Mais → 📷 Fotos do trabalho.
+• Foto: ⋯ do horário → "📷 Foto do trabalho" (só sobrancelha e rosto).
+  Na primeira vez o app pergunta se a cliente autorizou.
+• Postar: na ficha, embaixo da foto, "🔒 Postar? Pedir ok" → confirme SÓ se a
+  cliente autorizou postar → "📲 Postar" → escolha Instagram → cole a legenda
+  (ela já fica copiada). Legenda editável em ☰ Mais → 📷 Fotos do trabalho.
+• Postar na internet precisa de autorização separada de guardar a foto.
+
+CAIXA
+• Agendou → "A receber". ✅ Presente → "Recebido". Faltou/Cancelado não contam.
+• 🧴 Reserva p/ material: 20%, 25% ou 0% do recebido; mostra quanto fica para você.
+• "O que não entrou": cancelados e faltas do mês, com lista por dia.
+
+OUTROS
+• Serviços e preços: aba ✨ Serviços (toque no serviço para mudar preço/tempo).
+• 🎨 Aparência: ☰ Mais → sempre claro, sempre escuro ou igual ao celular.
+• ⋮ (três pontinhos no topo): instalar, compartilhar, atualizar o app.
+• Os dados ficam SÓ no celular. Não apague os dados do navegador.
+
+
+PARTE 2 — COMO SUBIR NO GITHUB (para o Luís)
+--------------------------------------------
 Arquivos (suba TODOS, soltos, sem pasta):
-  index.html          -> o app
-  manifest.json       -> permite instalar como aplicativo
-  sw.js               -> faz o app abrir sem internet e receber atualizações
-  papel-de-parede.png -> papel de parede (aparece em Mais > Meu estúdio)
+  index.html, manifest.json, sw.js, papel-de-parede.png,
   icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
-                      -> ícones do app (Android e iPhone)
+  (este LEIA-ME.txt é opcional)
 
 Passo a passo:
-  1. Crie um repositório (ex.: marisa-depilacao).
-  2. Add file > Upload files > selecione os 9 arquivos de uma vez.
-  3. Commit changes.
-  4. Settings > Pages > Branch: main / (root) > Save.
-  5. Abra o link https://SEU-USUARIO.github.io/marisa-depilacao/ no celular.
-  6. No app, toque em "Instalar".
+  1. Add file > Upload files > selecione os arquivos > Commit changes.
+  2. Settings > Pages > Branch: main / (root) > Save (só na primeira vez).
+  3. No celular: ⋮ → Atualizar app, até o rodapé mostrar a versão nova.
 
-Para atualizar depois (o Claude já faz isso a cada mudança):
-  - No index.html, na linha:
-      const APP_BUILD='45', APP_VERSAO_TXT='2.5', APP_DATA='01/10/2026'; // APP_VERSAO='45' ...
-    * APP_BUILD: número interno, sempre +1 (45 -> 46). O app usa ele para saber se tem versão nova.
-    * APP_VERSAO_TXT: a versão que aparece para a Marisa (2.5 -> 2.6 -> 2.7...).
-    * APP_DATA: data do dia.
-    * No comentário do fim, APP_VERSAO='45' ...mpanha o APP_BUILD (serve para celulares com versão antiga).
-  - No sw.js, a versão acompanha o APP_BUILD:  marisa-v45 -> marisa-v46
+Numeração (o Claude já faz isso a cada mudança):
+  No index.html, na linha:
+    const APP_BUILD='47', APP_VERSAO_TXT='2.7', APP_DATA='01/10/2026'; // APP_VERSAO='47' ...
+  * APP_BUILD: número interno, sempre +1 (47 -> 48). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (2.7 -> 2.8 -> 2.9...).
+  * APP_DATA: data do dia.
+  * O comentário APP_VERSAO='47' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v47 -> marisa-v48
+
+
+PARTE 3 — HISTÓRICO DE VERSÕES
+------------------------------
+2.7  Postar foto no Instagram (com autorização e legenda pronta).
+2.6  Cliente salva aparece ao digitar o nome (telefone automático); fotos do trabalho opcionais.
+2.5  "Por que alguns horários não aparecem?" nos horários livres.
+2.4  Tempo próprio para cada cliente (lapizinho ✏️).
+2.3  Reserva para material (20% / 25%).
+2.1–2.2  Cancelados e faltas no caixa.
+2.0  Aparência: claro / escuro / igual ao celular.
+1.9  Botão "Ver horários bloqueados" sempre visível.
+1.8  Lista de horários bloqueados e marca no calendário.
+1.7  Faixas dos dias e linhas mais escuras.
+1.6  Próximos dias separados por data.
+1.5  Aviso de horário de madrugada (3h → 15h) e aviso fora do expediente.
+1.4  Google Agenda.
+1.3  Dicas fechadas por padrão; papel de parede abre dentro do app.
+1.2  Presente / Faltou / Cancelado; sininho de lembrete 1h antes.
+1.1  Versão inicial publicada.
 
 Desenvolvido por Luís Ricardo de Almeida Siqueira
 © 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.

@@ -186,6 +186,15 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.foto-c{display:flex;flex-direction:column;gap:4px}
+.ig-b{border:0;border-radius:8px;padding:7px 2px;font-weight:800;font-size:.78rem;color:#fff;background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF)}
+.ig-aut{border:1.5px solid var(--linha);background:var(--card);color:var(--suave);border-radius:8px;padding:5px 2px;font-weight:700;font-size:.7rem}
+.ig-aut.on{border-color:var(--ok);color:var(--ok)}
+.sug-cli{display:grid;gap:6px;margin-top:6px}
+.sug-cli button{display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;border:1.5px solid var(--ameixa);background:var(--card);color:var(--texto);border-radius:12px;padding:11px 12px;font-size:.95rem}
+.sug-cli button span{color:var(--suave);font-size:.85rem;white-space:nowrap}
+.foto-trab{display:block;width:100%;text-align:left;border:1.5px solid var(--linha);background:var(--card);color:var(--texto);border-radius:14px;padding:14px;font-weight:800;font-size:1rem}
+.foto-trab input{display:none}
 .ocup-box{flex-basis:100%;background:var(--po);border-radius:12px;padding:10px 12px;margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
 .ocup-box b{flex-basis:100%;font-size:.9rem} .ocup-box span:not(.ocup){flex-basis:100%;font-size:.8rem;color:var(--suave)}
 .ocup{border:1.5px solid var(--ameixa)!important;color:var(--ameixa)!important;background:var(--card)!important;border-radius:10px;padding:6px 9px!important;font-weight:800;font-size:.8rem!important}
@@ -536,6 +545,9 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="reserva material comissao salao porcentagem 20 25 por cento fica para mim separar"><b>❓ Como separo a reserva para material?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🧴 Reserva p/ material</b> (onde ficava o ticket médio) → toque em <b>20%</b>, <b>25%</b> ou <b>0%</b>. O número grande é <b>quanto separar para material</b>, e embaixo, em verde, <b>quanto fica para você</b>. A conta é feita sobre o recebido.</p></div>
         <div class="faq" data-k="tempo demora minutos duracao lapis cliente demora mais menos"><b>❓ Esta cliente demora mais (ou menos). Como mudo o tempo?</b><p>No horário dela, toque em <b>⏱️ 13h às 13h30 · 30 min ✏️</b> e escolha o tempo (15 min, 45 min, 1h…) ou digite outro. Vale só para esse atendimento; a tabela de serviços não muda. Os horários livres se ajustam sozinhos. Ao marcar, também dá pra mudar no campo <b>⏱️ Tempo deste atendimento</b>.</p></div>
         <div class="faq" data-k="horario livre sumiu nao aparece ocupado 15h por que some"><b>❓ Um horário livre sumiu. Por quê?</b><p>O app esconde os horários que ficam <b>ocupados pelo tempo</b> das clientes já marcadas. Ex.: cliente às 13h30 com 4 serviços (1h40) ocupa até 15h10, então 14h e 14h30 somem. Ao abrir <b>🕐 Ver horários livres</b>, aparece embaixo <b>"Por que alguns horários não aparecem?"</b> com cada cliente e o horário que ela ocupa. Se ela demora menos, toque nela e diminua o tempo ✏️. Se precisar mesmo encaixar alguém, use <b>+ Agendar neste dia</b> e escolha a hora.</p></div>
+        <div class="faq" data-k="cliente salva telefone preencher automatico nome procurar contato"><b>❓ Preciso digitar o telefone toda vez?</b><p><b>Não.</b> A cliente fica salva depois do primeiro agendamento. Ao marcar, comece a digitar o nome: ela aparece <b>embaixo do campo</b> com o telefone. Toque nela e o WhatsApp é preenchido sozinho. Também dá pra abrir a ficha dela em <b>👩 Clientes</b> → <b>Agendar de novo</b>.</p></div>
+        <div class="faq" data-k="foto fotos camera trabalho antes depois registrar autorizacao instagram"><b>❓ Como tiro foto do meu trabalho?</b><p>Primeiro ligue em <b>☰ Mais → 📷 Fotos do trabalho</b>. Depois, nos <b>⋯</b> do horário (no dia ou depois), toque em <b>📷 Foto do trabalho</b>. Na primeira vez o app pergunta se a cliente <b>autorizou</b>. Só aparece para sobrancelha e rosto. A foto fica na ficha da cliente. Para postar, peça outra autorização.</p></div>
+        <div class="faq" data-k="instagram postar publicar story feed foto legenda"><b>❓ Como posto a foto no Instagram?</b><p>Na <b>ficha</b> da cliente, embaixo da foto, toque em <b>🔒 Postar? Pedir ok</b> e confirme <b>só se a cliente autorizou postar</b>. Aparece o botão <b>📲 Postar</b>: toque nele, escolha <b>Instagram</b> (Feed ou Story) e na legenda <b>cole</b> (a legenda pronta já fica copiada). A legenda pode ser mudada em <b>☰ Mais → 📷 Fotos do trabalho</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -606,6 +618,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Histórico:</b> todos os atendimentos, com data, serviço, valor e situação.</li>
               <li><b>➕ Lançar serviço feito / anotar procedimento:</b> registra um serviço que já foi feito (mesmo sem estar na agenda) e o que foi feito, por exemplo "virilha com cera premium, pele reagiu bem". Aparece no histórico e entra no caixa. O botão fica na ficha e também em <b>Editar ficha</b>.</li>
         <li><b>Cera preferida:</b> em Editar ficha, escolha <b>Cera premium</b> ou <b>Cera tradicional</b>.</li>
+        <li><b>📲 Postar no Instagram:</b> embaixo de cada foto, marque <b>"Pode postar"</b> só se a cliente autorizou. Depois toque em <b>📲 Postar</b>, escolha o Instagram e cole a legenda pronta.</li>
       </ul></div></details>
 
       <details class="dob"><summary>🔒 Autorização da cliente (LGPD)</summary><div class="cont"><ul>
@@ -670,6 +683,20 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <div class="duas"><div><select id="cfgAbre" class="sel-hora" aria-label="Primeiro horário"></select></div><div><select id="cfgFecha" class="sel-hora" aria-label="Último horário"></select></div></div>
       <p style="color:var(--suave);font-size:.82rem;margin-top:4px">Primeiro e último horário que aparecem como livres na agenda (de 30 em 30 minutos).</p>
       <div class="wall-prev"><img src="papel-de-parede.png" alt="" onerror="this.parentElement.style.display='none'"><div><b>Papel de parede</b><br><button class="chip" id="abrirWall" style="margin-top:6px">🖼️ Ver papel de parede</button></div></div>
+    </div></details>
+
+    <details class="dob"><summary>📷 Fotos do trabalho (opcional)</summary><div class="cont">
+      <p>Guarde fotos do seu trabalho (antes e depois) na ficha da cliente.</p>
+      <div class="sino-est" id="ftEst"></div>
+      <button class="btn" id="ftLigar"></button>
+      <div class="sino-nota"><b>Regras para proteger você e a cliente:</b><br>
+        • Só funciona com a <b>autorização da cliente</b>. O app pergunta antes da primeira foto.<br>
+        • Só aparece para <b>sobrancelha, henna, tintura, buço, rosto e limpeza de pele</b>. Áreas do corpo não têm foto, por privacidade.<br>
+        • As fotos ficam <b>só no seu celular</b>.<br>
+        • Para <b>postar no Instagram</b>, peça outra autorização à cliente.</div>
+      <label for="cfgLegenda">Legenda pronta para o Instagram</label>
+      <textarea id="cfgLegenda" rows="4"></textarea>
+      <p style="color:var(--suave);font-size:.82rem;margin:4px 0 0">Use <b>{servico}</b> para o nome do serviço. A legenda é copiada sozinha na hora de postar.</p>
     </div></details>
 
     <details class="dob"><summary>🎨 Aparência (claro ou escuro)</summary><div class="cont">
@@ -785,8 +812,9 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div class="puxador"></div>
   <h2 id="fTit">Novo agendamento</h2>
   <label for="fNome">Cliente</label>
-  <input id="fNome" list="dlCli" placeholder="Nome da cliente" autocomplete="off">
+  <input id="fNome" placeholder="Digite o nome (ela aparece embaixo)" autocomplete="off">
   <datalist id="dlCli"></datalist>
+  <div class="sug-cli" id="sugCli"></div>
   <label for="fTel">WhatsApp</label>
   <input id="fTel" type="tel" inputmode="tel" placeholder="(15) 99999-9999">
   <div class="duas">
@@ -1358,7 +1386,18 @@ function atualizaTotal(){
 }
 $('#fPromo').addEventListener('input',atualizaTotal);
 $('#fServ').addEventListener('change',atualizaTotal);
-$('#fNome').addEventListener('change',()=>{ const c=clientes().find(c=>c.nome===$('#fNome').value); if(c){$('#fTel').value=c.tel;} });
+const normN=t=>(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim();
+function acharCliente(nome){ const n=normN(nome); return n?clientes().find(c=>normN(c.nome)===n):null; }
+function escolherCliente(c){ $('#fNome').value=c.nome; $('#fTel').value=telFmt(c.tel); $('#sugCli').innerHTML=''; }
+$('#fNome').addEventListener('input',()=>{
+  const q=normN($('#fNome').value); const box=$('#sugCli');
+  const exata=acharCliente($('#fNome').value); if(exata&&!$('#fTel').value) $('#fTel').value=telFmt(exata.tel);
+  if(q.length<2){ box.innerHTML=''; return; }
+  const L=clientes().filter(c=>normN(c.nome).includes(q)).slice(0,5);
+  box.innerHTML=L.map(c=>`<button type="button" data-sugtel="${c.tel}">👤 <b>${c.nome}</b><span>${telFmt(c.tel)}</span></button>`).join('');
+});
+$('#fNome').addEventListener('change',()=>{ const c=acharCliente($('#fNome').value); if(c&&!$('#fTel').value) $('#fTel').value=telFmt(c.tel); });
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-sugtel]'); if(!b) return; const c=clientes().find(x=>x.tel===b.dataset.sugtel); if(c) escolherCliente(c); });
 let editId=null, modoFeito=false;
 function abrirLancar(c){ fecharFolhas(); abrir(HOJE); modoFeito=true; $('#fTit').textContent='Lançar serviço feito'; $('#salvar').textContent='Salvar serviço feito'; $('#lblObs').textContent='📝 O que foi feito (anotação)';
   $('#fNome').value=c.nome; $('#fTel').value=telFmt(c.tel); const n=new Date(); const hv=String(n.getHours()).padStart(2,'0')+':'+(n.getMinutes()<30?'00':'30'); garantirHora($('#fHora'),hv); $('#fHora').value=hv; }
@@ -1376,10 +1415,11 @@ function abrirEditar(id,soServ){
 }
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-editar]'); if(b) abrirEditar(b.dataset.editar,b.dataset.modo==='serv'); });
 function fechar(){ editId=null; $('#folha').classList.remove('aberta'); $('#fundo').classList.remove('aberta');
-  ['#fNome','#fTel','#fObs','#fPromo','#fMin'].forEach(s=>$(s).value=''); fMinManual=false; document.querySelectorAll('#fServ input').forEach(i=>i.checked=false); atualizaTotal(); }
+  ['#fNome','#fTel','#fObs','#fPromo','#fMin'].forEach(s=>$(s).value=''); $('#sugCli').innerHTML=''; fMinManual=false; document.querySelectorAll('#fServ input').forEach(i=>i.checked=false); atualizaTotal(); }
 $('#btnNovo').onclick=()=>abrir(diaSel); $('#cancelar').onclick=fechar; $('#fundo').onclick=fechar;
 $('#salvar').onclick=()=>{
   const serv=[...document.querySelectorAll('#fServ input:checked')].map(i=>i.value);
+  { const cx=acharCliente($('#fNome').value); if(cx&&$('#fTel').value.replace(/\D/g,'').length<10) $('#fTel').value=telFmt(cx.tel); }
   const nome=$('#fNome').value.trim(), tel=$('#fTel').value.replace(/\D/g,'');
   if(!nome) return aviso('Informe o nome da cliente');
   if(tel.length<10) return aviso('Informe o WhatsApp com DDD');
@@ -1527,7 +1567,7 @@ function abrirFicha(tel){
     <div class="bloco"><h3>Sobrancelha</h3>
       <p>Formato do arco: <b>${c.arco||'não informado'}</b></p>
       <p>Cor da henna: <b>${c.henna||'não informada'}</b></p>
-      ${fotos.length?`<div class="fotos">${fotos.map((f,i)=>`<div class="foto"><img src="${f.src}" alt="Foto ${f.leg} de ${dataBR(f.data)}"><span>${f.leg} ${dataBR(f.data)}</span><button aria-label="Apagar foto" data-apagafoto="${i}">✕</button></div>`).join('')}</div>`:'<p style="color:var(--suave)">Nenhuma foto ainda.</p>'}
+      ${fotos.length?`<div class="fotos">${fotos.map((f,i)=>`<div class="foto-c"><div class="foto"><img src="${f.src}" alt="Foto ${f.leg} de ${dataBR(f.data)}"><span>${f.leg} ${dataBR(f.data)}</span><button aria-label="Apagar foto" data-apagafoto="${i}">✕</button></div>${f.post?`<button class="ig-b" data-postar="${i}">📲 Postar</button><button class="ig-aut on" data-postaut="${i}">✅ Pode postar</button>`:`<button class="ig-aut" data-postaut="${i}">🔒 Postar? Pedir ok</button>`}</div>`).join('')}</div>`:'<p style="color:var(--suave)">Nenhuma foto ainda.</p>'}
       <div class="add-foto">
         <label>📷 Foto antes<input type="file" accept="image/*" capture="environment" data-novafoto="Antes"></label>
         <label>📷 Foto depois<input type="file" accept="image/*" capture="environment" data-novafoto="Depois"></label>
@@ -1825,7 +1865,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='45', APP_VERSAO_TXT='2.5', APP_DATA='01/10/2026'; // APP_VERSAO='45' (compatibilidade com versões antigas)
+const APP_BUILD='47', APP_VERSAO_TXT='2.7', APP_DATA='01/10/2026'; // APP_VERSAO='47' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1876,6 +1916,11 @@ function abrirOpc(id){
   if(!fora(a)) it.push(`<button data-editar="${a.id}" data-modo="serv">➕ Adicionar serviço</button>`);
   it.push(`<button data-editar="${a.id}">✏️ Mudar dia, hora ou dados</button>`);
   it.push(`<button data-ficha="${a.tel}">👤 Ver ficha da cliente</button>`);
+  if(CFG.fotosOn&&!fora(a)&&a.data<=HOJE&&fotoPermitida(a)){
+    it.push(cad(a.tel).lgpd
+      ? `<label class="foto-trab">📷 Foto do trabalho<input type="file" accept="image/*" capture="environment" data-fototrab="${a.id}"></label>`
+      : `<button data-fotoaut="${a.id}">📷 Foto do trabalho (precisa autorização)</button>`);
+  }
   if(a.feito) it.push(`<button data-feito="${a.id}">↩️ Desmarcar "presente"</button>`);
   if(a.cancelado) it.push(`<button data-cancel="${a.id}">↩️ Desfazer cancelamento</button>`);
   if(!a.feito&&!fora(a)){ it.push(`<button data-agcel="${a.id}" data-tipo="google">📅 Salvar no Google Agenda</button>`); if(ehIOS) it.push(`<button data-agcel="${a.id}" data-tipo="ios">🍎 Salvar no Calendário do iPhone</button>`); }
@@ -2010,7 +2055,7 @@ function agendaCelular(a,tipo){
 }
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-agcel]'); if(!b) return; const a=dados.find(x=>x.id==b.dataset.agcel); if(a){ fecharFolhas(); agendaCelular(a,b.dataset.tipo); } });
 
-$('#abrirWall').onclick=()=>abrirFolha('folhaWall');
+$('#abrirWall').onclick=()=>{ $('#wlTit').textContent='Papel de parede'; $('#folhaWall .dica').innerHTML='<b>Para salvar:</b> toque e segure na imagem → <b>Salvar imagem</b> (ou "Adicionar às Fotos"). Depois coloque como fundo do celular.'; $('#folhaWall img').src='papel-de-parede.png'; abrirFolha('folhaWall'); };
 $('#wlFechar').onclick=fecharFolhas;
 
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-pm]'); if(!b) return;
@@ -2103,8 +2148,64 @@ document.addEventListener('click',e=>{
 $('#tmSalvar').onclick=()=>salvarTempo(+$('#tmOutro').value);
 $('#tmTabela').onclick=()=>{ const a=dados.find(x=>x.id===tempoId); if(a) salvarTempo(duracaoTabela(a)); };
 
+// ===== Fotos do trabalho =====
+const FOTO_IDS=['s9','s4','s10'];
+const fotoPermitida = a => a.serv.some(i=>{ const x=sv(i); return x.cat==='Sobrancelha'||x.cat==='Estética'||FOTO_IDS.includes(i); });
+function atualizaFotos(){ const on=!!CFG.fotosOn; $('#ftEst').className='sino-est '+(on?'on':'off'); $('#ftEst').textContent=on?'📷 Fotos LIGADAS':'Fotos desligadas';
+  $('#ftLigar').textContent=on?'Desligar fotos':'📷 Ligar fotos do trabalho'; $('#ftLigar').style.background=on?'':'var(--ok)'; $('#ftLigar').style.color=on?'':'#fff'; }
+$('#ftLigar').onclick=()=>{ CFG.fotosOn=!CFG.fotosOn; salvarCfg(); atualizaFotos(); aviso(CFG.fotosOn?'Fotos ligadas. Aparecem nos ⋯ do horário 📷':'Fotos desligadas'); };
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-fotoaut]'); if(!b) return;
+  const a=dados.find(x=>x.id==b.dataset.fotoaut); if(!a) return;
+  if(confirm(`${a.nome.split(' ')[0]} autorizou guardar foto do trabalho no seu celular?\n\nOK = Sim, ela autorizou\nCancelar = Ainda não (peça pelo WhatsApp na ficha dela)`)){
+    CLI[a.tel]=CLI[a.tel]||{nome:a.nome,tel:a.tel,fotos:[],brindes:0}; CLI[a.tel].lgpd=CLI[a.tel].lgpd||HOJE; salvarCli(); abrirOpc(a.id); aviso('Autorização registrada ✓ Agora toque em 📷 Foto do trabalho');
+  } else { fecharFolhas(); abrirFicha(a.tel); aviso('Use "Pedir autorização no WhatsApp" na ficha'); }
+});
+document.addEventListener('change',async e=>{
+  const inp=e.target.closest('[data-fototrab]'); if(!inp||!inp.files[0]) return;
+  const a=dados.find(x=>x.id==inp.dataset.fototrab); if(!a) return;
+  try{
+    const src=await comprimir(inp.files[0]);
+    CLI[a.tel]=CLI[a.tel]||{nome:a.nome,tel:a.tel,fotos:[],brindes:0}; CLI[a.tel].fotos=CLI[a.tel].fotos||[];
+    CLI[a.tel].fotos.push({src,leg:a.serv.map(i=>sv(i).n).join(' + '),data:a.data});
+    if(!salvarCli()){ CLI[a.tel].fotos.pop(); return aviso('Memória do aparelho cheia. Apague fotos antigas na ficha.'); }
+    fecharFolhas(); render(); aviso('📷 Foto salva na ficha da cliente');
+  }catch(err){ aviso('Não foi possível abrir essa foto'); }
+});
+
+// ===== Postar no Instagram =====
+const LEGENDA_PADRAO='✨ {servico} feita com muito carinho 💕\n📍 Tatuí/SP · Agende pelo WhatsApp: {whats}\n{insta}';
+function legendaPara(f){
+  return (CFG.legenda||LEGENDA_PADRAO).replace(/\{servico\}/g,f.leg||'Atendimento').replace(/\{whats\}/g,CFG.whats?telFmt(CFG.whats):'').replace(/\{insta\}/g,CFG.insta?'@'+CFG.insta:'').trim();
+}
+$('#cfgLegenda').value=CFG.legenda||LEGENDA_PADRAO;
+$('#cfgLegenda').addEventListener('change',()=>{ CFG.legenda=$('#cfgLegenda').value.trim()||LEGENDA_PADRAO; salvarCfg(); aviso('Legenda salva ✓'); });
+async function copiarTexto(t){ try{ await navigator.clipboard.writeText(t); return true; }catch(e){ try{ const x=document.createElement('textarea'); x.value=t; document.body.appendChild(x); x.select(); const ok=document.execCommand('copy'); x.remove(); return ok; }catch(_){ return false; } } }
+document.addEventListener('click',async e=>{
+  const au=e.target.closest('[data-postaut]');
+  if(au){ const f=CLI[fichaTel].fotos[+au.dataset.postaut]; if(!f) return;
+    if(!f.post){ if(!confirm('A cliente autorizou POSTAR esta foto no Instagram?\n\n(É diferente de guardar no celular. Se não perguntou ainda, toque em Cancelar.)')) return; f.post=HOJE; }
+    else { if(!confirm('Tirar a autorização de postar esta foto?')) return; delete f.post; }
+    salvarCli(); abrirFicha(fichaTel); aviso(f.post?'Autorização para postar registrada ✓':'Autorização de postar retirada'); return; }
+  const po=e.target.closest('[data-postar]');
+  if(po){ const f=CLI[fichaTel].fotos[+po.dataset.postar]; if(!f||!f.post) return;
+    const leg=legendaPara(f); const copiou=await copiarTexto(leg);
+    try{
+      const blob=await (await fetch(f.src)).blob();
+      const arq=new File([blob],'marisa-trabalho.jpg',{type:'image/jpeg'});
+      if(navigator.canShare&&navigator.canShare({files:[arq]})){
+        aviso(copiou?'Legenda copiada! Escolha o Instagram e cole a legenda 📋':'Escolha o Instagram para postar');
+        await navigator.share({files:[arq],text:leg}); return;
+      }
+    }catch(err){ if(err&&err.name==='AbortError') return; }
+    $('#wlTit').textContent='Postar no Instagram';
+    $('#folhaWall .dica').innerHTML=`<b>1.</b> Toque e segure na foto → <b>Salvar imagem</b>.<br><b>2.</b> Abra o Instagram e poste a foto.<br><b>3.</b> ${copiou?'A legenda já está copiada: é só <b>colar</b>.':'Copie a legenda abaixo.'}<br><br><i style="white-space:pre-line">${leg}</i>`;
+    $('#folhaWall img').src=f.src; abrirFolha('folhaWall');
+  }
+});
+
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
+atualizaFotos();
 aplicarTema();
 atualizaSino();
 const _renderBase=render; render=function(){ _renderBase(); esconderVazios(); renderBotaoBloq(); if($('#folhaBloqLista').classList.contains('aberta')) abrirListaBloq(); };
