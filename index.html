@@ -186,6 +186,17 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.tempo-box{background:var(--card);border:1.5px solid var(--linha);border-radius:14px;padding:10px 12px;margin-top:10px}
+.tempo-box label{margin-top:0}
+.tempo-ctrl{display:grid;grid-template-columns:56px 1fr auto 56px;gap:8px;align-items:center}
+.tempo-ctrl button{border:1.5px solid var(--ameixa);background:transparent;color:var(--ameixa);border-radius:10px;padding:10px 0;font-weight:800;font-size:1rem}
+.tempo-ctrl input{text-align:center;font-size:1.2rem;font-weight:800}
+.tempo-box small{display:block;color:var(--suave);margin-top:4px;font-size:.8rem}
+.tempo-l{display:inline-flex;align-items:center;gap:6px;margin-top:4px;border:1.5px dashed var(--linha);background:transparent;color:var(--texto);border-radius:10px;padding:5px 10px;font-size:.88rem;font-weight:700}
+.tempo-l.pers{border-color:var(--mel);color:var(--mel)}
+.tempos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.tempos button{border:2px solid var(--linha);background:var(--card);color:var(--texto);border-radius:12px;padding:12px 0;font-weight:800;font-size:1rem}
+.tempos button[aria-pressed="true"]{border-color:var(--ameixa);background:var(--ameixa);color:#fff}
 .cx-com b{color:var(--mel)!important}
 .com-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:8px}
 .com-mini button{border:1.5px solid var(--linha);background:var(--fundo);color:var(--texto);border-radius:8px;padding:5px 0;font-weight:800;font-size:.78rem}
@@ -519,6 +530,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="claro escuro preto branco cor aparencia tema fundo noite dia"><b>❓ O app está escuro (ou claro). Como mudo?</b><p><b>☰ Mais</b> → <b>🎨 Aparência</b> → escolha <b>☀️ Sempre claro</b>, <b>🌙 Sempre escuro</b> ou <b>📱 Igual ao celular</b>. Muda na hora e não mexe nos dados.</p></div>
         <div class="faq" data-k="cancelados faltas lista ver perdeu nao entrou mes"><b>❓ Onde vejo quem cancelou ou faltou?</b><p>Aba <b>💰 Caixa</b> → <b>"O que não entrou"</b> mostra quantos cancelaram e faltaram no mês e quanto deixou de entrar. Toque em <b>📋 Ver cancelados e faltas</b> para ver a lista por dia (dá pra trocar o mês nas setinhas ‹ ›).</p></div>
         <div class="faq" data-k="reserva material comissao salao porcentagem 20 25 por cento fica para mim separar"><b>❓ Como separo a reserva para material?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🧴 Reserva p/ material</b> (onde ficava o ticket médio) → toque em <b>20%</b>, <b>25%</b> ou <b>0%</b>. O número grande é <b>quanto separar para material</b>, e embaixo, em verde, <b>quanto fica para você</b>. A conta é feita sobre o recebido.</p></div>
+        <div class="faq" data-k="tempo demora minutos duracao lapis cliente demora mais menos"><b>❓ Esta cliente demora mais (ou menos). Como mudo o tempo?</b><p>No horário dela, toque em <b>⏱️ 13h às 13h30 · 30 min ✏️</b> e escolha o tempo (15 min, 45 min, 1h…) ou digite outro. Vale só para esse atendimento; a tabela de serviços não muda. Os horários livres se ajustam sozinhos. Ao marcar, também dá pra mudar no campo <b>⏱️ Tempo deste atendimento</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -557,6 +569,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Os ⋯ de cada horário:</b> confirmar no WhatsApp, ➕ adicionar serviço, ✏️ mudar dia ou hora, 👤 ver ficha, ↩️ desfazer e 🗑️ excluir.</li>
         <li><b>💝 Promoção:</b> marcando 2 ou mais serviços, aparece o campo verde para colocar o valor combinado. Esse valor é o que entra no dia e no caixa.</li>
         <li><b>📝 Anotação:</b> no agendamento dá pra escrever o que vai ser feito ou alguma observação.</li>
+        <li><b>⏱️ Tempo de cada cliente:</b> toque no <b>⏱️ … ✏️</b> do horário para dizer quanto vai demorar (cada cliente pode ser diferente). Ao marcar, use o campo <b>⏱️ Tempo deste atendimento</b> com os botões −5 e +5.</li>
       </ul></div></details>
 
       <details class="dob"><summary>💬 Mensagens no WhatsApp</summary><div class="cont">
@@ -778,6 +791,11 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <label>Serviços</label>
   <div class="opc" id="fServ"></div>
   <div class="total" id="fTotal">Total: R$ 0,00 · 0 min</div>
+  <div class="tempo-box">
+    <label for="fMin">⏱️ Tempo deste atendimento ✏️</label>
+    <div class="tempo-ctrl"><button type="button" data-dmin="-5" aria-label="Menos 5 minutos">−5</button><input id="fMin" type="number" inputmode="numeric" min="5" step="5"><span>min</span><button type="button" data-dmin="5" aria-label="Mais 5 minutos">+5</button></div>
+    <small id="fMinDica">Vem da tabela de serviços. Mude se esta cliente demora mais ou menos.</small>
+  </div>
   <div class="promo-box" id="promoBox" hidden>
     <label for="fPromo">💝 Promoção: fez 2 ou mais? Coloque o valor que vai cobrar</label>
     <input id="fPromo" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex.: 90">
@@ -941,6 +959,18 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div id="cnLista"></div>
 </div>
 
+<div class="folha" id="folhaTempo" role="dialog" aria-modal="true" aria-labelledby="tmTit">
+  <div class="puxador"></div>
+  <h2 id="tmTit">⏱️ Tempo</h2>
+  <p class="dica" id="tmSub"></p>
+  <p style="font-weight:800;margin:6px 0 0">Quanto tempo vai demorar?</p>
+  <div class="tempos" id="tmBts"></div>
+  <label for="tmOutro">Outro tempo (minutos)</label>
+  <div class="tempo-ctrl"><button type="button" onclick="tmOutro.value=Math.max(5,(+tmOutro.value||0)-5)">−5</button><input id="tmOutro" type="number" inputmode="numeric" min="5" step="5"><span>min</span><button type="button" onclick="tmOutro.value=(+tmOutro.value||0)+5">+5</button></div>
+  <button class="btn" id="tmSalvar">Salvar tempo</button>
+  <button class="btn sec" id="tmTabela" hidden></button>
+</div>
+
 <div class="aviso" id="aviso" role="status"></div>
 
 <script>
@@ -1088,6 +1118,7 @@ function itemAgenda(a,mostrarDia){
       <div class="nome">${a.nome}${estrHTML(MAPA[a.tel])}${niverHoje(cad(a.tel))?' 🎂':''}${tags(a)}${a.falta?'<span class="tag falta">faltou</span>':a.cancelado?'<span class="tag falta">cancelado</span>':''}${a.avisado?'<span class="ok-av">✓ avisada</span>':''}</div>
       <div class="serv">${nomes} · ${a.promo!=null?`<s>${brl(valorCheio(a))}</s> <b style="color:var(--ok)">${brl(valor(a))}</b> 💝`:brl(valor(a))}</div>
       ${a.obs?`<div class="serv">📝 ${a.obs}</div>`:''}
+      ${fora(a)||a.feito?'':`<button class="tempo-l ${a.duracao?'pers':''}" data-tempo="${a.id}">⏱️ ${fmtH(a.hora)} às ${fmtH(fimH(a))} · ${duracao(a)} min ✏️</button>`}
       ${fora(a)?'':alertaCuid(a.tel)}
       ${!fora(a)&&!a.feito&&+a.hora.slice(0,2)<6?`<button class="cuid" data-pm="${a.id}">⚠️ ${fmtH(a.hora)} é de madrugada. Era ${fmtH(String(+a.hora.slice(0,2)+12).padStart(2,'0')+a.hora.slice(2))} (da tarde)? Toque aqui para corrigir</button>`:''}
       <div class="acoes">
@@ -1310,11 +1341,14 @@ document.addEventListener('click',e=>{
 function montarServForm(){ $('#fServ').innerHTML=ativos().map(s=>`<input type="checkbox" id="c${s.id}" value="${s.id}"><label for="c${s.id}">${s.n}</label>`).join(''); }
 montarServForm();
 function lerPromo(cheio){ const v=parseFloat(String($('#fPromo').value).replace(',','.')); return (!isNaN(v)&&v>=0&&v<cheio)?Math.round(v*100)/100:null; }
+let fMinManual=false;
 function atualizaTotal(){
   const sel=[...document.querySelectorAll('#fServ input:checked')].map(i=>sv(i.value));
   const cheio=sel.reduce((t,s)=>t+s.p,0), min=sel.reduce((t,s)=>t+s.m,0);
   $('#promoBox').hidden=sel.length<2; if(sel.length<2) $('#fPromo').value='';
   const pr=sel.length>=2?lerPromo(cheio):null;
+  if(!fMinManual) $('#fMin').value=min||'';
+  $('#fMinDica').textContent=fMinManual&&+$('#fMin').value!==min?`Tempo mudado (na tabela seria ${min} min).`:'Vem da tabela de serviços. Mude se esta cliente demora mais ou menos.';
   $('#fTotal').innerHTML = pr!=null ? `Total: <s style="opacity:.6">${brl(cheio)}</s> <span style="color:var(--ok)">${brl(pr)} 💝</span> · ${min} min` : `Total: ${brl(cheio)} · ${min} min`;
 }
 $('#fPromo').addEventListener('input',atualizaTotal);
@@ -1323,7 +1357,7 @@ $('#fNome').addEventListener('change',()=>{ const c=clientes().find(c=>c.nome===
 let editId=null, modoFeito=false;
 function abrirLancar(c){ fecharFolhas(); abrir(HOJE); modoFeito=true; $('#fTit').textContent='Lançar serviço feito'; $('#salvar').textContent='Salvar serviço feito'; $('#lblObs').textContent='📝 O que foi feito (anotação)';
   $('#fNome').value=c.nome; $('#fTel').value=telFmt(c.tel); const n=new Date(); const hv=String(n.getHours()).padStart(2,'0')+':'+(n.getMinutes()<30?'00':'30'); garantirHora($('#fHora'),hv); $('#fHora').value=hv; }
-function abrir(data,hora){ editId=null; modoFeito=false; $('#lblObs').textContent='📝 Anotação (opcional)'; $('#fTit').textContent='Novo agendamento'; $('#salvar').textContent='Salvar agendamento'; montarServForm(); atualizaTotal(); $('#fData').value=(typeof data==='string'?data:null)||diaSel||HOJE; if(typeof hora==='string'){ garantirHora($('#fHora'),hora); $('#fHora').value=hora; } $('#folha').classList.add('aberta'); $('#fundo').classList.add('aberta'); setTimeout(()=>$('#fNome').focus(),250); }
+function abrir(data,hora){ fMinManual=false; editId=null; modoFeito=false; $('#lblObs').textContent='📝 Anotação (opcional)'; $('#fTit').textContent='Novo agendamento'; $('#salvar').textContent='Salvar agendamento'; montarServForm(); atualizaTotal(); $('#fData').value=(typeof data==='string'?data:null)||diaSel||HOJE; if(typeof hora==='string'){ garantirHora($('#fHora'),hora); $('#fHora').value=hora; } $('#folha').classList.add('aberta'); $('#fundo').classList.add('aberta'); setTimeout(()=>$('#fNome').focus(),250); }
 function abrirEditar(id,soServ){
   const a=dados.find(x=>x.id==id); if(!a) return;
   abrir(a.data,a.hora); editId=a.id;
@@ -1331,12 +1365,13 @@ function abrirEditar(id,soServ){
   $('#fNome').value=a.nome; $('#fTel').value=telFmt(a.tel); $('#fObs').value=a.obs||'';
   a.serv.forEach(i=>{ const cb=document.getElementById('c'+i); if(cb) cb.checked=true; });
   $('#fPromo').value=a.promo!=null?a.promo:'';
+  if(a.duracao){ fMinManual=true; $('#fMin').value=a.duracao; } atualizaTotal();
   atualizaTotal();
   setTimeout(()=>{ document.activeElement&&document.activeElement.blur(); if(soServ) $('#fServ').scrollIntoView({block:'center'}); },300);
 }
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-editar]'); if(b) abrirEditar(b.dataset.editar,b.dataset.modo==='serv'); });
 function fechar(){ editId=null; $('#folha').classList.remove('aberta'); $('#fundo').classList.remove('aberta');
-  ['#fNome','#fTel','#fObs','#fPromo'].forEach(s=>$(s).value=''); document.querySelectorAll('#fServ input').forEach(i=>i.checked=false); atualizaTotal(); }
+  ['#fNome','#fTel','#fObs','#fPromo','#fMin'].forEach(s=>$(s).value=''); fMinManual=false; document.querySelectorAll('#fServ input').forEach(i=>i.checked=false); atualizaTotal(); }
 $('#btnNovo').onclick=()=>abrir(diaSel); $('#cancelar').onclick=fechar; $('#fundo').onclick=fechar;
 $('#salvar').onclick=()=>{
   const serv=[...document.querySelectorAll('#fServ input:checked')].map(i=>i.value);
@@ -1355,11 +1390,12 @@ $('#salvar').onclick=()=>{
     const precoAnt={}; a.serv.forEach((i,k)=>precoAnt[i]=a.precos?a.precos[k]:sv(i).p);
     Object.assign(a,{nome,tel,data:$('#fData').value,hora:$('#fHora').value,serv,precos:serv.map(i=>i in precoAnt?precoAnt[i]:sv(i).p),obs:$('#fObs').value.trim()});
     a.promo=serv.length>=2?lerPromo(valorCheio(a)):null;
+    { const dm=+$('#fMin').value; if(fMinManual&&dm>0&&dm!==duracaoTabela(a)) a.duracao=dm; else delete a.duracao; }
     diaSel=a.data; mesVis=new Date(a.data.slice(0,7)+'-01T12:00');
     salvar(); fechar(); render(); return aviso('Horário atualizado ✓');
   }
   dados.push({id:Date.now(),nome,tel,data:$('#fData').value,hora:$('#fHora').value,serv,precos:serv.map(i=>sv(i).p),feito:modoFeito,obs:$('#fObs').value.trim()});
-  { const nv=dados[dados.length-1]; nv.promo=serv.length>=2?lerPromo(valorCheio(nv)):null; }
+  { const nv=dados[dados.length-1]; nv.promo=serv.length>=2?lerPromo(valorCheio(nv)):null; const dm=+$('#fMin').value; if(fMinManual&&dm>0&&dm!==duracaoTabela(nv)) nv.duracao=dm; }
   if(!CLI[tel]){ CLI[tel]={nome,tel,nasc:'',sens:false,acido:false,gest:false,cera:'Sem preferência',obs:'',arco:'',henna:'',fotos:[],brindes:0}; salvarCli(); }
   const diaMarcado=$('#fData').value; diaSel=diaMarcado; mesVis=new Date(diaMarcado.slice(0,7)+'-01T12:00');
   const eraFeito=modoFeito, novo=dados[dados.length-1]; salvar(); fechar(); render(); aviso(eraFeito?'Serviço lançado ✓':'Agendamento salvo');
@@ -1616,7 +1652,9 @@ let diaSel=HOJE, mesVis=new Date(HOJE.slice(0,7)+'-01T12:00');
 const PASSO=30;
 const min = h => { const [a,b]=h.split(':').map(Number); return a*60+b; };
 const hhmm = m => String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
-const duracao = a => a.serv.reduce((t,i)=>t+(sv(i).m||30),0)||30;
+const duracaoTabela = a => a.serv.reduce((t,i)=>t+(sv(i).m||30),0)||30;
+const duracao = a => (a.duracao? +a.duracao : duracaoTabela(a));
+const fimH = a => { const m=mm(a.hora)+duracao(a); return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); };
 function livresDo(dia){
   if(diaBloqueado(dia)) return [];
   const ocup=dados.filter(a=>a.data===dia&&!fora(a)).map(a=>[min(a.hora),min(a.hora)+duracao(a)])
@@ -1778,7 +1816,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='43', APP_VERSAO_TXT='2.3', APP_DATA='01/10/2026'; // APP_VERSAO='43' (compatibilidade com versões antigas)
+const APP_BUILD='44', APP_VERSAO_TXT='2.4', APP_DATA='01/10/2026'; // APP_VERSAO='44' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2023,6 +2061,38 @@ $('#verCanc').onclick=()=>{ cnMes=HOJE.slice(0,7); abrirCanc(); };
 $('#cnAnt').onclick=()=>{ const d=new Date(cnMes+'-15T12:00'); d.setMonth(d.getMonth()-1); cnMes=iso(d).slice(0,7); abrirCanc(); };
 $('#cnProx').onclick=()=>{ const d=new Date(cnMes+'-15T12:00'); d.setMonth(d.getMonth()+1); cnMes=iso(d).slice(0,7); abrirCanc(); };
 $('#comBts').addEventListener('click',e=>{ const b=e.target.closest('[data-com]'); if(!b) return; CFG.comissao=+b.dataset.com; salvarCfg(); render(); aviso(CFG.comissao?`Reserva para material: ${CFG.comissao}% ✓`:'Sem reserva para material'); });
+
+$('#fMin').addEventListener('input',()=>{ fMinManual=true; atualizaTotal(); });
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-dmin]'); if(!b) return;
+  const v=Math.max(5,(+$('#fMin').value||0)+(+b.dataset.dmin)); $('#fMin').value=v; fMinManual=true; atualizaTotal(); });
+
+// ===== Lapizinho do tempo no horário =====
+let tempoId=null;
+function abrirTempo(id){
+  const a=dados.find(x=>x.id==id); if(!a) return; tempoId=a.id;
+  $('#tmTit').textContent=`⏱️ Tempo de ${a.nome.split(' ')[0]}`;
+  $('#tmSub').textContent=`${a.serv.map(i=>sv(i).n).join(' + ')} · começa às ${fmtH(a.hora)}`;
+  const atual=duracao(a);
+  $('#tmBts').innerHTML=[15,20,30,40,45,60,75,90,120].map(m=>`<button data-tmin="${m}" aria-pressed="${m===atual}">${m<60?m+' min':(m%60?Math.floor(m/60)+'h'+(m%60):m/60+'h')}</button>`).join('');
+  $('#tmOutro').value=atual;
+  $('#tmTabela').textContent=`↩️ Voltar ao tempo da tabela (${duracaoTabela(a)} min)`; $('#tmTabela').hidden=!a.duracao;
+  abrirFolha('folhaTempo');
+}
+function salvarTempo(min){
+  const a=dados.find(x=>x.id===tempoId); if(!a||!(min>0)) return;
+  const fim=mm(a.hora)+min;
+  const choca=dados.find(x=>x.id!==a.id&&x.data===a.data&&!fora(x)&&mm(x.hora)>=mm(a.hora)&&mm(x.hora)<fim);
+  if(choca&&!confirm(`Com ${min} min, vai até ${fmtH(String(Math.floor(fim/60)).padStart(2,'0')+':'+String(fim%60).padStart(2,'0'))} e encosta na ${choca.nome.split(' ')[0]} das ${fmtH(choca.hora)}. Salvar mesmo assim?`)) return;
+  if(min===duracaoTabela(a)) delete a.duracao; else a.duracao=min;
+  salvar(); fecharFolhas(); render(); aviso(`Tempo de ${a.nome.split(' ')[0]}: ${min} min ✓`);
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-tempo]'); if(t) abrirTempo(t.dataset.tempo);
+  const b=e.target.closest('[data-tmin]'); if(b) salvarTempo(+b.dataset.tmin);
+});
+
+$('#tmSalvar').onclick=()=>salvarTempo(+$('#tmOutro').value);
+$('#tmTabela').onclick=()=>{ const a=dados.find(x=>x.id===tempoId); if(a) salvarTempo(duracaoTabela(a)); };
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
