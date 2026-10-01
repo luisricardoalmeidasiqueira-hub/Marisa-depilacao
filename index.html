@@ -1709,7 +1709,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='38', APP_VERSAO_TXT='1.8', APP_DATA='30/09/2026'; // APP_VERSAO='38' (compatibilidade com versões antigas)
+const APP_BUILD='39', APP_VERSAO_TXT='1.9', APP_DATA='01/10/2026'; // APP_VERSAO='39' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1905,7 +1905,7 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-pm]'); if
 
 // ===== Lista de bloqueios =====
 function bloqFuturos(){ return BLOQ.filter(b=>b.data>=HOJE).sort((x,y)=>(x.data+x.de).localeCompare(y.data+y.de)); }
-function renderBotaoBloq(){ const n=bloqFuturos().length; const b=$('#verBloqueios'); b.hidden=!n; b.textContent=`📋 Ver horários bloqueados (${n})`; }
+function renderBotaoBloq(){ const n=bloqFuturos().length; const b=$('#verBloqueios'); b.hidden=false; b.textContent=n?`📋 Ver horários bloqueados (${n})`:'📋 Ver horários bloqueados'; }
 function abrirListaBloq(){
   const L=bloqFuturos(); let ant='', h='';
   L.forEach(b=>{
@@ -1913,7 +1913,7 @@ function abrirListaBloq(){
     h+=`<div class="bl-item"><div><b>${b.diaTodo?'Dia inteiro':'Das '+fmtH(b.de)+' às '+fmtH(b.ate)}</b><span>${b.motivo||'Sem motivo anotado'}</span></div>
       <div class="bts"><button data-irdia="${b.data}">Ver dia</button><button data-desbloq="${b.id}" style="color:var(--alerta);border-color:var(--alerta)">Liberar</button></div></div>`;
   });
-  $('#blLista').innerHTML=h||'<div class="vazio">Nenhum horário bloqueado.</div>';
+  $('#blLista').innerHTML=h||'<div class="vazio">Nenhum horário bloqueado por enquanto.<br>Para bloquear, toque em <b>🚫 Bloquear horário</b>.</div>';
   abrirFolha('folhaBloqLista');
 }
 $('#verBloqueios').onclick=abrirListaBloq;
