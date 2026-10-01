@@ -156,8 +156,8 @@ button{cursor:pointer}
 
 /* Barra inferior */
 nav.abas{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--linha);padding-bottom:env(safe-area-inset-bottom,0px);z-index:10}
-nav.abas .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
-nav.abas button{background:none;border:0;padding:8px 2px 10px;font-size:.72rem;font-weight:700;color:var(--suave);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.abas .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
+nav.abas button{position:relative;background:none;border:0;padding:8px 0 10px;font-size:.66rem;white-space:nowrap;font-weight:700;color:var(--suave);display:flex;flex-direction:column;align-items:center;gap:2px}
 nav.abas button .ic{font-size:1.3rem}
 nav.abas button[aria-current="page"]{color:var(--ameixa)}
 nav.abas .mais{margin-top:-18px}
@@ -192,6 +192,11 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.nav-badge{position:absolute;top:0;left:calc(50% + 6px);min-width:18px;height:18px;border-radius:9px;background:var(--alerta);color:#fff;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 5px;box-shadow:0 0 0 2px var(--card)}
+.nav-badge.hoje{animation:pulsaBadge 1.6s ease-in-out infinite}
+@keyframes pulsaBadge{50%{transform:scale(1.18)}}
+@media (prefers-reduced-motion:reduce){.nav-badge.hoje{animation:none}}
+.btn-servs{width:100%;border:1.5px solid var(--linha);background:var(--card);color:var(--texto);border-radius:14px;padding:13px;font-weight:800;font-size:1rem;margin:0 0 10px;text-align:left}
 .sino-pag{width:100%;border:2px solid var(--linha);background:var(--card);color:var(--texto);border-radius:14px;padding:11px 12px;font-weight:800;font-size:.95rem;margin:8px 0 2px;text-align:left}
 .sino-pag.on{border-color:var(--ok);background:#E9F6EE;color:#1D4D33}
 .sino-pag small{display:block;font-weight:400;font-size:.8rem;opacity:.85}
@@ -522,7 +527,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <button class="btn-dia" id="agendarDia">+ Agendar neste dia</button>
     <button class="btn-zaplivres" id="zapLivres">💬 Mandar horários livres no WhatsApp</button>
     <div class="dois-bts"><button class="btn-lemb" id="novoLembrete">📝 Lembrete<br><small>médico, compromisso</small></button><button class="btn-bloq" id="bloquearDia">🚫 Bloquear<br><small>horário ou dia</small></button></div>
-    <button class="btn-pags" id="btnPags">💸 Pagamentos a receber</button>
+    <button class="btn-pags" id="btnPags" hidden>💸 Pagamentos a receber</button>
     <button class="btn-verbloq" id="verBloqueios" hidden></button>
     <div id="bloqDia"></div>
     <div class="livres-tit" id="livresTit">Horários livres (toque para marcar)</div>
@@ -572,6 +577,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <!-- CAIXA -->
   <section class="tela" id="t-mais">
     <div class="secao"><h2>Mais</h2></div>
+    <button class="btn-servs" id="abrirServs">✨ Serviços e preços <small style="font-weight:400;color:var(--suave)">(mudar valor, tempo, adicionar serviço)</small></button>
 
     <details class="dob"><summary>📖 Como usar o app</summary><div class="cont">
       <div class="busca-ajuda"><input id="buscaAjuda" type="search" placeholder="🔍 Procure sua dúvida: faltou, preço, instalar…" aria-label="Procurar dúvida"></div>
@@ -614,10 +620,10 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="mandar horarios livres whatsapp cliente escolher agendar sozinha riscar nao oferecer alguns escolher quais noite trabalha 18h 19h"><b>❓ Como mando os horários livres para a cliente? Dá pra não mandar alguns?</b><p>Toque no dia → <b>💬 Mandar horários livres no WhatsApp</b>. Abre a lista dos horários livres (todos verdes). <b>Toque para riscar</b> um por um os que você não quer oferecer para essa cliente (ex.: só o 19h30). Atalhos: <b>🌙 Sem noite</b> risca de 18h em diante; <b>☀️ Só manhã</b>, <b>🌤️ Só tarde</b>, <b>✅ Todos</b> (volta tudo) e <b>Nenhum</b>. Tocou errado? Toque de novo no horário que ele volta. Depois <b>💬 Mandar no WhatsApp</b> e escolha a cliente. <b>Riscar aqui não bloqueia a agenda</b>: na próxima cliente, todos os horários voltam. Quando ela responder, marque o horário no app.</p></div>
         <div class="faq" data-k="avaliar avaliacao nota estrela opiniao cliente gostou"><b>❓ Como peço e anoto a avaliação da cliente?</b><p>Depois de <b>✅ Presente</b>, toque em <b>⭐ Avaliar</b>. Toque em <b>💬 Pedir avaliação no WhatsApp</b> (a mensagem vai pronta). Quando ela responder, abra de novo, toque nas <b>estrelas</b> (1 a 5) e, se quiser, escreva o que ela falou. A mensagem de pós-atendimento do dia seguinte também já pede a nota. A média aparece na <b>ficha</b> e no <b>💰 Caixa</b>.</p></div>
         <div class="faq" data-k="lembrete lembrar medico compromisso anotar dia hora agenda pessoal"><b>❓ Como coloco um lembrete (médico, compromisso)?</b><p>Na agenda, toque em <b>📝 Lembrete</b> (ao lado do Bloquear). Escreva o que é, escolha o <b>dia</b> e o <b>horário</b> (ou "Sem horário"). Se quiser que ninguém marque nesse horário, marque <b>🚫 Também bloquear a agenda</b>. No dia, aparece um quadro azul <b>📝 Lembretes</b> no topo da agenda (com ✓ para marcar como feito e 📅 para salvar no Google Agenda). No calendário, o dia ganha uma <b>bolinha azul</b>. Com o sininho 🔔 ligado, o celular avisa 1 hora antes.</p></div>
-        <div class="faq" data-k="fiado pagar depois prazo vai pagar depois devendo divida antiga antes do app lancar"><b>❓ A cliente vai pagar depois. E quem já devia antes do app?</b><p><b>Atendimento que ela vai pagar depois:</b> depois de ✅ Presente, toque em <b>💵 Pago</b> → <b>🕒 Vai pagar depois</b>; se combinou uma data, coloque em <b>"Combinou pagar até"</b>. <b>Quem já devia antes do app:</b> na agenda, toque em <b>💸 Pagamentos a receber</b> → <b>➕ Lançar pagamento a receber</b> (também tem em Clientes, no Caixa e na ficha). No dia combinado aparece um quadro vermelho <b>"Combinou pagar hoje"</b> na agenda. Tudo aparece em <b>Clientes → 💸 A receber</b>.</p></div>
-        <div class="faq" data-k="pagamentos quem deve devendo receber central lista fiado"><b>❓ Onde vejo os pagamentos que tenho a receber?</b><p>Na agenda, toque no botão vermelho <b>💸 Pagamentos a receber</b> (embaixo do Lembrete e do Bloquear). Mostra o total pendente e cada cliente com o que deve. Toque em <b>Receber</b> quando ela pagar. Ali também tem <b>➕ Lançar pagamento a receber</b>.</p></div>
-        <div class="faq" data-k="aviso pagamento sininho lembrar receber dia combinado cobrar notificacao"><b>❓ O app me avisa no dia que a cliente combinou pagar?</b><p><b>Sim.</b> Quando você coloca a data em <b>"Combinou pagar até"</b>, no dia o celular avisa (com o sininho de pagamento ligado) e o botão <b>💸 Pagamentos a receber</b> fica <b>vermelho com 🔔</b>, mostrando quantos são pra hoje. O sininho fica dentro de <b>💸 Pagamentos a receber</b> (já vem ligado). Para aviso garantido mesmo com o app fechado, no pagamento toque em <b>📅 Lembrete no Google Agenda</b>.</p></div>
-        <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
+        <div class="faq" data-k="fiado pagar depois prazo vai pagar depois devendo divida antiga antes do app lancar"><b>❓ A cliente vai pagar depois. E quem já devia antes do app?</b><p><b>Atendimento que ela vai pagar depois:</b> depois de ✅ Presente, toque em <b>💵 Pago</b> → <b>🕒 Vai pagar depois</b>; se combinou uma data, coloque em <b>"Combinou pagar até"</b>. <b>Quem já devia antes do app:</b> toque em <b>💸 A receber</b> (barra de baixo) → <b>➕ Lançar pagamento a receber</b> (também tem em Clientes, no Caixa e na ficha). No dia combinado aparece um quadro vermelho <b>"Combinou pagar hoje"</b> na agenda. Tudo aparece em <b>Clientes → 💸 A receber</b>.</p></div>
+        <div class="faq" data-k="pagamentos quem deve devendo receber central lista fiado"><b>❓ Onde vejo os pagamentos que tenho a receber?</b><p>Toque em <b>💸 A receber</b>, na barra de baixo (o número vermelho mostra quantas clientes; fica com 🔔 quando alguém combinou pagar hoje). Mostra o total pendente e cada cliente com o que deve. Toque em <b>Receber</b> quando ela pagar. Ali também tem <b>➕ Lançar pagamento a receber</b>.</p></div>
+        <div class="faq" data-k="aviso pagamento sininho lembrar receber dia combinado cobrar notificacao"><b>❓ O app me avisa no dia que a cliente combinou pagar?</b><p><b>Sim.</b> Quando você coloca a data em <b>"Combinou pagar até"</b>, no dia o celular avisa (com o sininho de pagamento ligado) e o <b>💸 A receber</b> da barra de baixo ganha um <b>🔔 vermelho piscando</b>. O sininho de pagamento fica dentro de <b>💸 A receber</b> (já vem ligado). Para aviso garantido mesmo com o app fechado, no pagamento toque em <b>📅 Lembrete no Google Agenda</b>.</p></div>
+        <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
         <div class="faq" data-k="horario atendimento abre fecha 7h cedo tarde"><b>❓ Como mudo o horário que eu atendo?</b><p><b>☰ Mais</b> → <b>📍 Meu estúdio</b> → <b>Horário de atendimento</b>.</p></div>
@@ -628,7 +634,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <p style="font-weight:800;margin-top:16px">Primeiros passos</p>
         <ol>
         <li><b>Instale o app:</b> toque em <b>Instalar</b> na faixa amarela do topo ou nos <b>⋮ três pontinhos → Instalar app</b>. No Android com Chrome instala na hora. No iPhone (Safari ou Chrome) aparecem 3 passos simples. Depois, abra sempre pelo ícone.</li>
-        <li><b>Confira os preços:</b> na aba <b>Serviços</b>, ajuste valores e tempos para os do seu estúdio.</li>
+        <li><b>Confira os preços:</b> em <b>✨ Serviços</b> (barra de baixo), ajuste valores e tempos para os do seu estúdio.</li>
         <li><b>Dados do estúdio:</b> em <b>Mais → 📍 Meu estúdio</b> estão o endereço, o WhatsApp e o Instagram. O endereço, com o link do mapa, vai junto nas mensagens de confirmação e lembrete (dá pra desligar ali).</li>
         <li><b>Papel de parede:</b> também em <b>Meu estúdio</b>. Toque em <b>🖼️ Ver papel de parede</b>, toque e segure na imagem para salvar, e coloque como fundo do celular. Para sair, toque em <b>Voltar</b> ou no ✕.</li>
         <li><b>Assinatura:</b> em <b>Mais → WhatsApp Business</b>, confira o nome que vai no fim das mensagens.</li>
@@ -702,6 +708,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       </ul></div></details>
 
       <details class="dob"><summary>✨ Serviços e preços</summary><div class="cont"><ul>
+        <li>Fica na barra de baixo (<b>✨ Serviços</b>) e também em <b>☰ Mais → ✨ Serviços e preços</b>.</li>
         <li>Toque no serviço para mudar <b>nome, categoria, preço, tempo</b> e <b>em quantos dias é o retorno</b>.</li>
         <li><b>+ Adicionar serviço</b> cria um serviço novo. Para tirar um serviço, abra ele e toque em <b>Excluir serviço</b>.</li>
         <li>Mudar o preço não altera os horários já marcados, que continuam com o valor combinado.</li>
@@ -711,7 +718,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       </ul></div></details>
 
       <details class="dob"><summary>💰 Caixa</summary><div class="cont"><ul>
-        <li><b>Salvar um serviço na aba Serviços não põe dinheiro no caixa.</b> Lá é só a tabela de preços.</li>
+        <li><b>Salvar um serviço em Serviços e preços não põe dinheiro no caixa.</b> Lá é só a tabela de preços.</li>
         <li><b>Agendou a cliente</b> → o valor aparece em <b>A receber</b>.</li>
         <li><b>Tocou em ✅ Presente</b> → o valor passa para <b>Recebido</b>.</li>
         <li><b>Tocou em ❌ Faltou</b> → o valor sai do caixa e não conta.</li>
@@ -881,6 +888,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div class="in">
     <button data-t="agenda" aria-current="page"><span class="ic">📅</span>Agenda</button>
     <button data-t="servicos"><span class="ic">✨</span>Serviços</button>
+    <button id="navPags" type="button"><span class="ic">💸</span>A receber<span class="nav-badge" id="navBadge" hidden></span></button>
     <button class="mais" id="btnNovo" aria-label="Novo agendamento"><span class="ic">+</span>Agendar</button>
     <button data-t="clientes"><span class="ic">👩</span>Clientes</button>
     <button data-t="caixa"><span class="ic">💰</span>Caixa</button>
@@ -2086,7 +2094,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='60', APP_VERSAO_TXT='4.0', APP_DATA='01/10/2026'; // APP_VERSAO='60' (compatibilidade com versões antigas)
+const APP_BUILD='62', APP_VERSAO_TXT='4.2', APP_DATA='01/10/2026'; // APP_VERSAO='62' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2601,6 +2609,7 @@ function pendencias(){
 }
 const avisoPagOn=()=>CFG.avisoPag!==false;
 function renderBtnPags(){ const L=pendencias(), t=L.reduce((s,x)=>s+x.v,0), hj=L.filter(x=>x.vence&&x.vence<=HOJE).length;
+  { const nb=$('#navBadge'), n=new Set(L.map(x=>x.tel)).size; nb.hidden=!n; nb.textContent=hj&&avisoPagOn()?'🔔':n; nb.classList.toggle('hoje',!!hj&&avisoPagOn()); }
   const b=$('#btnPags'); b.textContent=t?`${hj&&avisoPagOn()?'🔔 ':''}💸 Pagamentos a receber · ${brl(t)}${hj?` · ${hj} pra hoje`:''}`:'💸 Pagamentos a receber';
   b.classList.toggle('hoje',!!hj&&avisoPagOn()); }
 function pintaSinoPag(){ const on=avisoPagOn(); const b=$('#psSino'); b.classList.toggle('on',on);
@@ -2636,6 +2645,8 @@ function abrirPags(){
   abrirFolha('folhaPags');
 }
 $('#btnPags').onclick=abrirPags;
+$('#navPags').onclick=abrirPags;
+$('#abrirServs').onclick=()=>{ document.querySelectorAll('nav.abas [data-t]').forEach(x=>x.removeAttribute('aria-current')); document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa')); $('#t-servicos').classList.add('ativa'); window.scrollTo(0,0); };
 $('#psNovo').onclick=()=>abrirDiv(null);
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }

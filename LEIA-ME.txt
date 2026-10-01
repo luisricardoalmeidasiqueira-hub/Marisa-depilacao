@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 4.0 (01/10/2026)
+App de agenda para celular · Versão 4.2 (01/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -84,16 +84,16 @@ FOTOS DO TRABALHO E INSTAGRAM (opcional)
 • Postar na internet precisa de autorização separada de guardar a foto.
 
 PAGAMENTOS A RECEBER / PAGAR DEPOIS
-• Na agenda, botão vermelho "💸 Pagamentos a receber" (embaixo do Lembrete e do
-  Bloquear): mostra quem deve, quanto, e o botão "Receber". Ali também tem
-  "➕ Lançar pagamento a receber".
+• Barra de baixo: "💸 A receber" (o número vermelho = quantas clientes devem;
+  fica com 🔔 piscando quando alguém combinou pagar hoje). Mostra quem deve,
+  quanto, e o botão "Receber". Ali também tem "➕ Lançar pagamento a receber".
 • Atendimento que ela vai pagar depois: ✅ Presente → "💵 Pago" →
   "🕒 Vai pagar depois". Se combinou data, preencha "Combinou pagar até".
 • Cliente que JÁ DEVIA antes do app: aba 👩 Clientes → botão vermelho
   "➕ Lançar pagamento a receber" (também no Caixa e na ficha da cliente).
 • No dia combinado aparece na agenda o quadro vermelho "Combinou pagar hoje".
 • 🔔 Aviso de pagamento (já vem ligado; fica dentro de "💸 Pagamentos a receber"):
-  no dia combinado o celular avisa e o botão fica vermelho com 🔔.
+  no dia combinado o celular avisa e o "💸 A receber" da barra de baixo fica com 🔔.
   Aviso garantido com o app fechado: no pagamento, "📅 Lembrete no Google Agenda".
 • Quando ela pagar: "Receber" → "✅ Pagou tudo" (ou o valor que pagou).
 
@@ -117,7 +117,7 @@ CAIXA
 • "O que não entrou": cancelados e faltas do mês, com lista por dia.
 
 OUTROS
-• Serviços e preços: aba ✨ Serviços (toque no serviço para mudar preço/tempo).
+• Serviços e preços: ✨ Serviços na barra de baixo (ou ☰ Mais → ✨ Serviços e preços).
 • 🎨 Aparência: ☰ Mais → sempre claro, sempre escuro ou igual ao celular.
 • ⋮ (três pontinhos no topo): instalar, compartilhar, atualizar o app.
 • Os dados ficam SÓ no celular. Não apague os dados do navegador.
@@ -137,16 +137,18 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='60', APP_VERSAO_TXT='4.0', APP_DATA='01/10/2026'; // APP_VERSAO='60' ...
-  * APP_BUILD: número interno, sempre +1 (60 -> 61). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.0 -> 4.1 -> 4.2...).
+    const APP_BUILD='62', APP_VERSAO_TXT='4.2', APP_DATA='01/10/2026'; // APP_VERSAO='62' ...
+  * APP_BUILD: número interno, sempre +1 (62 -> 63). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.2 -> 4.3 -> 4.4...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='60' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v60 -> marisa-v61
+  * O comentário APP_VERSAO='62' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v62 -> marisa-v63
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+4.2  Serviços voltou para a barra de baixo, junto com "💸 A receber".
+4.1  "💸 A receber" na barra de baixo; Serviços e preços foi para o ☰ Mais.
 4.0  Sininho de aviso nos pagamentos a receber (avisa no dia combinado).
 3.9  "Fiado" virou "Pagamentos a receber" / "Pagar depois" (nome mais leve).
 3.8  Botão "💸 Pagamentos a receber" na agenda (quem deve, receber, lançar).
