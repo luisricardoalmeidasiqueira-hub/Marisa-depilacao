@@ -186,6 +186,10 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.ocup-box{flex-basis:100%;background:var(--po);border-radius:12px;padding:10px 12px;margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+.ocup-box b{flex-basis:100%;font-size:.9rem} .ocup-box span:not(.ocup){flex-basis:100%;font-size:.8rem;color:var(--suave)}
+.ocup{border:1.5px solid var(--ameixa)!important;color:var(--ameixa)!important;background:var(--card)!important;border-radius:10px;padding:6px 9px!important;font-weight:800;font-size:.8rem!important}
+.ocup.bq{border-color:var(--alerta)!important;color:var(--alerta)!important}
 .tempo-box{background:var(--card);border:1.5px solid var(--linha);border-radius:14px;padding:10px 12px;margin-top:10px}
 .tempo-box label{margin-top:0}
 .tempo-ctrl{display:grid;grid-template-columns:56px 1fr auto 56px;gap:8px;align-items:center}
@@ -531,6 +535,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="cancelados faltas lista ver perdeu nao entrou mes"><b>❓ Onde vejo quem cancelou ou faltou?</b><p>Aba <b>💰 Caixa</b> → <b>"O que não entrou"</b> mostra quantos cancelaram e faltaram no mês e quanto deixou de entrar. Toque em <b>📋 Ver cancelados e faltas</b> para ver a lista por dia (dá pra trocar o mês nas setinhas ‹ ›).</p></div>
         <div class="faq" data-k="reserva material comissao salao porcentagem 20 25 por cento fica para mim separar"><b>❓ Como separo a reserva para material?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🧴 Reserva p/ material</b> (onde ficava o ticket médio) → toque em <b>20%</b>, <b>25%</b> ou <b>0%</b>. O número grande é <b>quanto separar para material</b>, e embaixo, em verde, <b>quanto fica para você</b>. A conta é feita sobre o recebido.</p></div>
         <div class="faq" data-k="tempo demora minutos duracao lapis cliente demora mais menos"><b>❓ Esta cliente demora mais (ou menos). Como mudo o tempo?</b><p>No horário dela, toque em <b>⏱️ 13h às 13h30 · 30 min ✏️</b> e escolha o tempo (15 min, 45 min, 1h…) ou digite outro. Vale só para esse atendimento; a tabela de serviços não muda. Os horários livres se ajustam sozinhos. Ao marcar, também dá pra mudar no campo <b>⏱️ Tempo deste atendimento</b>.</p></div>
+        <div class="faq" data-k="horario livre sumiu nao aparece ocupado 15h por que some"><b>❓ Um horário livre sumiu. Por quê?</b><p>O app esconde os horários que ficam <b>ocupados pelo tempo</b> das clientes já marcadas. Ex.: cliente às 13h30 com 4 serviços (1h40) ocupa até 15h10, então 14h e 14h30 somem. Ao abrir <b>🕐 Ver horários livres</b>, aparece embaixo <b>"Por que alguns horários não aparecem?"</b> com cada cliente e o horário que ela ocupa. Se ela demora menos, toque nela e diminua o tempo ✏️. Se precisar mesmo encaixar alguém, use <b>+ Agendar neste dia</b> e escolha a hora.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -1713,7 +1718,11 @@ function renderCal(){
   } else {
     $('#livresTit').textContent=passouHoje?'Os horários de hoje já acabaram. Escolha outro dia no calendário.':'Dia lotado, sem horários livres';
   }
-  $('#livres').innerHTML=livresAberto?liv.map(h=>`<button data-livre="${h}">${fmtH(h)}</button>`).join(''):'';
+  const ocupados=dados.filter(a=>a.data===diaSel&&!fora(a)).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)))
+    .map(a=>`<button class="ocup" data-tempo="${a.id}">🔒 ${fmtH(a.hora)}–${fmtH(fimH(a))} · ${a.nome.split(' ')[0]} ✏️</button>`)
+    .concat(bloqDo(diaSel).filter(b=>!b.diaTodo).map(b=>`<span class="ocup bq">🚫 ${fmtH(b.de)}–${fmtH(b.ate)} · ${b.motivo||'bloqueado'}</span>`));
+  $('#livres').innerHTML=livresAberto?liv.map(h=>`<button data-livre="${h}">${fmtH(h)}</button>`).join('')
+    +(ocupados.length?`<div class="ocup-box"><b>Por que alguns horários não aparecem?</b><span>Estão ocupados pelo tempo destas clientes (toque para mudar o tempo):</span>${ocupados.join('')}</div>`:''):'';
   $('#listaHoje').innerHTML=lista.length?lista.map(a=>itemAgenda(a,false)).join(''):`<div class="vazio">${passado?'Nenhum atendimento neste dia.':(liv.length?'Nenhum horário marcado neste dia.':'Nenhum horário marcado neste dia.')}</div>`;
 }
 let calAberto=false;
@@ -1816,7 +1825,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='44', APP_VERSAO_TXT='2.4', APP_DATA='01/10/2026'; // APP_VERSAO='44' (compatibilidade com versões antigas)
+const APP_BUILD='45', APP_VERSAO_TXT='2.5', APP_DATA='01/10/2026'; // APP_VERSAO='45' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
