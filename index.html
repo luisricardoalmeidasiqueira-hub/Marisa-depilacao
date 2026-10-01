@@ -104,6 +104,8 @@ button{cursor:pointer}
 .acoes .pagb.deve{border-color:var(--alerta);color:var(--alerta);background:#FDE7E4}
 .acoes .camb{border-color:var(--ameixa);color:var(--ameixa);padding:8px 13px;font-size:1.15rem;cursor:pointer}
 .acoes .camb input{display:none}
+.acoes .notab{border-color:var(--mel);color:var(--mel);padding:8px 12px;font-size:.88rem}
+.acoes .notab.tem{background:var(--mel-claro)}
 .acoes .opc{padding:10px 14px;font-size:1.1rem;color:var(--suave)}
 .st-b{display:inline-flex;align-items:center;font-weight:800;font-size:.9rem;padding:10px 4px}
 .st-b.ok{color:var(--ok)} .st-b.falta{color:var(--alerta)}
@@ -190,6 +192,11 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.estrelas-n{display:flex;justify-content:space-between;gap:6px;margin:4px 0 10px}
+.estrelas-n button{flex:1;border:2px solid var(--linha);background:var(--card);border-radius:12px;padding:10px 0;font-size:1.6rem;line-height:1;filter:grayscale(1);opacity:.45}
+.estrelas-n button.on{filter:none;opacity:1;border-color:var(--mel);background:var(--mel-claro)}
+.aval-it{border-top:1px solid var(--linha);padding:7px 0;font-size:.9rem}
+.aval-it:first-of-type{border-top:0}
 .btn-zaplivres{width:100%;border:0;background:#25D366;color:#fff;border-radius:14px;padding:11px;font-weight:800;margin:0 0 6px;font-size:.95rem}
 .pg-res{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 12px}
 .pg-res div{background:var(--card);border:1px solid var(--linha);border-radius:12px;padding:10px;text-align:center}
@@ -569,6 +576,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="salvar contato contatos celular agenda telefone vcf cliente desde antiga quanto tempo"><b>❓ Como salvo a cliente nos contatos do celular? E o "cliente desde"?</b><p>Ao marcar uma <b>cliente nova</b>, aparece um quadro amarelo: marque <b>📇 Salvar nos contatos do celular</b> (pergunte se ela deixa). Depois de salvar o horário, toque no arquivo que aparece e em <b>Salvar</b>. Se ela já é cliente antiga, preencha <b>"Cliente desde"</b> (mês e ano). Na ficha aparece <b>💕 Cliente desde … · há X anos</b>. Para clientes que já estão no app: ficha → <b>📇 Salvar nos contatos</b> ou <b>Editar ficha → Cliente desde</b>.</p></div>
         <div class="faq" data-k="deve devendo pagou metade pendente fiado pagamento parcial cobrar"><b>❓ A cliente pagou só uma parte. Como anoto?</b><p>Depois de marcar <b>✅ Presente</b>, toque em <b>💵 Pago</b> (ou ⋯ → <b>💵 Pagamento</b>). Digite <b>quanto ela pagou</b> (ex.: 30) e toque em <b>Salvar</b>. Aparece <b>💸 Deve R$ 70</b> no horário, na ficha e em <b>Clientes → 💸 Devendo</b>. Quando ela pagar, toque de novo e em <b>✅ Pagou tudo</b>. Tem também <b>💬 Lembrar a cliente no WhatsApp</b>, com mensagem educada pronta.</p></div>
         <div class="faq" data-k="mandar horarios livres whatsapp cliente escolher agendar sozinha"><b>❓ Como mando os horários livres para a cliente?</b><p>Toque no dia no calendário → <b>💬 Mandar horários livres no WhatsApp</b> → escolha a cliente. Vai a lista dos horários. Quando ela responder, marque o horário no app.</p></div>
+        <div class="faq" data-k="avaliar avaliacao nota estrela opiniao cliente gostou"><b>❓ Como peço e anoto a avaliação da cliente?</b><p>Depois de <b>✅ Presente</b>, toque em <b>⭐ Avaliar</b>. Toque em <b>💬 Pedir avaliação no WhatsApp</b> (a mensagem vai pronta). Quando ela responder, abra de novo, toque nas <b>estrelas</b> (1 a 5) e, se quiser, escreva o que ela falou. A mensagem de pós-atendimento do dia seguinte também já pede a nota. A média aparece na <b>ficha</b> e no <b>💰 Caixa</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -641,6 +649,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Cera preferida:</b> em Editar ficha, escolha <b>Cera premium</b> ou <b>Cera tradicional</b>.</li>
         <li><b>📲 Postar no Instagram:</b> embaixo de cada foto, marque <b>"Pode postar"</b> só se a cliente autorizou. Depois toque em <b>📲 Postar</b>, escolha o Instagram e cole a legenda pronta.</li>
         <li><b>💕 Cliente desde:</b> mostra há quanto tempo ela é cliente. Para clientes antigas, coloque o mês e ano em <b>Editar ficha</b>. <b>📇 Salvar nos contatos</b> guarda o número no celular (pergunte antes).</li>
+        <li><b>⭐ Avaliações:</b> notas de 1 a 5 que a cliente deu, com o comentário dela, e a média.</li>
       </ul></div></details>
 
       <details class="dob"><summary>🔒 Autorização da cliente (LGPD)</summary><div class="cont"><ul>
@@ -798,6 +807,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <span class="com-sub" id="comTxt">fica para você: R$ 0,00</span></div>
     </div>
     <p class="cx-med">Ticket médio: <b id="cxMed">R$ 0</b> · a reserva é calculada sobre o recebido</p>
+    <p class="cx-med" id="cxNota"></p>
     <div class="secao"><h2>O que não entrou</h2></div>
     <div class="perdas">
       <div class="perda"><span>🚫 Cancelados no mês</span><b id="cxCanc">0</b></div>
@@ -1049,6 +1059,20 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <a class="btn" id="pgCobrar" style="display:block;text-align:center;text-decoration:none;background:#25D366;color:#fff;margin-top:8px" target="_blank" rel="noopener">💬 Lembrar a cliente no WhatsApp</a>
 </div>
 
+<div class="folha" id="folhaNota" role="dialog" aria-modal="true" aria-labelledby="ntTit">
+  <div class="puxador"></div>
+  <h2 id="ntTit">⭐ Avaliação</h2>
+  <p class="dica" id="ntSub"></p>
+  <p style="font-weight:800;margin:8px 0 6px">1. Peça a nota para a cliente</p>
+  <a class="btn" id="ntPedir" style="display:block;text-align:center;text-decoration:none;background:#25D366;color:#fff;margin-top:0" target="_blank" rel="noopener">💬 Pedir avaliação no WhatsApp</a>
+  <p style="font-weight:800;margin:14px 0 6px">2. Quando ela responder, toque na nota:</p>
+  <div class="estrelas-n" id="ntEst"></div>
+  <label for="ntCom">O que ela falou (opcional)</label>
+  <textarea id="ntCom" rows="2" placeholder="Ex.: amou a sobrancelha, achou a cera quente"></textarea>
+  <button class="btn" id="ntSalvar">Salvar avaliação</button>
+  <button class="btn perigo" id="ntApagar" hidden>Apagar avaliação</button>
+</div>
+
 <div class="aviso" id="aviso" role="status"></div>
 
 <script>
@@ -1179,9 +1203,10 @@ const linhaEnd=()=> CFG.endMsg&&CFG.endereco ? '\n\n📍 '+CFG.endereco+'\n'+map
 const mapaURL=()=> 'https://maps.google.com/?q='+(CFG.endereco||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9 ]+/g,' ').trim().split(/\s+/).join('+');
 const MSG_SUMIDA_PADRAO="Oi, {nome}! Tudo bem? 💕 Estou com saudade de você por aqui! Já faz um tempinho desde {servico}. Que tal marcar um horário esta semana? Vou adorar te atender!";
 const MSG_CONF_PADRAO='✨ Olá, {nome} 🌸\nPassando para confirmar nosso horário agendado {dia} às {hora}.\nSerá um prazer recebê-la e proporcionar esse momento especial de autocuidado. 💆‍♀️✨';
-const MSG_POS_PADRAO='✨ Olá, {nome}, tudo bem?\nEspero que esteja se sentindo confortável e satisfeita com o atendimento. Qualquer sensibilidade ou desconforto, estarei à disposição.\nObrigada pela confiança! 🙏🥰';
+const MSG_POS_ANTIGA='✨ Olá, {nome}, tudo bem?\nEspero que esteja se sentindo confortável e satisfeita com o atendimento. Qualquer sensibilidade ou desconforto, estarei à disposição.\nObrigada pela confiança! 🙏🥰';
+const MSG_POS_PADRAO='✨ Olá, {nome}, tudo bem?\nEspero que esteja se sentindo confortável e satisfeita com o atendimento. Qualquer sensibilidade ou desconforto, estarei à disposição.\n\n⭐ Se puder, me conta: de 1 a 5, que nota você dá para o atendimento?\n\nObrigada pela confiança! 🙏🥰';
 const CFG_PADRAO=()=>({abre:'07:00',fecha:'19:30',msgConf:MSG_CONF_PADRAO,msgPos:MSG_POS_PADRAO,assinatura:'Marisa Depilação e Designer de Sobrancelha 💕',tolerancia:15,msgSumida:MSG_SUMIDA_PADRAO,endereco:'R. Profa. Zilá de Aquino, 1206 – Tatuí/SP',whats:'15996542859',insta:'marisaalmeida.epiladora',endMsg:true});
-let CFG; try{ CFG=Object.assign(CFG_PADRAO(),JSON.parse(localStorage.getItem('marisa-config'))||{}); if(['Marisa Depilação 💕','Marisa Almeida · Depilação 💕'].includes(CFG.assinatura)) CFG.assinatura='Marisa Depilação e Designer de Sobrancelha 💕'; }catch(e){ CFG=CFG_PADRAO(); }
+let CFG; try{ CFG=Object.assign(CFG_PADRAO(),JSON.parse(localStorage.getItem('marisa-config'))||{}); if(CFG.msgPos===MSG_POS_ANTIGA) CFG.msgPos=MSG_POS_PADRAO; if(['Marisa Depilação 💕','Marisa Almeida · Depilação 💕'].includes(CFG.assinatura)) CFG.assinatura='Marisa Depilação e Designer de Sobrancelha 💕'; }catch(e){ CFG=CFG_PADRAO(); }
 function salvarCfg(){ try{ localStorage.setItem('marisa-config',JSON.stringify(CFG)); }catch(e){} }
 function zap(a,msg,assinar=true){ const t=assinar&&CFG.assinatura?msg+'\n\n'+CFG.assinatura:msg; return 'https://wa.me/55'+a.tel.replace(/\D/g,'')+'?text='+encodeURIComponent(t); }
 const dataBR = s => { const [y,m,d]=s.split('-'); return d+'/'+m; };
@@ -1202,7 +1227,7 @@ function itemAgenda(a,mostrarDia){
       ${fora(a)?'':alertaCuid(a.tel)}
       ${!fora(a)&&!a.feito&&+a.hora.slice(0,2)<6?`<button class="cuid" data-pm="${a.id}">⚠️ ${fmtH(a.hora)} é de madrugada. Era ${fmtH(String(+a.hora.slice(0,2)+12).padStart(2,'0')+a.hora.slice(2))} (da tarde)? Toque aqui para corrigir</button>`:''}
       <div class="acoes">
-        ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.cancelado?'<span class="st-b falta" style="color:var(--suave)">🚫 Cancelado</span>':a.feito?`<span class="st-b ok">✅ Presente</span>${deveDe(a)>0?`<button class="grande pagb deve" data-pag="${a.id}">💸 Deve ${brl(deveDe(a))}</button>`:`<button class="grande pagb" data-pag="${a.id}">💵 Pago</button>`}`:a.data<=HOJE?
+        ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.cancelado?'<span class="st-b falta" style="color:var(--suave)">🚫 Cancelado</span>':a.feito?`<span class="st-b ok">✅ Presente</span>${notaBtn(a)}${deveDe(a)>0?`<button class="grande pagb deve" data-pag="${a.id}">💸 Deve ${brl(deveDe(a))}</button>`:`<button class="grande pagb" data-pag="${a.id}">💵 Pago</button>`}`:a.data<=HOJE?
           `<button class="grande veio" data-feito="${a.id}">✅ Presente</button><button class="grande faltou" data-falta="${a.id}">❌ Faltou</button><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`:
           `<a class="grande zapb" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar</a><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`}
         ${camBtn(a)}
@@ -1285,6 +1310,7 @@ function render(){
   const validos=doMes.filter(a=>!fora(a));
   $('#cxQt').textContent=validos.length;
   $('#cxMed').textContent=brl(validos.length?(rec+prev)/validos.length:0);
+  { const av=doMes.filter(a=>a.nota); $('#cxNota').innerHTML=av.length?`⭐ Avaliação do mês: <b>${(av.reduce((t,a)=>t+a.nota,0)/av.length).toFixed(1).replace('.',',')} de 5</b> · ${av.length} ${av.length===1?'avaliação':'avaliações'}`:'⭐ Nenhuma avaliação neste mês ainda'; }
   const cont={}; dados.filter(a=>!fora(a)).forEach(a=>a.serv.forEach(i=>cont[i]=(cont[i]||0)+1));
   const rk=Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,5); const mx=rk.length?rk[0][1]:1;
   { const dev=dados.filter(a=>deveDe(a)>0); $('#cxDeve').textContent=`${new Set(dev.map(a=>a.tel)).size} cliente(s) · ${brl(dev.reduce((t,a)=>t+deveDe(a),0))}`; }
@@ -1656,6 +1682,9 @@ function abrirFicha(tel){
     ${hist.some(a=>deveDe(a)>0)?`<div class="bloco" style="border-color:var(--alerta)"><h3>💸 Pagamento pendente: ${brl(hist.reduce((t,a)=>t+deveDe(a),0))}</h3>
       ${hist.filter(a=>deveDe(a)>0).map(a=>`<div class="deve-item"><span>${dataBR(a.data)} · ${a.serv.map(i=>sv(i).n).join(' + ')}<br><small style="color:var(--suave)">total ${brl(valor(a))} · pagou ${brl(pagoDe(a))}</small></span><button data-pag="${a.id}">Falta ${brl(deveDe(a))}</button></div>`).join('')}
     </div>`:''}
+    ${hist.some(a=>a.nota)?`<div class="bloco"><h3>⭐ Avaliações · média ${(hist.filter(a=>a.nota).reduce((t,a)=>t+a.nota,0)/hist.filter(a=>a.nota).length).toFixed(1).replace('.',',')}</h3>
+      ${hist.filter(a=>a.nota).map(a=>`<div class="aval-it">${estr(a.nota)} · ${dataBR(a.data)} · ${a.serv.map(i=>sv(i).n).join(' + ')}${a.comentario?`<br><i style="color:var(--suave)">"${a.comentario}"</i>`:''}</div>`).join('')}
+    </div>`:''}
     <div class="bloco"><h3>Faltas</h3>
       ${c.faltas?`<p><b>${c.faltas}</b> falta(s): ${hist.filter(a=>a.falta).map(a=>dataBR(a.data)).join(', ')}</p>
       ${c.faltas>=2?'<p style="color:var(--alerta);font-weight:700">Faltou mais de uma vez. Vale pedir sinal antecipado para garantir o horário.</p>':''}`:'<p>Nenhuma falta. 👏</p>'}
@@ -1932,7 +1961,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='51', APP_VERSAO_TXT='3.1', APP_DATA='01/10/2026'; // APP_VERSAO='51' (compatibilidade com versões antigas)
+const APP_BUILD='52', APP_VERSAO_TXT='3.2', APP_DATA='01/10/2026'; // APP_VERSAO='52' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1983,6 +2012,7 @@ function abrirOpc(id){
   if(!fora(a)) it.push(`<button data-editar="${a.id}" data-modo="serv">➕ Adicionar serviço</button>`);
   it.push(`<button data-editar="${a.id}">✏️ Mudar dia, hora ou dados</button>`);
   if(a.feito) it.push(`<button data-pag="${a.id}">💵 Pagamento (pago / ficou devendo)</button>`);
+  if(a.feito&&!fora(a)) it.push(`<button data-nota="${a.id}">⭐ Avaliação da cliente</button>`);
   it.push(`<button data-ficha="${a.tel}">👤 Ver ficha da cliente</button>`);
   if(fotosLigadas()&&!fora(a)&&a.data<=HOJE&&fotoPermitida(a)){
     it.push(cad(a.tel).lgpd
@@ -2324,6 +2354,27 @@ $('#zapLivres').onclick=()=>{
   const txt=`Oi! 😊 Tenho estes horários livres ${dia}:\n\n${grp}\n\nQual fica melhor pra você? É só me responder com o horário 💕`+(CFG.assinatura?'\n\n'+CFG.assinatura:'');
   window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
 };
+
+// ===== Avaliar atendimento =====
+const estr = n => '⭐'.repeat(n);
+function notaBtn(a){ if(!a.feito||fora(a)) return ''; return a.nota?`<button class="grande notab tem" data-nota="${a.id}">⭐ ${a.nota}</button>`:`<button class="grande notab" data-nota="${a.id}">⭐ Avaliar</button>`; }
+let notaId=null, notaSel=0;
+function pintaNota(){ $('#ntEst').innerHTML=[1,2,3,4,5].map(n=>`<button type="button" class="${n<=notaSel?'on':''}" data-nn="${n}" aria-label="Nota ${n}">⭐</button>`).join(''); }
+function abrirNota(id){
+  const a=dados.find(x=>x.id==id); if(!a) return; notaId=a.id; notaSel=a.nota||0;
+  $('#ntTit').textContent=`⭐ Avaliação de ${a.nome.split(' ')[0]}`;
+  $('#ntSub').textContent=`${dataBR(a.data)} · ${a.serv.map(i=>sv(i).n).join(' + ')}`;
+  $('#ntCom').value=a.comentario||''; $('#ntApagar').hidden=!a.nota; pintaNota();
+  $('#ntPedir').href=zap(a,`Oi, ${a.nome.split(' ')[0]}! Tudo bem? 😊 Queria saber como foi seu atendimento de ${a.data===HOJE?'hoje':dataBR(a.data)} (${a.serv.map(i=>sv(i).n.toLowerCase()).join(' e ')}).\n\n⭐ De 1 a 5, que nota você dá? Se quiser, me conta também o que achou. Sua opinião me ajuda muito! 💕`);
+  abrirFolha('folhaNota');
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-nota]'); if(b){ fecharFolhas(); abrirNota(b.dataset.nota); }
+  const n=e.target.closest('[data-nn]'); if(n){ notaSel=+n.dataset.nn; pintaNota(); }
+});
+$('#ntSalvar').onclick=()=>{ const a=dados.find(x=>x.id===notaId); if(!a) return; if(!notaSel) return aviso('Toque numa estrela para dar a nota');
+  a.nota=notaSel; a.comentario=$('#ntCom').value.trim(); salvar(); fecharFolhas(); render(); if(fichaTel&&a.tel===fichaTel) abrirFicha(fichaTel); aviso(`Avaliação salva: ${estr(a.nota)}`); };
+$('#ntApagar').onclick=()=>{ const a=dados.find(x=>x.id===notaId); if(!a||!confirm('Apagar a avaliação deste atendimento?')) return; delete a.nota; delete a.comentario; salvar(); fecharFolhas(); render(); aviso('Avaliação apagada'); };
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
