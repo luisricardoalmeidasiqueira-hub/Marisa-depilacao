@@ -186,6 +186,28 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.cx-com b{color:var(--mel)!important}
+.com-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:8px}
+.com-mini button{border:1.5px solid var(--linha);background:var(--fundo);color:var(--texto);border-radius:8px;padding:5px 0;font-weight:800;font-size:.78rem}
+.com-mini button[aria-pressed="true"]{border-color:var(--ameixa);background:var(--ameixa);color:#fff}
+:root[data-theme="dark"] .com-mini button[aria-pressed="true"]{color:#1A1115}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .com-mini button[aria-pressed="true"]{color:#1A1115}}
+.com-sub{display:block;font-size:.74rem;color:var(--ok);margin-top:5px;font-weight:800}
+.cx-med{font-size:.85rem;color:var(--suave);margin:8px 2px 0}
+.perdas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.perda{background:var(--card);border:1px solid var(--linha);border-radius:16px;padding:12px 14px}
+.perda span{display:block;font-size:.85rem;color:var(--suave)}
+.perda b{display:block;font-size:1.05rem;color:var(--alerta);margin-top:4px}
+.comis{background:var(--card);border:1px solid var(--linha);border-radius:16px;padding:14px}
+.com-bts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.com-bts button{border:2px solid var(--linha);background:var(--fundo);color:var(--texto);border-radius:12px;padding:10px 4px;font-weight:800;font-size:.95rem}
+.com-bts button[aria-pressed="true"]{border-color:var(--ameixa);background:var(--ameixa);color:#fff}
+.com-linha{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid var(--linha);font-size:.95rem}
+.com-linha.total{border-top:2px solid var(--ameixa);font-size:1.08rem}
+.com-linha.total b{color:var(--ok);font-size:1.25rem}
+.cn-nav{display:flex;align-items:center;justify-content:space-between;margin:4px 0 8px}
+.cn-nav button{border:0;background:var(--po);color:var(--ameixa);width:38px;height:38px;border-radius:50%;font-weight:800;font-size:1.1rem}
+.cn-tot{display:flex;gap:10px;margin-bottom:6px;font-size:.88rem;color:var(--suave)}
 .temas{display:grid;gap:8px;margin-top:6px}
 .temas button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:2px solid var(--linha);background:var(--card);color:var(--texto);border-radius:14px;padding:13px 14px;font-weight:800;font-size:1rem}
 .temas button small{display:block;font-weight:400;color:var(--suave);font-size:.82rem}
@@ -495,6 +517,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="ordem horario errado 3h madrugada 15h tarde corrigir"><b>❓ Apareceu 3h em vez de 15h. O que faço?</b><p>3h é de madrugada, por isso ela aparece antes das outras. O app mostra um aviso amarelo no horário: toque em <b>"Toque aqui para corrigir"</b> e ele muda para 15h. Lembre: <b>13h = 1 da tarde, 15h = 3 da tarde</b>.</p></div>
         <div class="faq" data-k="ver bloqueios bloqueados bloqueei lista liberar desbloquear"><b>❓ Como vejo os horários que bloqueei?</b><p>Na agenda, toque em <b>📋 Ver horários bloqueados</b> (fica embaixo do botão Bloquear). Aparece a lista por dia, com <b>Ver dia</b> e <b>Liberar</b>. No calendário, dia inteiro bloqueado fica <b>riscado de vermelho</b> e dia com só uma parte bloqueada tem um <b>tracinho vermelho embaixo</b>.</p></div>
         <div class="faq" data-k="claro escuro preto branco cor aparencia tema fundo noite dia"><b>❓ O app está escuro (ou claro). Como mudo?</b><p><b>☰ Mais</b> → <b>🎨 Aparência</b> → escolha <b>☀️ Sempre claro</b>, <b>🌙 Sempre escuro</b> ou <b>📱 Igual ao celular</b>. Muda na hora e não mexe nos dados.</p></div>
+        <div class="faq" data-k="cancelados faltas lista ver perdeu nao entrou mes"><b>❓ Onde vejo quem cancelou ou faltou?</b><p>Aba <b>💰 Caixa</b> → <b>"O que não entrou"</b> mostra quantos cancelaram e faltaram no mês e quanto deixou de entrar. Toque em <b>📋 Ver cancelados e faltas</b> para ver a lista por dia (dá pra trocar o mês nas setinhas ‹ ›).</p></div>
+        <div class="faq" data-k="reserva material comissao salao porcentagem 20 25 por cento fica para mim separar"><b>❓ Como separo a reserva para material?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🧴 Reserva p/ material</b> (onde ficava o ticket médio) → toque em <b>20%</b>, <b>25%</b> ou <b>0%</b>. O número grande é <b>quanto separar para material</b>, e embaixo, em verde, <b>quanto fica para você</b>. A conta é feita sobre o recebido.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -592,6 +616,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li>Com <b>💝 promoção</b>, entra o valor combinado.</li>
         <li>O caixa conta pelo <b>mês do atendimento</b>: cliente marcada para outubro aparece no caixa de outubro.</li>
         <li>Também mostra o <b>ticket médio</b> e os <b>serviços mais pedidos</b> (aparecem depois dos primeiros atendimentos).</li>
+        <li><b>O que não entrou:</b> quantos cancelamentos e faltas teve no mês e o valor. O botão <b>📋 Ver cancelados e faltas</b> mostra a lista por dia.</li>
+        <li><b>🧴 Reserva p/ material:</b> no 4º quadro do caixa, escolha <b>20%</b>, <b>25%</b> ou <b>0%</b>. O número grande é quanto separar do recebido para comprar material; embaixo, em verde, quanto fica para você. O ticket médio aparece logo abaixo dos quadros.</li>
       </ul></div></details>
 
       <details class="dob"><summary>⚙️ Ajustes em "Mais"</summary><div class="cont"><ul>
@@ -699,10 +725,21 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <div class="cx"><small>Recebido</small><b id="cxRec">R$ 0</b></div>
       <div class="cx"><small>A receber</small><b id="cxPrev">R$ 0</b></div>
       <div class="cx"><small>Atendimentos</small><b id="cxQt">0</b></div>
-      <div class="cx"><small>Ticket médio</small><b id="cxMed">R$ 0</b></div>
+      <div class="cx cx-com"><small>🧴 Reserva p/ material</small><b id="comLiq">R$ 0,00</b>
+        <div class="com-mini" id="comBts"><button data-com="20">20%</button><button data-com="25">25%</button><button data-com="0">0%</button></div>
+        <span class="com-sub" id="comTxt">fica para você: R$ 0,00</span></div>
     </div>
+    <p class="cx-med">Ticket médio: <b id="cxMed">R$ 0</b> · a reserva é calculada sobre o recebido</p>
+    <div class="secao"><h2>O que não entrou</h2></div>
+    <div class="perdas">
+      <div class="perda"><span>🚫 Cancelados no mês</span><b id="cxCanc">0</b></div>
+      <div class="perda"><span>❌ Faltas no mês</span><b id="cxFalt">0</b></div>
+    </div>
+    <button class="btn-verbloq" id="verCanc" style="background:var(--po);color:var(--ameixa);margin-top:8px">📋 Ver cancelados e faltas</button>
+
     <div class="secao"><h2>Mais pedidos</h2></div>
     <div id="ranking"></div>
+
   </section>
 
 
@@ -894,6 +931,14 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <h2 id="blTit">🚫 Horários bloqueados</h2>
   <p class="dica">Toque em <b>Ver dia</b> para abrir o dia na agenda, ou em <b>Liberar</b> para desbloquear.</p>
   <div id="blLista"></div>
+</div>
+
+<div class="folha" id="folhaCanc" role="dialog" aria-modal="true" aria-labelledby="cnTit">
+  <div class="puxador"></div>
+  <h2 id="cnTit">📋 Cancelados e faltas</h2>
+  <div class="cn-nav"><button id="cnAnt" aria-label="Mês anterior">‹</button><b id="cnMes"></b><button id="cnProx" aria-label="Próximo mês">›</button></div>
+  <div class="cn-tot" id="cnTot"></div>
+  <div id="cnLista"></div>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -1128,8 +1173,15 @@ function render(){
   const validos=doMes.filter(a=>!fora(a));
   $('#cxQt').textContent=validos.length;
   $('#cxMed').textContent=brl(validos.length?(rec+prev)/validos.length:0);
-  const cont={}; dados.forEach(a=>a.serv.forEach(i=>cont[i]=(cont[i]||0)+1));
+  const cont={}; dados.filter(a=>!fora(a)).forEach(a=>a.serv.forEach(i=>cont[i]=(cont[i]||0)+1));
   const rk=Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,5); const mx=rk.length?rk[0][1]:1;
+  { const canc=doMes.filter(a=>a.cancelado), falt=doMes.filter(a=>a.falta);
+    const vc=canc.reduce((t,a)=>t+valor(a),0), vf=falt.reduce((t,a)=>t+valor(a),0);
+    $('#cxCanc').textContent=`${canc.length} · ${brl(vc)}`; $('#cxFalt').textContent=`${falt.length} · ${brl(vf)}`;
+    const pc=CFG.comissao==null?25:+CFG.comissao, cv=Math.round(rec*pc)/100;
+    document.querySelectorAll('#comBts [data-com]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.com===pc)));
+    $('#comLiq').textContent=brl(cv);
+    $('#comTxt').textContent=pc?`fica para você: ${brl(rec-cv)}`:'sem reserva · tudo fica para você'; }
   $('#ranking').innerHTML=rk.map(([i,q])=>{const s=sv(i);return `<div style="display:flex;justify-content:space-between;font-weight:700;font-size:.9rem"><span>${s.n}</span><span>${q}x</span></div><div class="barra"><i style="width:${q/mx*100}%;background:${s.cat==='Depilação'?'var(--mel)':'var(--ameixa)'}"></i></div>`}).join('');
 }
 
@@ -1726,7 +1778,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='40', APP_VERSAO_TXT='2.0', APP_DATA='01/10/2026'; // APP_VERSAO='40' (compatibilidade com versões antigas)
+const APP_BUILD='43', APP_VERSAO_TXT='2.3', APP_DATA='01/10/2026'; // APP_VERSAO='43' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1949,6 +2001,28 @@ $('#temas').addEventListener('click',e=>{ const b=e.target.closest('[data-tema]'
   CFG.tema=b.dataset.tema; salvarCfg(); aplicarTema();
   aviso(CFG.tema==='light'?'App sempre claro ☀️':CFG.tema==='dark'?'App sempre escuro 🌙':'App igual ao celular 📱'); });
 try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',aplicarTema); }catch(e){}
+
+// ===== Cancelados e faltas / comissão =====
+let cnMes=HOJE.slice(0,7);
+function abrirCanc(){
+  const [y,m]=cnMes.split('-').map(Number); const t=new Date(y,m-1,15).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  $('#cnMes').textContent=t.charAt(0).toUpperCase()+t.slice(1);
+  const L=dados.filter(a=>a.data.startsWith(cnMes)&&(a.cancelado||a.falta)).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)));
+  const nc=L.filter(a=>a.cancelado), nf=L.filter(a=>a.falta);
+  $('#cnTot').innerHTML=`<span>🚫 ${nc.length} cancelado(s) · ${brl(nc.reduce((t,a)=>t+valor(a),0))}</span><span>❌ ${nf.length} falta(s) · ${brl(nf.reduce((t,a)=>t+valor(a),0))}</span>`;
+  let ant='', h='';
+  L.forEach(a=>{
+    if(a.data!==ant){ ant=a.data; const d=new Date(a.data+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}); h+=`<div class="bl-dia" style="background:var(--ameixa)">📅 ${d.charAt(0).toUpperCase()+d.slice(1)}</div>`; }
+    h+=`<div class="bl-item"><div><b>${fmtH(a.hora)} · ${a.nome}</b><span>${a.serv.map(i=>sv(i).n).join(' + ')} · ${brl(valor(a))}</span><br><span style="font-weight:800;color:${a.falta?'var(--alerta)':'var(--suave)'}">${a.falta?'❌ Faltou':'🚫 Cancelou'}</span></div>
+      <div class="bts"><button data-ficha="${a.tel}">Ficha</button></div></div>`;
+  });
+  $('#cnLista').innerHTML=h||'<div class="vazio">Nenhum cancelamento ou falta neste mês. 👏</div>';
+  abrirFolha('folhaCanc');
+}
+$('#verCanc').onclick=()=>{ cnMes=HOJE.slice(0,7); abrirCanc(); };
+$('#cnAnt').onclick=()=>{ const d=new Date(cnMes+'-15T12:00'); d.setMonth(d.getMonth()-1); cnMes=iso(d).slice(0,7); abrirCanc(); };
+$('#cnProx').onclick=()=>{ const d=new Date(cnMes+'-15T12:00'); d.setMonth(d.getMonth()+1); cnMes=iso(d).slice(0,7); abrirCanc(); };
+$('#comBts').addEventListener('click',e=>{ const b=e.target.closest('[data-com]'); if(!b) return; CFG.comissao=+b.dataset.com; salvarCfg(); render(); aviso(CFG.comissao?`Reserva para material: ${CFG.comissao}% ✓`:'Sem reserva para material'); });
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
