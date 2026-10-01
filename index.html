@@ -102,6 +102,8 @@ button{cursor:pointer}
 .acoes .cancb{border-color:var(--suave);color:var(--suave)}
 .acoes .pagb{border-color:var(--ok);color:var(--ok);padding:8px 12px;font-size:.88rem}
 .acoes .pagb.deve{border-color:var(--alerta);color:var(--alerta);background:#FDE7E4}
+.acoes .camb{border-color:var(--ameixa);color:var(--ameixa);padding:8px 13px;font-size:1.15rem;cursor:pointer}
+.acoes .camb input{display:none}
 .acoes .opc{padding:10px 14px;font-size:1.1rem;color:var(--suave)}
 .st-b{display:inline-flex;align-items:center;font-weight:800;font-size:.9rem;padding:10px 4px}
 .st-b.ok{color:var(--ok)} .st-b.falta{color:var(--alerta)}
@@ -562,7 +564,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="tempo demora minutos duracao lapis cliente demora mais menos"><b>❓ Esta cliente demora mais (ou menos). Como mudo o tempo?</b><p>No horário dela, toque em <b>⏱️ 13h às 13h30 · 30 min ✏️</b> e escolha o tempo (15 min, 45 min, 1h…) ou digite outro. Vale só para esse atendimento; a tabela de serviços não muda. Os horários livres se ajustam sozinhos. Ao marcar, também dá pra mudar no campo <b>⏱️ Tempo deste atendimento</b>.</p></div>
         <div class="faq" data-k="horario livre sumiu nao aparece ocupado 15h por que some"><b>❓ Um horário livre sumiu. Por quê?</b><p>O app esconde os horários que ficam <b>ocupados pelo tempo</b> das clientes já marcadas. Ex.: cliente às 13h30 com 4 serviços (1h40) ocupa até 15h10, então 14h e 14h30 somem. Ao abrir <b>🕐 Ver horários livres</b>, aparece embaixo <b>"Por que alguns horários não aparecem?"</b> com cada cliente e o horário que ela ocupa. Se ela demora menos, toque nela e diminua o tempo ✏️. Se precisar mesmo encaixar alguém, use <b>+ Agendar neste dia</b> e escolha a hora.</p></div>
         <div class="faq" data-k="cliente salva telefone preencher automatico nome procurar contato"><b>❓ Preciso digitar o telefone toda vez?</b><p><b>Não.</b> A cliente fica salva depois do primeiro agendamento. Ao marcar, comece a digitar o nome: ela aparece <b>embaixo do campo</b> com o telefone. Toque nela e o WhatsApp é preenchido sozinho. Também dá pra abrir a ficha dela em <b>👩 Clientes</b> → <b>Agendar de novo</b>.</p></div>
-        <div class="faq" data-k="foto fotos camera trabalho antes depois registrar autorizacao instagram"><b>❓ Como tiro foto do meu trabalho?</b><p>Primeiro ligue em <b>☰ Mais → 📷 Fotos do trabalho</b>. Depois, nos <b>⋯</b> do horário (no dia ou depois), toque em <b>📷 Foto do trabalho</b>. Na primeira vez o app pergunta se a cliente <b>autorizou</b>. Só aparece para sobrancelha e rosto. A foto fica na ficha da cliente. Para postar, peça outra autorização.</p></div>
+        <div class="faq" data-k="foto fotos camera trabalho antes depois registrar autorizacao instagram"><b>❓ Como tiro foto do meu trabalho?</b><p>No horário da cliente (no dia ou depois), toque na <b>câmera 📷</b> ao lado dos botões. Na primeira vez o app pergunta se a cliente <b>autorizou</b>. Só aparece para sobrancelha e rosto. A foto fica na ficha da cliente. Para postar, peça outra autorização.</p></div>
         <div class="faq" data-k="instagram postar publicar story feed foto legenda"><b>❓ Como posto a foto no Instagram?</b><p>Na <b>ficha</b> da cliente, embaixo da foto, toque em <b>🔒 Postar? Pedir ok</b> e confirme <b>só se a cliente autorizou postar</b>. Aparece o botão <b>📲 Postar</b>: toque nele, escolha <b>Instagram</b> (Feed ou Story) e na legenda <b>cole</b> (a legenda pronta já fica copiada). A legenda pode ser mudada em <b>☰ Mais → 📷 Fotos do trabalho</b>.</p></div>
         <div class="faq" data-k="salvar contato contatos celular agenda telefone vcf cliente desde antiga quanto tempo"><b>❓ Como salvo a cliente nos contatos do celular? E o "cliente desde"?</b><p>Ao marcar uma <b>cliente nova</b>, aparece um quadro amarelo: marque <b>📇 Salvar nos contatos do celular</b> (pergunte se ela deixa). Depois de salvar o horário, toque no arquivo que aparece e em <b>Salvar</b>. Se ela já é cliente antiga, preencha <b>"Cliente desde"</b> (mês e ano). Na ficha aparece <b>💕 Cliente desde … · há X anos</b>. Para clientes que já estão no app: ficha → <b>📇 Salvar nos contatos</b> ou <b>Editar ficha → Cliente desde</b>.</p></div>
         <div class="faq" data-k="deve devendo pagou metade pendente fiado pagamento parcial cobrar"><b>❓ A cliente pagou só uma parte. Como anoto?</b><p>Depois de marcar <b>✅ Presente</b>, toque em <b>💵 Pago</b> (ou ⋯ → <b>💵 Pagamento</b>). Digite <b>quanto ela pagou</b> (ex.: 30) e toque em <b>Salvar</b>. Aparece <b>💸 Deve R$ 70</b> no horário, na ficha e em <b>Clientes → 💸 Devendo</b>. Quando ela pagar, toque de novo e em <b>✅ Pagou tudo</b>. Tem também <b>💬 Lembrar a cliente no WhatsApp</b>, com mensagem educada pronta.</p></div>
@@ -707,7 +709,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     </div></details>
 
     <details class="dob"><summary>📷 Fotos do trabalho (opcional)</summary><div class="cont">
-      <p>Guarde fotos do seu trabalho (antes e depois) na ficha da cliente.</p>
+      <p>A câmera <b>📷</b> aparece no horário da cliente (no dia e depois). A foto vai para a ficha dela. Já vem <b>ligado</b>; se não quiser usar, desligue aqui.</p>
       <div class="sino-est" id="ftEst"></div>
       <button class="btn" id="ftLigar"></button>
       <div class="sino-nota"><b>Regras para proteger você e a cliente:</b><br>
@@ -1203,6 +1205,7 @@ function itemAgenda(a,mostrarDia){
         ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.cancelado?'<span class="st-b falta" style="color:var(--suave)">🚫 Cancelado</span>':a.feito?`<span class="st-b ok">✅ Presente</span>${deveDe(a)>0?`<button class="grande pagb deve" data-pag="${a.id}">💸 Deve ${brl(deveDe(a))}</button>`:`<button class="grande pagb" data-pag="${a.id}">💵 Pago</button>`}`:a.data<=HOJE?
           `<button class="grande veio" data-feito="${a.id}">✅ Presente</button><button class="grande faltou" data-falta="${a.id}">❌ Faltou</button><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`:
           `<a class="grande zapb" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar</a><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`}
+        ${camBtn(a)}
         <button class="grande opc" data-opc="${a.id}" aria-label="Mais opções">⋯</button>
       </div>
     </div></li>`;
@@ -1929,7 +1932,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='50', APP_VERSAO_TXT='3.0', APP_DATA='01/10/2026'; // APP_VERSAO='50' (compatibilidade com versões antigas)
+const APP_BUILD='51', APP_VERSAO_TXT='3.1', APP_DATA='01/10/2026'; // APP_VERSAO='51' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1981,7 +1984,7 @@ function abrirOpc(id){
   it.push(`<button data-editar="${a.id}">✏️ Mudar dia, hora ou dados</button>`);
   if(a.feito) it.push(`<button data-pag="${a.id}">💵 Pagamento (pago / ficou devendo)</button>`);
   it.push(`<button data-ficha="${a.tel}">👤 Ver ficha da cliente</button>`);
-  if(CFG.fotosOn&&!fora(a)&&a.data<=HOJE&&fotoPermitida(a)){
+  if(fotosLigadas()&&!fora(a)&&a.data<=HOJE&&fotoPermitida(a)){
     it.push(cad(a.tel).lgpd
       ? `<label class="foto-trab">📷 Foto do trabalho<input type="file" accept="image/*" capture="environment" data-fototrab="${a.id}"></label>`
       : `<button data-fotoaut="${a.id}">📷 Foto do trabalho (precisa autorização)</button>`);
@@ -2215,14 +2218,21 @@ $('#tmTabela').onclick=()=>{ const a=dados.find(x=>x.id===tempoId); if(a) salvar
 
 // ===== Fotos do trabalho =====
 const FOTO_IDS=['s9','s4','s10'];
+function camBtn(a){
+  if(!fotosLigadas()||fora(a)||a.data>HOJE||!fotoPermitida(a)) return '';
+  return cad(a.tel).lgpd
+    ? `<label class="grande camb" aria-label="Foto do trabalho">📷<input type="file" accept="image/*" capture="environment" data-fototrab="${a.id}"></label>`
+    : `<button class="grande camb" data-fotoaut="${a.id}" aria-label="Foto do trabalho (precisa autorização)">📷</button>`;
+}
 const fotoPermitida = a => a.serv.some(i=>{ const x=sv(i); return x.cat==='Sobrancelha'||x.cat==='Estética'||FOTO_IDS.includes(i); });
-function atualizaFotos(){ const on=!!CFG.fotosOn; $('#ftEst').className='sino-est '+(on?'on':'off'); $('#ftEst').textContent=on?'📷 Fotos LIGADAS':'Fotos desligadas';
+function fotosLigadas(){ return CFG.fotosOn!==false; }
+function atualizaFotos(){ const on=fotosLigadas(); $('#ftEst').className='sino-est '+(on?'on':'off'); $('#ftEst').textContent=on?'📷 Fotos LIGADAS':'Fotos desligadas';
   $('#ftLigar').textContent=on?'Desligar fotos':'📷 Ligar fotos do trabalho'; $('#ftLigar').style.background=on?'':'var(--ok)'; $('#ftLigar').style.color=on?'':'#fff'; }
-$('#ftLigar').onclick=()=>{ CFG.fotosOn=!CFG.fotosOn; salvarCfg(); atualizaFotos(); aviso(CFG.fotosOn?'Fotos ligadas. Aparecem nos ⋯ do horário 📷':'Fotos desligadas'); };
+$('#ftLigar').onclick=()=>{ CFG.fotosOn=!fotosLigadas(); salvarCfg(); atualizaFotos(); render(); aviso(fotosLigadas()?'Fotos ligadas. A câmera 📷 aparece no horário da cliente':'Fotos desligadas'); };
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-fotoaut]'); if(!b) return;
   const a=dados.find(x=>x.id==b.dataset.fotoaut); if(!a) return;
   if(confirm(`${a.nome.split(' ')[0]} autorizou guardar foto do trabalho no seu celular?\n\nOK = Sim, ela autorizou\nCancelar = Ainda não (peça pelo WhatsApp na ficha dela)`)){
-    CLI[a.tel]=CLI[a.tel]||{nome:a.nome,tel:a.tel,fotos:[],brindes:0}; CLI[a.tel].lgpd=CLI[a.tel].lgpd||HOJE; salvarCli(); abrirOpc(a.id); aviso('Autorização registrada ✓ Agora toque em 📷 Foto do trabalho');
+    CLI[a.tel]=CLI[a.tel]||{nome:a.nome,tel:a.tel,fotos:[],brindes:0}; CLI[a.tel].lgpd=CLI[a.tel].lgpd||HOJE; salvarCli(); fecharFolhas(); render(); aviso('Autorização registrada ✓ Agora toque na câmera 📷 de novo');
   } else { fecharFolhas(); abrirFicha(a.tel); aviso('Use "Pedir autorização no WhatsApp" na ficha'); }
 });
 document.addEventListener('change',async e=>{
