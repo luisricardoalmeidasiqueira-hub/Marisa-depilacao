@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 3.4 (01/10/2026)
+App de agenda para celular · Versão 3.5 (01/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -52,7 +52,8 @@ MENSAGENS NO WHATSAPP (vão prontas, é só apertar enviar)
 • Cartão verde 1h antes: lembrete para a cliente.
 • Cartão amarelo no dia seguinte: pós-atendimento.
 • Aniversário 🎂, "Hora de chamar de volta" e "Clientes sumidas 💔".
-• Textos e assinatura: ☰ Mais → Mensagens / WhatsApp Business.
+• Textos e assinatura: ☰ Mais → Mensagens / WhatsApp Business
+  (inclusive o texto dos horários livres).
 
 CLIENTES E FICHA
 • Clientes ficam salvas. Busca, filtros e estrelas (★★★ fiel).
@@ -115,16 +116,17 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='54', APP_VERSAO_TXT='3.4', APP_DATA='01/10/2026'; // APP_VERSAO='54' ...
-  * APP_BUILD: número interno, sempre +1 (54 -> 55). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (3.4 -> 3.5 -> 3.6...).
+    const APP_BUILD='55', APP_VERSAO_TXT='3.5', APP_DATA='01/10/2026'; // APP_VERSAO='55' ...
+  * APP_BUILD: número interno, sempre +1 (55 -> 56). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (3.5 -> 3.6 -> 3.7...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='54' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v54 -> marisa-v55
+  * O comentário APP_VERSAO='55' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v55 -> marisa-v56
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+3.5  Nova mensagem de horários livres (e dá para editar em Mais → Mensagens).
 3.4  Atalho "🌙 Sem noite" ao mandar horários livres.
 3.3  Escolher quais horários livres mandar para cada cliente (riscar sem bloquear).
 3.2  Avaliar atendimento (nota de 1 a 5 ⭐ e comentário).
