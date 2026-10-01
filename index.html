@@ -186,6 +186,11 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.temas{display:grid;gap:8px;margin-top:6px}
+.temas button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:2px solid var(--linha);background:var(--card);color:var(--texto);border-radius:14px;padding:13px 14px;font-weight:800;font-size:1rem}
+.temas button small{display:block;font-weight:400;color:var(--suave);font-size:.82rem}
+.temas button[aria-pressed="true"]{border-color:var(--ameixa);box-shadow:0 0 0 2px var(--ameixa) inset}
+.temas .ic{font-size:1.5rem}
 .btn-verbloq{width:100%;border:0;background:#FDE7E4;color:var(--alerta);border-radius:14px;padding:11px;font-weight:800;margin:0 0 8px;font-size:.95rem}
 .cal-grade button.bloqp{box-shadow:inset 0 -4px 0 var(--alerta)}
 .bl-dia{background:var(--alerta);color:#fff;font-weight:800;border-radius:10px;padding:9px 12px;margin:14px 0 4px}
@@ -355,6 +360,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 @media (prefers-reduced-motion:reduce){.lemb.urgente{animation:none}}
 @media (prefers-reduced-motion:reduce){.folha{transition:none}}
 </style>
+<script>try{var t=(JSON.parse(localStorage.getItem('marisa-config'))||{}).tema;if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 </head>
 <body>
 <div class="app">
@@ -488,6 +494,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="google agenda calendario iphone salvar agenda celular lembrete"><b>❓ Como salvo a cliente no Google Agenda?</b><p>Nos <b>⋯</b> do horário → <b>📅 Salvar no Google Agenda</b> → confira e toque em <b>Salvar</b>. Para abrir sozinho toda vez que marcar, ligue no sininho 🔔 a opção <b>"Ao marcar uma cliente, abrir o Google Agenda"</b>. No iPhone também tem <b>🍎 Salvar no Calendário do iPhone</b>. <b>Dica:</b> no Google Agenda, em Configurações → Notificações padrão, coloque <b>1 hora antes</b>.</p></div>
         <div class="faq" data-k="ordem horario errado 3h madrugada 15h tarde corrigir"><b>❓ Apareceu 3h em vez de 15h. O que faço?</b><p>3h é de madrugada, por isso ela aparece antes das outras. O app mostra um aviso amarelo no horário: toque em <b>"Toque aqui para corrigir"</b> e ele muda para 15h. Lembre: <b>13h = 1 da tarde, 15h = 3 da tarde</b>.</p></div>
         <div class="faq" data-k="ver bloqueios bloqueados bloqueei lista liberar desbloquear"><b>❓ Como vejo os horários que bloqueei?</b><p>Na agenda, toque em <b>📋 Ver horários bloqueados</b> (fica embaixo do botão Bloquear). Aparece a lista por dia, com <b>Ver dia</b> e <b>Liberar</b>. No calendário, dia inteiro bloqueado fica <b>riscado de vermelho</b> e dia com só uma parte bloqueada tem um <b>tracinho vermelho embaixo</b>.</p></div>
+        <div class="faq" data-k="claro escuro preto branco cor aparencia tema fundo noite dia"><b>❓ O app está escuro (ou claro). Como mudo?</b><p><b>☰ Mais</b> → <b>🎨 Aparência</b> → escolha <b>☀️ Sempre claro</b>, <b>🌙 Sempre escuro</b> ou <b>📱 Igual ao celular</b>. Muda na hora e não mexe nos dados.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -593,7 +600,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Clientes sumidas:</b> escolha depois de quantos dias do retorno a cliente conta como sumida (7, 15 ou 30) e edite a mensagem. Use <b>{nome}</b> e <b>{servico}</b> no texto.</li>
         <li><b>WhatsApp Business:</b> assinatura das mensagens e dicas de catálogo, etiquetas e mensagem de ausência.</li>
         <li><b>Privacidade e LGPD</b> e informações do <b>Desenvolvedor</b>.</li>
-              <li><b>⋮ (três pontinhos no topo):</b> instalar o app, compartilhar o link, atualizar o app e ver a versão.</li>
+              <li><b>🎨 Aparência:</b> deixar o app sempre claro, sempre escuro ou igual ao celular.</li>
+        <li><b>⋮ (três pontinhos no topo):</b> instalar o app, compartilhar o link, atualizar o app e ver a versão.</li>
       </ul></div></details>
 
       <details class="dob"><summary>⚠️ Importante</summary><div class="cont"><ul>
@@ -619,6 +627,15 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <p style="color:var(--suave);font-size:.82rem;margin-top:4px">Primeiro e último horário que aparecem como livres na agenda (de 30 em 30 minutos).</p>
       <div class="wall-prev"><img src="papel-de-parede.png" alt="" onerror="this.parentElement.style.display='none'"><div><b>Papel de parede</b><br><button class="chip" id="abrirWall" style="margin-top:6px">🖼️ Ver papel de parede</button></div></div>
     </div></details>
+
+    <details class="dob"><summary>🎨 Aparência (claro ou escuro)</summary><div class="cont">
+      <p>Escolha como o app aparece. Não muda nada nos dados.</p>
+      <div class="temas" id="temas">
+        <button data-tema="light"><span class="ic">☀️</span><span>Sempre claro<small>Fundo branco e rosa. Melhor para ler de dia.</small></span></button>
+        <button data-tema="dark"><span class="ic">🌙</span><span>Sempre escuro<small>Fundo escuro. Cansa menos a vista à noite.</small></span></button>
+        <button data-tema="auto"><span class="ic">📱</span><span>Igual ao celular<small>Segue o modo claro ou escuro do celular.</small></span></button>
+      </div>
+    </details>
 
     <details class="dob"><summary>✉️ Mensagens</summary><div class="cont">
       <p style="color:var(--suave);font-size:.85rem">O app troca sozinho: <b>{nome}</b> pelo nome da cliente, <b>{dia}</b> por hoje/amanhã/data, <b>{hora}</b> pelo horário e <b>{servico}</b> pelo serviço.</p>
@@ -1709,7 +1726,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='39', APP_VERSAO_TXT='1.9', APP_DATA='01/10/2026'; // APP_VERSAO='39' (compatibilidade com versões antigas)
+const APP_BUILD='40', APP_VERSAO_TXT='2.0', APP_DATA='01/10/2026'; // APP_VERSAO='40' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -1920,8 +1937,22 @@ $('#verBloqueios').onclick=abrirListaBloq;
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-irdia]'); if(!b) return;
   diaSel=b.dataset.irdia; mesVis=new Date(diaSel.slice(0,7)+'-01T12:00'); fecharFolhas(); render(); window.scrollTo({top:0,behavior:'smooth'}); });
 
+// ===== Aparência =====
+function aplicarTema(){
+  const t=CFG.tema||'auto', r=document.documentElement;
+  if(t==='light'||t==='dark') r.setAttribute('data-theme',t); else r.removeAttribute('data-theme');
+  document.querySelectorAll('#temas [data-tema]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tema===t)));
+  const escuro=t==='dark'||(t==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);
+  const m=document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute('content',escuro?'#1A1115':'#6E2745');
+}
+$('#temas').addEventListener('click',e=>{ const b=e.target.closest('[data-tema]'); if(!b) return;
+  CFG.tema=b.dataset.tema; salvarCfg(); aplicarTema();
+  aviso(CFG.tema==='light'?'App sempre claro ☀️':CFG.tema==='dark'?'App sempre escuro 🌙':'App igual ao celular 📱'); });
+try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',aplicarTema); }catch(e){}
+
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
+aplicarTema();
 atualizaSino();
 const _renderBase=render; render=function(){ _renderBase(); esconderVazios(); renderBotaoBloq(); if($('#folhaBloqLista').classList.contains('aberta')) abrirListaBloq(); };
 render();
