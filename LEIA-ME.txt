@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 3.2 (01/10/2026)
+App de agenda para celular · Versão 3.4 (01/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -25,8 +25,13 @@ AGENDA
 • Horário que não aparece como livre: abra "Ver horários livres" e veja
   "Por que alguns horários não aparecem?" (mostra quem está ocupando).
 • 💝 Promoção: marcando 2 ou mais serviços, dá para colocar o valor combinado.
-• 💬 Mandar horários livres no WhatsApp: toque no dia e no botão verde; vai a
-  lista de horários livres. Quando a cliente responder, marque no app.
+• 💬 Mandar horários livres no WhatsApp: toque no dia e no botão verde.
+  Abre a lista dos horários livres: TOQUE PARA RISCAR os que não quer oferecer
+  para essa cliente, um por um (ex.: só o 19h30). Atalhos: "🌙 Sem noite" (risca 18h
+  em diante), "☀️ Só manhã", "🌤️ Só tarde", "✅ Todos" (volta tudo), "Nenhum".
+  Tocou errado? Toque de novo que o horário volta. → "Mandar no WhatsApp".
+  Riscar ali NÃO bloqueia a agenda: na próxima cliente todos voltam.
+  Quando a cliente responder, marque no app.
 
 BLOQUEAR HORÁRIO (médico, folga, viagem)
 • "🚫 Bloquear horário": escolha do dia / até o dia, dia inteiro ou das … até as ….
@@ -110,16 +115,18 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='52', APP_VERSAO_TXT='3.2', APP_DATA='01/10/2026'; // APP_VERSAO='52' ...
-  * APP_BUILD: número interno, sempre +1 (52 -> 53). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (3.2 -> 3.3 -> 3.4...).
+    const APP_BUILD='54', APP_VERSAO_TXT='3.4', APP_DATA='01/10/2026'; // APP_VERSAO='54' ...
+  * APP_BUILD: número interno, sempre +1 (54 -> 55). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (3.4 -> 3.5 -> 3.6...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='52' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v52 -> marisa-v53
+  * O comentário APP_VERSAO='54' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v54 -> marisa-v55
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+3.4  Atalho "🌙 Sem noite" ao mandar horários livres.
+3.3  Escolher quais horários livres mandar para cada cliente (riscar sem bloquear).
 3.2  Avaliar atendimento (nota de 1 a 5 ⭐ e comentário).
 3.1  Câmera 📷 direto no horário da cliente (fotos já vêm ligadas).
 3.0  Pagamento pendente (pagou parte / ficou devendo); mandar horários livres no WhatsApp.

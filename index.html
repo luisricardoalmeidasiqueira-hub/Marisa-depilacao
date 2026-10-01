@@ -192,6 +192,13 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.of-rap{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0 10px}
+.of-rap button{border:1.5px solid var(--linha);background:var(--card);color:var(--texto);border-radius:10px;padding:8px 2px;font-weight:800;font-size:.8rem}
+.of-chips{display:flex;flex-wrap:wrap;gap:8px}
+.of-chips button{border:2px solid var(--ok);border-radius:12px;padding:10px 12px;font-weight:800;font-size:1rem;min-width:66px}
+.of-chips button.on{background:var(--ok);color:#fff}
+.of-chips button.off{background:transparent;color:var(--suave);border-color:var(--linha);text-decoration:line-through;text-decoration-thickness:2px;opacity:.7}
+.of-cont{font-weight:800;color:var(--ok);margin:10px 0 0}
 .estrelas-n{display:flex;justify-content:space-between;gap:6px;margin:4px 0 10px}
 .estrelas-n button{flex:1;border:2px solid var(--linha);background:var(--card);border-radius:12px;padding:10px 0;font-size:1.6rem;line-height:1;filter:grayscale(1);opacity:.45}
 .estrelas-n button.on{filter:none;opacity:1;border-color:var(--mel);background:var(--mel-claro)}
@@ -575,7 +582,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="instagram postar publicar story feed foto legenda"><b>❓ Como posto a foto no Instagram?</b><p>Na <b>ficha</b> da cliente, embaixo da foto, toque em <b>🔒 Postar? Pedir ok</b> e confirme <b>só se a cliente autorizou postar</b>. Aparece o botão <b>📲 Postar</b>: toque nele, escolha <b>Instagram</b> (Feed ou Story) e na legenda <b>cole</b> (a legenda pronta já fica copiada). A legenda pode ser mudada em <b>☰ Mais → 📷 Fotos do trabalho</b>.</p></div>
         <div class="faq" data-k="salvar contato contatos celular agenda telefone vcf cliente desde antiga quanto tempo"><b>❓ Como salvo a cliente nos contatos do celular? E o "cliente desde"?</b><p>Ao marcar uma <b>cliente nova</b>, aparece um quadro amarelo: marque <b>📇 Salvar nos contatos do celular</b> (pergunte se ela deixa). Depois de salvar o horário, toque no arquivo que aparece e em <b>Salvar</b>. Se ela já é cliente antiga, preencha <b>"Cliente desde"</b> (mês e ano). Na ficha aparece <b>💕 Cliente desde … · há X anos</b>. Para clientes que já estão no app: ficha → <b>📇 Salvar nos contatos</b> ou <b>Editar ficha → Cliente desde</b>.</p></div>
         <div class="faq" data-k="deve devendo pagou metade pendente fiado pagamento parcial cobrar"><b>❓ A cliente pagou só uma parte. Como anoto?</b><p>Depois de marcar <b>✅ Presente</b>, toque em <b>💵 Pago</b> (ou ⋯ → <b>💵 Pagamento</b>). Digite <b>quanto ela pagou</b> (ex.: 30) e toque em <b>Salvar</b>. Aparece <b>💸 Deve R$ 70</b> no horário, na ficha e em <b>Clientes → 💸 Devendo</b>. Quando ela pagar, toque de novo e em <b>✅ Pagou tudo</b>. Tem também <b>💬 Lembrar a cliente no WhatsApp</b>, com mensagem educada pronta.</p></div>
-        <div class="faq" data-k="mandar horarios livres whatsapp cliente escolher agendar sozinha"><b>❓ Como mando os horários livres para a cliente?</b><p>Toque no dia no calendário → <b>💬 Mandar horários livres no WhatsApp</b> → escolha a cliente. Vai a lista dos horários. Quando ela responder, marque o horário no app.</p></div>
+        <div class="faq" data-k="mandar horarios livres whatsapp cliente escolher agendar sozinha riscar nao oferecer alguns escolher quais noite trabalha 18h 19h"><b>❓ Como mando os horários livres para a cliente? Dá pra não mandar alguns?</b><p>Toque no dia → <b>💬 Mandar horários livres no WhatsApp</b>. Abre a lista dos horários livres (todos verdes). <b>Toque para riscar</b> um por um os que você não quer oferecer para essa cliente (ex.: só o 19h30). Atalhos: <b>🌙 Sem noite</b> risca de 18h em diante; <b>☀️ Só manhã</b>, <b>🌤️ Só tarde</b>, <b>✅ Todos</b> (volta tudo) e <b>Nenhum</b>. Tocou errado? Toque de novo no horário que ele volta. Depois <b>💬 Mandar no WhatsApp</b> e escolha a cliente. <b>Riscar aqui não bloqueia a agenda</b>: na próxima cliente, todos os horários voltam. Quando ela responder, marque o horário no app.</p></div>
         <div class="faq" data-k="avaliar avaliacao nota estrela opiniao cliente gostou"><b>❓ Como peço e anoto a avaliação da cliente?</b><p>Depois de <b>✅ Presente</b>, toque em <b>⭐ Avaliar</b>. Toque em <b>💬 Pedir avaliação no WhatsApp</b> (a mensagem vai pronta). Quando ela responder, abra de novo, toque nas <b>estrelas</b> (1 a 5) e, se quiser, escreva o que ela falou. A mensagem de pós-atendimento do dia seguinte também já pede a nota. A média aparece na <b>ficha</b> e no <b>💰 Caixa</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p>Aba <b>✨ Serviços</b> → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
@@ -1071,6 +1078,16 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <textarea id="ntCom" rows="2" placeholder="Ex.: amou a sobrancelha, achou a cera quente"></textarea>
   <button class="btn" id="ntSalvar">Salvar avaliação</button>
   <button class="btn perigo" id="ntApagar" hidden>Apagar avaliação</button>
+</div>
+
+<div class="folha" id="folhaOferta" role="dialog" aria-modal="true" aria-labelledby="ofTit">
+  <div class="puxador"></div>
+  <h2 id="ofTit">💬 Mandar horários livres</h2>
+  <p class="dica">Horários livres de <b id="ofDia"></b>. <b>Toque para riscar</b> os que você <b>não quer oferecer</b> para esta cliente.<br>Isso <b>não bloqueia</b> a agenda: na próxima vez todos voltam.</p>
+  <div class="of-rap"><button type="button" id="ofTodos">✅ Todos</button><button type="button" id="ofSemNoite">🌙 Sem noite</button><button type="button" id="ofNenhum">Nenhum</button><button type="button" id="ofManha">☀️ Só manhã</button><button type="button" id="ofTarde">🌤️ Só tarde</button></div>
+  <div class="of-chips" id="ofChips"></div>
+  <p class="of-cont" id="ofCont"></p>
+  <button class="btn" id="ofEnviar" style="background:#25D366;color:#fff">💬 Mandar no WhatsApp</button>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -1961,7 +1978,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='52', APP_VERSAO_TXT='3.2', APP_DATA='01/10/2026'; // APP_VERSAO='52' (compatibilidade com versões antigas)
+const APP_BUILD='54', APP_VERSAO_TXT='3.4', APP_DATA='01/10/2026'; // APP_VERSAO='54' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2346,13 +2363,28 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-pag]'); i
 
 $('#cxDeveBox').onclick=()=>{ document.querySelector('nav [data-t=clientes]').click(); const b=document.querySelector('#filtros [data-f=devendo]'); if(b) b.click(); };
 
+// ===== Mandar horários livres (escolher quais oferecer, sem bloquear a agenda) =====
+let ofertaLiv=[], ofertaSel=new Set();
+function diaTxtOferta(){ const dt=new Date(diaSel+'T12:00'); return diaSel===HOJE?'hoje':diaSel===iso(addDias(new Date(HOJE+'T12:00'),1))?'amanhã':dt.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}); }
+function pintaOferta(){
+  $('#ofChips').innerHTML=ofertaLiv.map(h=>`<button type="button" class="${ofertaSel.has(h)?'on':'off'}" data-of="${h}">${fmtH(h)}</button>`).join('');
+  $('#ofCont').textContent=ofertaSel.size?`Vai mandar ${ofertaSel.size} ${ofertaSel.size===1?'horário':'horários'}`:'Nenhum horário marcado';
+}
 $('#zapLivres').onclick=()=>{
-  const liv=livresDo(diaSel); const dt=new Date(diaSel+'T12:00');
-  if(!liv.length) return aviso('Não tem horário livre neste dia');
-  const dia=diaSel===HOJE?'hoje':diaSel===iso(addDias(new Date(HOJE+'T12:00'),1))?'amanhã':dt.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'});
+  ofertaLiv=livresDo(diaSel); if(!ofertaLiv.length) return aviso('Não tem horário livre neste dia');
+  ofertaSel=new Set(ofertaLiv); $('#ofDia').textContent=diaTxtOferta(); pintaOferta(); abrirFolha('folhaOferta');
+};
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-of]'); if(!b) return; const h=b.dataset.of; ofertaSel.has(h)?ofertaSel.delete(h):ofertaSel.add(h); pintaOferta(); });
+$('#ofTodos').onclick=()=>{ ofertaSel=new Set(ofertaLiv); pintaOferta(); };
+$('#ofNenhum').onclick=()=>{ ofertaSel=new Set(); pintaOferta(); };
+$('#ofManha').onclick=()=>{ ofertaSel=new Set(ofertaLiv.filter(h=>h<'12:00')); pintaOferta(); };
+$('#ofTarde').onclick=()=>{ ofertaSel=new Set(ofertaLiv.filter(h=>h>='12:00'&&h<'18:00')); pintaOferta(); };
+$('#ofSemNoite').onclick=()=>{ ofertaLiv.filter(h=>h>='18:00').forEach(h=>ofertaSel.delete(h)); pintaOferta(); aviso('Horários da noite riscados só para esta mensagem'); };
+$('#ofEnviar').onclick=()=>{
+  const liv=ofertaLiv.filter(h=>ofertaSel.has(h)); if(!liv.length) return aviso('Toque nos horários que quer mandar');
   const grp=[['☀️ Manhã',h=>h<'12:00'],['🌤️ Tarde',h=>h>='12:00'&&h<'18:00'],['🌙 Noite',h=>h>='18:00']].map(([n,f])=>{ const L=liv.filter(f); return L.length?`${n}: ${L.map(fmtH).join(', ')}`:''; }).filter(Boolean).join('\n');
-  const txt=`Oi! 😊 Tenho estes horários livres ${dia}:\n\n${grp}\n\nQual fica melhor pra você? É só me responder com o horário 💕`+(CFG.assinatura?'\n\n'+CFG.assinatura:'');
-  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+  const txt=`Oi! 😊 Tenho ${liv.length===1?'este horário livre':'estes horários livres'} ${diaTxtOferta()}:\n\n${grp}\n\nQual fica melhor pra você? É só me responder com o horário 💕`+(CFG.assinatura?'\n\n'+CFG.assinatura:'');
+  fecharFolhas(); window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
 };
 
 // ===== Avaliar atendimento =====
