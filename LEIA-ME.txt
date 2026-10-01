@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 4.2 (01/10/2026)
+App de agenda para celular · Versão 4.3 (01/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -41,7 +41,9 @@ LEMBRETES (médico, compromisso, comprar material…)
 • No calendário, o dia tem uma bolinha azul. Com o sininho 🔔 ligado, avisa 1h antes.
 
 BLOQUEAR HORÁRIO (médico, folga, viagem)
-• "🚫 Bloquear horário": escolha do dia / até o dia, dia inteiro ou das … até as ….
+• "🚫 Bloquear": escolha o dia (ou do dia / até o dia, para viagem). Depois:
+  "🕐 Alguns horários" → toque em cada horário que quer bloquear (fica vermelho;
+  horários com cliente aparecem riscados com o nome) ou "🗓️ O dia inteiro".
 • "📋 Ver horários bloqueados": lista com "Ver dia" e "Liberar".
 • No calendário: dia inteiro fica riscado de vermelho; parte do dia tem um
   tracinho vermelho embaixo.
@@ -137,16 +139,17 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='62', APP_VERSAO_TXT='4.2', APP_DATA='01/10/2026'; // APP_VERSAO='62' ...
-  * APP_BUILD: número interno, sempre +1 (62 -> 63). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.2 -> 4.3 -> 4.4...).
+    const APP_BUILD='63', APP_VERSAO_TXT='4.3', APP_DATA='01/10/2026'; // APP_VERSAO='63' ...
+  * APP_BUILD: número interno, sempre +1 (63 -> 64). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.3 -> 4.4 -> 4.5...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='62' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v62 -> marisa-v63
+  * O comentário APP_VERSAO='63' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v63 -> marisa-v64
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+4.3  Bloquear: os horários do dia aparecem para tocar e bloquear (um por um).
 4.2  Serviços voltou para a barra de baixo, junto com "💸 A receber".
 4.1  "💸 A receber" na barra de baixo; Serviços e preços foi para o ☰ Mais.
 4.0  Sininho de aviso nos pagamentos a receber (avisa no dia combinado).

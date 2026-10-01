@@ -192,6 +192,13 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.modo-bq{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.modo-bq button{border:2px solid var(--linha);background:var(--card);color:var(--texto);border-radius:12px;padding:12px 4px;font-weight:800;font-size:.95rem}
+.modo-bq button.on{border-color:var(--alerta);background:var(--alerta);color:#fff}
+.bq-chips button{border-color:var(--linha);background:var(--card);color:var(--texto)}
+.bq-chips button.sel{background:var(--alerta);border-color:var(--alerta);color:#fff}
+.bq-chips button.ocup,.bq-chips button.jabq{opacity:.45;text-decoration:line-through;cursor:not-allowed}
+.bq-chips button small{display:block;font-size:.65rem;font-weight:700}
 .nav-badge{position:absolute;top:0;left:calc(50% + 6px);min-width:18px;height:18px;border-radius:9px;background:var(--alerta);color:#fff;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 5px;box-shadow:0 0 0 2px var(--card)}
 .nav-badge.hoje{animation:pulsaBadge 1.6s ease-in-out infinite}
 @keyframes pulsaBadge{50%{transform:scale(1.18)}}
@@ -596,7 +603,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="automatica sozinha enviar mensagem"><b>❓ As mensagens vão sozinhas?</b><p>Não. O app <b>deixa a mensagem pronta</b> no WhatsApp, você só confere e aperta <b>enviar</b>.</p></div>
         <div class="faq" data-k="pos depois atendimento seguinte obrigada"><b>❓ E a mensagem de pós-atendimento?</b><p>No dia seguinte aparece um cartão amarelo no topo da Agenda. Toque em <b>Enviar</b>.</p></div>
         <div class="faq" data-k="promocao desconto combo dois duas mais barato junto valor combinado"><b>❓ A cliente fez 2 ou mais serviços. Como dou desconto?</b><p>Ao marcar 2 ou mais serviços aparece o campo verde <b>💝 Promoção</b>. Coloque o valor que vai cobrar e o app usa esse valor no dia e no caixa. Para sobrancelha com buço já tem o serviço <b>Sobrancelha + buço (R$ 62)</b>.</p></div>
-        <div class="faq" data-k="bloquear travar medico folga viagem riscar fechar agenda dia"><b>❓ Vou ao médico. Como travo a agenda?</b><p>Toque em <b>🚫 Bloquear horário</b>, escolha <b>o dia</b> (ou do dia … até o dia …, para viagem) e marque <b>Dia inteiro</b> ou tire o ✓ e escolha <b>das … até as …</b>. O dia fica riscado em vermelho e os horários somem. Para liberar, toque em <b>Desbloquear</b>.</p></div>
+        <div class="faq" data-k="bloquear travar medico folga viagem riscar fechar agenda dia"><b>❓ Vou ao médico. Como travo a agenda?</b><p>Toque em <b>🚫 Bloquear</b>, escolha <b>o dia</b> (ou do dia … até o dia …, para viagem). Depois escolha <b>🕐 Alguns horários</b> e toque nos horários que quer bloquear (ficam vermelhos), ou <b>🗓️ O dia inteiro</b>. O dia fica riscado em vermelho e os horários somem. Para liberar, toque em <b>Desbloquear</b>.</p></div>
         <div class="faq" data-k="lancar anotar procedimento feito registrar escrever servico ficha"><b>❓ Como anoto o procedimento que fiz?</b><p>Abra a <b>ficha</b> da cliente → <b>➕ Lançar serviço feito / anotar procedimento</b>. Marque os serviços e escreva no campo <b>📝 O que foi feito</b>. Aparece no histórico dela e entra no caixa.</p></div>
         <div class="faq" data-k="tres pontinhos opcoes menu pontos"><b>❓ Pra que servem os ⋯ e o ⋮?</b><p>Os <b>⋯</b> ficam em cada horário e têm as opções daquela cliente (adicionar serviço, mudar, excluir…). O <b>⋮</b> fica no topo e tem as opções do app (instalar, compartilhar, atualizar).</p></div>
         <div class="faq" data-k="cera premium tradicional preferida"><b>❓ Como escolho a cera da cliente?</b><p>Na ficha dela → <b>Editar ficha</b> → <b>Cera preferida</b> → <b>Cera premium</b> ou <b>Cera tradicional</b> → <b>Salvar</b>.</p></div>
@@ -657,7 +664,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>🔔 Lembrete 1 hora antes:</b> toque no sininho da faixa roxa e ligue. O celular vibra e avisa qual é a próxima cliente. Para aviso garantido com o app fechado, use nos ⋯ → <b>📅 Salvar no Google Agenda</b>, ou ligue no sininho a opção de abrir o Google Agenda ao marcar.</li>
         <li>A faixa roxa mostra o resumo do dia: próxima cliente, quantos atendimentos, valor previsto e quantos já foram concluídos.</li>
               <li><b>Horários em 24 horas:</b> aparecem como <b>7h, 9h30, 13h, 19h30</b>. 13h é 1 hora da tarde.</li>
-        <li><b>🚫 Bloquear horário:</b> para médico, folga ou viagem. Toque em <b>🚫 Bloquear horário</b>, escolha <b>do dia … até o dia …</b> e marque <b>Dia inteiro</b> ou escolha <b>das … até as …</b>. O dia fica riscado de vermelho (ou com um tracinho vermelho, se for só uma parte) e ninguém consegue ser marcado. Para ver todos os bloqueios, toque em <b>📋 Ver horários bloqueados</b>. Para liberar, toque em <b>Desbloquear</b> ou <b>Liberar</b>.</li>
+        <li><b>🚫 Bloquear horário:</b> para médico, folga ou viagem. Toque em <b>🚫 Bloquear</b>, escolha <b>do dia … até o dia …</b> e depois <b>🕐 Alguns horários</b> (toque em cada horário, ex.: só o 19h30) ou <b>🗓️ O dia inteiro</b>. O dia fica riscado de vermelho (ou com um tracinho vermelho, se for só uma parte) e ninguém consegue ser marcado. Para ver todos os bloqueios, toque em <b>📋 Ver horários bloqueados</b>. Para liberar, toque em <b>Desbloquear</b> ou <b>Liberar</b>.</li>
         <li><b>Os ⋯ de cada horário:</b> confirmar no WhatsApp, ➕ adicionar serviço, ✏️ mudar dia ou hora, 👤 ver ficha, ↩️ desfazer e 🗑️ excluir.</li>
         <li><b>💝 Promoção:</b> marcando 2 ou mais serviços, aparece o campo verde para colocar o valor combinado. Esse valor é o que entra no dia e no caixa.</li>
         <li><b>📝 Anotação:</b> no agendamento dá pra escrever o que vai ser feito ou alguma observação.</li>
@@ -1045,11 +1052,15 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div><label for="bqAteDia">Até o dia</label><input id="bqAteDia" type="date"></div>
   </div>
   <p style="color:var(--suave);font-size:.82rem;margin:4px 0 0">Para um dia só, deixe as duas datas iguais. Para viagem, escolha o primeiro e o último dia.</p>
-  <div class="checks"><label><input type="checkbox" id="bqTodo" checked> <b>Dia inteiro</b></label></div>
-  <div class="duas" id="bqPeriodo" hidden>
-    <div><label for="bqDe">Das</label><select id="bqDe" class="sel-hora"></select></div>
-    <div><label for="bqAte">Até as</label><select id="bqAte" class="sel-hora"></select></div>
+  <p style="font-weight:800;margin:14px 0 6px">O que você quer bloquear?</p>
+  <div class="modo-bq"><button type="button" id="bqModoH" class="on">🕐 Alguns horários</button><button type="button" id="bqModoD">🗓️ O dia inteiro</button></div>
+  <div id="bqHoras">
+    <p class="dica" style="margin:8px 0 6px">Toque nos horários que quer bloquear (ficam <b style="color:var(--alerta)">vermelhos</b>). Toque de novo para desmarcar.</p>
+    <div class="of-chips bq-chips" id="bqChips"></div>
+    <p class="of-cont" id="bqCont" style="color:var(--alerta)"></p>
   </div>
+  <input type="checkbox" id="bqTodo" hidden>
+  <select id="bqDe" class="sel-hora" hidden></select><select id="bqAte" class="sel-hora" hidden></select>
   <label for="bqMotivo">Motivo (opcional)</label>
   <input id="bqMotivo" placeholder="Ex.: médico, folga, viagem">
   <button class="btn" id="bqSalvar" style="background:var(--alerta);color:#fff">🚫 Bloquear</button>
@@ -2094,7 +2105,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='62', APP_VERSAO_TXT='4.2', APP_DATA='01/10/2026'; // APP_VERSAO='62' (compatibilidade com versões antigas)
+const APP_BUILD='63', APP_VERSAO_TXT='4.3', APP_DATA='01/10/2026'; // APP_VERSAO='63' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2188,27 +2199,45 @@ document.addEventListener('click',e=>{
 })();
 
 // ===== Bloquear horário =====
+let bqModo='h', bqSel=new Set();
+function slotsDia(){ const L=[]; for(let m=mm(CFG.abre||'07:00');m<=mm(CFG.fecha||'19:30');m+=30) L.push(String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')); return L; }
+function pintaBq(){
+  $('#bqModoH').classList.toggle('on',bqModo==='h'); $('#bqModoD').classList.toggle('on',bqModo==='d'); $('#bqHoras').hidden=bqModo!=='h';
+  const dia=$('#bqData').value;
+  $('#bqChips').innerHTML=slotsDia().map(h=>{
+    const cli=dados.find(a=>a.data===dia&&!fora(a)&&mm(h)>=mm(a.hora)&&mm(h)<mm(a.hora)+duracao(a));
+    const jb=bloqueioEm(dia,h);
+    if(jb) return `<button type="button" class="jabq" disabled>${fmtH(h)}<small>bloqueado</small></button>`;
+    if(cli) return `<button type="button" class="ocup" disabled>${fmtH(h)}<small>${cli.nome.split(' ')[0]}</small></button>`;
+    return `<button type="button" class="${bqSel.has(h)?'sel':''}" data-bqh="${h}">${fmtH(h)}</button>`;
+  }).join('');
+  $('#bqCont').textContent=bqSel.size?`${bqSel.size} ${bqSel.size===1?'horário marcado':'horários marcados'} para bloquear`:'';
+}
 $('#bloquearDia').onclick=()=>{
   const d0=diaSel<HOJE?HOJE:diaSel; $('#bqData').value=d0; $('#bqAteDia').value=d0; $('#bqData').min=HOJE; $('#bqAteDia').min=HOJE;
-  $('#bqTodo').checked=true; $('#bqPeriodo').hidden=true; $('#bqMotivo').value='';
-  abrirFolha('folhaBloq');
+  $('#bqMotivo').value=''; bqModo='h'; bqSel=new Set(); pintaBq(); abrirFolha('folhaBloq');
 };
-$('#bqTodo').addEventListener('change',()=>{ $('#bqPeriodo').hidden=$('#bqTodo').checked; });
-$('#bqData').addEventListener('change',()=>{ if(!$('#bqAteDia').value||$('#bqAteDia').value<$('#bqData').value) $('#bqAteDia').value=$('#bqData').value; });
+$('#bqModoH').onclick=()=>{ bqModo='h'; pintaBq(); };
+$('#bqModoD').onclick=()=>{ bqModo='d'; pintaBq(); };
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-bqh]'); if(!b) return; const h=b.dataset.bqh; bqSel.has(h)?bqSel.delete(h):bqSel.add(h); pintaBq(); });
+$('#bqData').addEventListener('change',()=>{ if(!$('#bqAteDia').value||$('#bqAteDia').value<$('#bqData').value) $('#bqAteDia').value=$('#bqData').value; bqSel=new Set(); pintaBq(); });
 $('#bqSalvar').onclick=()=>{
-  const todo=$('#bqTodo').checked, de=$('#bqDe').value, ate=$('#bqAte').value;
-  const d1=$('#bqData').value, d2=$('#bqAteDia').value||d1;
+  const todo=bqModo==='d'; const d1=$('#bqData').value, d2=$('#bqAteDia').value||d1;
   if(!d1) return aviso('Escolha o dia');
   if(d2<d1) return aviso('O "até o dia" precisa ser depois do "do dia"');
-  if(!todo&&(!de||!ate||de>=ate)) return aviso('O "até as" precisa ser depois do "das"');
+  if(!todo&&!bqSel.size) return aviso('Toque nos horários que quer bloquear');
+  // junta horários seguidos em faixas (ex.: 18h, 18h30, 19h → 18h às 19h30)
+  const faixas=[]; [...bqSel].sort().forEach(h=>{ const m=mm(h), u=faixas[faixas.length-1]; if(u&&u[1]===m) u[1]=m+30; else faixas.push([m,m+30]); });
+  const hh=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
   const dias=[]; for(let d=new Date(d1+'T12:00'); iso(d)<=d2 && dias.length<90; d=addDias(d,1)) dias.push(iso(d));
-  let marcadas=0;
-  dias.forEach((dia,k)=>{
-    BLOQ.push({id:Date.now()+k,data:dia,diaTodo:todo,de:todo?'00:00':de,ate:todo?'23:59':ate,motivo:$('#bqMotivo').value.trim()});
-    marcadas+=dados.filter(a=>a.data===dia&&!fora(a)&&!a.feito&&(todo||(mm(a.hora)>=mm(de)&&mm(a.hora)<mm(ate)))).length;
+  const mot=$('#bqMotivo').value.trim(); let k=0, marcadas=0;
+  dias.forEach(dia=>{
+    if(todo){ BLOQ.push({id:Date.now()+k++,data:dia,diaTodo:true,de:'00:00',ate:'23:59',motivo:mot}); marcadas+=dados.filter(a=>a.data===dia&&!fora(a)&&!a.feito).length; }
+    else faixas.forEach(([a,b])=>{ BLOQ.push({id:Date.now()+k++,data:dia,diaTodo:false,de:hh(a),ate:hh(b),motivo:mot});
+      marcadas+=dados.filter(x=>x.data===dia&&!fora(x)&&!x.feito&&mm(x.hora)>=a&&mm(x.hora)<b).length; });
   });
   salvarBloq(); diaSel=d1; mesVis=new Date(d1.slice(0,7)+'-01T12:00'); fecharFolhas(); render();
-  const txt=dias.length>1?`${dias.length} dias bloqueados 🚫`:'Horário bloqueado 🚫';
+  const txt=todo?(dias.length>1?`${dias.length} dias bloqueados 🚫`:'Dia inteiro bloqueado 🚫'):`${bqSel.size} ${bqSel.size===1?'horário bloqueado':'horários bloqueados'}${dias.length>1?' em '+dias.length+' dias':''} 🚫`;
   aviso(marcadas?`${txt} Atenção: ${marcadas===1?'1 cliente já estava marcada':marcadas+' clientes já estavam marcadas'}!`:txt);
 };
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-desbloq]'); if(!b) return;
