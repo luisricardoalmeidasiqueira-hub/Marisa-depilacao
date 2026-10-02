@@ -192,6 +192,11 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.btn-confall{width:100%;border:2px solid #25D366;background:#E9F9EF;color:#128C4A;border-radius:14px;padding:12px;font-weight:800;margin:0 0 6px;font-size:.98rem}
+.conf-it{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid var(--linha);border-radius:14px;padding:10px 12px;margin:8px 0;background:var(--card)}
+.conf-it b{display:block} .conf-it span{font-size:.85rem;color:var(--suave)}
+.conf-it a{flex:none;text-decoration:none;border-radius:12px;padding:10px 12px;font-weight:800;font-size:.9rem;background:#25D366;color:#fff}
+.conf-it a.ja{background:var(--card);color:var(--ok);border:1.5px solid var(--ok)}
 .modo-bq{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .modo-bq button{border:2px solid var(--linha);background:var(--card);color:var(--texto);border-radius:12px;padding:12px 4px;font-weight:800;font-size:.95rem}
 .modo-bq button.on{border-color:var(--alerta);background:var(--alerta);color:#fff}
@@ -532,6 +537,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div class="secao"><h2 id="tituloDia">Agenda de hoje</h2><small id="diaSel"></small></div>
     <div id="lembDia"></div>
     <button class="btn-dia" id="agendarDia">+ Agendar neste dia</button>
+    <button class="btn-confall" id="confTodas" hidden></button>
     <button class="btn-zaplivres" id="zapLivres">💬 Mandar horários livres no WhatsApp</button>
     <div class="dois-bts"><button class="btn-lemb" id="novoLembrete">📝 Lembrete<br><small>médico, compromisso</small></button><button class="btn-bloq" id="bloquearDia">🚫 Bloquear<br><small>horário ou dia</small></button></div>
     <button class="btn-pags" id="btnPags" hidden>💸 Pagamentos a receber</button>
@@ -630,6 +636,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="fiado pagar depois prazo vai pagar depois devendo divida antiga antes do app lancar"><b>❓ A cliente vai pagar depois. E quem já devia antes do app?</b><p><b>Atendimento que ela vai pagar depois:</b> depois de ✅ Presente, toque em <b>💵 Pago</b> → <b>🕒 Vai pagar depois</b>; se combinou uma data, coloque em <b>"Combinou pagar até"</b>. <b>Quem já devia antes do app:</b> toque em <b>💸 A receber</b> (barra de baixo) → <b>➕ Lançar pagamento a receber</b> (também tem em Clientes, no Caixa e na ficha). No dia combinado aparece um quadro vermelho <b>"Combinou pagar hoje"</b> na agenda. Tudo aparece em <b>Clientes → 💸 A receber</b>.</p></div>
         <div class="faq" data-k="pagamentos quem deve devendo receber central lista fiado"><b>❓ Onde vejo os pagamentos que tenho a receber?</b><p>Toque em <b>💸 A receber</b>, na barra de baixo (o número vermelho mostra quantas clientes; fica com 🔔 quando alguém combinou pagar hoje). Mostra o total pendente e cada cliente com o que deve. Toque em <b>Receber</b> quando ela pagar. Ali também tem <b>➕ Lançar pagamento a receber</b>.</p></div>
         <div class="faq" data-k="aviso pagamento sininho lembrar receber dia combinado cobrar notificacao"><b>❓ O app me avisa no dia que a cliente combinou pagar?</b><p><b>Sim.</b> Quando você coloca a data em <b>"Combinou pagar até"</b>, no dia o celular avisa (com o sininho de pagamento ligado) e o <b>💸 A receber</b> da barra de baixo ganha um <b>🔔 vermelho piscando</b>. O sininho de pagamento fica dentro de <b>💸 A receber</b> (já vem ligado). Para aviso garantido mesmo com o app fechado, no pagamento toque em <b>📅 Lembrete no Google Agenda</b>.</p></div>
+        <div class="faq" data-k="confirmar todas cedo manha mensagem confirmacao qualquer hora antes"><b>❓ Posso mandar a confirmação cedo para todas as clientes do dia?</b><p><b>Pode.</b> Na agenda, toque em <b>💬 Confirmar as clientes de hoje</b> (botão verde claro, em cima). Aparece a lista do dia: toque em <b>💬 Enviar</b> em cada uma, envie no WhatsApp e volte para a próxima. Quem já recebeu fica com <b>✓ Enviada</b>. Funciona a qualquer hora e também para outros dias (toque no dia no calendário). O aviso de 1 hora antes continua existindo.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -1199,6 +1206,13 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div id="psLista"></div>
 </div>
 
+<div class="folha" id="folhaConf" role="dialog" aria-modal="true" aria-labelledby="cfTit">
+  <div class="puxador"></div>
+  <h2 id="cfTit">💬 Confirmar clientes</h2>
+  <p class="dica">Toque em <b>Enviar</b> em cada cliente: abre o WhatsApp com a mensagem de confirmação pronta. Depois de enviar, volte ao app e mande a próxima. Pode mandar a hora que quiser (cedo, de manhã…).</p>
+  <div id="cfLista"></div>
+</div>
+
 <div class="aviso" id="aviso" role="status"></div>
 
 <script>
@@ -1362,7 +1376,7 @@ function itemAgenda(a,mostrarDia){
       <div class="acoes">
         ${a.falta?'<span class="st-b falta">❌ Faltou</span>':a.cancelado?'<span class="st-b falta" style="color:var(--suave)">🚫 Cancelado</span>':a.feito?`<span class="st-b ok">✅ Presente</span>${notaBtn(a)}${deveDe(a)>0?`<button class="grande pagb deve" data-pag="${a.id}">💸 Deve ${brl(deveDe(a))}${a.vence?' · até '+dataBR(a.vence):''}</button>`:`<button class="grande pagb" data-pag="${a.id}">💵 Pago</button>`}`:a.data<=HOJE?
           `<button class="grande veio" data-feito="${a.id}">✅ Presente</button><button class="grande faltou" data-falta="${a.id}">❌ Faltou</button><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`:
-          `<a class="grande zapb" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar</a><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`}
+          `<a class="grande zapb" href="${zap(a,msg)}" target="_blank" rel="noopener" data-confok="${a.id}">💬 ${a.confirmado?'Confirmada ✓':'Confirmar'}</a><button class="grande cancb" data-cancel="${a.id}">🚫 Cancelado</button>`}
         ${camBtn(a)}
         <button class="grande opc" data-opc="${a.id}" aria-label="Mais opções">⋯</button>
       </div>
@@ -1980,6 +1994,8 @@ function renderCal(){
   const passado=diaSel<HOJE;
   $('#agendarDia').style.display=passado||diaBloqueado(diaSel)?'none':'block';
   $('#zapLivres').style.display=passado||diaBloqueado(diaSel)?'none':'block';
+  { const pc=passado?[]:dados.filter(a=>a.data===diaSel&&!a.feito&&!fora(a)); const fal=pc.filter(a=>!a.confirmado).length; const b=$('#confTodas'); b.hidden=!pc.length;
+    b.textContent=fal?`💬 Confirmar as clientes ${diaSel===HOJE?'de hoje':'deste dia'} (${fal} ${fal===1?'falta':'faltam'})`:`✓ Todas confirmadas ${diaSel===HOJE?'hoje':'neste dia'} (ver de novo)`; }
   $('#bloquearDia').style.display=passado||diaBloqueado(diaSel)?'none':'block';
   { const L=LEMB.filter(l=>l.data===diaSel).sort((x,y)=>(x.hora||'99').localeCompare(y.hora||'99'));
     const cob=diaSel===HOJE?[...dados.filter(a=>deveDe(a)>0&&a.vence&&a.vence<=HOJE).map(a=>({tipo:'a',id:a.id,nome:a.nome,tel:a.tel,v:deveDe(a),vence:a.vence})),
@@ -2105,7 +2121,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='63', APP_VERSAO_TXT='4.3', APP_DATA='01/10/2026'; // APP_VERSAO='63' (compatibilidade com versões antigas)
+const APP_BUILD='64', APP_VERSAO_TXT='4.4', APP_DATA='02/10/2026'; // APP_VERSAO='64' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2152,7 +2168,7 @@ function abrirOpc(id){
   $('#opcSub').textContent=(a.data===HOJE?'Hoje':dataBR(a.data))+' · '+nomes+' · '+brl(valor(a));
   const msg=preencher(CFG.msgConf||MSG_CONF_PADRAO,a)+linhaEnd();
   const it=[];
-  if(!a.feito&&!fora(a)) it.push(`<a class="z" href="${zap(a,msg)}" target="_blank" rel="noopener">💬 Confirmar no WhatsApp</a>`);
+  if(!a.feito&&!fora(a)) it.push(`<a class="z" href="${zap(a,msg)}" target="_blank" rel="noopener" data-confok="${a.id}">💬 Confirmar no WhatsApp${a.confirmado?' (já enviada ✓)':''}</a>`);
   if(!fora(a)) it.push(`<button data-editar="${a.id}" data-modo="serv">➕ Adicionar serviço</button>`);
   it.push(`<button data-editar="${a.id}">✏️ Mudar dia, hora ou dados</button>`);
   if(a.feito) it.push(`<button data-pag="${a.id}">💵 Pagamento (pagou tudo / parte / depois)</button>`);
@@ -2677,6 +2693,18 @@ $('#btnPags').onclick=abrirPags;
 $('#navPags').onclick=abrirPags;
 $('#abrirServs').onclick=()=>{ document.querySelectorAll('nav.abas [data-t]').forEach(x=>x.removeAttribute('aria-current')); document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa')); $('#t-servicos').classList.add('ativa'); window.scrollTo(0,0); };
 $('#psNovo').onclick=()=>abrirDiv(null);
+
+// ===== Confirmar todas as clientes do dia =====
+function abrirConf(){
+  const L=dados.filter(a=>a.data===diaSel&&!a.feito&&!fora(a)).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)));
+  $('#cfTit').textContent=`💬 Confirmar ${diaSel===HOJE?'as clientes de hoje':'as clientes de '+dataBR(diaSel)}`;
+  $('#cfLista').innerHTML=L.map(a=>`<div class="conf-it"><div><b>${fmtH(a.hora)} · ${a.nome}</b><span>${a.serv.map(i=>sv(i).n).join(' + ')}</span></div>
+    <a class="${a.confirmado?'ja':''}" href="${zap(a,preencher(CFG.msgConf||MSG_CONF_PADRAO,a)+linhaEnd())}" target="_blank" rel="noopener" data-confok="${a.id}">${a.confirmado?'✓ Enviada':'💬 Enviar'}</a></div>`).join('')||'<div class="vazio">Nenhuma cliente para confirmar.</div>';
+  abrirFolha('folhaConf');
+}
+$('#confTodas').onclick=abrirConf;
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-confok]'); if(!b) return; const a=dados.find(x=>x.id==b.dataset.confok); if(!a) return;
+  a.confirmado=true; salvar(); const naLista=!!b.closest('#cfLista'); setTimeout(()=>{ render(); if(naLista) abrirConf(); },500); });
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();

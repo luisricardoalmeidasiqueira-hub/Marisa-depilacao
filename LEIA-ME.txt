@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 4.3 (01/10/2026)
+App de agenda para celular · Versão 4.4 (02/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -57,6 +57,9 @@ LEMBRETES
   Notificação padrão → 1 hora antes.
 
 MENSAGENS NO WHATSAPP (vão prontas, é só apertar enviar)
+• 💬 Confirmar as clientes do dia (botão verde claro na agenda): lista todas as
+  clientes do dia; toque em "Enviar" em cada uma, na hora que quiser (ex.: cedo).
+  Quem já recebeu fica "✓ Enviada".
 • 💬 Confirmar: mensagem de confirmação com endereço e mapa.
 • Cartão verde 1h antes: lembrete para a cliente.
 • Cartão amarelo no dia seguinte: pós-atendimento.
@@ -139,16 +142,17 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='63', APP_VERSAO_TXT='4.3', APP_DATA='01/10/2026'; // APP_VERSAO='63' ...
-  * APP_BUILD: número interno, sempre +1 (63 -> 64). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.3 -> 4.4 -> 4.5...).
+    const APP_BUILD='64', APP_VERSAO_TXT='4.4', APP_DATA='02/10/2026'; // APP_VERSAO='64' ...
+  * APP_BUILD: número interno, sempre +1 (64 -> 65). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.4 -> 4.5 -> 4.6...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='63' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v63 -> marisa-v64
+  * O comentário APP_VERSAO='64' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v64 -> marisa-v65
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+4.4  Confirmar todas as clientes do dia a qualquer hora (não só 1h antes).
 4.3  Bloquear: os horários do dia aparecem para tocar e bloquear (um por um).
 4.2  Serviços voltou para a barra de baixo, junto com "💸 A receber".
 4.1  "💸 A receber" na barra de baixo; Serviços e preços foi para o ☰ Mais.
