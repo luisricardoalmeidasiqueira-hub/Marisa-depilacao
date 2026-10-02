@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 4.8 (02/10/2026)
+App de agenda para celular · Versão 4.9 (02/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -129,6 +129,12 @@ CAIXA
 • 🧴 Reserva p/ material: 20%, 25% ou 0% do recebido; mostra quanto fica para você.
 • "O que não entrou": cancelados e faltas do mês, com lista por dia.
 
+APAGAR SÓ UM REGISTRO
+• Use a 🗑️ lixeira ao lado: histórico da ficha (cada atendimento), avaliações,
+  pagamentos a receber, cancelados e faltas, lembretes. O app pergunta antes.
+• Na agenda: ⋯ → 🗑️ Excluir horário.
+• "Apagar todos os dados" (na ficha) apaga a cliente inteira — só se ela pedir.
+
 OUTROS
 • Serviços e preços: ✨ Serviços na barra de baixo (ou ☰ Mais → ✨ Serviços e preços).
 • 🎨 Aparência: ☰ Mais → sempre claro, sempre escuro ou igual ao celular.
@@ -150,16 +156,17 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='68', APP_VERSAO_TXT='4.8', APP_DATA='02/10/2026'; // APP_VERSAO='68' ...
-  * APP_BUILD: número interno, sempre +1 (68 -> 69). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.8 -> 4.9 -> 5.0...).
+    const APP_BUILD='69', APP_VERSAO_TXT='4.9', APP_DATA='02/10/2026'; // APP_VERSAO='69' ...
+  * APP_BUILD: número interno, sempre +1 (69 -> 70). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.9 -> 5.0 -> 5.1...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='68' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v68 -> marisa-v69
+  * O comentário APP_VERSAO='69' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v69 -> marisa-v70
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+4.9  Lixeira 🗑️ para apagar um registro de cada vez (histórico, avaliação, pagamentos…).
 4.8  Caixa: recebido e reserva DO DIA em destaque; mês em resumo menor embaixo.
 4.7  Pós-atendimento: faixa pequena, 1 dia por padrão (escolhe 1/2/3 dias ou desligar).
 4.6  Nova mensagem de confirmação ("…estará tudo organizado e higienizado…")
