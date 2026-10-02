@@ -192,6 +192,12 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+#cfgConf,#cfgPos,#cfgLivres{font-size:1rem;line-height:1.45}
+.ins-bts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 4px}
+.ins-bts span{font-size:.8rem;color:var(--suave);font-weight:700}
+.ins-bts button{border:1.5px solid var(--ameixa);background:var(--card);color:var(--ameixa);border-radius:999px;padding:6px 10px;font-weight:800;font-size:.8rem}
+.previa{background:#E9F9EF;border-radius:12px;padding:10px 12px;font-size:.88rem;white-space:pre-line;color:#1D4D33;margin-bottom:6px}
+.previa::before{content:'Como a cliente vai receber:';display:block;font-weight:800;font-size:.78rem;margin-bottom:4px}
 .btn-confall{width:100%;border:2px solid #25D366;background:#E9F9EF;color:#128C4A;border-radius:14px;padding:12px;font-weight:800;margin:0 0 6px;font-size:.98rem}
 .conf-it{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid var(--linha);border-radius:14px;padding:10px 12px;margin:8px 0;background:var(--card)}
 .conf-it b{display:block} .conf-it span{font-size:.85rem;color:var(--suave)}
@@ -637,6 +643,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="pagamentos quem deve devendo receber central lista fiado"><b>❓ Onde vejo os pagamentos que tenho a receber?</b><p>Toque em <b>💸 A receber</b>, na barra de baixo (o número vermelho mostra quantas clientes; fica com 🔔 quando alguém combinou pagar hoje). Mostra o total pendente e cada cliente com o que deve. Toque em <b>Receber</b> quando ela pagar. Ali também tem <b>➕ Lançar pagamento a receber</b>.</p></div>
         <div class="faq" data-k="aviso pagamento sininho lembrar receber dia combinado cobrar notificacao"><b>❓ O app me avisa no dia que a cliente combinou pagar?</b><p><b>Sim.</b> Quando você coloca a data em <b>"Combinou pagar até"</b>, no dia o celular avisa (com o sininho de pagamento ligado) e o <b>💸 A receber</b> da barra de baixo ganha um <b>🔔 vermelho piscando</b>. O sininho de pagamento fica dentro de <b>💸 A receber</b> (já vem ligado). Para aviso garantido mesmo com o app fechado, no pagamento toque em <b>📅 Lembrete no Google Agenda</b>.</p></div>
         <div class="faq" data-k="confirmar todas cedo manha mensagem confirmacao qualquer hora antes"><b>❓ Posso mandar a confirmação cedo para todas as clientes do dia?</b><p><b>Pode.</b> Na agenda, toque em <b>💬 Confirmar as clientes de hoje</b> (botão verde claro, em cima). Aparece a lista do dia: toque em <b>💬 Enviar</b> em cada uma, envie no WhatsApp e volte para a próxima. Quem já recebeu fica com <b>✓ Enviada</b>. Funciona a qualquer hora e também para outros dias (toque no dia no calendário). O aviso de 1 hora antes continua existindo.</p></div>
+        <div class="faq" data-k="mudar editar mensagem texto confirmacao hora horario aparecer escrever"><b>❓ Como mudo o texto da mensagem? E o horário aparece sozinho?</b><p><b>☰ Mais → ✉️ Mensagens.</b> Escreva do seu jeito. Onde o app deve colocar o horário, toque no botão <b>🕐 hora</b> (aparece <b>{hora}</b>) — <b>não escreva "...h"</b>. Igual para <b>👤 nome</b> e <b>📅 dia</b>. Embaixo aparece em verde <b>como a cliente vai receber</b>. Salva sozinho (ou toque em <b>💾 Salvar mensagens</b>). Mandando às 8h para a cliente das 13h, a mensagem vai com <b>13h</b>. Antes de enviar, no WhatsApp ainda dá pra mudar qualquer palavra.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -806,11 +813,17 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <details class="dob"><summary>✉️ Mensagens</summary><div class="cont">
       <p style="color:var(--suave);font-size:.85rem">O app troca sozinho: <b>{nome}</b> pelo nome da cliente, <b>{dia}</b> por hoje/amanhã/data, <b>{hora}</b> pelo horário e <b>{servico}</b> pelo serviço.</p>
       <label for="cfgConf">Confirmação do horário</label>
-      <textarea id="cfgConf" rows="5"></textarea>
+      <textarea id="cfgConf" rows="8"></textarea>
+      <div class="ins-bts" data-alvo="cfgConf"><span>Colocar:</span><button type="button" data-ins="{nome}">👤 nome</button><button type="button" data-ins="{dia}">📅 dia</button><button type="button" data-ins="{hora}">🕐 hora</button><button type="button" data-ins="{servico}">✨ serviço</button></div>
+      <div class="previa" id="prevConf"></div>
       <label for="cfgPos">Pós-atendimento (no dia seguinte)</label>
-      <textarea id="cfgPos" rows="5"></textarea>
+      <textarea id="cfgPos" rows="7"></textarea>
+      <div class="ins-bts" data-alvo="cfgPos"><span>Colocar:</span><button type="button" data-ins="{nome}">👤 nome</button><button type="button" data-ins="{servico}">✨ serviço</button></div>
+      <div class="previa" id="prevPos"></div>
       <label for="cfgLivres">Horários livres (botão verde 💬 Mandar horários livres)</label>
       <textarea id="cfgLivres" rows="6"></textarea>
+      <div class="ins-bts" data-alvo="cfgLivres"><span>Colocar:</span><button type="button" data-ins="{dia}">📅 dia</button><button type="button" data-ins="{horarios}">🕐 lista de horários</button></div>
+      <button class="btn" id="cfgMsgsSalvar" style="margin-top:12px">💾 Salvar mensagens</button>
       <p style="color:var(--suave);font-size:.82rem;margin:4px 0 0">Aqui use <b>{dia}</b> (hoje, amanhã ou a data) e <b>{horarios}</b> (a lista de horários).</p>
       <button class="chip" id="cfgMsgsPadrao" style="margin-top:10px">Voltar às mensagens padrão</button>
     </div></details>
@@ -1347,13 +1360,14 @@ function preencher(t,a){ return t.replace(/\{nome\}/g,a.nome.split(' ')[0]).repl
 const linhaEnd=()=> CFG.endMsg&&CFG.endereco ? '\n\n📍 '+CFG.endereco+'\n'+mapaURL() : '';
 const mapaURL=()=> 'https://maps.google.com/?q='+(CFG.endereco||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9 ]+/g,' ').trim().split(/\s+/).join('+');
 const MSG_SUMIDA_PADRAO="Oi, {nome}! Tudo bem? 💕 Estou com saudade de você por aqui! Já faz um tempinho desde {servico}. Que tal marcar um horário esta semana? Vou adorar te atender!";
-const MSG_CONF_PADRAO='✨ Olá, {nome} 🌸\nPassando para confirmar nosso horário agendado {dia} às {hora}.\nSerá um prazer recebê-la e proporcionar esse momento especial de autocuidado. 💆‍♀️✨';
+const MSG_CONF_V1='✨ Olá, {nome} 🌸\nPassando para confirmar nosso horário agendado {dia} às {hora}.\nSerá um prazer recebê-la e proporcionar esse momento especial de autocuidado. 💆‍♀️✨';
+const MSG_CONF_PADRAO='✨ Olá, {nome}. Tudo bem? 🌸\nPassando só para dizer que já estou organizando tudo com muito carinho para recebê-la {dia} às {hora}. 💆‍♀️✨\nAté mais! 🌻\nAguardo sua confirmação!';
 const MSG_POS_ANTIGA='✨ Olá, {nome}, tudo bem?\nEspero que esteja se sentindo confortável e satisfeita com o atendimento. Qualquer sensibilidade ou desconforto, estarei à disposição.\nObrigada pela confiança! 🙏🥰';
 const MSG_POS_PADRAO='✨ Olá, {nome}, tudo bem?\nEspero que esteja se sentindo confortável e satisfeita com o atendimento. Qualquer sensibilidade ou desconforto, estarei à disposição.\n\n⭐ Se puder, me conta: de 1 a 5, que nota você dá para o atendimento?\n\nObrigada pela confiança! 🙏🥰';
 const MSG_LIVRES_V35='Oi, tudo bem? 😊💕\nSeparei estes horários pra você {dia}:\n\n{horarios}\n\nQual fica melhor pra você? É só me responder com o horário que eu já deixo reservado! ✨';
 const MSG_LIVRES_PADRAO='Disponíveis esses horários, qual encaixa melhor pra vc?\n\n{horarios}';
 const CFG_PADRAO=()=>({msgLivres:MSG_LIVRES_PADRAO,abre:'07:00',fecha:'19:30',msgConf:MSG_CONF_PADRAO,msgPos:MSG_POS_PADRAO,assinatura:'Marisa Depilação e Designer de Sobrancelha 💕',tolerancia:15,msgSumida:MSG_SUMIDA_PADRAO,endereco:'R. Profa. Zilá de Aquino, 1206 – Tatuí/SP',whats:'15996542859',insta:'marisaalmeida.epiladora',endMsg:true});
-let CFG; try{ CFG=Object.assign(CFG_PADRAO(),JSON.parse(localStorage.getItem('marisa-config'))||{}); if(CFG.msgPos===MSG_POS_ANTIGA) CFG.msgPos=MSG_POS_PADRAO; if(CFG.msgLivres===MSG_LIVRES_V35) CFG.msgLivres=MSG_LIVRES_PADRAO; if(['Marisa Depilação 💕','Marisa Almeida · Depilação 💕'].includes(CFG.assinatura)) CFG.assinatura='Marisa Depilação e Designer de Sobrancelha 💕'; }catch(e){ CFG=CFG_PADRAO(); }
+let CFG; try{ CFG=Object.assign(CFG_PADRAO(),JSON.parse(localStorage.getItem('marisa-config'))||{}); if(CFG.msgPos===MSG_POS_ANTIGA) CFG.msgPos=MSG_POS_PADRAO; if(CFG.msgConf===MSG_CONF_V1||/\.\.\.\s*h|…\s*h/.test(CFG.msgConf||'')) CFG.msgConf=MSG_CONF_PADRAO; if(CFG.msgLivres===MSG_LIVRES_V35) CFG.msgLivres=MSG_LIVRES_PADRAO; if(['Marisa Depilação 💕','Marisa Almeida · Depilação 💕'].includes(CFG.assinatura)) CFG.assinatura='Marisa Depilação e Designer de Sobrancelha 💕'; }catch(e){ CFG=CFG_PADRAO(); }
 function salvarCfg(){ try{ localStorage.setItem('marisa-config',JSON.stringify(CFG)); }catch(e){} }
 function zap(a,msg,assinar=true){ const t=assinar&&CFG.assinatura?msg+'\n\n'+CFG.assinatura:msg; return 'https://wa.me/55'+a.tel.replace(/\D/g,'')+'?text='+encodeURIComponent(t); }
 const dataBR = s => { const [y,m,d]=s.split('-'); return d+'/'+m; };
@@ -1566,11 +1580,18 @@ $('#btnMais').onclick=()=>{
   document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
   $('#t-mais').classList.add('ativa'); $('#cfgAss').value=CFG.assinatura||''; carregaCfgSumida(); carregaEstudio(); window.scrollTo(0,0);
 };
-function carregaMsgs(){ $('#cfgConf').value=CFG.msgConf; $('#cfgPos').value=CFG.msgPos; $('#cfgLivres').value=CFG.msgLivres||MSG_LIVRES_PADRAO; garantirHora($('#cfgAbre'),CFG.abre); garantirHora($('#cfgFecha'),CFG.fecha); $('#cfgAbre').value=CFG.abre; $('#cfgFecha').value=CFG.fecha; }
-$('#cfgConf').addEventListener('change',()=>{ CFG.msgConf=$('#cfgConf').value.trim()||MSG_CONF_PADRAO; salvarCfg(); render(); aviso('Mensagem salva'); });
-$('#cfgPos').addEventListener('change',()=>{ CFG.msgPos=$('#cfgPos').value.trim()||MSG_POS_PADRAO; salvarCfg(); render(); aviso('Mensagem salva'); });
-$('#cfgLivres').addEventListener('change',()=>{ CFG.msgLivres=$('#cfgLivres').value.trim()||MSG_LIVRES_PADRAO; salvarCfg(); aviso('Mensagem salva'); });
-$('#cfgMsgsPadrao').onclick=()=>{ CFG.msgConf=MSG_CONF_PADRAO; CFG.msgPos=MSG_POS_PADRAO; CFG.msgLivres=MSG_LIVRES_PADRAO; salvarCfg(); carregaMsgs(); render(); aviso('Mensagens padrão restauradas'); };
+function carregaMsgs(){ setTimeout(previasMsg,0); $('#cfgConf').value=CFG.msgConf; $('#cfgPos').value=CFG.msgPos; $('#cfgLivres').value=CFG.msgLivres||MSG_LIVRES_PADRAO; garantirHora($('#cfgAbre'),CFG.abre); garantirHora($('#cfgFecha'),CFG.fecha); $('#cfgAbre').value=CFG.abre; $('#cfgFecha').value=CFG.fecha; }
+function previasMsg(){ const ex={nome:'Letícia Souza',data:HOJE,hora:'13:00',serv:['s19']};
+  $('#prevConf').textContent=preencher($('#cfgConf').value||MSG_CONF_PADRAO,ex);
+  $('#prevPos').textContent=preencher($('#cfgPos').value||MSG_POS_PADRAO,ex); }
+function guardarMsgs(avisar){ CFG.msgConf=$('#cfgConf').value.trim()||MSG_CONF_PADRAO; CFG.msgPos=$('#cfgPos').value.trim()||MSG_POS_PADRAO; CFG.msgLivres=$('#cfgLivres').value.trim()||MSG_LIVRES_PADRAO; salvarCfg(); if(avisar){ render(); aviso('💾 Mensagens salvas'); } }
+['#cfgConf','#cfgPos','#cfgLivres'].forEach(id=>{ $(id).addEventListener('input',()=>{ previasMsg(); clearTimeout(window._tMsg); window._tMsg=setTimeout(()=>guardarMsgs(false),600); }); $(id).addEventListener('change',()=>guardarMsgs(true)); });
+$('#cfgMsgsSalvar').onclick=()=>guardarMsgs(true);
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-ins]'); if(!b) return; const t=document.getElementById(b.closest('.ins-bts').dataset.alvo);
+  const i=t.selectionStart??t.value.length, j=t.selectionEnd??t.value.length; t.value=t.value.slice(0,i)+b.dataset.ins+t.value.slice(j); t.focus(); t.selectionStart=t.selectionEnd=i+b.dataset.ins.length; previasMsg(); guardarMsgs(false); });
+
+
+$('#cfgMsgsPadrao').onclick=()=>{ if(!confirm('Voltar todas as mensagens para o texto padrão?')) return; CFG.msgConf=MSG_CONF_PADRAO; CFG.msgPos=MSG_POS_PADRAO; CFG.msgLivres=MSG_LIVRES_PADRAO; salvarCfg(); carregaMsgs(); render(); aviso('Mensagens padrão restauradas'); };
 ['#cfgAbre','#cfgFecha'].forEach(id=>$(id).addEventListener('change',()=>{ const a=$('#cfgAbre').value||'07:00', f=$('#cfgFecha').value||'19:30';
   if(a>f) return aviso('O primeiro horário precisa ser antes do último');
   CFG.abre=a; CFG.fecha=f; salvarCfg(); render(); aviso('Horário salvo'); }));
@@ -2121,7 +2142,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='64', APP_VERSAO_TXT='4.4', APP_DATA='02/10/2026'; // APP_VERSAO='64' (compatibilidade com versões antigas)
+const APP_BUILD='65', APP_VERSAO_TXT='4.5', APP_DATA='02/10/2026'; // APP_VERSAO='65' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====

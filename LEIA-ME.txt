@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 4.4 (02/10/2026)
+App de agenda para celular · Versão 4.5 (02/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -66,6 +66,8 @@ MENSAGENS NO WHATSAPP (vão prontas, é só apertar enviar)
 • Aniversário 🎂, "Hora de chamar de volta" e "Clientes sumidas 💔".
 • Textos e assinatura: ☰ Mais → Mensagens / WhatsApp Business
   (inclusive o texto dos horários livres).
+  Para o app colocar o horário certo, use o botão "🕐 hora" (vira {hora}) —
+  não escreva "...h". Embaixo aparece, em verde, como a cliente vai receber.
 
 CLIENTES E FICHA
 • Clientes ficam salvas. Busca, filtros e estrelas (★★★ fiel).
@@ -142,16 +144,18 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='64', APP_VERSAO_TXT='4.4', APP_DATA='02/10/2026'; // APP_VERSAO='64' ...
-  * APP_BUILD: número interno, sempre +1 (64 -> 65). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.4 -> 4.5 -> 4.6...).
+    const APP_BUILD='65', APP_VERSAO_TXT='4.5', APP_DATA='02/10/2026'; // APP_VERSAO='65' ...
+  * APP_BUILD: número interno, sempre +1 (65 -> 66). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.5 -> 4.6 -> 4.7...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='64' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v64 -> marisa-v65
+  * O comentário APP_VERSAO='65' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v65 -> marisa-v66
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+4.5  Mensagem de confirmação da Marisa como padrão, com o horário automático;
+     botões para colocar nome/dia/hora e prévia de como a cliente recebe.
 4.4  Confirmar todas as clientes do dia a qualquer hora (não só 1h antes).
 4.3  Bloquear: os horários do dia aparecem para tocar e bloquear (um por um).
 4.2  Serviços voltou para a barra de baixo, junto com "💸 A receber".
