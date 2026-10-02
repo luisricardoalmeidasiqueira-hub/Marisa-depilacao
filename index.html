@@ -192,6 +192,14 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.cx-dia-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 10px}
+.cx-dia-nav h2{font-size:1.35rem;text-align:center}
+.cx-dia-nav small{display:block;text-align:center;color:var(--suave);font-size:.82rem}
+.cx-dia-nav button{border:0;background:var(--po);color:var(--ameixa);width:40px;height:40px;border-radius:50%;font-size:1.2rem;font-weight:800;flex:none}
+.cx-mes{background:var(--card);border:1px solid var(--linha);border-radius:14px;padding:10px 12px;margin-top:12px}
+.cx-mes .t{font-weight:800;font-size:.9rem;margin-bottom:4px;text-transform:none}
+.cx-mes .l{display:flex;justify-content:space-between;font-size:.85rem;padding:4px 0;border-top:1px solid var(--linha);color:var(--suave)}
+.cx-mes .l b{color:var(--texto)}
 .pos-mini{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;border:1.5px solid var(--mel);background:var(--mel-claro);color:var(--texto);border-radius:12px;padding:10px 12px;font-weight:700;font-size:.9rem;text-align:left;margin-bottom:10px}
 .pos-mini span{color:var(--mel);font-size:1.3rem;font-weight:800}
 .po-x{border:1.5px solid var(--linha);background:var(--card);color:var(--suave);border-radius:12px;padding:8px 11px;font-weight:800}
@@ -647,6 +655,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="aviso pagamento sininho lembrar receber dia combinado cobrar notificacao"><b>❓ O app me avisa no dia que a cliente combinou pagar?</b><p><b>Sim.</b> Quando você coloca a data em <b>"Combinou pagar até"</b>, no dia o celular avisa (com o sininho de pagamento ligado) e o <b>💸 A receber</b> da barra de baixo ganha um <b>🔔 vermelho piscando</b>. O sininho de pagamento fica dentro de <b>💸 A receber</b> (já vem ligado). Para aviso garantido mesmo com o app fechado, no pagamento toque em <b>📅 Lembrete no Google Agenda</b>.</p></div>
         <div class="faq" data-k="confirmar todas cedo manha mensagem confirmacao qualquer hora antes"><b>❓ Posso mandar a confirmação cedo para todas as clientes do dia?</b><p><b>Pode.</b> Na agenda, toque em <b>💬 Confirmar as clientes de hoje</b> (botão verde claro, em cima). Aparece a lista do dia: toque em <b>💬 Enviar</b> em cada uma, envie no WhatsApp e volte para a próxima. Quem já recebeu fica com <b>✓ Enviada</b>. Funciona a qualquer hora e também para outros dias (toque no dia no calendário). O aviso de 1 hora antes continua existindo.</p></div>
         <div class="faq" data-k="mudar editar mensagem texto confirmacao hora horario aparecer escrever"><b>❓ Como mudo o texto da mensagem? E o horário aparece sozinho?</b><p><b>☰ Mais → ✉️ Mensagens.</b> Escreva do seu jeito. Onde o app deve colocar o horário, toque no botão <b>🕐 hora</b> (aparece <b>{hora}</b>) (se escrever "...h", o app também entende e troca pelo horário). Igual para <b>👤 nome</b> e <b>📅 dia</b>. Embaixo aparece em verde <b>como a cliente vai receber</b>. Salva sozinho (ou toque em <b>💾 Salvar mensagens</b>). Mandando às 8h para a cliente das 13h, a mensagem vai com <b>13h</b>. Antes de enviar, no WhatsApp ainda dá pra mudar qualquer palavra.</p></div>
+        <div class="faq" data-k="caixa dia hoje recebido do dia reserva do dia porcentagem mes"><b>❓ Quanto recebi hoje? E a reserva do dia?</b><p>Aba <b>💰 Caixa</b>: em cima aparece o <b>Caixa de hoje</b> (recebido, a receber, atendimentos e a <b>🧴 reserva p/ material do dia</b> com quanto fica para você hoje). Use as setinhas <b>‹ ›</b> para ver outros dias. Logo abaixo, menor, fica o resumo do <b>mês</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -881,16 +890,24 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   </section>
 
   <section class="tela" id="t-caixa">
-    <div class="secao"><h2>Caixa do mês</h2><small id="mesNome"></small></div>
+    <div class="cx-dia-nav"><button id="cxAnt" aria-label="Dia anterior">‹</button><div><h2 id="cxDiaTit">Caixa de hoje</h2><small id="cxDiaSub"></small></div><button id="cxProx" aria-label="Próximo dia">›</button></div>
     <div class="cx-grade">
-      <div class="cx"><small>Recebido</small><b id="cxRec">R$ 0</b></div>
-      <div class="cx"><small>A receber</small><b id="cxPrev">R$ 0</b></div>
-      <div class="cx"><small>Atendimentos</small><b id="cxQt">0</b></div>
+      <div class="cx"><small>Recebido</small><b id="cxRecD">R$ 0</b></div>
+      <div class="cx"><small>A receber</small><b id="cxPrevD">R$ 0</b></div>
+      <div class="cx"><small>Atendimentos</small><b id="cxQtD">0</b></div>
       <div class="cx cx-com"><small>🧴 Reserva p/ material</small><b id="comLiq">R$ 0,00</b>
         <div class="com-mini" id="comBts"><button data-com="20">20%</button><button data-com="25">25%</button><button data-com="0">0%</button></div>
         <span class="com-sub" id="comTxt">fica para você: R$ 0,00</span></div>
     </div>
-    <p class="cx-med">Ticket médio: <b id="cxMed">R$ 0</b> · a reserva é calculada sobre o recebido</p>
+    <div class="cx-mes">
+      <div class="t">📅 Mês de <span id="mesNome"></span></div>
+      <div class="l"><span>Recebido no mês</span><b id="cxRec">R$ 0</b></div>
+      <div class="l"><span>A receber no mês</span><b id="cxPrev">R$ 0</b></div>
+      <div class="l"><span>Atendimentos no mês</span><b id="cxQt">0</b></div>
+      <div class="l"><span>🧴 Reserva do mês</span><b id="cxResM">R$ 0</b></div>
+      <div class="l"><span>Fica para você no mês</span><b id="cxLiqM" style="color:var(--ok)">R$ 0</b></div>
+      <div class="l"><span>Ticket médio</span><b id="cxMed">R$ 0</b></div>
+    </div>
     <p class="cx-med" id="cxNota"></p>
     <div class="secao"><h2>O que não entrou</h2></div>
     <div class="perdas">
@@ -1475,12 +1492,20 @@ function render(){
   renderClientes();
 
   // Caixa
-  const mes=HOJE.slice(0,7);
+  const cxD=window.cxDia||HOJE; const mes=cxD.slice(0,7);
+  { const doDia=dados.filter(a=>a.data===cxD);
+    const recD=doDia.filter(a=>a.feito).reduce((t,a)=>t+pagoDe(a),0)+DIV.filter(x=>x.pagoEm===cxD).reduce((t,x)=>t+(+x.pago||0),0);
+    const prevD=doDia.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
+    const pcD=CFG.comissao==null?25:+CFG.comissao, cvD=Math.round(recD*pcD)/100;
+    $('#cxRecD').textContent=brl(recD); $('#cxPrevD').textContent=brl(prevD); $('#cxQtD').textContent=doDia.filter(a=>!fora(a)).length;
+    window._cxDiaVals={recD,cvD,pcD};
+    const dt=new Date(cxD+'T12:00'); $('#cxDiaTit').textContent=cxD===HOJE?'Caixa de hoje':cxD===iso(addDias(new Date(HOJE+'T12:00'),-1))?'Caixa de ontem':'Caixa do dia';
+    $('#cxDiaSub').textContent=dt.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'}); }
   const doMes=dados.filter(a=>a.data.startsWith(mes));
   const recAt=doMes.filter(a=>a.feito).reduce((t,a)=>t+pagoDe(a),0);
   const rec=recAt+DIV.filter(d=>d.pagoEm&&d.pagoEm.startsWith(mes)).reduce((t,d)=>t+(+d.pago||0),0);
   const prev=doMes.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
-  $('#mesNome').textContent=d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  $('#mesNome').textContent=new Date(cxD+'T12:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
   $('#cxRec').textContent=brl(rec); $('#cxPrev').textContent=brl(prev);
   const validos=doMes.filter(a=>!fora(a));
   $('#cxQt').textContent=validos.length;
@@ -1494,8 +1519,9 @@ function render(){
     $('#cxCanc').textContent=`${canc.length} · ${brl(vc)}`; $('#cxFalt').textContent=`${falt.length} · ${brl(vf)}`;
     const pc=CFG.comissao==null?25:+CFG.comissao, cv=Math.round(rec*pc)/100;
     document.querySelectorAll('#comBts [data-com]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.com===pc)));
-    $('#comLiq').textContent=brl(cv);
-    $('#comTxt').textContent=pc?`fica para você: ${brl(rec-cv)}`:'sem reserva · tudo fica para você'; }
+    const V=window._cxDiaVals; $('#comLiq').textContent=brl(V.cvD);
+    $('#comTxt').textContent=pc?`fica para você ${cxD===HOJE?'hoje':'no dia'}: ${brl(V.recD-V.cvD)}`:'sem reserva · tudo fica para você';
+    $('#cxResM').textContent=brl(cv); $('#cxLiqM').textContent=brl(rec-cv); }
   $('#ranking').innerHTML=rk.map(([i,q])=>{const s=sv(i);return `<div style="display:flex;justify-content:space-between;font-weight:700;font-size:.9rem"><span>${s.n}</span><span>${q}x</span></div><div class="barra"><i style="width:${q/mx*100}%;background:${s.cat==='Depilação'?'var(--mel)':'var(--ameixa)'}"></i></div>`}).join('');
 }
 
@@ -2164,7 +2190,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='67', APP_VERSAO_TXT='4.7', APP_DATA='02/10/2026'; // APP_VERSAO='67' (compatibilidade com versões antigas)
+const APP_BUILD='68', APP_VERSAO_TXT='4.8', APP_DATA='02/10/2026'; // APP_VERSAO='68' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2749,6 +2775,11 @@ function abrirConf(){
 $('#confTodas').onclick=abrirConf;
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-confok]'); if(!b) return; const a=dados.find(x=>x.id==b.dataset.confok); if(!a) return;
   a.confirmado=true; salvar(); const naLista=!!b.closest('#cfLista'); setTimeout(()=>{ render(); if(naLista) abrirConf(); },500); });
+
+window.cxDia=HOJE;
+$('#cxAnt').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),-1)); render(); };
+$('#cxProx').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),1)); render(); };
+document.querySelector('nav [data-t=caixa]').addEventListener('click',()=>{ window.cxDia=HOJE; render(); });
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
