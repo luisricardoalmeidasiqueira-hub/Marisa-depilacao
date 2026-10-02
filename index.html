@@ -192,6 +192,9 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.pos-mini{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;border:1.5px solid var(--mel);background:var(--mel-claro);color:var(--texto);border-radius:12px;padding:10px 12px;font-weight:700;font-size:.9rem;text-align:left;margin-bottom:10px}
+.pos-mini span{color:var(--mel);font-size:1.3rem;font-weight:800}
+.po-x{border:1.5px solid var(--linha);background:var(--card);color:var(--suave);border-radius:12px;padding:8px 11px;font-weight:800}
 #cfgConf,#cfgPos,#cfgLivres{font-size:1rem;line-height:1.45}
 .ins-bts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 4px}
 .ins-bts span{font-size:.8rem;color:var(--suave);font-weight:700}
@@ -613,7 +616,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="conta caixa valor dinheiro falta total"><b>❓ Falta entra no valor do dia?</b><p><b>Não.</b> Falta não entra no valor do dia, no caixa, nem nas estrelas da cliente.</p></div>
         <div class="faq" data-k="confirmar mensagem whatsapp lembrete avisar"><b>❓ Como confirmo o horário com a cliente?</b><p>Nos próximos dias, toque em <b>💬 Confirmar</b>. No dia, fica nos <b>⋯</b>. E 1 hora antes aparece um cartão verde para mandar o lembrete.</p></div>
         <div class="faq" data-k="automatica sozinha enviar mensagem"><b>❓ As mensagens vão sozinhas?</b><p>Não. O app <b>deixa a mensagem pronta</b> no WhatsApp, você só confere e aperta <b>enviar</b>.</p></div>
-        <div class="faq" data-k="pos depois atendimento seguinte obrigada"><b>❓ E a mensagem de pós-atendimento?</b><p>No dia seguinte aparece um cartão amarelo no topo da Agenda. Toque em <b>Enviar</b>.</p></div>
+        <div class="faq" data-k="pos depois atendimento seguinte obrigada"><b>❓ E a mensagem de pós-atendimento?</b><p>No dia seguinte aparece uma faixa pequena <b>💬 Pós-atendimento</b> na agenda: toque nela e em <b>Enviar</b>. Por quantos dias ela aparece (ou se não aparece) você escolhe em <b>☰ Mais → ✉️ Mensagens</b>. Também dá pra mandar quando quiser: <b>⋯</b> do horário → <b>💬 Mandar pós-atendimento</b>.</p></div>
         <div class="faq" data-k="promocao desconto combo dois duas mais barato junto valor combinado"><b>❓ A cliente fez 2 ou mais serviços. Como dou desconto?</b><p>Ao marcar 2 ou mais serviços aparece o campo verde <b>💝 Promoção</b>. Coloque o valor que vai cobrar e o app usa esse valor no dia e no caixa. Para sobrancelha com buço já tem o serviço <b>Sobrancelha + buço (R$ 62)</b>.</p></div>
         <div class="faq" data-k="bloquear travar medico folga viagem riscar fechar agenda dia"><b>❓ Vou ao médico. Como travo a agenda?</b><p>Toque em <b>🚫 Bloquear</b>, escolha <b>o dia</b> (ou do dia … até o dia …, para viagem). Depois escolha <b>🕐 Alguns horários</b> e toque nos horários que quer bloquear (ficam vermelhos), ou <b>🗓️ O dia inteiro</b>. O dia fica riscado em vermelho e os horários somem. Para liberar, toque em <b>Desbloquear</b>.</p></div>
         <div class="faq" data-k="lancar anotar procedimento feito registrar escrever servico ficha"><b>❓ Como anoto o procedimento que fiz?</b><p>Abra a <b>ficha</b> da cliente → <b>➕ Lançar serviço feito / anotar procedimento</b>. Marque os serviços e escreva no campo <b>📝 O que foi feito</b>. Aparece no histórico dela e entra no caixa.</p></div>
@@ -689,7 +692,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <details class="dob"><summary>💬 Mensagens no WhatsApp</summary><div class="cont">
         <p>Todos os botões verdes abrem o WhatsApp com a mensagem <b>já escrita</b>. É só conferir e apertar enviar.</p><ul>
         <li><b>💬 Confirmar:</b> nos horários dos próximos dias, para confirmar com a cliente (no dia, fica nos ⋯).</li>
-        <li><b>Pós-atendimento 💬:</b> no dia seguinte ao atendimento concluído, aparece um cartão no topo da Agenda para perguntar como a cliente está. Toque em <b>Enviar</b>. O cartão fica até 3 dias e some depois de enviado.</li>
+        <li><b>Pós-atendimento 💬:</b> no dia seguinte aparece uma faixa pequena <b>"💬 Pós-atendimento: 2 clientes…"</b>. Toque nela e em <b>Enviar</b> (ou ✕ para tirar sem mandar). Quantos dias ela aparece (1, 2, 3 ou não aparecer) você escolhe em <b>☰ Mais → ✉️ Mensagens</b>. E dá pra mandar quando quiser pelos <b>⋯ → 💬 Mandar pós-atendimento</b>.</li>
         <li><b>Aviso 1 hora antes:</b> quando falta 1 hora, aparece um cartão verde no topo da Agenda. Toque em <b>Enviar lembrete no WhatsApp</b> e a cliente fica marcada <b>✓ avisada</b>. O aviso funciona com o app aberto ou em segundo plano.</li>
         <li><b>Aniversário 🎂:</b> no dia, aparece um cartão com a mensagem de parabéns e 10% de desconto de presente.</li>
         <li><b>Hora de chamar de volta:</b> clientes que estão na época de refazer o serviço, com o botão <b>Chamar</b>.</li>
@@ -818,6 +821,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <div class="previa" id="prevConf"></div>
       <label for="cfgPos">Pós-atendimento (no dia seguinte)</label>
       <textarea id="cfgPos" rows="7"></textarea>
+      <label for="cfgPosDias" style="margin-top:4px">Lembrar do pós-atendimento por:</label>
+      <select id="cfgPosDias"><option value="1">1 dia (só no dia seguinte)</option><option value="2">2 dias</option><option value="3">3 dias</option><option value="0">Não lembrar (mando pelos ⋯ quando quiser)</option></select>
       <div class="ins-bts" data-alvo="cfgPos"><span>Colocar:</span><button type="button" data-ins="{nome}">👤 nome</button><button type="button" data-ins="{servico}">✨ serviço</button></div>
       <div class="previa" id="prevPos"></div>
       <label for="cfgLivres">Horários livres (botão verde 💬 Mandar horários livres)</label>
@@ -1226,6 +1231,13 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div id="cfLista"></div>
 </div>
 
+<div class="folha" id="folhaPos" role="dialog" aria-modal="true" aria-labelledby="poTit">
+  <div class="puxador"></div>
+  <h2 id="poTit">💬 Pós-atendimento</h2>
+  <p class="dica">Toque em <b>Enviar</b> para perguntar como a cliente está. O <b>✕</b> tira da lista sem mandar.</p>
+  <div id="poLista"></div>
+</div>
+
 <div class="aviso" id="aviso" role="status"></div>
 
 <script>
@@ -1581,13 +1593,14 @@ $('#btnMais').onclick=()=>{
   document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
   $('#t-mais').classList.add('ativa'); $('#cfgAss').value=CFG.assinatura||''; carregaCfgSumida(); carregaEstudio(); window.scrollTo(0,0);
 };
-function carregaMsgs(){ setTimeout(previasMsg,0); $('#cfgConf').value=CFG.msgConf; $('#cfgPos').value=CFG.msgPos; $('#cfgLivres').value=CFG.msgLivres||MSG_LIVRES_PADRAO; garantirHora($('#cfgAbre'),CFG.abre); garantirHora($('#cfgFecha'),CFG.fecha); $('#cfgAbre').value=CFG.abre; $('#cfgFecha').value=CFG.fecha; }
+function carregaMsgs(){ setTimeout(previasMsg,0); $('#cfgPosDias').value=String(posDias()); $('#cfgConf').value=CFG.msgConf; $('#cfgPos').value=CFG.msgPos; $('#cfgLivres').value=CFG.msgLivres||MSG_LIVRES_PADRAO; garantirHora($('#cfgAbre'),CFG.abre); garantirHora($('#cfgFecha'),CFG.fecha); $('#cfgAbre').value=CFG.abre; $('#cfgFecha').value=CFG.fecha; }
 function previasMsg(){ const ex={nome:'Letícia Souza',data:HOJE,hora:'13:00',serv:['s19']};
   $('#prevConf').textContent=preencher($('#cfgConf').value||MSG_CONF_PADRAO,ex);
   $('#prevPos').textContent=preencher($('#cfgPos').value||MSG_POS_PADRAO,ex); }
 function guardarMsgs(avisar){ CFG.msgConf=$('#cfgConf').value.trim()||MSG_CONF_PADRAO; CFG.msgPos=$('#cfgPos').value.trim()||MSG_POS_PADRAO; CFG.msgLivres=$('#cfgLivres').value.trim()||MSG_LIVRES_PADRAO; salvarCfg(); if(avisar){ render(); aviso('💾 Mensagens salvas'); } }
 ['#cfgConf','#cfgPos','#cfgLivres'].forEach(id=>{ $(id).addEventListener('input',()=>{ previasMsg(); clearTimeout(window._tMsg); window._tMsg=setTimeout(()=>guardarMsgs(false),600); }); $(id).addEventListener('change',()=>guardarMsgs(true)); });
 $('#cfgMsgsSalvar').onclick=()=>guardarMsgs(true);
+$('#cfgPosDias').addEventListener('change',()=>{ CFG.posDias=+$('#cfgPosDias').value; salvarCfg(); render(); aviso(CFG.posDias?`Lembrar pós-atendimento por ${CFG.posDias} ${CFG.posDias===1?'dia':'dias'}`:'Pós-atendimento só pelos ⋯, quando quiser'); });
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ins]'); if(!b) return; const t=document.getElementById(b.closest('.ins-bts').dataset.alvo);
   const i=t.selectionStart??t.value.length, j=t.selectionEnd??t.value.length; t.value=t.value.slice(0,i)+b.dataset.ins+t.value.slice(j); t.focus(); t.selectionStart=t.selectionEnd=i+b.dataset.ins.length; previasMsg(); guardarMsgs(false); });
 
@@ -1722,15 +1735,23 @@ function esconderVazios(){
     const vazio=!el.children.length||!!el.querySelector('.vazio');
     el.style.display=vazio?'none':''; const t=el.previousElementSibling; if(t&&t.classList.contains('secao')) t.style.display=vazio?'none':''; });
 }
+const posDias=()=>CFG.posDias==null?1:+CFG.posDias;
+function listaPos(){ const n=posDias(); if(!n) return []; const limite=iso(addDias(new Date(HOJE+'T12:00'),-n));
+  return dados.filter(a=>a.feito&&!fora(a)&&!a.posEnviado&&!a.posDispensado&&a.data<HOJE&&a.data>=limite&&!/^x/.test(a.tel)).sort((x,y)=>(y.data+y.hora).localeCompare(x.data+x.hora)); }
 function renderPos(){
-  const ontem=iso(addDias(new Date(HOJE+'T12:00'),-1)), limite=iso(addDias(new Date(HOJE+'T12:00'),-3));
-  const lista=dados.filter(a=>a.feito&&!a.posEnviado&&a.data<HOJE&&a.data>=limite&&!/^x/.test(a.tel)).sort((x,y)=>(y.data+y.hora).localeCompare(x.data+x.hora));
-  $('#blocoPos').innerHTML = lista.length ? `<div class="pos"><div class="t">💬 Pós-atendimento: pergunte como ela está</div>
-    ${lista.map(a=>`<div class="lin"><div><b>${a.nome}</b><span>${a.serv.map(i=>sv(i).n).join(' + ')} · ${a.data===ontem?'ontem':dataBR(a.data)}</span></div>
-    <a href="${zap(a,preencher(CFG.msgPos||MSG_POS_PADRAO,a))}" target="_blank" rel="noopener" data-pos="${a.id}">Enviar</a></div>`).join('')}</div>` : '';
+  const L=listaPos();
+  $('#blocoPos').innerHTML=L.length?`<button class="pos-mini" id="posMini">💬 Pós-atendimento: ${L.length} ${L.length===1?'cliente':'clientes'} para perguntar como está <span>›</span></button>`:'';
+  const b=$('#posMini'); if(b) b.onclick=abrirPos;
 }
+function abrirPos(){
+  const L=listaPos(), ontem=iso(addDias(new Date(HOJE+'T12:00'),-1));
+  $('#poLista').innerHTML=L.map(a=>`<div class="conf-it"><div><b>${a.nome}</b><span>${a.serv.map(i=>sv(i).n).join(' + ')} · ${a.data===ontem?'ontem':dataBR(a.data)}</span></div>
+    <div style="display:flex;gap:6px;flex:none"><a href="${zap(a,preencher(CFG.msgPos||MSG_POS_PADRAO,a))}" target="_blank" rel="noopener" data-pos="${a.id}">💬 Enviar</a><button class="po-x" data-posx="${a.id}" aria-label="Não mandar">✕</button></div></div>`).join('')||'<div class="vazio">Nada pendente. 👏</div>';
+  abrirFolha('folhaPos');
+}
+document.addEventListener('click',e=>{ const x=e.target.closest('[data-posx]'); if(!x) return; const a=dados.find(y=>y.id==x.dataset.posx); if(a){ a.posDispensado=true; salvar(); render(); abrirPos(); aviso('Tirado da lista'); } });
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-pos]'); if(!b) return;
-  const a=dados.find(x=>x.id==b.dataset.pos); if(a){ a.posEnviado=true; salvar(); setTimeout(()=>{ render(); aviso('Pós-atendimento enviado ✓'); },400); } });
+  const a=dados.find(x=>x.id==b.dataset.pos); if(a){ a.posEnviado=true; salvar(); const naLista=!!b.closest('#poLista'); setTimeout(()=>{ render(); if(naLista) abrirPos(); aviso('Pós-atendimento enviado ✓'); },400); } });
 function renderLembretes(){
   const pend=dados.filter(a=>a.data===HOJE && !a.feito && !fora(a) && !a.avisado)
     .map(a=>({a,m:minutosAte(a)})).filter(x=>x.m<=60 && x.m>-15).sort((x,y)=>x.m-y.m);
@@ -2143,7 +2164,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='66', APP_VERSAO_TXT='4.6', APP_DATA='02/10/2026'; // APP_VERSAO='66' (compatibilidade com versões antigas)
+const APP_BUILD='67', APP_VERSAO_TXT='4.7', APP_DATA='02/10/2026'; // APP_VERSAO='67' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2194,6 +2215,7 @@ function abrirOpc(id){
   if(!fora(a)) it.push(`<button data-editar="${a.id}" data-modo="serv">➕ Adicionar serviço</button>`);
   it.push(`<button data-editar="${a.id}">✏️ Mudar dia, hora ou dados</button>`);
   if(a.feito) it.push(`<button data-pag="${a.id}">💵 Pagamento (pagou tudo / parte / depois)</button>`);
+  if(a.feito&&!fora(a)) it.push(`<a href="${zap(a,preencher(CFG.msgPos||MSG_POS_PADRAO,a))}" target="_blank" rel="noopener" data-pos="${a.id}">💬 Mandar pós-atendimento${a.posEnviado?' (já enviado ✓)':''}</a>`);
   if(a.feito&&!fora(a)) it.push(`<button data-nota="${a.id}">⭐ Avaliação da cliente</button>`);
   it.push(`<button data-ficha="${a.tel}">👤 Ver ficha da cliente</button>`);
   if(fotosLigadas()&&!fora(a)&&a.data<=HOJE&&fotoPermitida(a)){

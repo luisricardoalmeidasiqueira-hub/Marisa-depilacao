@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 4.6 (02/10/2026)
+App de agenda para celular · Versão 4.7 (02/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -62,7 +62,9 @@ MENSAGENS NO WHATSAPP (vão prontas, é só apertar enviar)
   Quem já recebeu fica "✓ Enviada".
 • 💬 Confirmar: mensagem de confirmação com endereço e mapa.
 • Cartão verde 1h antes: lembrete para a cliente.
-• Cartão amarelo no dia seguinte: pós-atendimento.
+• Pós-atendimento: no dia seguinte aparece uma faixa pequena "💬 Pós-atendimento";
+  toque nela → Enviar (✕ tira sem mandar). Por quantos dias aparece (1, 2, 3 ou
+  não aparecer): ☰ Mais → ✉️ Mensagens. Também pelos ⋯ → "Mandar pós-atendimento".
 • Aniversário 🎂, "Hora de chamar de volta" e "Clientes sumidas 💔".
 • Textos e assinatura: ☰ Mais → Mensagens / WhatsApp Business
   (inclusive o texto dos horários livres).
@@ -145,16 +147,17 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='66', APP_VERSAO_TXT='4.6', APP_DATA='02/10/2026'; // APP_VERSAO='66' ...
-  * APP_BUILD: número interno, sempre +1 (66 -> 67). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.6 -> 4.7 -> 4.8...).
+    const APP_BUILD='67', APP_VERSAO_TXT='4.7', APP_DATA='02/10/2026'; // APP_VERSAO='67' ...
+  * APP_BUILD: número interno, sempre +1 (67 -> 68). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.7 -> 4.8 -> 4.9...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='66' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v66 -> marisa-v67
+  * O comentário APP_VERSAO='67' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v67 -> marisa-v68
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+4.7  Pós-atendimento: faixa pequena, 1 dia por padrão (escolhe 1/2/3 dias ou desligar).
 4.6  Nova mensagem de confirmação ("…estará tudo organizado e higienizado…")
      com o nome e o horário de cada cliente automáticos.
 4.5  Mensagem de confirmação da Marisa como padrão, com o horário automático;
