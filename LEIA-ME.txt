@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 4.9 (02/10/2026)
+App de agenda para celular · Versão 5.0 (03/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -138,7 +138,9 @@ APAGAR SÓ UM REGISTRO
 OUTROS
 • Serviços e preços: ✨ Serviços na barra de baixo (ou ☰ Mais → ✨ Serviços e preços).
 • 🎨 Aparência: ☰ Mais → sempre claro, sempre escuro ou igual ao celular.
-• ⋮ (três pontinhos no topo): instalar, compartilhar, atualizar o app.
+• 📍 Meu estúdio (☰ Mais): "Seu nome" e "📷 Trocar minha foto" (aparecem no topo
+  do app e na saudação), além de endereço, WhatsApp, Instagram e horário.
+• ⋮ (três pontinhos no topo): instalar, ✨ conhecer o app, atualizar o app.
 • Os dados ficam SÓ no celular. Não apague os dados do navegador.
 
 
@@ -156,16 +158,33 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='69', APP_VERSAO_TXT='4.9', APP_DATA='02/10/2026'; // APP_VERSAO='69' ...
-  * APP_BUILD: número interno, sempre +1 (69 -> 70). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (4.9 -> 5.0 -> 5.1...).
+    const APP_BUILD='70', APP_VERSAO_TXT='5.0', APP_DATA='03/10/2026'; // APP_VERSAO='70' ...
+  * APP_BUILD: número interno, sempre +1 (70 -> 71). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.0 -> 5.1...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='69' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v69 -> marisa-v70
+  * O comentário APP_VERSAO='70' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v70 -> marisa-v71
+
+Link para outra pessoa (só o Luís):
+  • ☰ Mais → 👨‍💻 Desenvolvedor → digite a senha → escreva o nome da pessoa →
+    "🔗 Gerar link" → "Enviar pelo WhatsApp" ou "Copiar link".
+  • A senha é a constante DEV_SENHA no index.html (perto do fim). TROQUE antes
+    de publicar. Ela só segura curiosos: quem abrir o código consegue ver.
+  • Ali também ficam o "Compartilhar link geral do app" e a área de teste
+    (Carregar exemplos / Apagar tudo). Esses botões não aparecem mais no menu ⋮.
+  • O link tem a forma  .../?nome=Ana%20Paula . O nome só é aplicado em celular
+    que nunca abriu o app (para testar, use aba anônima).
+  • No app da pessoa: nome no topo e saudação, assinatura "Nome 💕", e endereço,
+    WhatsApp e Instagram VAZIOS (não herdam os da Marisa). A foto começa com a
+    inicial do nome; a própria pessoa troca em ☰ Mais → 📍 Meu estúdio.
+  • Ainda são da Marisa nas cópias: ícones, papel de parede, título da página
+    e o texto do compartilhar.
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+5.0  "Conhecer o app" no menu ⋮; compartilhar movido para Desenvolvedor (com senha);
+     link por pessoa (?nome=); nome e foto editáveis em Meu estúdio.
 4.9  Lixeira 🗑️ para apagar um registro de cada vez (histórico, avaliação, pagamentos…).
 4.8  Caixa: recebido e reserva DO DIA em destaque; mês em resumo menor embaixo.
 4.7  Pós-atendimento: faixa pequena, 1 dia por padrão (escolhe 1/2/3 dias ou desligar).
