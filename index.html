@@ -898,7 +898,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <label for="devNome">Gerar link para uma pessoa</label>
       <input id="devNome" placeholder="Nome da pessoa. Ex.: Ana Paula">
       <button class="btn" id="devGerar" type="button">🔗 Gerar link</button>
-      <div id="devAcoes" hidden><input id="devLink" readonly style="margin-top:8px">
+      <div id="devAcoes" hidden><p id="devIdTxt" style="font-size:.85rem;color:var(--suave);margin:8px 0 0"></p><input id="devLink" readonly style="margin-top:8px">
         <a class="btn" id="devZap" style="display:block;text-align:center;text-decoration:none;background:#25D366" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
         <button class="btn sec" id="devCopiar" type="button">Copiar link</button></div>
       <button class="btn sec" id="devPerfil" type="button">✏️ Editar nome e foto deste app</button>
@@ -925,9 +925,13 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <div class="l"><span>Recebido no mês</span><b id="cxRec">R$ 0</b></div>
       <div class="l"><span>A receber no mês</span><b id="cxPrev">R$ 0</b></div>
       <div class="l"><span>Atendimentos no mês</span><b id="cxQt">0</b></div>
+      <div class="l"><span>👩 Clientes atendidas no mês</span><b id="cxClis">0</b></div>
+      <div class="l"><span>📅 Agendadas em <span id="proxNome"></span></span><b id="cxAgProx">0</b></div>
       <div class="l"><span>🧴 Reserva do mês</span><b id="cxResM">R$ 0</b></div>
       <div class="l"><span>Fica para você no mês</span><b id="cxLiqM" style="color:var(--ok)">R$ 0</b></div>
       <div class="l"><span>Ticket médio</span><b id="cxMed">R$ 0</b></div>
+      <div class="t" style="margin-top:10px">Quem foi atendida no mês</div>
+      <div id="cxNomes" style="display:flex;flex-wrap:wrap;gap:6px"></div>
     </div>
     <p class="cx-med" id="cxNota"></p>
     <div class="secao"><h2>O que não entrou</h2></div>
@@ -1074,6 +1078,12 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <h2 id="iTit">Instalar o app</h2>
   <div id="instPassos"></div>
   <button class="btn sec" id="iFechar">Entendi</button>
+</div>
+
+<div id="bloqueio" hidden style="position:fixed;inset:0;z-index:9999;background:var(--fundo);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px">
+  <div style="font-size:3rem">🔒</div>
+  <h2 style="color:var(--ameixa);margin:10px 0">Acesso pausado</h2>
+  <p style="color:var(--suave)">Fale com o Luís para liberar o app.<br>Seus dados continuam salvos neste celular.</p>
 </div>
 
 <div class="folha" id="folhaPerfil" role="dialog" aria-modal="true" aria-labelledby="pfTit">
@@ -1448,7 +1458,7 @@ const MSG_LIVRES_PADRAO='Disponíveis esses horários, qual encaixa melhor pra v
 const CFG_PADRAO=()=>({msgLivres:MSG_LIVRES_PADRAO,abre:'07:00',fecha:'19:30',msgConf:MSG_CONF_PADRAO,msgPos:MSG_POS_PADRAO,assinatura:'Marisa Depilação e Designer de Sobrancelha 💕',tolerancia:15,msgSumida:MSG_SUMIDA_PADRAO,endereco:'R. Profa. Zilá de Aquino, 1206 – Tatuí/SP',whats:'15996542859',insta:'marisaalmeida.epiladora',endMsg:true});
 let CFG; try{ CFG=Object.assign(CFG_PADRAO(),JSON.parse(localStorage.getItem('marisa-config'))||{}); if(CFG.msgPos===MSG_POS_ANTIGA) CFG.msgPos=MSG_POS_PADRAO; if(CFG.msgConf===MSG_CONF_V1||CFG.msgConf===MSG_CONF_V2) CFG.msgConf=MSG_CONF_PADRAO; if(CFG.msgConf) CFG.msgConf=CFG.msgConf.replace(/\.{2,}\s*h\b|…\s*h\b/g,'{hora}'); if(CFG.msgLivres===MSG_LIVRES_V35) CFG.msgLivres=MSG_LIVRES_PADRAO; if(['Marisa Depilação 💕','Marisa Almeida · Depilação 💕'].includes(CFG.assinatura)) CFG.assinatura='Marisa Depilação e Designer de Sobrancelha 💕'; }catch(e){ CFG=CFG_PADRAO(); }
 (function(){ try{ const n=(new URLSearchParams(location.search).get('nome')||'').trim().slice(0,60);
-  if(n && !localStorage.getItem('marisa-config')){ CFG.nome=n; CFG.assinatura=n+' 💕'; CFG.endereco=''; CFG.whats=''; CFG.insta=''; CFG.endMsg=false; CFG.foto='';
+  if(n && !localStorage.getItem('marisa-config')){ CFG.nome=n; CFG.id=(new URLSearchParams(location.search).get('id')||'').trim().slice(0,60); CFG.assinatura=n+' 💕'; CFG.endereco=''; CFG.whats=''; CFG.insta=''; CFG.endMsg=false; CFG.foto='';
     localStorage.setItem('marisa-config',JSON.stringify(CFG)); } }catch(e){} })();
 function salvarCfg(){ try{ localStorage.setItem('marisa-config',JSON.stringify(CFG)); }catch(e){} }
 function zap(a,msg,assinar=true){ const t=assinar&&CFG.assinatura?msg+'\n\n'+CFG.assinatura:msg; return 'https://wa.me/55'+a.tel.replace(/\D/g,'')+'?text='+encodeURIComponent(t); }
@@ -1562,6 +1572,11 @@ function render(){
   const validos=doMes.filter(a=>!fora(a));
   $('#cxQt').textContent=validos.length;
   $('#cxMed').textContent=brl(validos.length?(recAt+prev)/validos.length:0);
+  { const m={}; doMes.filter(a=>a.feito&&!fora(a)).forEach(a=>{ const k=a.tel||a.nome; (m[k]=m[k]||{n:a.nome,q:0}).q++; });
+    const L=Object.values(m).sort((x,y)=>x.n.localeCompare(y.n)); $('#cxClis').textContent=L.length;
+    $('#cxNomes').innerHTML=L.length?L.map(c=>`<span class="chip">${c.n}${c.q>1?' ×'+c.q:''}</span>`).join(''):'<span style="color:var(--suave);font-size:.85rem">Ninguém atendida ainda neste mês.</span>';
+    const pd=new Date(mes+'-01T12:00'); pd.setMonth(pd.getMonth()+1); const pm=iso(pd).slice(0,7);
+    $('#proxNome').textContent=pd.toLocaleDateString('pt-BR',{month:'long'}); $('#cxAgProx').textContent=dados.filter(a=>a.data.startsWith(pm)&&!fora(a)).length; }
   { const av=doMes.filter(a=>a.nota); $('#cxNota').innerHTML=av.length?`⭐ Avaliação do mês: <b>${(av.reduce((t,a)=>t+a.nota,0)/av.length).toFixed(1).replace('.',',')} de 5</b> · ${av.length} ${av.length===1?'avaliação':'avaliações'}`:'⭐ Nenhuma avaliação neste mês ainda'; }
   const cont={}; dados.filter(a=>!fora(a)).forEach(a=>a.serv.forEach(i=>cont[i]=(cont[i]||0)+1));
   const rk=Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,5); const mx=rk.length?rk[0][1]:1;
@@ -2251,6 +2266,11 @@ $('#cfgFotoIn').onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=
     CFG.foto=c.toDataURL('image/jpeg',.85); salvarCfg(); aplicaPerfil(); aviso('Foto salva'); }; im.src=r.result; };
   r.readAsDataURL(f); e.target.value=''; };
 
+// ===== Bloqueio por acessos.json (só para quem veio de link com id) =====
+async function checaAcesso(){ try{ if(!CFG.id) return; const r=await fetch('acessos.json?v='+Date.now(),{cache:'no-store'}); if(!r.ok) return;
+  const j=await r.json(); const b=(j.bloqueados||[]).map(x=>String(x).toLowerCase()).includes(CFG.id.toLowerCase()); $('#bloqueio').hidden=!b; }catch(e){} }
+checaAcesso(); document.addEventListener('visibilitychange',()=>{ if(!document.hidden) checaAcesso(); });
+
 // ===== Lápis: nome e foto =====
 const lerFoto=$('#cfgFotoIn').onchange;
 $('#pfCamIn').onchange=lerFoto; $('#pfGalIn').onchange=lerFoto;
@@ -2267,7 +2287,7 @@ const DEV_SENHA='7020'; // TROQUE esta senha antes de publicar
 $('#devEntrar').onclick=()=>{ if($('#devPin').value===DEV_SENHA){ $('#devLock').hidden=true; $('#devTools').hidden=false; } else aviso('Senha incorreta'); };
 $('#devShare').onclick=compartilharApp;
 $('#devGerar').onclick=()=>{ const n=$('#devNome').value.trim(); if(!n) return aviso('Digite o nome da pessoa');
-  const u=linkApp()+'?nome='+encodeURIComponent(n); $('#devLink').value=u; $('#devAcoes').hidden=false;
+  const id=n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); const u=linkApp()+'?nome='+encodeURIComponent(n)+'&id='+id; $('#devIdTxt').textContent='ID desta pessoa: '+id+' — para bloquear, coloque esse ID na lista "bloqueados" do acessos.json.'; $('#devLink').value=u; $('#devAcoes').hidden=false;
   $('#devZap').href='https://wa.me/?text='+encodeURIComponent('Oi, '+n.split(' ')[0]+'! Este é o seu app de agenda 💕 Abra o link e toque em "Instalar":\n'+u); };
 $('#devCopiar').onclick=async()=>{ const t=$('#devLink'); try{ await navigator.clipboard.writeText(t.value); aviso('Link copiado'); }catch(e){ t.select(); document.execCommand('copy'); aviso('Link copiado'); } };
 
@@ -2281,7 +2301,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='71', APP_VERSAO_TXT='5.1', APP_DATA='03/10/2026'; // APP_VERSAO='69' (compatibilidade com versões antigas)
+const APP_BUILD='73', APP_VERSAO_TXT='5.3', APP_DATA='03/10/2026'; // APP_VERSAO='69' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
