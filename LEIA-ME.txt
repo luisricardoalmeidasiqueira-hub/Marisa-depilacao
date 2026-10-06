@@ -1,0 +1,215 @@
+MARISA ALMEIDA — Epilação e Designer de Sobrancelha
+App de agenda para celular · Versão 5.0 (03/10/2026)
+=====================================================
+
+PARTE 1 — COMO USAR O APP (para a Marisa)
+-----------------------------------------
+Dica: dentro do app tem ajuda com lupa de busca: ☰ Mais → Como usar o app.
+
+AGENDA
+• Calendário no topo: toque no dia. "Ver mês inteiro" abre o mês.
+• Para marcar: toque em "🕐 Ver horários livres" e depois num horário verde
+  (ou "+ Agendar neste dia", ou o botão + amarelo embaixo).
+• Ao marcar, digite o começo do nome: a cliente salva aparece embaixo com o
+  telefone. Toque nela e tudo é preenchido sozinho.
+• Horas em 24h: 13h = 1 da tarde, 15h = 3 da tarde.
+• Os próximos dias aparecem separados por data (faixa vinho).
+• Em cada cliente:
+    ✅ Presente  → foi atendida (entra no caixa)
+    ❌ Faltou    → não veio e não avisou (fica registrado como falta)
+    🚫 Cancelado → avisou que não vem (o horário fica livre de novo)
+    ⋯            → confirmar no WhatsApp, adicionar serviço, mudar dia/hora,
+                   ver ficha, salvar no Google Agenda, foto, excluir
+• ⏱️ Tempo de cada cliente: toque no "⏱️ 13h às 13h30 · 30 min ✏️" para mudar
+  quanto vai demorar. Os horários livres se ajustam sozinhos.
+• Horário que não aparece como livre: abra "Ver horários livres" e veja
+  "Por que alguns horários não aparecem?" (mostra quem está ocupando).
+• 💝 Promoção: marcando 2 ou mais serviços, dá para colocar o valor combinado.
+• 💬 Mandar horários livres no WhatsApp: toque no dia e no botão verde.
+  Abre a lista dos horários livres: TOQUE PARA RISCAR os que não quer oferecer
+  para essa cliente, um por um (ex.: só o 19h30). Atalhos: "🌙 Sem noite" (risca 18h
+  em diante), "☀️ Só manhã", "🌤️ Só tarde", "✅ Todos" (volta tudo), "Nenhum".
+  Tocou errado? Toque de novo que o horário volta. → "Mandar no WhatsApp".
+  Riscar ali NÃO bloqueia a agenda: na próxima cliente todos voltam.
+  Quando a cliente responder, marque no app.
+
+LEMBRETES (médico, compromisso, comprar material…)
+• Na agenda: "📝 Lembrete" (ao lado do Bloquear) → escreva, escolha dia e horário
+  (ou "Sem horário"). Pode marcar "Também bloquear a agenda".
+• No dia aparece o quadro azul "📝 Lembretes" no topo da agenda:
+  ✓ = feito · 📅 = salvar no Google Agenda · 🗑️ = apagar.
+• No calendário, o dia tem uma bolinha azul. Com o sininho 🔔 ligado, avisa 1h antes.
+
+BLOQUEAR HORÁRIO (médico, folga, viagem)
+• "🚫 Bloquear": escolha o dia (ou do dia / até o dia, para viagem). Depois:
+  "🕐 Alguns horários" → toque em cada horário que quer bloquear (fica vermelho;
+  horários com cliente aparecem riscados com o nome) ou "🗓️ O dia inteiro".
+• "📋 Ver horários bloqueados": lista com "Ver dia" e "Liberar".
+• No calendário: dia inteiro fica riscado de vermelho; parte do dia tem um
+  tracinho vermelho embaixo.
+
+LEMBRETES
+• 🔔 Sininho na faixa roxa: avisa 1 hora antes de cada cliente
+  (com o app aberto ou minimizado).
+• Aviso garantido mesmo com o app fechado: ⋯ → "📅 Salvar no Google Agenda",
+  ou marque no sininho "Ao marcar uma cliente, abrir o Google Agenda".
+• Google Agenda (uma vez só): ☰ → Configurações → sua conta → Eventos →
+  Notificação padrão → 1 hora antes.
+
+MENSAGENS NO WHATSAPP (vão prontas, é só apertar enviar)
+• 💬 Confirmar as clientes do dia (botão verde claro na agenda): lista todas as
+  clientes do dia; toque em "Enviar" em cada uma, na hora que quiser (ex.: cedo).
+  Quem já recebeu fica "✓ Enviada".
+• 💬 Confirmar: mensagem de confirmação com endereço e mapa.
+• Cartão verde 1h antes: lembrete para a cliente.
+• Pós-atendimento: no dia seguinte aparece uma faixa pequena "💬 Pós-atendimento";
+  toque nela → Enviar (✕ tira sem mandar). Por quantos dias aparece (1, 2, 3 ou
+  não aparecer): ☰ Mais → ✉️ Mensagens. Também pelos ⋯ → "Mandar pós-atendimento".
+• Aniversário 🎂, "Hora de chamar de volta" e "Clientes sumidas 💔".
+• Textos e assinatura: ☰ Mais → Mensagens / WhatsApp Business
+  (inclusive o texto dos horários livres).
+  Para o app colocar o horário certo, use o botão "🕐 hora" (vira {hora}) —
+  (se escrever "...h", o app troca pelo horário sozinho). Embaixo aparece, em
+  verde, como a cliente vai receber.
+
+CLIENTES E FICHA
+• Clientes ficam salvas. Busca, filtros e estrelas (★★★ fiel).
+• Ficha: cuidados (pele sensível, ácido, gestante), cera preferida
+  (premium / tradicional), arco e henna, histórico, faltas, cartão fidelidade.
+• "➕ Lançar serviço feito / anotar procedimento": registra o que foi feito.
+• 💕 Cliente desde: mostra há quanto tempo ela é cliente (para clientes antigas,
+  coloque mês/ano ao marcar a primeira vez ou em Editar ficha).
+• 📇 Salvar nos contatos do celular: ao marcar cliente nova (marque o quadradinho)
+  ou na ficha. Pergunte antes se ela deixa salvar o número.
+• Autorização LGPD: necessária para guardar cuidados de saúde e fotos.
+
+FOTOS DO TRABALHO E INSTAGRAM (opcional)
+• Já vem ligado (para desligar: ☰ Mais → 📷 Fotos do trabalho).
+• Foto: toque na câmera 📷 no horário da cliente (só sobrancelha e rosto).
+  Na primeira vez o app pergunta se a cliente autorizou.
+• Postar: na ficha, embaixo da foto, "🔒 Postar? Pedir ok" → confirme SÓ se a
+  cliente autorizou postar → "📲 Postar" → escolha Instagram → cole a legenda
+  (ela já fica copiada, com o serviço da foto: "✨ Henna com muito carinho 💕").
+  Legenda editável em ☰ Mais → 📷 Fotos do trabalho.
+• Postar na internet precisa de autorização separada de guardar a foto.
+
+PAGAMENTOS A RECEBER / PAGAR DEPOIS
+• Barra de baixo: "💸 A receber" (o número vermelho = quantas clientes devem;
+  fica com 🔔 piscando quando alguém combinou pagar hoje). Mostra quem deve,
+  quanto, e o botão "Receber". Ali também tem "➕ Lançar pagamento a receber".
+• Atendimento que ela vai pagar depois: ✅ Presente → "💵 Pago" →
+  "🕒 Vai pagar depois". Se combinou data, preencha "Combinou pagar até".
+• Cliente que JÁ DEVIA antes do app: aba 👩 Clientes → botão vermelho
+  "➕ Lançar pagamento a receber" (também no Caixa e na ficha da cliente).
+• No dia combinado aparece na agenda o quadro vermelho "Combinou pagar hoje".
+• 🔔 Aviso de pagamento (já vem ligado; fica dentro de "💸 Pagamentos a receber"):
+  no dia combinado o celular avisa e o "💸 A receber" da barra de baixo fica com 🔔.
+  Aviso garantido com o app fechado: no pagamento, "📅 Lembrete no Google Agenda".
+• Quando ela pagar: "Receber" → "✅ Pagou tudo" (ou o valor que pagou).
+
+PAGAMENTO PENDENTE (cliente pagou só uma parte)
+• Depois de ✅ Presente, toque em "💵 Pago" → digite quanto ela pagou → Salvar.
+• Aparece "💸 Deve R$ …" no horário, na ficha e em Clientes → "💸 A receber".
+• Quando pagar o resto: toque de novo → "✅ Pagou tudo".
+• "💬 Lembrar a cliente no WhatsApp" manda uma mensagem educada pronta.
+
+AVALIAÇÃO DO ATENDIMENTO
+• Depois de ✅ Presente, toque em "⭐ Avaliar" → "💬 Pedir avaliação no WhatsApp".
+• Quando a cliente responder, abra de novo e toque nas estrelas (1 a 5);
+  dá para escrever o que ela falou.
+• A mensagem de pós-atendimento (dia seguinte) também já pede a nota.
+• A média aparece na ficha da cliente e no Caixa ("Avaliação do mês").
+
+CAIXA
+• Em cima: CAIXA DE HOJE (recebido, a receber, atendimentos e a reserva p/ material
+  do dia com quanto fica para você hoje). Setinhas ‹ › mostram outros dias.
+• Embaixo, menor: o resumo do MÊS (recebido, a receber, reserva, fica para você).
+• "✅ Clientes atendidas no mês · ver nomes": quantos atendimentos, quantas clientes
+  e a lista com os nomes (👩 por cliente, com quantas vezes veio, ou 📅 por dia).
+  O quadro "Atendimentos" do dia também mostra os nomes do dia.
+• Agendou → "A receber". ✅ Presente → "Recebido" (só o que foi pago de verdade).
+  Faltou/Cancelado não contam. "💸 Pagamentos a receber" mostra o total pendente.
+• 🧴 Reserva p/ material: 20%, 25% ou 0% do recebido; mostra quanto fica para você.
+• "O que não entrou": cancelados e faltas do mês, com lista por dia.
+
+APAGAR SÓ UM REGISTRO
+• Use a 🗑️ lixeira ao lado: histórico da ficha (cada atendimento), avaliações,
+  pagamentos a receber, cancelados e faltas, lembretes. O app pergunta antes.
+• Na agenda: ⋯ → 🗑️ Excluir horário.
+• "Apagar todos os dados" (na ficha) apaga a cliente inteira — só se ela pedir.
+
+OUTROS
+• Serviços e preços: ✨ Serviços na barra de baixo (ou ☰ Mais → ✨ Serviços e preços).
+• 🎨 Aparência: ☰ Mais → sempre claro, sempre escuro ou igual ao celular.
+• ⋮ (três pontinhos no topo): instalar, compartilhar, atualizar o app.
+• Os dados ficam SÓ no celular. Não apague os dados do navegador.
+
+
+PARTE 2 — COMO SUBIR NO GITHUB (para o Luís)
+--------------------------------------------
+Arquivos (suba TODOS, soltos, sem pasta):
+  index.html, manifest.json, sw.js, papel-de-parede.png,
+  icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
+  (este LEIA-ME.txt é opcional)
+
+Passo a passo:
+  1. Add file > Upload files > selecione os arquivos > Commit changes.
+  2. Settings > Pages > Branch: main / (root) > Save (só na primeira vez).
+  3. No celular: ⋮ → Atualizar app, até o rodapé mostrar a versão nova.
+
+Numeração (o Claude já faz isso a cada mudança):
+  No index.html, na linha:
+    const APP_BUILD='70', APP_VERSAO_TXT='5.0', APP_DATA='03/10/2026'; // APP_VERSAO='70' ...
+  * APP_BUILD: número interno, sempre +1 (70 -> 71). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.0 -> 5.1 -> 5.2...).
+  * APP_DATA: data do dia.
+  * O comentário APP_VERSAO='70' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v70 -> marisa-v71
+
+
+PARTE 3 — HISTÓRICO DE VERSÕES
+------------------------------
+5.0  Nomes das clientes atendidas e quantas no mês (no Caixa).
+4.9  Lixeira 🗑️ para apagar um registro de cada vez (histórico, avaliação, pagamentos…).
+4.8  Caixa: recebido e reserva DO DIA em destaque; mês em resumo menor embaixo.
+4.7  Pós-atendimento: faixa pequena, 1 dia por padrão (escolhe 1/2/3 dias ou desligar).
+4.6  Nova mensagem de confirmação ("…estará tudo organizado e higienizado…")
+     com o nome e o horário de cada cliente automáticos.
+4.5  Mensagem de confirmação da Marisa como padrão, com o horário automático;
+     botões para colocar nome/dia/hora e prévia de como a cliente recebe.
+4.4  Confirmar todas as clientes do dia a qualquer hora (não só 1h antes).
+4.3  Bloquear: os horários do dia aparecem para tocar e bloquear (um por um).
+4.2  Serviços voltou para a barra de baixo, junto com "💸 A receber".
+4.1  "💸 A receber" na barra de baixo; Serviços e preços foi para o ☰ Mais.
+4.0  Sininho de aviso nos pagamentos a receber (avisa no dia combinado).
+3.9  "Fiado" virou "Pagamentos a receber" / "Pagar depois" (nome mais leve).
+3.8  Botão "💸 Pagamentos a receber" na agenda (quem deve, receber, lançar).
+3.7  Lembretes pessoais (médico etc.); pagar depois; lançar cliente que já devia.
+3.6  Mensagem de horários livres com o texto da Marisa ("Disponíveis esses horários…").
+3.5  Nova mensagem de horários livres (e dá para editar em Mais → Mensagens).
+3.4  Atalho "🌙 Sem noite" ao mandar horários livres.
+3.3  Escolher quais horários livres mandar para cada cliente (riscar sem bloquear).
+3.2  Avaliar atendimento (nota de 1 a 5 ⭐ e comentário).
+3.1  Câmera 📷 direto no horário da cliente (fotos já vêm ligadas).
+3.0  Pagamento pendente (pagou parte / ficou devendo); mandar horários livres no WhatsApp.
+2.9  Salvar cliente nos contatos do celular; "Cliente desde".
+2.8  Legenda do Instagram com o serviço certo de cada foto.
+2.7  Postar foto no Instagram (com autorização e legenda pronta).
+2.6  Cliente salva aparece ao digitar o nome (telefone automático); fotos do trabalho opcionais.
+2.5  "Por que alguns horários não aparecem?" nos horários livres.
+2.4  Tempo próprio para cada cliente (lapizinho ✏️).
+2.3  Reserva para material (20% / 25%).
+2.1–2.2  Cancelados e faltas no caixa.
+2.0  Aparência: claro / escuro / igual ao celular.
+1.9  Botão "Ver horários bloqueados" sempre visível.
+1.8  Lista de horários bloqueados e marca no calendário.
+1.7  Faixas dos dias e linhas mais escuras.
+1.6  Próximos dias separados por data.
+1.5  Aviso de horário de madrugada (3h → 15h) e aviso fora do expediente.
+1.4  Google Agenda.
+1.3  Dicas fechadas por padrão; papel de parede abre dentro do app.
+1.2  Presente / Faltou / Cancelado; sininho de lembrete 1h antes.
+1.1  Versão inicial publicada.
+
+Desenvolvido por Luís Ricardo de Almeida Siqueira
+© 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.
