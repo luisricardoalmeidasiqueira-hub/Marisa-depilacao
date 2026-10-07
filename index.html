@@ -192,6 +192,8 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.lemb-topo{width:100%;display:block;text-align:left;border:0;background:#2D6CDF;color:#fff;border-radius:14px;padding:12px 14px;font-weight:800;font-size:1rem;margin:0 0 10px;box-shadow:0 2px 8px rgba(45,108,223,.3)}
+.lemb-topo small{display:block;font-weight:600;font-size:.82rem;opacity:.9;margin-top:2px}
 .cx-at{text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
 .cx-at .ver{display:block;font-size:.75rem;font-weight:800;color:var(--ameixa);margin-top:6px}
 .l-at{width:100%;border:0;background:none;font:inherit;cursor:pointer;text-align:left}
@@ -549,6 +551,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <div class="cal-rod"><button class="cal-hj" id="calHoje">Hoje</button><button class="cal-exp" id="calExp">▾ Ver mês inteiro</button></div>
     </div>
 
+    <button class="lemb-topo" id="lembTopo" hidden></button>
     <div class="hoje">
       <button class="sino" id="btnSino" aria-label="Lembrete 1 hora antes">🔕</button>
       <svg class="arco" width="170" height="90" viewBox="0 0 170 90" aria-hidden="true"><path d="M8 80 C 50 10, 120 5, 162 50" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
@@ -570,7 +573,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <button class="btn-dia" id="agendarDia">+ Agendar neste dia</button>
     <button class="btn-confall" id="confTodas" hidden></button>
     <button class="btn-zaplivres" id="zapLivres">💬 Mandar horários livres no WhatsApp</button>
-    <div class="dois-bts"><button class="btn-lemb" id="novoLembrete">📝 Lembrete<br><small>médico, compromisso</small></button><button class="btn-bloq" id="bloquearDia">🚫 Bloquear<br><small>horário ou dia</small></button></div>
+    <div class="dois-bts"><button class="btn-lemb" id="novoLembrete"><span id="lmBtnTxt">📝 Lembretes</span><br><small>ver todos / anotar</small></button><button class="btn-bloq" id="bloquearDia">🚫 Bloquear<br><small>horário ou dia</small></button></div>
     <button class="btn-pags" id="btnPags" hidden>💸 Pagamentos a receber</button>
     <button class="btn-verbloq" id="verBloqueios" hidden></button>
     <div id="bloqDia"></div>
@@ -663,7 +666,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="deve devendo pagou metade pendente fiado pagamento parcial cobrar"><b>❓ A cliente pagou só uma parte. Como anoto?</b><p>Depois de marcar <b>✅ Presente</b>, toque em <b>💵 Pago</b> (ou ⋯ → <b>💵 Pagamento</b>). Digite <b>quanto ela pagou</b> (ex.: 30) e toque em <b>Salvar</b>. Aparece <b>💸 Deve R$ 70</b> no horário, na ficha e em <b>Clientes → 💸 A receber</b>. Quando ela pagar, toque de novo e em <b>✅ Pagou tudo</b>. Tem também <b>💬 Lembrar a cliente no WhatsApp</b>, com mensagem educada pronta.</p></div>
         <div class="faq" data-k="mandar horarios livres whatsapp cliente escolher agendar sozinha riscar nao oferecer alguns escolher quais noite trabalha 18h 19h"><b>❓ Como mando os horários livres para a cliente? Dá pra não mandar alguns?</b><p>Toque no dia → <b>💬 Mandar horários livres no WhatsApp</b>. Abre a lista dos horários livres (todos verdes). <b>Toque para riscar</b> um por um os que você não quer oferecer para essa cliente (ex.: só o 19h30). Atalhos: <b>🌙 Sem noite</b> risca de 18h em diante; <b>☀️ Só manhã</b>, <b>🌤️ Só tarde</b>, <b>✅ Todos</b> (volta tudo) e <b>Nenhum</b>. Tocou errado? Toque de novo no horário que ele volta. Depois <b>💬 Mandar no WhatsApp</b> e escolha a cliente. <b>Riscar aqui não bloqueia a agenda</b>: na próxima cliente, todos os horários voltam. Quando ela responder, marque o horário no app.</p></div>
         <div class="faq" data-k="avaliar avaliacao nota estrela opiniao cliente gostou"><b>❓ Como peço e anoto a avaliação da cliente?</b><p>Depois de <b>✅ Presente</b>, toque em <b>⭐ Avaliar</b>. Toque em <b>💬 Pedir avaliação no WhatsApp</b> (a mensagem vai pronta). Quando ela responder, abra de novo, toque nas <b>estrelas</b> (1 a 5) e, se quiser, escreva o que ela falou. A mensagem de pós-atendimento do dia seguinte também já pede a nota. A média aparece na <b>ficha</b> e no <b>💰 Caixa</b>.</p></div>
-        <div class="faq" data-k="lembrete lembrar medico compromisso anotar dia hora agenda pessoal"><b>❓ Como coloco um lembrete (médico, compromisso)?</b><p>Na agenda, toque em <b>📝 Lembrete</b> (ao lado do Bloquear). Escreva o que é, escolha o <b>dia</b> e o <b>horário</b> (ou "Sem horário"). Se quiser que ninguém marque nesse horário, marque <b>🚫 Também bloquear a agenda</b>. No dia, aparece um quadro azul <b>📝 Lembretes</b> no topo da agenda (com ✓ para marcar como feito e 📅 para salvar no Google Agenda). No calendário, o dia ganha uma <b>bolinha azul</b>. Com o sininho 🔔 ligado, o celular avisa 1 hora antes.</p></div>
+        <div class="faq" data-k="lembrete lembrar medico compromisso anotar dia hora agenda pessoal"><b>❓ Como coloco um lembrete (médico, compromisso)?</b><p>Na agenda, toque em <b>📝 Lembretes</b> (ao lado do Bloquear): abre a lista com <b>todos</b> os lembretes, de qualquer dia. Toque em <b>➕ Novo lembrete</b>, escreva o que é e, se quiser, o <b>dia</b> e o <b>horário</b> (o dia é opcional). Se quiser que ninguém marque nesse horário, marque <b>🚫 Também bloquear a agenda</b>. No dia, aparece um quadro azul <b>📝 Lembretes</b> no topo da agenda (com ✓ para marcar como feito e 📅 para salvar no Google Agenda). No calendário, o dia ganha uma <b>bolinha azul</b>. Com o sininho 🔔 ligado, o celular avisa 1 hora antes.</p></div>
         <div class="faq" data-k="fiado pagar depois prazo vai pagar depois devendo divida antiga antes do app lancar"><b>❓ A cliente vai pagar depois. E quem já devia antes do app?</b><p><b>Atendimento que ela vai pagar depois:</b> depois de ✅ Presente, toque em <b>💵 Pago</b> → <b>🕒 Vai pagar depois</b>; se combinou uma data, coloque em <b>"Combinou pagar até"</b>. <b>Quem já devia antes do app:</b> toque em <b>💸 A receber</b> (barra de baixo) → <b>➕ Lançar pagamento a receber</b> (também tem em Clientes, no Caixa e na ficha). No dia combinado aparece um quadro vermelho <b>"Combinou pagar hoje"</b> na agenda. Tudo aparece em <b>Clientes → 💸 A receber</b>.</p></div>
         <div class="faq" data-k="pagamentos quem deve devendo receber central lista fiado"><b>❓ Onde vejo os pagamentos que tenho a receber?</b><p>Toque em <b>💸 A receber</b>, na barra de baixo (o número vermelho mostra quantas clientes; fica com 🔔 quando alguém combinou pagar hoje). Mostra o total pendente e cada cliente com o que deve. Toque em <b>Receber</b> quando ela pagar. Ali também tem <b>➕ Lançar pagamento a receber</b>.</p></div>
         <div class="faq" data-k="aviso pagamento sininho lembrar receber dia combinado cobrar notificacao"><b>❓ O app me avisa no dia que a cliente combinou pagar?</b><p><b>Sim.</b> Quando você coloca a data em <b>"Combinou pagar até"</b>, no dia o celular avisa (com o sininho de pagamento ligado) e o <b>💸 A receber</b> da barra de baixo ganha um <b>🔔 vermelho piscando</b>. O sininho de pagamento fica dentro de <b>💸 A receber</b> (já vem ligado). Para aviso garantido mesmo com o app fechado, no pagamento toque em <b>📅 Lembrete no Google Agenda</b>.</p></div>
@@ -672,6 +675,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="caixa dia hoje recebido do dia reserva do dia porcentagem mes"><b>❓ Quanto recebi hoje? E a reserva do dia?</b><p>Aba <b>💰 Caixa</b>: em cima aparece o <b>Caixa de hoje</b> (recebido, a receber, atendimentos e a <b>🧴 reserva p/ material do dia</b> com quanto fica para você hoje). Use as setinhas <b>‹ ›</b> para ver outros dias. Logo abaixo, menor, fica o resumo do <b>mês</b>.</p></div>
         <div class="faq" data-k="apagar excluir lixeira registro historico um so apagar errado"><b>❓ Como apago só um registro?</b><p>Procure a <b>🗑️ lixeira</b> ao lado do que quer apagar: no <b>histórico</b> da ficha (cada atendimento), nas <b>avaliações</b>, nos <b>pagamentos a receber</b>, nos <b>cancelados e faltas</b> e nos <b>lembretes</b>. O app pergunta antes de apagar. Na agenda, use os <b>⋯</b> → <b>🗑️ Excluir horário</b>. O botão "Apagar todos os dados" da ficha apaga a cliente inteira — use só se ela pedir.</p></div>
         <div class="faq" data-k="nomes clientes atendidas quantas atendidas mes registro lista quem veio"><b>❓ Onde vejo o nome das clientes atendidas e quantas foram no mês?</b><p>Aba <b>💰 Caixa</b> → no resumo do mês toque em <b>✅ Clientes atendidas no mês · ver nomes</b> (ou no quadro <b>Atendimentos</b> do dia). Aparece quantos atendimentos, quantas clientes e quanto entrou, com a lista <b>👩 Por cliente</b> (mostra quantas vezes cada uma veio) ou <b>📅 Por dia</b>. As setinhas ‹ › mudam o mês (ou o dia). Conta só quem foi marcada como <b>✅ Presente</b>.</p></div>
+        <div class="faq" data-k="lembrete avisa aviso esqueci nao avisou celular google agenda"><b>❓ O lembrete me avisa no dia?</b><p><b>Sim.</b> Ao salvar um lembrete com dia, abre o <b>Google Agenda</b> já preenchido: toque em <b>Salvar</b> lá. Assim o próprio celular avisa no dia, mesmo com o app fechado. Sem horário, avisa às 8h. E quando abrir o app, aparece uma <b>faixa azul</b> lá em cima com os lembretes do dia.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -1216,11 +1220,11 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 <div class="folha" id="folhaLemb" role="dialog" aria-modal="true" aria-labelledby="lmTit">
   <div class="puxador"></div>
   <h2 id="lmTit">📝 Novo lembrete</h2>
-  <p class="dica">Para não esquecer: médico, comprar material, pagar conta…</p>
+  <p class="dica">Para não esquecer: médico, comprar material, pagar conta…<br>Com <b>dia</b>, ao salvar abre o <b>Google Agenda</b>: toque em <b>Salvar</b> lá, e o celular te avisa no dia (sem horário, avisa às 8h).</p>
   <label for="lmTexto">O que você precisa lembrar?</label>
   <input id="lmTexto" placeholder="Ex.: Médico, comprar cera">
   <div class="duas">
-    <div><label for="lmData">Dia</label><input id="lmData" type="date"></div>
+    <div><label for="lmData">Dia <small style="font-weight:400">(opcional)</small></label><input id="lmData" type="date"></div>
     <div><label for="lmHora">Horário</label><select id="lmHora" class="sel-hora"></select></div>
   </div>
   <div class="checks"><label><input type="checkbox" id="lmBloq"> <span>🚫 Também <b>bloquear a agenda</b> nesse horário (ninguém marca)</span></label></div>
@@ -1278,6 +1282,14 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div class="at-tot" id="atTot"></div>
   <div class="at-abas"><button type="button" id="atPorCli" class="on">👩 Por cliente</button><button type="button" id="atPorDia">📅 Por dia</button></div>
   <div id="atLista"></div>
+</div>
+
+<div class="folha" id="folhaLembLista" role="dialog" aria-modal="true" aria-labelledby="llTit">
+  <div class="puxador"></div>
+  <h2 id="llTit">📝 Meus lembretes</h2>
+  <button class="btn" id="llNovo" style="background:#2D6CDF;color:#fff;margin-top:4px">➕ Novo lembrete</button>
+  <p class="dica">Aqui aparecem <b>todos</b> os lembretes. <b>✓</b> = feito · <b>📅</b> = Google Agenda · <b>🗑️</b> = apagar.</p>
+  <div id="llLista"></div>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -2091,10 +2103,10 @@ function renderCal(){
   { const pc=passado?[]:dados.filter(a=>a.data===diaSel&&!a.feito&&!fora(a)); const fal=pc.filter(a=>!a.confirmado).length; const b=$('#confTodas'); b.hidden=!pc.length;
     b.textContent=fal?`💬 Confirmar as clientes ${diaSel===HOJE?'de hoje':'deste dia'} (${fal} ${fal===1?'falta':'faltam'})`:`✓ Todas confirmadas ${diaSel===HOJE?'hoje':'neste dia'} (ver de novo)`; }
   $('#bloquearDia').style.display=passado||diaBloqueado(diaSel)?'none':'block';
-  { const L=LEMB.filter(l=>l.data===diaSel).sort((x,y)=>(x.hora||'99').localeCompare(y.hora||'99'));
+  contaLemb(); { const L=LEMB.filter(l=>l.data===diaSel||(diaSel===HOJE&&!l.ok&&(!l.data||l.data<HOJE))).sort((x,y)=>((x.data===diaSel?'1':'0')+(x.hora||'99')).localeCompare((y.data===diaSel?'1':'0')+(y.hora||'99')));
     const cob=diaSel===HOJE?[...dados.filter(a=>deveDe(a)>0&&a.vence&&a.vence<=HOJE).map(a=>({tipo:'a',id:a.id,nome:a.nome,tel:a.tel,v:deveDe(a),vence:a.vence})),
       ...DIV.filter(d=>deveDiv(d)>0&&d.vence&&d.vence<=HOJE).map(d=>({tipo:'d',id:d.id,nome:d.nome,tel:d.tel,v:deveDiv(d),vence:d.vence}))]:[];
-    $('#lembDia').innerHTML=(L.length?`<div class="lemb-card"><div class="t">📝 Lembretes ${diaSel===HOJE?'de hoje':'do dia'}</div>${L.map(l=>`<div class="lemb-it ${l.ok?'ok':''}"><span>${l.hora?'<b>'+fmtH(l.hora)+'</b> · ':''}${l.texto}</span><div class="bts"><button data-lemok="${l.id}" aria-label="Feito">${l.ok?'↩️':'✓'}</button><button data-lemgoo="${l.id}" aria-label="Google Agenda">📅</button><button data-lemdel="${l.id}" aria-label="Apagar">🗑️</button></div></div>`).join('')}</div>`:'')
+    $('#lembDia').innerHTML=(L.length?`<div class="lemb-card"><div class="t">📝 Lembretes ${diaSel===HOJE?'de hoje':'do dia'}</div>${L.map(l=>`<div class="lemb-it ${l.ok?'ok':''}"><span>${l.data!==diaSel?`<small style="color:var(--alerta);font-weight:800">${l.data?'era '+dataBR(l.data):'sem dia'} · </small>`:''}${l.hora?'<b>'+fmtH(l.hora)+'</b> · ':''}${l.texto}</span><div class="bts"><button data-lemok="${l.id}" aria-label="Feito">${l.ok?'↩️':'✓'}</button><button data-lemgoo="${l.id}" aria-label="Google Agenda">📅</button><button data-lemdel="${l.id}" aria-label="Apagar">🗑️</button></div></div>`).join('')}</div>`:'')
       +(cob.length?`<div class="cobra-card"><div class="t">💸 Combinou pagar hoje (ou já passou)</div>${cob.map(c=>`<div class="lemb-it"><span><b>${c.nome.split(' ')[0]}</b> · ${brl(c.v)}${c.vence<HOJE?' · era '+dataBR(c.vence):''}</span><div class="bts"><button ${c.tipo==='a'?'data-pag':'data-pagdiv'}="${c.id}">Receber</button></div></div>`).join('')}</div>`:''); }
   $('#bloqDia').innerHTML=bloqDo(diaSel).map(b=>`<div class="bloq-card"><div><b>🚫 ${b.diaTodo?'Dia inteiro bloqueado':'Bloqueado das '+fmtH(b.de)+' às '+fmtH(b.ate)}</b><span>${b.motivo||'Sem motivo anotado'}</span></div><button data-desbloq="${b.id}">Desbloquear</button></div>`).join('');
   const liv=passado?[]:livresDo(diaSel);
@@ -2215,7 +2227,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='70', APP_VERSAO_TXT='5.0', APP_DATA='03/10/2026'; // APP_VERSAO='70' (compatibilidade com versões antigas)
+const APP_BUILD='72', APP_VERSAO_TXT='5.2', APP_DATA='07/10/2026'; // APP_VERSAO='72' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2688,22 +2700,43 @@ $('#ntApagar').onclick=()=>{ const a=dados.find(x=>x.id===notaId); if(!a||!confi
 // ===== Lembretes pessoais =====
 function abrirLembrete(){
   const sel=$('#lmHora'); if(![...sel.options].some(o=>o.value==='')){ const o=document.createElement('option'); o.value=''; o.textContent='Sem horário'; sel.insertBefore(o,sel.firstChild); }
-  $('#lmTexto').value=''; $('#lmData').value=diaSel<HOJE?HOJE:diaSel; sel.value=''; $('#lmBloq').checked=false; $('#lmDurBox').hidden=true;
+  $('#lmTexto').value=''; $('#lmData').value=''; sel.value=''; $('#lmBloq').checked=false; $('#lmDurBox').hidden=true;
   abrirFolha('folhaLemb'); setTimeout(()=>$('#lmTexto').focus(),300);
 }
-$('#novoLembrete').onclick=abrirLembrete;
+$('#novoLembrete').onclick=()=>abrirLembLista();
+function txtDiaLemb(d){ if(!d) return 'Sem dia marcado'; if(d===HOJE) return 'Hoje'; if(d===iso(addDias(new Date(HOJE+'T12:00'),1))) return 'Amanhã';
+  const t=new Date(d+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}); return t.charAt(0).toUpperCase()+t.slice(1); }
+function itemLemb(l){ return `<div class="lemb-it ${l.ok?'ok':''}"><span>${l.hora?'<b>'+fmtH(l.hora)+'</b> · ':''}${l.texto}</span><div class="bts"><button data-lemok="${l.id}" aria-label="Feito">${l.ok?'↩️':'✓'}</button>${l.data?`<button data-lemgoo="${l.id}" aria-label="Google Agenda">📅</button>`:''}<button data-lemdel="${l.id}" aria-label="Apagar">🗑️</button></div></div>`; }
+function abrirLembLista(){
+  const pend=LEMB.filter(l=>!l.ok), feitos=LEMB.filter(l=>l.ok);
+  const grupos=[['⚠️ Já passou o dia',pend.filter(l=>l.data&&l.data<HOJE)],['📌 Sem dia marcado',pend.filter(l=>!l.data)]];
+  const comDia=pend.filter(l=>l.data&&l.data>=HOJE).sort((a,b)=>(a.data+(a.hora||'99')).localeCompare(b.data+(b.hora||'99')));
+  let h=''; grupos.forEach(([t,L])=>{ if(L.length) h+=`<div class="lemb-card"><div class="t">${t}</div>${L.map(itemLemb).join('')}</div>`; });
+  let ant=null, bloco=''; comDia.forEach(l=>{ if(l.data!==ant){ if(bloco) h+=bloco+'</div>'; ant=l.data; bloco=`<div class="lemb-card"><div class="t">📅 ${txtDiaLemb(l.data)}</div>`; } bloco+=itemLemb(l); }); if(bloco) h+=bloco+'</div>';
+  if(!pend.length) h+='<div class="vazio">Nenhum lembrete pendente. 👏</div>';
+  if(feitos.length) h+=`<details style="margin-top:10px"><summary style="font-weight:800;color:var(--suave)">✓ Feitos (${feitos.length})</summary>${feitos.slice(-30).reverse().map(itemLemb).join('')}</details>`;
+  $('#llLista').innerHTML=h; abrirFolha('folhaLembLista');
+}
+$('#llNovo').onclick=()=>{ fecharFolhas(); abrirLembrete(); };
+function faixaLemb(){ const L=LEMB.filter(l=>!l.ok&&l.data&&l.data<=HOJE).sort((a,b)=>(a.data+(a.hora||'')).localeCompare(b.data+(b.hora||''))); const b=$('#lembTopo');
+  b.hidden=!L.length; if(!L.length) return;
+  b.innerHTML=`📝 ${L.length===1?'Lembrete de hoje':L.length+' lembretes pra hoje'}: ${L.slice(0,2).map(l=>(l.hora?fmtH(l.hora)+' ':'')+l.texto).join(' · ')}${L.length>2?'…':''}<small>Toque para ver e marcar como feito ✓</small>`; }
+$('#lembTopo').onclick=()=>abrirLembLista();
+function contaLemb(){ faixaLemb(); const n=LEMB.filter(l=>!l.ok).length; $('#lmBtnTxt').textContent=n?`📝 Lembretes (${n})`:'📝 Lembretes'; }
 $('#lmBloq').addEventListener('change',()=>{ $('#lmDurBox').hidden=!$('#lmBloq').checked||!$('#lmHora').value; });
 $('#lmHora').addEventListener('change',()=>{ $('#lmDurBox').hidden=!$('#lmBloq').checked||!$('#lmHora').value; });
 $('#lmSalvar').onclick=()=>{
   const texto=$('#lmTexto').value.trim(), data=$('#lmData').value, hora=$('#lmHora').value;
-  if(!texto) return aviso('Escreva o que você precisa lembrar'); if(!data) return aviso('Escolha o dia');
+  if(!texto) return aviso('Escreva o que você precisa lembrar'); if(!data&&$('#lmBloq').checked) return aviso('Para bloquear a agenda, escolha o dia');
+  if(data){ window.open(googleLink('📝 '+texto,data,hora||'08:00',30,'Lembrete do app da Marisa'),'_blank'); }
+  try{ if(permNotif()==='default') Notification.requestPermission(); }catch(e){}
   LEMB.push({id:Date.now(),data,hora,texto,ok:false}); salvarLemb();
   if($('#lmBloq').checked){
     if(hora){ const fim=mm(hora)+(+$('#lmDur').value); BLOQ.push({id:Date.now()+1,data,diaTodo:false,de:hora,ate:String(Math.min(23,Math.floor(fim/60))).padStart(2,'0')+':'+String(fim%60).padStart(2,'0'),motivo:texto}); }
     else BLOQ.push({id:Date.now()+1,data,diaTodo:true,de:'00:00',ate:'23:59',motivo:texto});
     salvarBloq();
   }
-  diaSel=data; mesVis=new Date(data.slice(0,7)+'-01T12:00'); fecharFolhas(); render();
+  fecharFolhas(); render(); abrirLembLista(); if(data) setTimeout(()=>aviso('No Google Agenda, toque em SALVAR: assim o celular te avisa no dia 🔔'),400);
   aviso(`📝 Lembrete salvo${hora?' para '+fmtH(hora):''}${$('#lmBloq').checked?' e agenda bloqueada':''}`);
 };
 function googleLink(titulo,data,hora,min,det){
@@ -2712,15 +2745,19 @@ function googleLink(titulo,data,hora,min,det){
   return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(titulo)+'&dates='+dates+'&ctz=America/Sao_Paulo&details='+encodeURIComponent(det||'');
 }
 document.addEventListener('click',e=>{
-  const ok=e.target.closest('[data-lemok]'); if(ok){ const l=LEMB.find(x=>x.id==ok.dataset.lemok); if(l){ l.ok=!l.ok; salvarLemb(); render(); aviso(l.ok?'Lembrete feito ✓':'Lembrete reaberto'); } }
-  const dl=e.target.closest('[data-lemdel]'); if(dl&&confirm('Apagar este lembrete?')){ LEMB=LEMB.filter(x=>x.id!=dl.dataset.lemdel); salvarLemb(); render(); aviso('Lembrete apagado'); }
+  const ok=e.target.closest('[data-lemok]'); if(ok){ const l=LEMB.find(x=>x.id==ok.dataset.lemok); if(l){ l.ok=!l.ok; salvarLemb(); render(); if($('#folhaLembLista').classList.contains('aberta')) abrirLembLista(); aviso(l.ok?'Lembrete feito ✓':'Lembrete reaberto'); } }
+  const dl=e.target.closest('[data-lemdel]'); if(dl&&confirm('Apagar este lembrete?')){ LEMB=LEMB.filter(x=>x.id!=dl.dataset.lemdel); salvarLemb(); render(); if($('#folhaLembLista').classList.contains('aberta')) abrirLembLista(); aviso('Lembrete apagado'); }
   const go=e.target.closest('[data-lemgoo]'); if(go){ const l=LEMB.find(x=>x.id==go.dataset.lemgoo); if(l){ window.open(googleLink('📝 '+l.texto,l.data,l.hora,60,'Lembrete do app da Marisa'),'_blank'); aviso('No Google Agenda, confira e toque em Salvar'); } }
 });
 // avisar 1h antes do lembrete (com o sininho ligado)
-setInterval(()=>{ if(!CFG.lembrete) return; let mud=false;
-  LEMB.filter(l=>l.data===HOJE&&l.hora&&!l.ok&&!l.alertado).forEach(l=>{ const m=mm(l.hora)-(new Date().getHours()*60+new Date().getMinutes());
-    if(m<=60&&m>-5){ l.alertado=true; mud=true; notificar(`📝 Lembrete às ${fmtH(l.hora)}`, l.texto, 'lemb-'+l.id); } });
-  if(mud) salvarLemb(); },30000);
+function checarLembretes(){ let mud=false; const agora=new Date().getHours()*60+new Date().getMinutes();
+  LEMB.filter(l=>l.data===HOJE&&!l.ok&&!l.alertado).forEach(l=>{
+    const alvo=l.hora?mm(l.hora)-60:8*60;
+    if(agora>=alvo&&(!l.hora||agora<mm(l.hora)+5)){ l.alertado=true; mud=true; notificar(l.hora?`📝 Lembrete às ${fmtH(l.hora)}`:'📝 Lembrete de hoje', l.texto, 'lemb-'+l.id); } });
+  if(mud) salvarLemb(); }
+setInterval(checarLembretes,30000);
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden) checarLembretes(); });
+setTimeout(checarLembretes,2500);
 
 // ===== Cliente devendo (fiado / dívida antiga) =====
 function abrirDiv(c){

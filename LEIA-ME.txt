@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 5.0 (03/10/2026)
+App de agenda para celular · Versão 5.2 (07/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -34,8 +34,12 @@ AGENDA
   Quando a cliente responder, marque no app.
 
 LEMBRETES (médico, compromisso, comprar material…)
-• Na agenda: "📝 Lembrete" (ao lado do Bloquear) → escreva, escolha dia e horário
-  (ou "Sem horário"). Pode marcar "Também bloquear a agenda".
+• Na agenda: "📝 Lembretes" (ao lado do Bloquear) abre a lista com TODOS os
+  lembretes, de qualquer dia (atrasados, sem dia e próximos). "➕ Novo lembrete" →
+  escreva; dia e horário são opcionais.
+• Lembrete com dia: ao salvar abre o Google Agenda → toque em SALVAR lá.
+  Assim o celular avisa no dia, mesmo com o app fechado (sem horário: 8h).
+• No dia, ao abrir o app aparece uma faixa azul no topo com os lembretes. Pode marcar "Também bloquear a agenda".
 • No dia aparece o quadro azul "📝 Lembretes" no topo da agenda:
   ✓ = feito · 📅 = salvar no Google Agenda · 🗑️ = apagar.
 • No calendário, o dia tem uma bolinha azul. Com o sininho 🔔 ligado, avisa 1h antes.
@@ -159,16 +163,18 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='70', APP_VERSAO_TXT='5.0', APP_DATA='03/10/2026'; // APP_VERSAO='70' ...
-  * APP_BUILD: número interno, sempre +1 (70 -> 71). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.0 -> 5.1 -> 5.2...).
+    const APP_BUILD='72', APP_VERSAO_TXT='5.2', APP_DATA='07/10/2026'; // APP_VERSAO='72' ...
+  * APP_BUILD: número interno, sempre +1 (72 -> 73). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.2 -> 5.3 -> 5.4...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='70' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v70 -> marisa-v71
+  * O comentário APP_VERSAO='72' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v72 -> marisa-v73
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+5.2  Lembrete avisa no dia: abre o Google Agenda ao salvar; faixa azul no topo.
+5.1  Lista com todos os lembretes (sem precisar ir no dia); dia do lembrete opcional.
 5.0  Nomes das clientes atendidas e quantas no mês (no Caixa).
 4.9  Lixeira 🗑️ para apagar um registro de cada vez (histórico, avaliação, pagamentos…).
 4.8  Caixa: recebido e reserva DO DIA em destaque; mês em resumo menor embaixo.
