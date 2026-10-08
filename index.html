@@ -192,6 +192,13 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.sw-meses{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.sw-meses button{border:1.5px solid var(--linha);background:var(--card);color:var(--texto);border-radius:10px;padding:8px 0;font-weight:800;font-size:.8rem}
+.sw-meses button.on{background:var(--ameixa);border-color:var(--ameixa);color:#fff}
+.sw-it{width:100%;display:flex;justify-content:space-between;align-items:center;border:2px solid var(--linha);background:var(--card);color:var(--texto);border-radius:12px;padding:12px;margin:6px 0;font-weight:800;font-size:.98rem;text-align:left}
+.sw-it small{color:var(--ok);font-weight:800}
+.sw-it.vazio small{color:var(--suave);font-weight:400}
+.sw-it.on{border-color:var(--ameixa);box-shadow:0 0 0 2px var(--ameixa) inset}
 .t-bt{border:1.5px dashed var(--linha);background:transparent;color:var(--texto);border-radius:10px;padding:6px 8px;font:inherit;font-weight:800;cursor:pointer}
 .t-bt small{color:var(--ameixa);font-size:.8rem}
 .esconde-data{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
@@ -696,7 +703,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="lembrete avisa aviso esqueci nao avisou celular google agenda"><b>❓ O lembrete me avisa no dia?</b><p><b>Sim.</b> Ao salvar um lembrete com dia, abre o <b>Google Agenda</b> já preenchido: toque em <b>Salvar</b> lá. Assim o próprio celular avisa no dia, mesmo com o app fechado. Sem horário, avisa às 8h. E quando abrir o app, aparece uma <b>faixa azul</b> lá em cima com os lembretes do dia.</p></div>
         <div class="faq" data-k="mes passado setembro anterior filtrar mes recebido mes outro mes caixa virou o mes"><b>❓ Como vejo quanto recebi no mês passado?</b><p>Aba <b>💰 Caixa</b> → no quadro do mês, use as setinhas <b>‹ ›</b> ao lado do nome do mês (ex.: <b>‹</b> para voltar a setembro). Mostra recebido, a receber, clientes atendidas, reserva e quanto ficou para você naquele mês. <b>↩️ Voltar para o mês atual</b> volta para hoje. Lembre: cada atendimento conta no mês do dia em que foi feito (ex.: dia 30/09 conta em setembro).</p></div>
         <div class="faq" data-k="semana semanal quanto deu na semana recebido semana"><b>❓ Quanto deu na semana?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🗓️ Esta semana</b> (de domingo a sábado, igual ao calendário). Mostra recebido, a receber, clientes atendidas (com <b>ver nomes</b>), reserva e quanto fica para você. As setinhas <b>‹ ›</b> mudam a semana. A semana não se importa com a virada do mês: de 27/09 a 03/10 conta tudo junto.</p></div>
-        <div class="faq" data-k="comparar ano passado mes rapido escolher mes semana antiga pular"><b>❓ Como vejo um mês ou semana antiga rápido (sem ficar voltando)?</b><p><b>Mês:</b> no Caixa, toque no <b>nome do mês</b> (ex.: "Outubro de 2026 ▾"). Abre o ano inteiro com <b>quanto você recebeu em cada mês</b>; as setinhas mudam o ano. Toque no mês para abrir. O quadro do mês também mostra <b>📊 o mesmo mês do ano passado</b> e a diferença. <b>Semana:</b> toque no <b>nome da semana</b> e escolha <b>qualquer dia</b> no calendário: abre a semana desse dia.</p></div>
+        <div class="faq" data-k="comparar ano passado mes rapido escolher mes semana antiga pular"><b>❓ Como vejo um mês ou semana antiga rápido (sem ficar voltando)?</b><p><b>Mês:</b> no Caixa, toque no <b>nome do mês</b> (ex.: "Outubro de 2026 ▾"). Abre o ano inteiro com <b>quanto você recebeu em cada mês</b>; as setinhas mudam o ano. Toque no mês para abrir. O quadro do mês também mostra <b>📊 o mesmo mês do ano passado</b> e a diferença. <b>Semana:</b> toque no <b>nome da semana</b>: escolha o <b>mês</b> (as setinhas mudam o ano) e toque na <b>semana</b>. Cada semana já mostra quanto você recebeu.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -941,7 +948,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <span class="com-sub" id="comTxt">fica para você: R$ 0,00</span></div>
     </div>
     <div class="cx-mes cx-sem">
-      <div class="mes-nav"><button id="semAnt" aria-label="Semana anterior">‹</button><button class="t t-bt" id="semEscolher" type="button">🗓️ <span id="semNome"></span> <small>▾</small></button><input type="date" id="semData" class="esconde-data" aria-label="Escolher semana"><button id="semProx" aria-label="Próxima semana">›</button></div>
+      <div class="mes-nav"><button id="semAnt" aria-label="Semana anterior">‹</button><button class="t t-bt" id="semEscolher" type="button">🗓️ <span id="semNome"></span> <small>▾</small></button><button id="semProx" aria-label="Próxima semana">›</button></div>
       <div class="l"><span>Recebido na semana</span><b id="semRec">R$ 0</b></div>
       <div class="l"><span>A receber na semana</span><b id="semPrev">R$ 0</b></div>
       <button class="l l-at" id="semAt" type="button"><span>✅ Clientes atendidas <u>ver nomes</u></span><b id="semQt">0</b></button>
@@ -1330,6 +1337,15 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div class="ano-nav"><button id="anoAnt" aria-label="Ano anterior">‹</button><b id="anoNome"></b><button id="anoProx" aria-label="Próximo ano">›</button></div>
   <div class="meses-g" id="mesesG"></div>
   <p class="ano-tot" id="anoTot"></p>
+</div>
+
+<div class="folha" id="folhaSemanas" role="dialog" aria-modal="true" aria-labelledby="swTit">
+  <div class="puxador"></div>
+  <h2 id="swTit">🗓️ Escolher semana</h2>
+  <div class="ano-nav"><button id="swAnoAnt" aria-label="Ano anterior">‹</button><b id="swAno"></b><button id="swAnoProx" aria-label="Próximo ano">›</button></div>
+  <div class="sw-meses" id="swMeses"></div>
+  <p style="font-weight:800;margin:12px 0 6px">Toque na semana:</p>
+  <div id="swLista"></div>
 </div>
 
 <div class="aviso" id="aviso" role="status"></div>
@@ -2281,7 +2297,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='75', APP_VERSAO_TXT='5.5', APP_DATA='08/10/2026'; // APP_VERSAO='75' (compatibilidade com versões antigas)
+const APP_BUILD='76', APP_VERSAO_TXT='5.6', APP_DATA='08/10/2026'; // APP_VERSAO='76' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2913,8 +2929,25 @@ $('#mesEscolher').onclick=()=>{ anoSel=+(window.cxMes||(window.cxDia||HOJE).slic
 $('#anoAnt').onclick=()=>{ anoSel--; abrirMeses(); };
 $('#anoProx').onclick=()=>{ anoSel++; abrirMeses(); };
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-mes]'); if(!b) return; window.cxMes=b.dataset.mes; fecharFolhas(); render(); });
-$('#semEscolher').onclick=()=>{ const i=$('#semData'); i.value=window.cxSem||inicioSemana(window.cxDia||HOJE); try{ i.showPicker(); }catch(e){ i.style.pointerEvents='auto'; i.focus(); i.click(); } };
-$('#semData').addEventListener('change',()=>{ const v=$('#semData').value; if(!v) return; window.cxSem=inicioSemana(v); render(); aviso('Semana de '+dataBR(window.cxSem)); });
+let swMes=HOJE.slice(0,7);
+function recebidoEntre(a,b){ return dados.filter(x=>x.feito&&x.data>=a&&x.data<=b).reduce((t,x)=>t+pagoDe(x),0)+DIV.filter(d=>d.pagoEm&&d.pagoEm>=a&&d.pagoEm<=b).reduce((t,d)=>t+(+d.pago||0),0); }
+function abrirSemanas(){
+  const ano=swMes.slice(0,4), atual=window.cxSem||inicioSemana(window.cxDia||HOJE); $('#swAno').textContent=ano;
+  $('#swMeses').innerHTML=Array.from({length:12},(_,i)=>{ const m=ano+'-'+String(i+1).padStart(2,'0'); const n=new Date(m+'-15T12:00').toLocaleDateString('pt-BR',{month:'short'}).replace('.','');
+    return `<button type="button" data-swm="${m}" class="${m===swMes?'on':''}">${n.charAt(0).toUpperCase()+n.slice(1)}</button>`; }).join('');
+  const L=[]; let ini=inicioSemana(swMes+'-01'); while(ini.slice(0,7)<=swMes){ L.push(ini); ini=iso(addDias(new Date(ini+'T12:00'),7)); }
+  const f=d=>new Date(d+'T12:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+  $('#swLista').innerHTML=L.map(i=>{ const fim=iso(addDias(new Date(i+'T12:00'),6)), v=recebidoEntre(i,fim);
+    return `<button type="button" class="sw-it ${i===atual?'on':''} ${v?'':'vazio'}" data-sw="${i}"><span>${i===inicioSemana(HOJE)?'Esta semana · ':''}${f(i)} a ${f(fim)}</span><small>${v?brl(v):'—'}</small></button>`; }).join('');
+  abrirFolha('folhaSemanas');
+}
+$('#semEscolher').onclick=()=>{ swMes=(window.cxSem?iso(addDias(new Date(window.cxSem+'T12:00'),3)):(window.cxDia||HOJE)).slice(0,7); abrirSemanas(); };
+$('#swAnoAnt').onclick=()=>{ swMes=(+swMes.slice(0,4)-1)+swMes.slice(4); abrirSemanas(); };
+$('#swAnoProx').onclick=()=>{ swMes=(+swMes.slice(0,4)+1)+swMes.slice(4); abrirSemanas(); };
+document.addEventListener('click',e=>{
+  const m=e.target.closest('[data-swm]'); if(m){ swMes=m.dataset.swm; abrirSemanas(); return; }
+  const w=e.target.closest('[data-sw]'); if(w){ window.cxSem=w.dataset.sw; fecharFolhas(); render(); }
+});
 function mudaMes(n){ const d=new Date((window.cxMes||(window.cxDia||HOJE).slice(0,7))+'-15T12:00'); d.setMonth(d.getMonth()+n); window.cxMes=iso(d).slice(0,7); render(); }
 $('#mesAnt').onclick=()=>mudaMes(-1);
 $('#mesProx').onclick=()=>mudaMes(1);
