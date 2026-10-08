@@ -192,6 +192,11 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.btn-gasto{width:100%;border:1.5px dashed var(--alerta);background:transparent;color:var(--alerta);border-radius:14px;padding:12px;font-weight:800;margin:12px 0 4px;font-size:.95rem}
+.gs-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0}
+.gs-cats button{border:2px solid var(--linha);background:var(--card);color:var(--texto);border-radius:10px;padding:9px 2px;font-weight:800;font-size:.82rem}
+.gs-cats button.on{border-color:var(--alerta);background:var(--alerta);color:#fff}
+.gs-tot{background:#FDE7E4;color:var(--alerta);border-radius:12px;padding:10px;font-weight:800;text-align:center;margin:12px 0 6px}
 .sw-meses{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
 .sw-meses button{border:1.5px solid var(--linha);background:var(--card);color:var(--texto);border-radius:10px;padding:8px 0;font-weight:800;font-size:.8rem}
 .sw-meses button.on{background:var(--ameixa);border-color:var(--ameixa);color:#fff}
@@ -704,6 +709,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="mes passado setembro anterior filtrar mes recebido mes outro mes caixa virou o mes"><b>❓ Como vejo quanto recebi no mês passado?</b><p>Aba <b>💰 Caixa</b> → no quadro do mês, use as setinhas <b>‹ ›</b> ao lado do nome do mês (ex.: <b>‹</b> para voltar a setembro). Mostra recebido, a receber, clientes atendidas, reserva e quanto ficou para você naquele mês. <b>↩️ Voltar para o mês atual</b> volta para hoje. Lembre: cada atendimento conta no mês do dia em que foi feito (ex.: dia 30/09 conta em setembro).</p></div>
         <div class="faq" data-k="semana semanal quanto deu na semana recebido semana"><b>❓ Quanto deu na semana?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🗓️ Esta semana</b> (de domingo a sábado, igual ao calendário). Mostra recebido, a receber, clientes atendidas (com <b>ver nomes</b>), reserva e quanto fica para você. As setinhas <b>‹ ›</b> mudam a semana. A semana não se importa com a virada do mês: de 27/09 a 03/10 conta tudo junto.</p></div>
         <div class="faq" data-k="comparar ano passado mes rapido escolher mes semana antiga pular"><b>❓ Como vejo um mês ou semana antiga rápido (sem ficar voltando)?</b><p><b>Mês:</b> no Caixa, toque no <b>nome do mês</b> (ex.: "Outubro de 2026 ▾"). Abre o ano inteiro com <b>quanto você recebeu em cada mês</b>; as setinhas mudam o ano. Toque no mês para abrir. O quadro do mês também mostra <b>📊 o mesmo mês do ano passado</b> e a diferença. <b>Semana:</b> toque no <b>nome da semana</b>: escolha o <b>mês</b> (as setinhas mudam o ano) e toque na <b>semana</b>. Cada semana já mostra quanto você recebeu.</p></div>
+        <div class="faq" data-k="gasto gastos despesa despesas comprei material aluguel conta luz lucro sobrou"><b>❓ Como anoto meus gastos do mês?</b><p>Aba <b>💰 Caixa</b> → botão <b>🧾 Gastos</b>. Escolha o tipo (material, aluguel, contas…), o valor e o dia, e toque em <b>Salvar gasto</b>. Na mesma tela aparece a lista do mês, com 🗑️ para apagar. No resumo da <b>semana</b> e do <b>mês</b> aparecem os <b>gastos</b> e quanto <b>sobrou</b> (recebido − gastos).</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -947,6 +953,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="com-mini" id="comBts"><button data-com="20">20%</button><button data-com="25">25%</button><button data-com="0">0%</button></div>
         <span class="com-sub" id="comTxt">fica para você: R$ 0,00</span></div>
     </div>
+    <button class="btn-gasto" id="btnGasto">🧾 Gastos (material, aluguel, contas…) <span id="gastoHoje"></span></button>
     <div class="cx-mes cx-sem">
       <div class="mes-nav"><button id="semAnt" aria-label="Semana anterior">‹</button><button class="t t-bt" id="semEscolher" type="button">🗓️ <span id="semNome"></span> <small>▾</small></button><button id="semProx" aria-label="Próxima semana">›</button></div>
       <div class="l"><span>Recebido na semana</span><b id="semRec">R$ 0</b></div>
@@ -954,6 +961,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <button class="l l-at" id="semAt" type="button"><span>✅ Clientes atendidas <u>ver nomes</u></span><b id="semQt">0</b></button>
       <div class="l"><span>🧴 Reserva da semana</span><b id="semRes">R$ 0</b></div>
       <div class="l"><span>Fica para você na semana</span><b id="semLiq" style="color:var(--ok)">R$ 0</b></div>
+      <div class="l"><span>🧾 Gastos da semana</span><b id="semGas" style="color:var(--alerta)">R$ 0</b></div>
+      <div class="l"><span><b>💰 Sobrou (recebido − gastos)</b></span><b id="semSob">R$ 0</b></div>
     </div>
     <div class="cx-mes">
       <div class="mes-nav"><button id="mesAnt" aria-label="Mês anterior">‹</button><button class="t t-bt" id="mesEscolher" type="button">📅 <span id="mesNome"></span> <small>▾</small></button><button id="mesProx" aria-label="Próximo mês">›</button></div>
@@ -963,6 +972,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <button class="l l-at" id="cxAtM" type="button"><span>✅ Clientes atendidas no mês <u>ver nomes</u></span><b id="cxQt">0</b></button>
       <div class="l"><span>🧴 Reserva do mês</span><b id="cxResM">R$ 0</b></div>
       <div class="l"><span>Fica para você no mês</span><b id="cxLiqM" style="color:var(--ok)">R$ 0</b></div>
+      <button class="l l-at" id="cxGasM" type="button"><span>🧾 Gastos do mês <u>ver</u></span><b id="cxGasMV" style="color:var(--alerta)">R$ 0</b></button>
+      <div class="l"><span><b>💰 Sobrou no mês (recebido − gastos)</b></span><b id="cxSobM">R$ 0</b></div>
       <div class="l"><span>Ticket médio</span><b id="cxMed">R$ 0</b></div>
       <div class="l" id="cxAnoAnt" hidden><span id="cxAnoAntT"></span><b id="cxAnoAntV"></b></div>
     </div>
@@ -1348,6 +1359,24 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
   <div id="swLista"></div>
 </div>
 
+<div class="folha" id="folhaGasto" role="dialog" aria-modal="true" aria-labelledby="gsTit">
+  <div class="puxador"></div>
+  <h2 id="gsTit">🧾 Gastos</h2>
+  <p class="dica">Anote o que você gastou (material, aluguel, luz, água…). O app desconta do recebido e mostra quanto <b>sobrou</b>.</p>
+  <label>Tipo de gasto</label>
+  <div class="gs-cats" id="gsCats"><button type="button" data-gc="🧴 Material" class="on">🧴 Material</button><button type="button" data-gc="🏠 Aluguel">🏠 Aluguel</button><button type="button" data-gc="💡 Contas">💡 Contas</button><button type="button" data-gc="🧹 Limpeza">🧹 Limpeza</button><button type="button" data-gc="🚗 Transporte">🚗 Transporte</button><button type="button" data-gc="📦 Outros">📦 Outros</button></div>
+  <div class="duas">
+    <div><label for="gsValor">Valor (R$)</label><input id="gsValor" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex.: 85"></div>
+    <div><label for="gsData">Dia</label><input id="gsData" type="date"></div>
+  </div>
+  <label for="gsDesc">O que foi? (opcional)</label>
+  <input id="gsDesc" placeholder="Ex.: cera premium, palito, lençol">
+  <button class="btn" id="gsSalvar" style="background:var(--alerta);color:#fff">➖ Salvar gasto</button>
+  <div class="cn-nav" style="margin-top:14px"><button id="gsAnt" aria-label="Mês anterior">‹</button><b id="gsMes"></b><button id="gsProx" aria-label="Próximo mês">›</button></div>
+  <div class="gs-tot" id="gsTot"></div>
+  <div id="gsLista"></div>
+</div>
+
 <div class="aviso" id="aviso" role="status"></div>
 
 <script>
@@ -1451,6 +1480,9 @@ function salvarLemb(){ try{ localStorage.setItem('marisa-lembretes',JSON.stringi
 let DIV; try{ DIV=JSON.parse(localStorage.getItem('marisa-dividas'))||[]; }catch(e){ DIV=[]; }
 function salvarDiv(){ try{ localStorage.setItem('marisa-dividas',JSON.stringify(DIV)); }catch(e){} }
 const deveDiv = d => Math.max(0, Math.round(((+d.valor||0)-(+d.pago||0))*100)/100);
+let GAST; try{ GAST=JSON.parse(localStorage.getItem('marisa-gastos'))||[]; }catch(e){ GAST=[]; }
+function salvarGast(){ try{ localStorage.setItem('marisa-gastos',JSON.stringify(GAST)); }catch(e){} }
+const gastoEntre=(a,b)=>GAST.filter(g=>g.data>=a&&g.data<=b).reduce((t,g)=>t+(+g.valor||0),0);
 let dados;
 try { dados = JSON.parse(localStorage.getItem('arcoecera')) || []; } catch(e){ dados = []; }
 // remove uma vez os exemplos que vinham no app (Carla, Mariana...)
@@ -1595,7 +1627,8 @@ function render(){
     $('#semNome').textContent=(ini===inicioSemana(HOJE)?'Esta semana · ':'Semana · ')+f(ini)+' a '+f(fim);
     $('#semRec').textContent=brl(recS); $('#semPrev').textContent=brl(prevS);
     const nc=new Set(atS.map(a=>a.tel)).size; $('#semQt').textContent=`${atS.length} (${nc} ${nc===1?'cliente':'clientes'})`;
-    $('#semRes').textContent=brl(cvS); $('#semLiq').textContent=brl(recS-cvS); }
+    $('#semRes').textContent=brl(cvS); $('#semLiq').textContent=brl(recS-cvS);
+    { const gs=gastoEntre(ini,fim); $('#semGas').textContent=brl(gs); $('#semSob').textContent=brl(recS-gs); $('#semSob').style.color=recS-gs<0?'var(--alerta)':'var(--ok)'; } }
   { const doDia=dados.filter(a=>a.data===cxD);
     const recD=doDia.filter(a=>a.feito).reduce((t,a)=>t+pagoDe(a),0)+DIV.filter(x=>x.pagoEm===cxD).reduce((t,x)=>t+(+x.pago||0),0);
     const prevD=doDia.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
@@ -1628,7 +1661,9 @@ function render(){
     document.querySelectorAll('#comBts [data-com]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.com===pc)));
     const V=window._cxDiaVals; $('#comLiq').textContent=brl(V.cvD);
     $('#comTxt').textContent=pc?`fica para você ${cxD===HOJE?'hoje':'no dia'}: ${brl(V.recD-V.cvD)}`:'sem reserva · tudo fica para você';
-    $('#cxResM').textContent=brl(cv); $('#cxLiqM').textContent=brl(rec-cv); }
+    $('#cxResM').textContent=brl(cv); $('#cxLiqM').textContent=brl(rec-cv);
+    { const gm=GAST.filter(g=>g.data.startsWith(mes)).reduce((t,g)=>t+(+g.valor||0),0); $('#cxGasMV').textContent=brl(gm); $('#cxSobM').textContent=brl(rec-gm); $('#cxSobM').style.color=rec-gm<0?'var(--alerta)':'var(--ok)'; }
+    { const gd=gastoEntre(cxD,cxD); $('#gastoHoje').textContent=gd?`· hoje ${brl(gd)}`:''; } }
   $('#ranking').innerHTML=rk.map(([i,q])=>{const s=sv(i);return `<div style="display:flex;justify-content:space-between;font-weight:700;font-size:.9rem"><span>${s.n}</span><span>${q}x</span></div><div class="barra"><i style="width:${q/mx*100}%;background:${s.cat==='Depilação'?'var(--mel)':'var(--ameixa)'}"></i></div>`}).join('');
 }
 
@@ -2297,7 +2332,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='76', APP_VERSAO_TXT='5.6', APP_DATA='08/10/2026'; // APP_VERSAO='76' (compatibilidade com versões antigas)
+const APP_BUILD='77', APP_VERSAO_TXT='5.7', APP_DATA='08/10/2026'; // APP_VERSAO='77' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2997,6 +3032,30 @@ $('#atPorCli').onclick=()=>{ atVista='cli'; abrirAtend(); };
 $('#atPorDia').onclick=()=>{ atVista='dia'; abrirAtend(); };
 $('#atAnt').onclick=()=>{ const d=new Date(atRef+'T12:00'); if(atModo==='mes'){ d.setDate(15); d.setMonth(d.getMonth()-1);} else d.setDate(d.getDate()-(atModo==='sem'?7:1)); atRef=iso(d); abrirAtend(); };
 $('#atProx').onclick=()=>{ const d=new Date(atRef+'T12:00'); if(atModo==='mes'){ d.setDate(15); d.setMonth(d.getMonth()+1);} else d.setDate(d.getDate()+(atModo==='sem'?7:1)); atRef=iso(d); abrirAtend(); };
+
+// ===== Gastos =====
+let gsCat='🧴 Material', gsMes=HOJE.slice(0,7);
+function abrirGastos(){
+  const t=new Date(gsMes+'-15T12:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); $('#gsMes').textContent=t.charAt(0).toUpperCase()+t.slice(1);
+  const L=GAST.filter(g=>g.data.startsWith(gsMes)).sort((a,b)=>b.data.localeCompare(a.data)); const tot=L.reduce((t,g)=>t+(+g.valor||0),0);
+  $('#gsTot').textContent=L.length?`Gastos do mês: ${brl(tot)}`:'Nenhum gasto neste mês';
+  const cat={}; L.forEach(g=>cat[g.cat]=(cat[g.cat]||0)+(+g.valor||0));
+  $('#gsLista').innerHTML=(Object.keys(cat).length>1?`<p style="font-size:.85rem;color:var(--suave);margin:0 0 6px">${Object.entries(cat).map(([c,v])=>`${c}: <b>${brl(v)}</b>`).join(' · ')}</p>`:'')
+    +L.map(g=>`<div class="bl-item"><div><b>${g.cat} · ${brl(+g.valor)}</b><span>${dataBR(g.data)}${g.desc?' · '+g.desc:''}</span></div><div class="bts"><button class="lix" data-delgas="${g.id}" aria-label="Apagar">🗑️</button></div></div>`).join('');
+  abrirFolha('folhaGasto');
+}
+$('#btnGasto').onclick=()=>{ $('#gsValor').value=''; $('#gsDesc').value=''; $('#gsData').value=window.cxDia||HOJE; gsMes=(window.cxMes||HOJE.slice(0,7)); abrirGastos(); };
+$('#cxGasM').onclick=()=>{ $('#gsValor').value=''; $('#gsDesc').value=''; $('#gsData').value=HOJE; gsMes=(window.cxMes||HOJE.slice(0,7)); abrirGastos(); };
+document.addEventListener('click',e=>{
+  const c=e.target.closest('[data-gc]'); if(c){ gsCat=c.dataset.gc; document.querySelectorAll('#gsCats button').forEach(b=>b.classList.toggle('on',b===c)); return; }
+  const d=e.target.closest('[data-delgas]'); if(d){ const g=GAST.find(x=>x.id==d.dataset.delgas); if(g&&confirm(`Apagar o gasto de ${brl(+g.valor)} (${g.cat})?`)){ GAST=GAST.filter(x=>x!==g); salvarGast(); render(); abrirGastos(); aviso('Gasto apagado 🗑️'); } }
+});
+$('#gsSalvar').onclick=()=>{ const v=parseFloat(String($('#gsValor').value).replace(',','.')); const d=$('#gsData').value||HOJE;
+  if(!(v>0)) return aviso('Digite o valor do gasto');
+  GAST.push({id:Date.now(),cat:gsCat,valor:Math.round(v*100)/100,data:d,desc:$('#gsDesc').value.trim()}); salvarGast();
+  $('#gsValor').value=''; $('#gsDesc').value=''; gsMes=d.slice(0,7); render(); abrirGastos(); aviso(`Gasto de ${brl(v)} salvo ✓`); };
+$('#gsAnt').onclick=()=>{ const d=new Date(gsMes+'-15T12:00'); d.setMonth(d.getMonth()-1); gsMes=iso(d).slice(0,7); abrirGastos(); };
+$('#gsProx').onclick=()=>{ const d=new Date(gsMes+'-15T12:00'); d.setMonth(d.getMonth()+1); gsMes=iso(d).slice(0,7); abrirGastos(); };
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
