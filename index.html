@@ -192,6 +192,7 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.cx-sem{border-color:var(--ameixa);border-width:1.5px}
 .mes-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
 .mes-nav .t{margin:0;text-align:center;flex:1;font-size:1rem}
 .mes-nav button{border:0;background:var(--po);color:var(--ameixa);width:40px;height:40px;border-radius:50%;font-size:1.2rem;font-weight:800;flex:none}
@@ -681,6 +682,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="nomes clientes atendidas quantas atendidas mes registro lista quem veio"><b>❓ Onde vejo o nome das clientes atendidas e quantas foram no mês?</b><p>Aba <b>💰 Caixa</b> → no resumo do mês toque em <b>✅ Clientes atendidas no mês · ver nomes</b> (ou no quadro <b>Atendimentos</b> do dia). Aparece quantos atendimentos, quantas clientes e quanto entrou, com a lista <b>👩 Por cliente</b> (mostra quantas vezes cada uma veio) ou <b>📅 Por dia</b>. As setinhas ‹ › mudam o mês (ou o dia). Conta só quem foi marcada como <b>✅ Presente</b>.</p></div>
         <div class="faq" data-k="lembrete avisa aviso esqueci nao avisou celular google agenda"><b>❓ O lembrete me avisa no dia?</b><p><b>Sim.</b> Ao salvar um lembrete com dia, abre o <b>Google Agenda</b> já preenchido: toque em <b>Salvar</b> lá. Assim o próprio celular avisa no dia, mesmo com o app fechado. Sem horário, avisa às 8h. E quando abrir o app, aparece uma <b>faixa azul</b> lá em cima com os lembretes do dia.</p></div>
         <div class="faq" data-k="mes passado setembro anterior filtrar mes recebido mes outro mes caixa virou o mes"><b>❓ Como vejo quanto recebi no mês passado?</b><p>Aba <b>💰 Caixa</b> → no quadro do mês, use as setinhas <b>‹ ›</b> ao lado do nome do mês (ex.: <b>‹</b> para voltar a setembro). Mostra recebido, a receber, clientes atendidas, reserva e quanto ficou para você naquele mês. <b>↩️ Voltar para o mês atual</b> volta para hoje. Lembre: cada atendimento conta no mês do dia em que foi feito (ex.: dia 30/09 conta em setembro).</p></div>
+        <div class="faq" data-k="semana semanal quanto deu na semana recebido semana"><b>❓ Quanto deu na semana?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🗓️ Esta semana</b> (de domingo a sábado, igual ao calendário). Mostra recebido, a receber, clientes atendidas (com <b>ver nomes</b>), reserva e quanto fica para você. As setinhas <b>‹ ›</b> mudam a semana. A semana não se importa com a virada do mês: de 27/09 a 03/10 conta tudo junto.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -923,6 +925,14 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <div class="cx cx-com"><small>🧴 Reserva p/ material</small><b id="comLiq">R$ 0,00</b>
         <div class="com-mini" id="comBts"><button data-com="20">20%</button><button data-com="25">25%</button><button data-com="0">0%</button></div>
         <span class="com-sub" id="comTxt">fica para você: R$ 0,00</span></div>
+    </div>
+    <div class="cx-mes cx-sem">
+      <div class="mes-nav"><button id="semAnt" aria-label="Semana anterior">‹</button><div class="t">🗓️ <span id="semNome"></span></div><button id="semProx" aria-label="Próxima semana">›</button></div>
+      <div class="l"><span>Recebido na semana</span><b id="semRec">R$ 0</b></div>
+      <div class="l"><span>A receber na semana</span><b id="semPrev">R$ 0</b></div>
+      <button class="l l-at" id="semAt" type="button"><span>✅ Clientes atendidas <u>ver nomes</u></span><b id="semQt">0</b></button>
+      <div class="l"><span>🧴 Reserva da semana</span><b id="semRes">R$ 0</b></div>
+      <div class="l"><span>Fica para você na semana</span><b id="semLiq" style="color:var(--ok)">R$ 0</b></div>
     </div>
     <div class="cx-mes">
       <div class="mes-nav"><button id="mesAnt" aria-label="Mês anterior">‹</button><div class="t">📅 <span id="mesNome"></span></div><button id="mesProx" aria-label="Próximo mês">›</button></div>
@@ -1536,6 +1546,16 @@ function render(){
 
   // Caixa
   const cxD=window.cxDia||HOJE; const mes=window.cxMes||cxD.slice(0,7);
+  { const ini=window.cxSem||inicioSemana(cxD), fim=iso(addDias(new Date(ini+'T12:00'),6));
+    const doS=dados.filter(a=>a.data>=ini&&a.data<=fim);
+    const recS=doS.filter(a=>a.feito).reduce((t,a)=>t+pagoDe(a),0)+DIV.filter(x=>x.pagoEm&&x.pagoEm>=ini&&x.pagoEm<=fim).reduce((t,x)=>t+(+x.pago||0),0);
+    const prevS=doS.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
+    const atS=doS.filter(a=>a.feito&&!fora(a)); const pcS=CFG.comissao==null?25:+CFG.comissao, cvS=Math.round(recS*pcS)/100;
+    const f=d=>new Date(d+'T12:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+    $('#semNome').textContent=(ini===inicioSemana(HOJE)?'Esta semana · ':'Semana · ')+f(ini)+' a '+f(fim);
+    $('#semRec').textContent=brl(recS); $('#semPrev').textContent=brl(prevS);
+    const nc=new Set(atS.map(a=>a.tel)).size; $('#semQt').textContent=`${atS.length} (${nc} ${nc===1?'cliente':'clientes'})`;
+    $('#semRes').textContent=brl(cvS); $('#semLiq').textContent=brl(recS-cvS); }
   { const doDia=dados.filter(a=>a.data===cxD);
     const recD=doDia.filter(a=>a.feito).reduce((t,a)=>t+pagoDe(a),0)+DIV.filter(x=>x.pagoEm===cxD).reduce((t,x)=>t+(+x.pago||0),0);
     const prevD=doDia.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
@@ -2233,7 +2253,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='73', APP_VERSAO_TXT='5.3', APP_DATA='08/10/2026'; // APP_VERSAO='73' (compatibilidade com versões antigas)
+const APP_BUILD='74', APP_VERSAO_TXT='5.4', APP_DATA='08/10/2026'; // APP_VERSAO='74' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2845,13 +2865,17 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-confok]')
   a.confirmado=true; salvar(); const naLista=!!b.closest('#cfLista'); setTimeout(()=>{ render(); if(naLista) abrirConf(); },500); });
 
 window.cxDia=HOJE;
-$('#cxAnt').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),-1)); window.cxMes=window.cxDia.slice(0,7); render(); };
-$('#cxProx').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),1)); window.cxMes=window.cxDia.slice(0,7); render(); };
+$('#cxAnt').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),-1)); window.cxMes=window.cxDia.slice(0,7); window.cxSem=inicioSemana(window.cxDia); render(); };
+$('#cxProx').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),1)); window.cxMes=window.cxDia.slice(0,7); window.cxSem=inicioSemana(window.cxDia); render(); };
+function inicioSemana(d){ const x=new Date(d+'T12:00'); x.setDate(x.getDate()-x.getDay()); return iso(x); }
+$('#semAnt').onclick=()=>{ window.cxSem=iso(addDias(new Date((window.cxSem||inicioSemana(window.cxDia||HOJE))+'T12:00'),-7)); render(); };
+$('#semProx').onclick=()=>{ window.cxSem=iso(addDias(new Date((window.cxSem||inicioSemana(window.cxDia||HOJE))+'T12:00'),7)); render(); };
+$('#semAt').onclick=()=>{ atRef=window.cxSem||inicioSemana(window.cxDia||HOJE); abrirAtend('sem'); };
 function mudaMes(n){ const d=new Date((window.cxMes||(window.cxDia||HOJE).slice(0,7))+'-15T12:00'); d.setMonth(d.getMonth()+n); window.cxMes=iso(d).slice(0,7); render(); }
 $('#mesAnt').onclick=()=>mudaMes(-1);
 $('#mesProx').onclick=()=>mudaMes(1);
 $('#mesHoje').onclick=()=>{ window.cxMes=HOJE.slice(0,7); window.cxDia=HOJE; render(); };
-document.querySelector('nav [data-t=caixa]').addEventListener('click',()=>{ window.cxDia=HOJE; window.cxMes=HOJE.slice(0,7); render(); });
+document.querySelector('nav [data-t=caixa]').addEventListener('click',()=>{ window.cxDia=HOJE; window.cxMes=HOJE.slice(0,7); window.cxSem=null; render(); });
 
 // ===== Lixeiras =====
 function reabrir(){ render(); if(fichaTel&&$('#folhaFicha').classList.contains('aberta')) abrirFicha(fichaTel);
@@ -2873,11 +2897,11 @@ document.addEventListener('click',e=>{
 let atModo='mes', atRef=HOJE, atVista='cli';
 function abrirAtend(modo){
   atModo=modo||atModo;
-  const ehMes=atModo==='mes';
-  const L=dados.filter(a=>a.feito&&!fora(a)&&(ehMes?a.data.startsWith(atRef.slice(0,7)):a.data===atRef)).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)));
+  const ehMes=atModo==='mes', ehSem=atModo==='sem', fimSem=ehSem?iso(addDias(new Date(atRef+'T12:00'),6)):'';
+  const L=dados.filter(a=>a.feito&&!fora(a)&&(ehMes?a.data.startsWith(atRef.slice(0,7)):ehSem?(a.data>=atRef&&a.data<=fimSem):a.data===atRef)).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)));
   const dt=new Date(atRef+'T12:00');
-  $('#atTit').textContent=ehMes?'✅ Clientes atendidas no mês':'✅ Clientes atendidas no dia';
-  const per=ehMes?dt.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}):(atRef===HOJE?'Hoje · ':'')+dt.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+  $('#atTit').textContent=ehMes?'✅ Clientes atendidas no mês':ehSem?'✅ Clientes atendidas na semana':'✅ Clientes atendidas no dia';
+  const per=ehSem?`${dataBR(atRef)} a ${dataBR(fimSem)}`:ehMes?dt.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}):(atRef===HOJE?'Hoje · ':'')+dt.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
   $('#atPer').textContent=per.charAt(0).toUpperCase()+per.slice(1);
   const g={}; L.forEach(a=>{ (g[a.tel]=g[a.tel]||{nome:a.nome,tel:a.tel,n:0,v:0,serv:new Set()}); g[a.tel].n++; g[a.tel].v+=pagoDe(a); a.serv.forEach(i=>g[a.tel].serv.add(sv(i).n)); });
   const tot=L.reduce((t,a)=>t+pagoDe(a),0);
@@ -2894,8 +2918,8 @@ $('#cxAtM').onclick=()=>{ atRef=(window.cxMes||(window.cxDia||HOJE).slice(0,7))+
 $('#cxAtD').onclick=()=>{ atRef=window.cxDia||HOJE; abrirAtend('dia'); };
 $('#atPorCli').onclick=()=>{ atVista='cli'; abrirAtend(); };
 $('#atPorDia').onclick=()=>{ atVista='dia'; abrirAtend(); };
-$('#atAnt').onclick=()=>{ const d=new Date(atRef+'T12:00'); if(atModo==='mes'){ d.setDate(15); d.setMonth(d.getMonth()-1);} else d.setDate(d.getDate()-1); atRef=iso(d); abrirAtend(); };
-$('#atProx').onclick=()=>{ const d=new Date(atRef+'T12:00'); if(atModo==='mes'){ d.setDate(15); d.setMonth(d.getMonth()+1);} else d.setDate(d.getDate()+1); atRef=iso(d); abrirAtend(); };
+$('#atAnt').onclick=()=>{ const d=new Date(atRef+'T12:00'); if(atModo==='mes'){ d.setDate(15); d.setMonth(d.getMonth()-1);} else d.setDate(d.getDate()-(atModo==='sem'?7:1)); atRef=iso(d); abrirAtend(); };
+$('#atProx').onclick=()=>{ const d=new Date(atRef+'T12:00'); if(atModo==='mes'){ d.setDate(15); d.setMonth(d.getMonth()+1);} else d.setDate(d.getDate()+(atModo==='sem'?7:1)); atRef=iso(d); abrirAtend(); };
 
 let tAv; function aviso(t){ const a=$('#aviso'); a.textContent=t; a.classList.add('on'); clearTimeout(tAv); tAv=setTimeout(()=>a.classList.remove('on'),2200); }
 montarHoras();
