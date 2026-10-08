@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 5.7 (08/10/2026)
+App de agenda para celular · Versão 5.8 (08/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -98,7 +98,8 @@ FOTOS DO TRABALHO E INSTAGRAM (opcional)
 • Postar na internet precisa de autorização separada de guardar a foto.
 
 GASTOS
-• Caixa → "🧾 Gastos": escolha o tipo (material, aluguel, contas, limpeza,
+• Caixa → quadro grande "🧾 Gastos" (gastos de hoje e quanto sobrou hoje) →
+  botão vermelho "➖ Lançar gasto": escolha o tipo (material, aluguel, contas, limpeza,
   transporte, outros), valor e dia → Salvar. A lista do mês fica na mesma tela (🗑️ apaga).
 • Semana e mês mostram os gastos e quanto SOBROU (recebido − gastos).
 
@@ -177,16 +178,17 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='77', APP_VERSAO_TXT='5.7', APP_DATA='08/10/2026'; // APP_VERSAO='77' ...
-  * APP_BUILD: número interno, sempre +1 (77 -> 78). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.7 -> 5.8 -> 5.9...).
+    const APP_BUILD='78', APP_VERSAO_TXT='5.8', APP_DATA='08/10/2026'; // APP_VERSAO='78' ...
+  * APP_BUILD: número interno, sempre +1 (78 -> 79). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.8 -> 5.9 -> 6.0...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='77' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v77 -> marisa-v78
+  * O comentário APP_VERSAO='78' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v78 -> marisa-v79
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+5.8  Gastos em quadro grande no Caixa (gastos e sobrou do dia, botão Lançar gasto).
 5.7  Gastos: anotar gastos e ver quanto sobrou na semana e no mês.
 5.6  Escolher semana: tela própria com meses e semanas (o calendário do celular não abria).
 5.5  Caixa: atalho para escolher mês (ano inteiro com valores) e semana (pelo calendário);
