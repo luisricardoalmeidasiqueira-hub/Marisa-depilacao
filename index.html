@@ -1496,6 +1496,7 @@ let DIV; try{ DIV=JSON.parse(localStorage.getItem('marisa-dividas'))||[]; }catch
 function salvarDiv(){ try{ localStorage.setItem('marisa-dividas',JSON.stringify(DIV)); }catch(e){} }
 const deveDiv = d => Math.max(0, Math.round(((+d.valor||0)-(+d.pago||0))*100)/100);
 let GAST; try{ GAST=JSON.parse(localStorage.getItem('marisa-gastos'))||[]; }catch(e){ GAST=[]; }
+GAST.forEach(g=>{ if(!g.cat) g.cat=g.categoria||g.tipo||'🧴 Material'; if(!g.id) g.id=Date.now()+Math.random(); });
 function salvarGast(){ try{ localStorage.setItem('marisa-gastos',JSON.stringify(GAST)); }catch(e){} }
 const gastoEntre=(a,b)=>GAST.filter(g=>g.data>=a&&g.data<=b).reduce((t,g)=>t+(+g.valor||0),0);
 let dados;
@@ -2350,7 +2351,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='78', APP_VERSAO_TXT='5.8', APP_DATA='08/10/2026'; // APP_VERSAO='78' (compatibilidade com versões antigas)
+const APP_BUILD='79', APP_VERSAO_TXT='5.9', APP_DATA='08/10/2026'; // APP_VERSAO='79' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
