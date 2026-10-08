@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 5.2 (07/10/2026)
+App de agenda para celular · Versão 5.3 (08/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -128,6 +128,8 @@ CAIXA
 • Em cima: CAIXA DE HOJE (recebido, a receber, atendimentos e a reserva p/ material
   do dia com quanto fica para você hoje). Setinhas ‹ › mostram outros dias.
 • Embaixo, menor: o resumo do MÊS (recebido, a receber, reserva, fica para você).
+  Setinhas ‹ › ao lado do nome do mês mostram os meses anteriores (ex.: setembro).
+  Cada atendimento conta no mês do dia em que foi feito (30/09 conta em setembro).
 • "✅ Clientes atendidas no mês · ver nomes": quantos atendimentos, quantas clientes
   e a lista com os nomes (👩 por cliente, com quantas vezes veio, ou 📅 por dia).
   O quadro "Atendimentos" do dia também mostra os nomes do dia.
@@ -163,16 +165,17 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='72', APP_VERSAO_TXT='5.2', APP_DATA='07/10/2026'; // APP_VERSAO='72' ...
-  * APP_BUILD: número interno, sempre +1 (72 -> 73). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.2 -> 5.3 -> 5.4...).
+    const APP_BUILD='73', APP_VERSAO_TXT='5.3', APP_DATA='08/10/2026'; // APP_VERSAO='73' ...
+  * APP_BUILD: número interno, sempre +1 (73 -> 74). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.3 -> 5.4 -> 5.5...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='72' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v72 -> marisa-v73
+  * O comentário APP_VERSAO='73' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v73 -> marisa-v74
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+5.3  Caixa: setinhas ‹ › para ver o resumo de outros meses (ex.: setembro).
 5.2  Lembrete avisa no dia: abre o Google Agenda ao salvar; faixa azul no topo.
 5.1  Lista com todos os lembretes (sem precisar ir no dia); dia do lembrete opcional.
 5.0  Nomes das clientes atendidas e quantas no mês (no Caixa).

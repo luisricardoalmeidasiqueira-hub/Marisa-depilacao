@@ -192,6 +192,10 @@ input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;min-wi
 footer{text-align:center;color:var(--suave);font-size:.78rem;margin-top:28px;line-height:1.6}
 [hidden]{display:none!important}
 .tela{display:none}.tela.ativa{display:block}
+.mes-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
+.mes-nav .t{margin:0;text-align:center;flex:1;font-size:1rem}
+.mes-nav button{border:0;background:var(--po);color:var(--ameixa);width:40px;height:40px;border-radius:50%;font-size:1.2rem;font-weight:800;flex:none}
+.mes-hoje{width:100%;border:1.5px solid var(--ameixa);background:transparent;color:var(--ameixa);border-radius:10px;padding:7px;font-weight:800;font-size:.85rem;margin:2px 0 6px}
 .lemb-topo{width:100%;display:block;text-align:left;border:0;background:#2D6CDF;color:#fff;border-radius:14px;padding:12px 14px;font-weight:800;font-size:1rem;margin:0 0 10px;box-shadow:0 2px 8px rgba(45,108,223,.3)}
 .lemb-topo small{display:block;font-weight:600;font-size:.82rem;opacity:.9;margin-top:2px}
 .cx-at{text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
@@ -676,6 +680,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="apagar excluir lixeira registro historico um so apagar errado"><b>❓ Como apago só um registro?</b><p>Procure a <b>🗑️ lixeira</b> ao lado do que quer apagar: no <b>histórico</b> da ficha (cada atendimento), nas <b>avaliações</b>, nos <b>pagamentos a receber</b>, nos <b>cancelados e faltas</b> e nos <b>lembretes</b>. O app pergunta antes de apagar. Na agenda, use os <b>⋯</b> → <b>🗑️ Excluir horário</b>. O botão "Apagar todos os dados" da ficha apaga a cliente inteira — use só se ela pedir.</p></div>
         <div class="faq" data-k="nomes clientes atendidas quantas atendidas mes registro lista quem veio"><b>❓ Onde vejo o nome das clientes atendidas e quantas foram no mês?</b><p>Aba <b>💰 Caixa</b> → no resumo do mês toque em <b>✅ Clientes atendidas no mês · ver nomes</b> (ou no quadro <b>Atendimentos</b> do dia). Aparece quantos atendimentos, quantas clientes e quanto entrou, com a lista <b>👩 Por cliente</b> (mostra quantas vezes cada uma veio) ou <b>📅 Por dia</b>. As setinhas ‹ › mudam o mês (ou o dia). Conta só quem foi marcada como <b>✅ Presente</b>.</p></div>
         <div class="faq" data-k="lembrete avisa aviso esqueci nao avisou celular google agenda"><b>❓ O lembrete me avisa no dia?</b><p><b>Sim.</b> Ao salvar um lembrete com dia, abre o <b>Google Agenda</b> já preenchido: toque em <b>Salvar</b> lá. Assim o próprio celular avisa no dia, mesmo com o app fechado. Sem horário, avisa às 8h. E quando abrir o app, aparece uma <b>faixa azul</b> lá em cima com os lembretes do dia.</p></div>
+        <div class="faq" data-k="mes passado setembro anterior filtrar mes recebido mes outro mes caixa virou o mes"><b>❓ Como vejo quanto recebi no mês passado?</b><p>Aba <b>💰 Caixa</b> → no quadro do mês, use as setinhas <b>‹ ›</b> ao lado do nome do mês (ex.: <b>‹</b> para voltar a setembro). Mostra recebido, a receber, clientes atendidas, reserva e quanto ficou para você naquele mês. <b>↩️ Voltar para o mês atual</b> volta para hoje. Lembre: cada atendimento conta no mês do dia em que foi feito (ex.: dia 30/09 conta em setembro).</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -920,7 +925,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <span class="com-sub" id="comTxt">fica para você: R$ 0,00</span></div>
     </div>
     <div class="cx-mes">
-      <div class="t">📅 Mês de <span id="mesNome"></span></div>
+      <div class="mes-nav"><button id="mesAnt" aria-label="Mês anterior">‹</button><div class="t">📅 <span id="mesNome"></span></div><button id="mesProx" aria-label="Próximo mês">›</button></div>
+      <button class="mes-hoje" id="mesHoje" hidden>↩️ Voltar para o mês atual</button>
       <div class="l"><span>Recebido no mês</span><b id="cxRec">R$ 0</b></div>
       <div class="l"><span>A receber no mês</span><b id="cxPrev">R$ 0</b></div>
       <button class="l l-at" id="cxAtM" type="button"><span>✅ Clientes atendidas no mês <u>ver nomes</u></span><b id="cxQt">0</b></button>
@@ -1529,7 +1535,7 @@ function render(){
   renderClientes();
 
   // Caixa
-  const cxD=window.cxDia||HOJE; const mes=cxD.slice(0,7);
+  const cxD=window.cxDia||HOJE; const mes=window.cxMes||cxD.slice(0,7);
   { const doDia=dados.filter(a=>a.data===cxD);
     const recD=doDia.filter(a=>a.feito).reduce((t,a)=>t+pagoDe(a),0)+DIV.filter(x=>x.pagoEm===cxD).reduce((t,x)=>t+(+x.pago||0),0);
     const prevD=doDia.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
@@ -1542,7 +1548,7 @@ function render(){
   const recAt=doMes.filter(a=>a.feito).reduce((t,a)=>t+pagoDe(a),0);
   const rec=recAt+DIV.filter(d=>d.pagoEm&&d.pagoEm.startsWith(mes)).reduce((t,d)=>t+(+d.pago||0),0);
   const prev=doMes.filter(a=>!a.feito&&!fora(a)).reduce((t,a)=>t+valor(a),0);
-  $('#mesNome').textContent=new Date(cxD+'T12:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  { const t=new Date(mes+'-15T12:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); $('#mesNome').textContent=t.charAt(0).toUpperCase()+t.slice(1); $('#mesHoje').hidden=mes===HOJE.slice(0,7); }
   $('#cxRec').textContent=brl(rec); $('#cxPrev').textContent=brl(prev);
   const validos=doMes.filter(a=>!fora(a));
   { const at=doMes.filter(a=>a.feito&&!fora(a)); $('#cxQt').textContent=`${at.length} (${new Set(at.map(a=>a.tel)).size} ${new Set(at.map(a=>a.tel)).size===1?'cliente':'clientes'})`; }
@@ -2227,7 +2233,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='72', APP_VERSAO_TXT='5.2', APP_DATA='07/10/2026'; // APP_VERSAO='72' (compatibilidade com versões antigas)
+const APP_BUILD='73', APP_VERSAO_TXT='5.3', APP_DATA='08/10/2026'; // APP_VERSAO='73' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2839,9 +2845,13 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-confok]')
   a.confirmado=true; salvar(); const naLista=!!b.closest('#cfLista'); setTimeout(()=>{ render(); if(naLista) abrirConf(); },500); });
 
 window.cxDia=HOJE;
-$('#cxAnt').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),-1)); render(); };
-$('#cxProx').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),1)); render(); };
-document.querySelector('nav [data-t=caixa]').addEventListener('click',()=>{ window.cxDia=HOJE; render(); });
+$('#cxAnt').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),-1)); window.cxMes=window.cxDia.slice(0,7); render(); };
+$('#cxProx').onclick=()=>{ window.cxDia=iso(addDias(new Date(window.cxDia+'T12:00'),1)); window.cxMes=window.cxDia.slice(0,7); render(); };
+function mudaMes(n){ const d=new Date((window.cxMes||(window.cxDia||HOJE).slice(0,7))+'-15T12:00'); d.setMonth(d.getMonth()+n); window.cxMes=iso(d).slice(0,7); render(); }
+$('#mesAnt').onclick=()=>mudaMes(-1);
+$('#mesProx').onclick=()=>mudaMes(1);
+$('#mesHoje').onclick=()=>{ window.cxMes=HOJE.slice(0,7); window.cxDia=HOJE; render(); };
+document.querySelector('nav [data-t=caixa]').addEventListener('click',()=>{ window.cxDia=HOJE; window.cxMes=HOJE.slice(0,7); render(); });
 
 // ===== Lixeiras =====
 function reabrir(){ render(); if(fichaTel&&$('#folhaFicha').classList.contains('aberta')) abrirFicha(fichaTel);
@@ -2880,7 +2890,7 @@ function abrirAtend(modo){
     h+=`<div class="at-cli"><div><b>${fmtH(a.hora)} · ${a.nome}</b><span>${a.serv.map(i=>sv(i).n).join(' + ')} · ${brl(pagoDe(a))}</span></div></div>`; }); }
   $('#atLista').innerHTML=h; abrirFolha('folhaAt');
 }
-$('#cxAtM').onclick=()=>{ atRef=window.cxDia||HOJE; abrirAtend('mes'); };
+$('#cxAtM').onclick=()=>{ atRef=(window.cxMes||(window.cxDia||HOJE).slice(0,7))+'-15'; abrirAtend('mes'); };
 $('#cxAtD').onclick=()=>{ atRef=window.cxDia||HOJE; abrirAtend('dia'); };
 $('#atPorCli').onclick=()=>{ atVista='cli'; abrirAtend(); };
 $('#atPorDia').onclick=()=>{ atVista='dia'; abrirAtend(); };
