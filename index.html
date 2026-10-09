@@ -717,6 +717,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="semana semanal quanto deu na semana recebido semana"><b>❓ Quanto deu na semana?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🗓️ Esta semana</b> (de domingo a sábado, igual ao calendário). Mostra recebido, a receber, clientes atendidas (com <b>ver nomes</b>), reserva e quanto fica para você. As setinhas <b>‹ ›</b> mudam a semana. A semana não se importa com a virada do mês: de 27/09 a 03/10 conta tudo junto.</p></div>
         <div class="faq" data-k="comparar ano passado mes rapido escolher mes semana antiga pular"><b>❓ Como vejo um mês ou semana antiga rápido (sem ficar voltando)?</b><p><b>Mês:</b> no Caixa, toque no <b>nome do mês</b> (ex.: "Outubro de 2026 ▾"). Abre o ano inteiro com <b>quanto você recebeu em cada mês</b>; as setinhas mudam o ano. Toque no mês para abrir. O quadro do mês também mostra <b>📊 o mesmo mês do ano passado</b> e a diferença. <b>Semana:</b> toque no <b>nome da semana</b>: escolha o <b>mês</b> (as setinhas mudam o ano) e toque na <b>semana</b>. Cada semana já mostra quanto você recebeu.</p></div>
         <div class="faq" data-k="gasto gastos despesa despesas comprei material aluguel conta luz lucro sobrou"><b>❓ Como anoto meus gastos do mês?</b><p>Aba <b>💰 Caixa</b> → quadro <b>🧾 Gastos</b> → botão vermelho <b>➖ Lançar gasto</b>. Ali também aparece <b>gastos de hoje</b> e quanto <b>sobrou hoje</b>. Escolha o tipo (material, aluguel, contas…), o valor e o dia, e toque em <b>Salvar gasto</b>. Na mesma tela aparece a lista do mês, com 🗑️ para apagar. No resumo da <b>semana</b> e do <b>mês</b> aparecem os <b>gastos</b> e quanto <b>sobrou</b> (recebido − gastos).</p></div>
+        <div class="faq" data-k="arrumar editar corrigir errei preco valor errado lapis mudar registro gasto"><b>❓ Errei um valor ou esqueci algo. Como arrumo?</b><p>Procure o <b>✏️ lápis</b> ao lado do que quer arrumar: no <b>histórico</b> da ficha (cada atendimento: serviços, dia e o <b>valor cobrado</b>), nos <b>gastos</b>, nos <b>pagamentos a receber</b> e nos <b>lembretes</b>. Mude e toque em <b>Salvar</b>. Na agenda, use os <b>⋯</b> → <b>✏️ Mudar dia, hora ou dados</b>.</p></div>
         <div class="faq" data-k="preco valor tabela mudar servico"><b>❓ Como mudo um preço?</b><p><b>✨ Serviços</b> (barra de baixo) → toque no serviço → mude o preço → <b>Salvar serviço</b>.</p></div>
         <div class="faq" data-k="cadastrar nova cliente contato"><b>❓ Como cadastro uma cliente sem agendar?</b><p>Aba <b>👩 Clientes</b> → <b>+ Nova cliente</b>, no fim da lista.</p></div>
         <div class="faq" data-k="cuidado pele sensivel alergia gestante acido retinol ficha"><b>❓ Onde anoto pele sensível, alergia, gestante?</b><p>Abra a <b>ficha</b> da cliente → <b>Editar ficha</b> → marque os cuidados e a autorização da cliente → <b>Salvar</b>. Aparece um alerta vermelho ⚠️ na agenda.</p></div>
@@ -1058,7 +1059,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <small id="fMinDica">Vem da tabela de serviços. Mude se esta cliente demora mais ou menos.</small>
   </div>
   <div class="promo-box" id="promoBox" hidden>
-    <label for="fPromo">💝 Promoção: fez 2 ou mais? Coloque o valor que vai cobrar</label>
+    <label for="fPromo" id="lblPromo">💝 Promoção: fez 2 ou mais? Coloque o valor que vai cobrar</label>
     <input id="fPromo" type="number" inputmode="decimal" min="0" step="0.01" placeholder="Ex.: 90">
     <small>Deixe em branco para cobrar o valor normal.</small>
   </div>
@@ -1830,7 +1831,7 @@ let fMinManual=false;
 function atualizaTotal(){
   const sel=[...document.querySelectorAll('#fServ input:checked')].map(i=>sv(i.value));
   const cheio=sel.reduce((t,s)=>t+s.p,0), min=sel.reduce((t,s)=>t+s.m,0);
-  $('#promoBox').hidden=sel.length<2; if(sel.length<2) $('#fPromo').value='';
+  $('#promoBox').hidden=sel.length<2&&!editId; if(sel.length<2&&!editId) $('#fPromo').value='';
   const pr=sel.length>=2?lerPromo(cheio):null;
   if(!fMinManual) $('#fMin').value=min||'';
   $('#fMinDica').textContent=fMinManual&&+$('#fMin').value!==min?`Tempo mudado (na tabela seria ${min} min).`:'Vem da tabela de serviços. Mude se esta cliente demora mais ou menos.';
@@ -1854,19 +1855,22 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-sugtel]')
 let editId=null, modoFeito=false;
 function abrirLancar(c){ fecharFolhas(); abrir(HOJE); modoFeito=true; $('#fTit').textContent='Lançar serviço feito'; $('#salvar').textContent='Salvar serviço feito'; $('#lblObs').textContent='📝 O que foi feito (anotação)';
   $('#fNome').value=c.nome; $('#fTel').value=telFmt(c.tel); const n=new Date(); const hv=String(n.getHours()).padStart(2,'0')+':'+(n.getMinutes()<30?'00':'30'); garantirHora($('#fHora'),hv); $('#fHora').value=hv; }
-function abrir(data,hora){ fMinManual=false; editId=null; modoFeito=false; $('#lblObs').textContent='📝 Anotação (opcional)'; $('#fTit').textContent='Novo agendamento'; $('#salvar').textContent='Salvar agendamento'; montarServForm(); atualizaTotal(); $('#fData').value=(typeof data==='string'?data:null)||diaSel||HOJE; if(typeof hora==='string'){ garantirHora($('#fHora'),hora); $('#fHora').value=hora; } $('#folha').classList.add('aberta'); $('#fundo').classList.add('aberta'); setTimeout(()=>$('#fNome').focus(),250); }
+function abrir(data,hora){ $('#lblPromo').textContent='💝 Promoção: fez 2 ou mais? Coloque o valor que vai cobrar'; $('#fPromo').placeholder='Ex.: 90'; fMinManual=false; editId=null; modoFeito=false; $('#lblObs').textContent='📝 Anotação (opcional)'; $('#fTit').textContent='Novo agendamento'; $('#salvar').textContent='Salvar agendamento'; montarServForm(); atualizaTotal(); $('#fData').value=(typeof data==='string'?data:null)||diaSel||HOJE; if(typeof hora==='string'){ garantirHora($('#fHora'),hora); $('#fHora').value=hora; } $('#folha').classList.add('aberta'); $('#fundo').classList.add('aberta'); setTimeout(()=>$('#fNome').focus(),250); }
 function abrirEditar(id,soServ){
   const a=dados.find(x=>x.id==id); if(!a) return;
   abrir(a.data,a.hora); editId=a.id;
   $('#fTit').textContent=soServ?'Adicionar serviço':'Editar horário'; $('#salvar').textContent='Salvar alterações';
   $('#fNome').value=a.nome; $('#fTel').value=telFmt(a.tel); $('#fObs').value=a.obs||'';
   a.serv.forEach(i=>{ const cb=document.getElementById('c'+i); if(cb) cb.checked=true; });
-  $('#fPromo').value=a.promo!=null?a.promo:'';
+  $('#fPromo').value=a.promo!=null?a.promo:''; $('#lblPromo').textContent='💲 Valor cobrado (mude se o preço estava errado)'; $('#fPromo').placeholder='Ex.: '+valorCheio(a);
   if(a.duracao){ fMinManual=true; $('#fMin').value=a.duracao; } atualizaTotal();
   atualizaTotal();
   setTimeout(()=>{ document.activeElement&&document.activeElement.blur(); if(soServ) $('#fServ').scrollIntoView({block:'center'}); },300);
 }
-document.addEventListener('click',e=>{ const b=e.target.closest('[data-editar]'); if(b) abrirEditar(b.dataset.editar,b.dataset.modo==='serv'); });
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-editar]'); if(!b) return;
+  window._voltaFicha=b.closest('#folhaFicha')?fichaTel:null;
+  document.querySelectorAll('.folha.aberta').forEach(f=>{ if(f.id!=='folha') f.classList.remove('aberta'); });
+  abrirEditar(b.dataset.editar,b.dataset.modo==='serv'); });
 function fechar(){ editId=null; $('#folha').classList.remove('aberta'); $('#fundo').classList.remove('aberta');
   ['#fNome','#fTel','#fObs','#fPromo','#fMin','#fDesde'].forEach(s=>$(s).value=''); $('#fSalvarCont').checked=false; $('#novoCli').hidden=true; $('#sugCli').innerHTML=''; fMinManual=false; document.querySelectorAll('#fServ input').forEach(i=>i.checked=false); atualizaTotal(); }
 $('#btnNovo').onclick=()=>abrir(diaSel); $('#cancelar').onclick=fechar; $('#fundo').onclick=fechar;
@@ -1887,10 +1891,10 @@ $('#salvar').onclick=()=>{
     const a=dados.find(x=>x.id===editId);
     const precoAnt={}; a.serv.forEach((i,k)=>precoAnt[i]=a.precos?a.precos[k]:sv(i).p);
     Object.assign(a,{nome,tel,data:$('#fData').value,hora:$('#fHora').value,serv,precos:serv.map(i=>i in precoAnt?precoAnt[i]:sv(i).p),obs:$('#fObs').value.trim()});
-    a.promo=serv.length>=2?lerPromo(valorCheio(a)):null;
+    { const v=parseFloat(String($('#fPromo').value).replace(',','.')); a.promo=(!isNaN(v)&&v>=0&&Math.round(v*100)/100!==valorCheio(a))?Math.round(v*100)/100:null; }
     { const dm=+$('#fMin').value; if(fMinManual&&dm>0&&dm!==duracaoTabela(a)) a.duracao=dm; else delete a.duracao; }
     diaSel=a.data; mesVis=new Date(a.data.slice(0,7)+'-01T12:00');
-    salvar(); fechar(); render(); return aviso('Horário atualizado ✓');
+    salvar(); fechar(); render(); if(window._voltaFicha){ const t=window._voltaFicha; window._voltaFicha=null; abrirFicha(t); } return aviso('Atualizado ✓');
   }
   dados.push({id:Date.now(),nome,tel,data:$('#fData').value,hora:$('#fHora').value,serv,precos:serv.map(i=>sv(i).p),feito:modoFeito,obs:$('#fObs').value.trim()});
   { const nv=dados[dados.length-1]; nv.promo=serv.length>=2?lerPromo(valorCheio(nv)):null; const dm=+$('#fMin').value; if(fMinManual&&dm>0&&dm!==duracaoTabela(nv)) nv.duracao=dm; }
@@ -2061,7 +2065,7 @@ function abrirFicha(tel){
       </div>
     </div>
     ${(hist.some(a=>deveDe(a)>0)||DIV.some(d=>d.tel===tel&&deveDiv(d)>0))?`<div class="bloco" style="border-color:var(--alerta)"><h3>💸 Pagamento pendente: ${brl(hist.reduce((t,a)=>t+deveDe(a),0)+DIV.filter(d=>d.tel===tel).reduce((t,d)=>t+deveDiv(d),0))}</h3>
-      ${DIV.filter(d=>d.tel===tel&&deveDiv(d)>0).map(d=>`<div class="deve-item"><span>${d.desc||'Valor pendente'} · lançado ${dataBR(d.data)}<br><small style="color:var(--suave)">total ${brl(+d.valor)} · pagou ${brl(+d.pago||0)}${d.vence?' · até '+dataBR(d.vence):''}</small></span><span style="display:flex;gap:6px;flex:none"><button data-pagdiv="${d.id}">Falta ${brl(deveDiv(d))}</button><button class="lix" data-deldiv="${d.id}" aria-label="Apagar">🗑️</button></span></div>`).join('')}
+      ${DIV.filter(d=>d.tel===tel&&deveDiv(d)>0).map(d=>`<div class="deve-item"><span>${d.desc||'Valor pendente'} · lançado ${dataBR(d.data)}<br><small style="color:var(--suave)">total ${brl(+d.valor)} · pagou ${brl(+d.pago||0)}${d.vence?' · até '+dataBR(d.vence):''}</small></span><span style="display:flex;gap:6px;flex:none"><button data-pagdiv="${d.id}">Falta ${brl(deveDiv(d))}</button><button class="lix" data-eddiv="${d.id}" aria-label="Arrumar">✏️</button><button class="lix" data-deldiv="${d.id}" aria-label="Apagar">🗑️</button></span></div>`).join('')}
       ${hist.filter(a=>deveDe(a)>0).map(a=>`<div class="deve-item"><span>${dataBR(a.data)} · ${a.serv.map(i=>sv(i).n).join(' + ')}<br><small style="color:var(--suave)">total ${brl(valor(a))} · pagou ${brl(pagoDe(a))}</small></span><span style="display:flex;gap:6px;flex:none"><button data-pag="${a.id}">Falta ${brl(deveDe(a))}</button><button class="lix" data-tiradev="${a.id}" aria-label="Tirar da lista">🗑️</button></span></div>`).join('')}
     </div>`:''}
     ${hist.some(a=>a.nota)?`<div class="bloco"><h3>⭐ Avaliações · média ${(hist.filter(a=>a.nota).reduce((t,a)=>t+a.nota,0)/hist.filter(a=>a.nota).length).toFixed(1).replace('.',',')}</h3>
@@ -2073,7 +2077,7 @@ function abrirFicha(tel){
     </div>
     <div class="bloco"><h3>Histórico</h3>
       ${hist.length?`<ul class="hist">${hist.map(a=>`<li><div>${dataBR(a.data)}/${a.data.slice(2,4)} · ${a.serv.map(i=>sv(i).n).join(' + ')}${a.obs?`<br><span style="font-size:.82rem;color:var(--suave)">📝 ${a.obs}</span>`:''}<br>
-      <span class="st" style="color:${a.falta?'var(--alerta)':a.cancelado?'var(--suave)':a.feito?'var(--ok)':'var(--mel)'}">${a.falta?'Faltou':a.cancelado?'Cancelado':a.feito?'Presente':'Agendado'}</span></div><div class="hist-dir"><b>${fora(a)?'—':brl(valor(a))}</b><button class="lix" data-delat="${a.id}" aria-label="Apagar este registro">🗑️</button></div></li>`).join('')}</ul>`:'<p style="color:var(--suave)">Sem atendimentos ainda.</p>'}
+      <span class="st" style="color:${a.falta?'var(--alerta)':a.cancelado?'var(--suave)':a.feito?'var(--ok)':'var(--mel)'}">${a.falta?'Faltou':a.cancelado?'Cancelado':a.feito?'Presente':'Agendado'}</span></div><div class="hist-dir"><b>${fora(a)?'—':brl(valor(a))}</b><span style="display:flex;gap:6px"><button class="lix" data-editar="${a.id}" aria-label="Arrumar este registro">✏️</button><button class="lix" data-delat="${a.id}" aria-label="Apagar este registro">🗑️</button></span></div></li>`).join('')}</ul>`:'<p style="color:var(--suave)">Sem atendimentos ainda.</p>'}
     </div>`;
   $('#fReag').onclick=()=>{
     fecharFolhas(); abrir(); $('#fNome').value=c.nome; $('#fTel').value=c.tel;
@@ -2351,7 +2355,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='79', APP_VERSAO_TXT='5.9', APP_DATA='08/10/2026'; // APP_VERSAO='79' (compatibilidade com versões antigas)
+const APP_BUILD='80', APP_VERSAO_TXT='6.0', APP_DATA='08/10/2026'; // APP_VERSAO='80' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 
 // ===== Atualizar app =====
@@ -2822,7 +2826,7 @@ $('#ntSalvar').onclick=()=>{ const a=dados.find(x=>x.id===notaId); if(!a) return
 $('#ntApagar').onclick=()=>{ const a=dados.find(x=>x.id===notaId); if(!a||!confirm('Apagar a avaliação deste atendimento?')) return; delete a.nota; delete a.comentario; salvar(); fecharFolhas(); render(); aviso('Avaliação apagada'); };
 
 // ===== Lembretes pessoais =====
-function abrirLembrete(){
+function abrirLembrete(){ lmEdit=null; $('#lmTit').textContent='📝 Novo lembrete';
   const sel=$('#lmHora'); if(![...sel.options].some(o=>o.value==='')){ const o=document.createElement('option'); o.value=''; o.textContent='Sem horário'; sel.insertBefore(o,sel.firstChild); }
   $('#lmTexto').value=''; $('#lmData').value=''; sel.value=''; $('#lmBloq').checked=false; $('#lmDurBox').hidden=true;
   abrirFolha('folhaLemb'); setTimeout(()=>$('#lmTexto').focus(),300);
@@ -2830,7 +2834,7 @@ function abrirLembrete(){
 $('#novoLembrete').onclick=()=>abrirLembLista();
 function txtDiaLemb(d){ if(!d) return 'Sem dia marcado'; if(d===HOJE) return 'Hoje'; if(d===iso(addDias(new Date(HOJE+'T12:00'),1))) return 'Amanhã';
   const t=new Date(d+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}); return t.charAt(0).toUpperCase()+t.slice(1); }
-function itemLemb(l){ return `<div class="lemb-it ${l.ok?'ok':''}"><span>${l.hora?'<b>'+fmtH(l.hora)+'</b> · ':''}${l.texto}</span><div class="bts"><button data-lemok="${l.id}" aria-label="Feito">${l.ok?'↩️':'✓'}</button>${l.data?`<button data-lemgoo="${l.id}" aria-label="Google Agenda">📅</button>`:''}<button data-lemdel="${l.id}" aria-label="Apagar">🗑️</button></div></div>`; }
+function itemLemb(l){ return `<div class="lemb-it ${l.ok?'ok':''}"><span>${l.hora?'<b>'+fmtH(l.hora)+'</b> · ':''}${l.texto}</span><div class="bts"><button data-lemok="${l.id}" aria-label="Feito">${l.ok?'↩️':'✓'}</button>${l.data?`<button data-lemgoo="${l.id}" aria-label="Google Agenda">📅</button>`:''}<button data-lemed="${l.id}" aria-label="Arrumar">✏️</button><button data-lemdel="${l.id}" aria-label="Apagar">🗑️</button></div></div>`; }
 function abrirLembLista(){
   const pend=LEMB.filter(l=>!l.ok), feitos=LEMB.filter(l=>l.ok);
   const grupos=[['⚠️ Já passou o dia',pend.filter(l=>l.data&&l.data<HOJE)],['📌 Sem dia marcado',pend.filter(l=>!l.data)]];
@@ -2849,7 +2853,13 @@ $('#lembTopo').onclick=()=>abrirLembLista();
 function contaLemb(){ faixaLemb(); const n=LEMB.filter(l=>!l.ok).length; $('#lmBtnTxt').textContent=n?`📝 Lembretes (${n})`:'📝 Lembretes'; }
 $('#lmBloq').addEventListener('change',()=>{ $('#lmDurBox').hidden=!$('#lmBloq').checked||!$('#lmHora').value; });
 $('#lmHora').addEventListener('change',()=>{ $('#lmDurBox').hidden=!$('#lmBloq').checked||!$('#lmHora').value; });
+let lmEdit=null;
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-lemed]'); if(!b) return; const l=LEMB.find(x=>x.id==b.dataset.lemed); if(!l) return;
+  fecharFolhas(); abrirLembrete(); lmEdit=l.id; $('#lmTexto').value=l.texto; $('#lmData').value=l.data||''; $('#lmHora').value=l.hora||''; $('#lmTit').textContent='✏️ Arrumar lembrete'; });
 $('#lmSalvar').onclick=()=>{
+  if(lmEdit){ const l=LEMB.find(x=>x.id==lmEdit); lmEdit=null; $('#lmTit').textContent='📝 Novo lembrete'; const t=$('#lmTexto').value.trim(); if(!t) return aviso('Escreva o que você precisa lembrar');
+    if(l){ const mudouDia=l.data!==$('#lmData').value||l.hora!==$('#lmHora').value; Object.assign(l,{texto:t,data:$('#lmData').value,hora:$('#lmHora').value}); if(mudouDia) delete l.alertado; salvarLemb(); }
+    fecharFolhas(); render(); abrirLembLista(); return aviso('Lembrete arrumado ✓'); }
   const texto=$('#lmTexto').value.trim(), data=$('#lmData').value, hora=$('#lmHora').value;
   if(!texto) return aviso('Escreva o que você precisa lembrar'); if(!data&&$('#lmBloq').checked) return aviso('Para bloquear a agenda, escolha o dia');
   if(data){ window.open(googleLink('📝 '+texto,data,hora||'08:00',30,'Lembrete do app da Marisa'),'_blank'); }
@@ -2884,7 +2894,7 @@ document.addEventListener('visibilitychange',()=>{ if(!document.hidden) checarLe
 setTimeout(checarLembretes,2500);
 
 // ===== Cliente devendo (fiado / dívida antiga) =====
-function abrirDiv(c){
+function abrirDiv(c){ dvEdit=null; $('#dvTit').textContent='➕ Pagamento a receber'; $('#dvSalvar').textContent='💸 Salvar';
   $('#dvNome').value=c?c.nome:''; $('#dvTel').value=c?telFmt(c.tel):''; $('#dvValor').value=''; $('#dvVence').value=''; $('#dvDesc').value=''; $('#dvSug').innerHTML='';
   fecharFolhas(); abrirFolha('folhaDiv'); setTimeout(()=>(c?$('#dvValor'):$('#dvNome')).focus(),300);
 }
@@ -2894,10 +2904,16 @@ $('#dvNome').addEventListener('input',()=>{ const q=normN($('#dvNome').value);
   const ex=acharCliente($('#dvNome').value); if(ex&&!$('#dvTel').value) $('#dvTel').value=telFmt(ex.tel);
   $('#dvSug').innerHTML=q.length<2?'':clientes().filter(c=>normN(c.nome).includes(q)).slice(0,5).map(c=>`<button type="button" data-dvsug="${c.tel}">👤 <b>${c.nome}</b><span>${telFmt(c.tel)}</span></button>`).join(''); });
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-dvsug]'); if(!b) return; const c=clientes().find(x=>x.tel===b.dataset.dvsug); if(c){ $('#dvNome').value=c.nome; $('#dvTel').value=telFmt(c.tel); $('#dvSug').innerHTML=''; } });
+let dvEdit=null;
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-eddiv]'); if(!b) return; const d=DIV.find(x=>x.id==b.dataset.eddiv); if(!d) return;
+  fecharFolhas(); dvEdit=d.id; $('#dvNome').value=d.nome; $('#dvTel').value=telFmt(d.tel); $('#dvValor').value=d.valor; $('#dvVence').value=d.vence||''; $('#dvDesc').value=d.desc||''; $('#dvSug').innerHTML='';
+  $('#dvTit').textContent='✏️ Arrumar pagamento a receber'; $('#dvSalvar').textContent='💾 Salvar alteração'; abrirFolha('folhaDiv'); });
 $('#dvSalvar').onclick=()=>{
   const nome=$('#dvNome').value.trim(); let tel=$('#dvTel').value.replace(/\D/g,''); const v=parseFloat(String($('#dvValor').value).replace(',','.'));
   { const ex=acharCliente(nome); if(ex&&tel.length<10) tel=ex.tel; }
   if(!nome) return aviso('Informe o nome da cliente'); if(tel.length<10) return aviso('Informe o WhatsApp com DDD'); if(!(v>0)) return aviso('Informe quanto ela deve');
+  if(dvEdit){ const d=DIV.find(x=>x.id==dvEdit); dvEdit=null; $('#dvTit').textContent='➕ Pagamento a receber'; $('#dvSalvar').textContent='💸 Salvar';
+    if(d){ Object.assign(d,{nome,tel,valor:Math.round(v*100)/100,desc:$('#dvDesc').value.trim(),vence:$('#dvVence').value||''}); salvarDiv(); } fecharFolhas(); render(); return aviso('Pagamento arrumado ✓'); }
   DIV.push({id:Date.now(),nome,tel,valor:Math.round(v*100)/100,pago:0,desc:$('#dvDesc').value.trim(),vence:$('#dvVence').value||'',data:HOJE}); salvarDiv();
   if(!CLI[tel]){ CLI[tel]={nome,tel,nasc:'',sens:false,acido:false,gest:false,cera:'Sem preferência',obs:'',arco:'',henna:'',fotos:[],brindes:0}; salvarCli(); }
   fecharFolhas(); render(); aviso(`💸 ${nome.split(' ')[0]} deve ${brl(v)}. Está em 💸 Pagamentos a receber`);
@@ -2942,7 +2958,7 @@ function abrirPags(){
   $('#psTot').textContent=tot?`Total pendente: ${brl(tot)} · ${new Set(L.map(x=>x.tel)).size} cliente(s)`:'Nenhum pagamento pendente 👏';
   const g={}; L.forEach(x=>{ (g[x.tel]=g[x.tel]||{nome:x.nome,tel:x.tel,itens:[],v:0}); g[x.tel].itens.push(x); g[x.tel].v+=x.v; });
   $('#psLista').innerHTML=Object.values(g).sort((a,b)=>b.v-a.v).map(c=>`<div class="pg-cli"><div class="cab"><span>👤 ${c.nome}</span><b>${brl(c.v)}</b></div>
-    ${c.itens.map(x=>`<div class="deve-item"><span>${x.txt}${x.vence?`<br><small style="color:${x.vence<=HOJE?'var(--alerta)':'var(--suave)'}">combinou até ${dataBR(x.vence)}</small>`:''}</span><span style="display:flex;gap:6px;flex:none"><button ${x.tipo==='a'?'data-pag':'data-pagdiv'}="${x.id}">Receber ${brl(x.v)}</button><button class="lix" ${x.tipo==='a'?'data-tiradev':'data-deldiv'}="${x.id}" aria-label="Apagar">🗑️</button></span></div>`).join('')}</div>`).join('')||'';
+    ${c.itens.map(x=>`<div class="deve-item"><span>${x.txt}${x.vence?`<br><small style="color:${x.vence<=HOJE?'var(--alerta)':'var(--suave)'}">combinou até ${dataBR(x.vence)}</small>`:''}</span><span style="display:flex;gap:6px;flex:none"><button ${x.tipo==='a'?'data-pag':'data-pagdiv'}="${x.id}">Receber ${brl(x.v)}</button><button class="lix" ${x.tipo==='a'?'data-editar':'data-eddiv'}="${x.id}" aria-label="Arrumar">✏️</button><button class="lix" ${x.tipo==='a'?'data-tiradev':'data-deldiv'}="${x.id}" aria-label="Apagar">🗑️</button></span></div>`).join('')}</div>`).join('')||'';
   abrirFolha('folhaPags');
 }
 $('#btnPags').onclick=abrirPags;
@@ -3053,14 +3069,14 @@ $('#atAnt').onclick=()=>{ const d=new Date(atRef+'T12:00'); if(atModo==='mes'){ 
 $('#atProx').onclick=()=>{ const d=new Date(atRef+'T12:00'); if(atModo==='mes'){ d.setDate(15); d.setMonth(d.getMonth()+1);} else d.setDate(d.getDate()+(atModo==='sem'?7:1)); atRef=iso(d); abrirAtend(); };
 
 // ===== Gastos =====
-let gsCat='🧴 Material', gsMes=HOJE.slice(0,7);
-function abrirGastos(){
+let gsCat='🧴 Material', gsMes=HOJE.slice(0,7), gsEdit=null;
+function abrirGastos(){ if(!$('#folhaGasto').classList.contains('aberta')){ gsEdit=null; $('#gsSalvar').textContent='➖ Salvar gasto'; }
   const t=new Date(gsMes+'-15T12:00').toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); $('#gsMes').textContent=t.charAt(0).toUpperCase()+t.slice(1);
   const L=GAST.filter(g=>g.data.startsWith(gsMes)).sort((a,b)=>b.data.localeCompare(a.data)); const tot=L.reduce((t,g)=>t+(+g.valor||0),0);
   $('#gsTot').textContent=L.length?`Gastos do mês: ${brl(tot)}`:'Nenhum gasto neste mês';
   const cat={}; L.forEach(g=>cat[g.cat]=(cat[g.cat]||0)+(+g.valor||0));
   $('#gsLista').innerHTML=(Object.keys(cat).length>1?`<p style="font-size:.85rem;color:var(--suave);margin:0 0 6px">${Object.entries(cat).map(([c,v])=>`${c}: <b>${brl(v)}</b>`).join(' · ')}</p>`:'')
-    +L.map(g=>`<div class="bl-item"><div><b>${g.cat} · ${brl(+g.valor)}</b><span>${dataBR(g.data)}${g.desc?' · '+g.desc:''}</span></div><div class="bts"><button class="lix" data-delgas="${g.id}" aria-label="Apagar">🗑️</button></div></div>`).join('');
+    +L.map(g=>`<div class="bl-item"><div><b>${g.cat} · ${brl(+g.valor)}</b><span>${dataBR(g.data)}${g.desc?' · '+g.desc:''}</span></div><div class="bts"><button class="lix" data-edgas="${g.id}" aria-label="Arrumar">✏️</button><button class="lix" data-delgas="${g.id}" aria-label="Apagar">🗑️</button></div></div>`).join('');
   abrirFolha('folhaGasto');
 }
 $('#btnGastoVer').onclick=()=>{ $('#gsValor').value=''; $('#gsDesc').value=''; $('#gsData').value=window.cxDia||HOJE; gsMes=(window.cxMes||HOJE.slice(0,7)); abrirGastos(); setTimeout(()=>{ const t=$('#gsTot'); if(t) t.scrollIntoView({block:'start'}); },350); };
@@ -3068,10 +3084,15 @@ $('#btnGasto').onclick=()=>{ $('#gsValor').value=''; $('#gsDesc').value=''; $('#
 $('#cxGasM').onclick=()=>{ $('#gsValor').value=''; $('#gsDesc').value=''; $('#gsData').value=HOJE; gsMes=(window.cxMes||HOJE.slice(0,7)); abrirGastos(); };
 document.addEventListener('click',e=>{
   const c=e.target.closest('[data-gc]'); if(c){ gsCat=c.dataset.gc; document.querySelectorAll('#gsCats button').forEach(b=>b.classList.toggle('on',b===c)); return; }
+  const ed=e.target.closest('[data-edgas]'); if(ed){ const g=GAST.find(x=>x.id==ed.dataset.edgas); if(!g) return; gsEdit=g.id;
+    $('#gsValor').value=g.valor; $('#gsData').value=g.data; $('#gsDesc').value=g.desc||''; gsCat=g.cat;
+    document.querySelectorAll('#gsCats button').forEach(b=>b.classList.toggle('on',b.dataset.gc===g.cat));
+    $('#gsSalvar').textContent='💾 Salvar alteração'; $('#folhaGasto').scrollTo({top:0,behavior:'smooth'}); $('#gsValor').focus(); aviso('Arrume o que precisar e toque em Salvar alteração'); return; }
   const d=e.target.closest('[data-delgas]'); if(d){ const g=GAST.find(x=>x.id==d.dataset.delgas); if(g&&confirm(`Apagar o gasto de ${brl(+g.valor)} (${g.cat})?`)){ GAST=GAST.filter(x=>x!==g); salvarGast(); render(); abrirGastos(); aviso('Gasto apagado 🗑️'); } }
 });
 $('#gsSalvar').onclick=()=>{ const v=parseFloat(String($('#gsValor').value).replace(',','.')); const d=$('#gsData').value||HOJE;
   if(!(v>0)) return aviso('Digite o valor do gasto');
+  if(gsEdit){ const g=GAST.find(x=>x.id==gsEdit); if(g) Object.assign(g,{cat:gsCat,valor:Math.round(v*100)/100,data:d,desc:$('#gsDesc').value.trim()}); gsEdit=null; $('#gsSalvar').textContent='➖ Salvar gasto'; salvarGast(); $('#gsValor').value=''; $('#gsDesc').value=''; gsMes=d.slice(0,7); render(); abrirGastos(); return aviso('Gasto arrumado ✓'); }
   GAST.push({id:Date.now(),cat:gsCat,valor:Math.round(v*100)/100,data:d,desc:$('#gsDesc').value.trim()}); salvarGast();
   $('#gsValor').value=''; $('#gsDesc').value=''; gsMes=d.slice(0,7); render(); abrirGastos(); aviso(`Gasto de ${brl(v)} salvo ✓`); };
 $('#gsAnt').onclick=()=>{ const d=new Date(gsMes+'-15T12:00'); d.setMonth(d.getMonth()-1); gsMes=iso(d).slice(0,7); abrirGastos(); };

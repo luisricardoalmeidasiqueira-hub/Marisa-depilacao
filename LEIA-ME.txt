@@ -1,5 +1,5 @@
 MARISA ALMEIDA — Epilação e Designer de Sobrancelha
-App de agenda para celular · Versão 5.9 (08/10/2026)
+App de agenda para celular · Versão 6.0 (08/10/2026)
 =====================================================
 
 PARTE 1 — COMO USAR O APP (para a Marisa)
@@ -151,6 +151,11 @@ CAIXA
 • 🧴 Reserva p/ material: 20%, 25% ou 0% do recebido; mostra quanto fica para você.
 • "O que não entrou": cancelados e faltas do mês, com lista por dia.
 
+ARRUMAR (ERREI O VALOR / ESQUECI ALGO)
+• Use o ✏️ lápis ao lado: histórico da ficha (serviços, dia e VALOR COBRADO),
+  gastos, pagamentos a receber e lembretes. Mude e toque em Salvar.
+• Na agenda: ⋯ → ✏️ Mudar dia, hora ou dados.
+
 APAGAR SÓ UM REGISTRO
 • Use a 🗑️ lixeira ao lado: histórico da ficha (cada atendimento), avaliações,
   pagamentos a receber, cancelados e faltas, lembretes. O app pergunta antes.
@@ -178,16 +183,17 @@ Passo a passo:
 
 Numeração (o Claude já faz isso a cada mudança):
   No index.html, na linha:
-    const APP_BUILD='79', APP_VERSAO_TXT='5.9', APP_DATA='08/10/2026'; // APP_VERSAO='79' ...
-  * APP_BUILD: número interno, sempre +1 (79 -> 80). O app usa para saber se tem versão nova.
-  * APP_VERSAO_TXT: a versão que aparece para a Marisa (5.9 -> 6.0 -> 6.1...).
+    const APP_BUILD='80', APP_VERSAO_TXT='6.0', APP_DATA='08/10/2026'; // APP_VERSAO='80' ...
+  * APP_BUILD: número interno, sempre +1 (80 -> 81). O app usa para saber se tem versão nova.
+  * APP_VERSAO_TXT: a versão que aparece para a Marisa (6.0 -> 6.1 -> 6.2...).
   * APP_DATA: data do dia.
-  * O comentário APP_VERSAO='79' acompanha o APP_BUILD (celulares com versão antiga).
-  * No sw.js a versão acompanha o APP_BUILD:  marisa-v79 -> marisa-v80
+  * O comentário APP_VERSAO='80' acompanha o APP_BUILD (celulares com versão antiga).
+  * No sw.js a versão acompanha o APP_BUILD:  marisa-v80 -> marisa-v81
 
 
 PARTE 3 — HISTÓRICO DE VERSÕES
 ------------------------------
+6.0  Lápis ✏️ para arrumar: atendimentos (com valor cobrado), gastos, pagamentos e lembretes.
 5.9  Corrige "undefined" nos gastos lançados na versão antiga.
 5.8  Gastos em quadro grande no Caixa (gastos e sobrou do dia, botão Lançar gasto).
 5.7  Gastos: anotar gastos e ver quanto sobrou na semana e no mês.
