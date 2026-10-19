@@ -548,6 +548,23 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 .ativar-not{width:100%;margin:18px 0 0;border:1.5px dashed var(--linha);background:transparent;border-radius:14px;padding:10px;font-weight:700;color:var(--suave)}
 @media (prefers-reduced-motion:reduce){.lemb.urgente{animation:none}}
 @media (prefers-reduced-motion:reduce){.folha{transition:none}}
+
+/* Nuvem / backup */
+.nuvem{border:0;background:var(--po);border-radius:14px;width:44px;height:44px;position:relative;font-size:1.3rem;flex:none;line-height:1}
+.nuvem .pt{position:absolute;right:5px;bottom:5px;width:12px;height:12px;border-radius:50%;border:2px solid var(--fundo);background:var(--alerta)}
+.nuvem[data-s="ok"] .pt{background:var(--ok)}
+.nuvem[data-s="lar"] .pt{background:#E69A1E}
+.nuvem[data-s="err"] .pt,.nuvem[data-s="off"] .pt{background:var(--alerta)}
+.btn-atu{flex:none;border:1.5px solid var(--ameixa);background:transparent;color:var(--ameixa);border-radius:12px;padding:6px 8px;font-weight:800;font-size:.72rem;line-height:1.1;white-space:nowrap}
+.btn-atu.nova{background:#E69A1E;border-color:#E69A1E;color:#fff;animation:pulsa 1.4s ease-in-out infinite}
+@keyframes pulsa{50%{transform:scale(1.07)}}
+.topo{gap:8px}
+.topo .nuvem{width:38px;height:38px;font-size:1.15rem;border-radius:12px}
+.topo .nuvem .pt{width:10px;height:10px;right:3px;bottom:3px}
+.topo .btn-mais{padding:5px 8px;font-size:.7rem;border-radius:12px}
+.topo .btn-mais span{font-size:1rem}
+.topo .btn-pontos{width:30px;height:44px;margin-left:0;font-size:1.2rem;border-radius:12px}
+.topo .btn-atu{display:block;margin-top:5px;padding:3px 8px;font-size:.68rem}
 </style>
 <script>try{var t=(JSON.parse(localStorage.getItem('marisa-config'))||{}).tema;if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 </head>
@@ -558,13 +575,19 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
     <div>
       <h1>Marisa Almeida</h1>
       <p>Epilação e Designer de Sobrancelha</p>
+      <button class="btn-atu" id="btnTopoAtu" aria-label="Atualizar app">🔄 v</button>
     </div>
+    <button class="nuvem" id="nuvem" data-s="off" aria-label="Backup na nuvem">☁️<i class="pt"></i></button>
     <button class="btn-mais" id="btnMais" aria-label="Mais: como usar, WhatsApp, LGPD e desenvolvedor"><span>☰</span>Mais</button>
     <button class="btn-pontos" id="btnPontos" aria-label="Opções do app" aria-expanded="false">⋮</button>
     <div class="menu-pontos" id="menuPontos" hidden role="menu">
       <div id="menuInst"></div>
       <button id="btnShare" role="menuitem">📤 Compartilhar app</button>
       <button id="btnAtualizar" role="menuitem">🔄 Atualizar app</button>
+      <button id="btnBkpBaixar" role="menuitem">💾 Baixar backup</button>
+      <button id="btnBkpRest" role="menuitem">📂 Restaurar backup</button>
+      <button id="btnNuvemSair" role="menuitem">🚪 Sair do backup na nuvem</button>
+      <input type="file" id="bkpFile" accept=".json,application/json" hidden>
       <div class="ver ver-app"></div>
     </div>
   </header>
@@ -2355,8 +2378,9 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='80', APP_VERSAO_TXT='6.0', APP_DATA='08/10/2026'; // APP_VERSAO='80' (compatibilidade com versões antigas)
+const APP_BUILD='83', APP_VERSAO_TXT='6.2', APP_DATA='19/10/2026'; // APP_VERSAO='80' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
+const _bta=document.getElementById('btnTopoAtu'); if(_bta) _bta.textContent='🔄 v'+APP_VERSAO_TXT;
 
 // ===== Atualizar app =====
 async function versaoOnline(){
@@ -2379,12 +2403,13 @@ async function verificarAtualizacao(manual){
     if(v && +v.b>+APP_BUILD){
       if(manual) return aplicarAtualizacao();
       $('#novaTxt').textContent=`Versão ${v.v} disponível. Toque para atualizar. Seus dados continuam salvos.`;
-      $('#bannerNova').hidden=false;
+      $('#bannerNova').hidden=false; { const bt=$('#btnTopoAtu'); if(bt) bt.classList.add('nova'); }
     } else if(manual){ aviso(`✓ Você já está na versão mais recente (${APP_VERSAO_TXT})`); }
   }catch(e){ if(manual) aviso('Sem internet agora. Tente de novo mais tarde.'); }
 }
 ['#btnAtualizar','#btnAtualizar2'].forEach(id=>{ const b=$(id); if(b) b.onclick=()=>{ aviso('Verificando…'); verificarAtualizacao(true); }; });
 $('#novaSim').onclick=aplicarAtualizacao;
+{ const bt=$('#btnTopoAtu'); if(bt) bt.onclick=()=>{ if(bt.classList.contains('nova')) aplicarAtualizacao(); else { aviso('Verificando…'); verificarAtualizacao(true); } }; }
 if(location.protocol==='https:'||location.hostname==='localhost'){ setTimeout(()=>verificarAtualizacao(false),2500); }
 
 // ===== Menu ⋮ =====
@@ -3108,6 +3133,102 @@ render();
 atualizaInstalar();
 try{ if(localStorage.getItem('marisa-bv')!=='1'){ setTimeout(()=>abrirFolha('folhaBV'),400); } }catch(e){}
 $('#bvOk').onclick=()=>{ try{ localStorage.setItem('marisa-bv','1'); }catch(e){} fecharFolhas(); };
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+// ===== Backup na nuvem (Firebase) — o app continua funcionando offline com o localStorage =====
+(function(){
+const KEYS=['arcoecera','marisa-clientes','marisa-bloqueios','marisa-lembretes','marisa-dividas','marisa-gastos','marisa-servicos','marisa-config','marisa-sem-exemplos'];
+const CHUNK=400000, MK='marisa-sync-meta', LS=localStorage, _set=Storage.prototype.setItem;
+const $n=document.getElementById('nuvem');
+let user=null, db=null, auth=null, ready=false, timer=null; const dirty=new Set();
+const meta=()=>{ try{ return JSON.parse(LS.getItem(MK))||{}; }catch(e){ return {}; } };
+const setMeta=m=>_set.call(LS,MK,JSON.stringify(m));
+function estado(s){ $n.dataset.s=s; $n.title={ok:'Salvo na nuvem',lar:'Sincronizando…',err:'Erro ao salvar na nuvem',off:'Backup desligado'}[s]||''; }
+function toast(t){ try{ aviso(t); }catch(e){} }
+
+Storage.prototype.setItem=function(k,v){
+  _set.call(this,k,v);
+  if(this===LS && KEYS.includes(k)){ const m=meta(); m[k]=Date.now(); setMeta(m); dirty.add(k);
+    if(user&&ready){ estado('lar'); clearTimeout(timer); timer=setTimeout(push,1500); } }
+};
+
+const base=()=>db.collection('users').doc(user.uid).collection('store');
+async function push(){
+  if(!user||!ready||!dirty.size) return;
+  if(!navigator.onLine){ estado('lar'); return; }
+  const keys=[...dirty]; dirty.clear(); estado('lar');
+  try{
+    const m=meta();
+    for(const k of keys){
+      const v=LS.getItem(k)||''; const n=Math.max(1,Math.ceil(v.length/CHUNK)); const b=db.batch();
+      for(let i=0;i<n;i++) b.set(base().doc(k+'~'+i),{s:v.slice(i*CHUNK,(i+1)*CHUNK)});
+      b.set(base().doc(k),{t:m[k]||Date.now(),n}); await b.commit();
+    }
+    estado(dirty.size?'lar':'ok');
+  }catch(e){ console.error(e); keys.forEach(k=>dirty.add(k)); estado('err'); }
+}
+
+async function reconcile(){
+  estado('lar');
+  const snap=await base().get(); const cloud={}, parts={};
+  snap.forEach(d=>{ const id=d.id, x=d.data(); if(id.includes('~')){ const [k,i]=id.split('~'); (parts[k]=parts[k]||[])[+i]=x.s; } else cloud[id]=x; });
+  const m=meta(); let aplicou=false;
+  for(const k of KEYS){
+    const c=cloud[k], lt=m[k]||0, tem=LS.getItem(k)!==null;
+    if(c){
+      const p=parts[k]||[]; const completo=p.length===c.n&&p.every(x=>typeof x==='string');
+      if(c.t>lt&&completo){ _set.call(LS,k,p.join('')); m[k]=c.t; aplicou=true; }
+      else if(lt>c.t) dirty.add(k);
+    } else if(tem){ m[k]=m[k]||Date.now(); dirty.add(k); }
+  }
+  setMeta(m);
+  if(aplicou){ toast('☁️ Dados restaurados da nuvem'); setTimeout(()=>location.reload(),700); return; }
+  ready=true; await push(); if(!dirty.size) estado('ok');
+}
+
+async function entrar(){
+  const p=new firebase.auth.GoogleAuthProvider();
+  try{ await auth.signInWithPopup(p); }
+  catch(e){ if(e.code==='auth/popup-blocked'||e.code==='auth/operation-not-supported-in-this-environment') auth.signInWithRedirect(p);
+    else if(e.code!=='auth/popup-closed-by-user'&&e.code!=='auth/cancelled-popup-request'){ console.error(e); estado('err'); toast('Não consegui entrar ('+(e.code||'erro')+')'); } }
+}
+async function sincronizarTudo(){ KEYS.forEach(k=>{ if(LS.getItem(k)!==null) dirty.add(k); }); ready=true; await push(); toast(dirty.size?'Ainda pendente, tente de novo':'☁️ Tudo salvo na nuvem'); }
+
+$n.onclick=()=>{ if(!user) return entrar();
+  if(confirm('☁️ Backup ligado em '+user.email+'\n\nOK = sincronizar agora\nCancelar = fechar')) sincronizarTudo(); };
+document.getElementById('btnNuvemSair').onclick=async()=>{ try{ fecharMenu(); }catch(e){}
+  if(!user) return toast('O backup já está desligado');
+  if(confirm('Sair do backup na nuvem?\nOs dados continuam neste celular.')){ await auth.signOut(); toast('Saiu do backup'); } };
+
+document.getElementById('btnBkpBaixar').onclick=()=>{ try{ fecharMenu(); }catch(e){}
+  const o={app:'marisa-depilacao',v:1,quando:new Date().toISOString(),dados:{}}; KEYS.forEach(k=>{ const v=LS.getItem(k); if(v!==null) o.dados[k]=v; });
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));
+  a.download='backup-marisa-'+new Date().toISOString().slice(0,10)+'.json'; document.body.appendChild(a); a.click(); a.remove(); toast('💾 Backup baixado'); };
+document.getElementById('btnBkpRest').onclick=()=>{ try{ fecharMenu(); }catch(e){} document.getElementById('bkpFile').click(); };
+document.getElementById('bkpFile').onchange=async e=>{ const f=e.target.files[0]; e.target.value=''; if(!f) return;
+  try{ const o=JSON.parse(await f.text()); if(o.app!=='marisa-depilacao'||!o.dados) throw 0;
+    if(!confirm('Restaurar este backup?\nIsso SUBSTITUI os dados atuais deste celular.')) return;
+    Object.keys(o.dados).forEach(k=>{ if(KEYS.includes(k)) LS.setItem(k,o.dados[k]); });
+    toast('Backup restaurado'); setTimeout(()=>location.reload(),700);
+  }catch(err){ toast('Arquivo de backup inválido'); } };
+
+window.addEventListener('online',()=>{ if(user&&ready&&dirty.size) push(); });
+window.addEventListener('offline',()=>{ if(user) estado('lar'); });
+
+try{
+  firebase.initializeApp({
+    apiKey:"AIzaSyDgUgSmlZaEpZAkE9GOBryU-LUxxs5jMLA", authDomain:"marisa-depilacao.firebaseapp.com", projectId:"marisa-depilacao",
+    storageBucket:"marisa-depilacao.firebasestorage.app", messagingSenderId:"18003090622", appId:"1:18003090622:web:dd4534f40b9fe8214012ef"
+  });
+  auth=firebase.auth(); db=firebase.firestore();
+  auth.onAuthStateChanged(async u=>{ user=u; ready=false;
+    if(!u){ estado('off'); return; }
+    try{ await reconcile(); }catch(e){ console.error(e); estado('err'); } });
+}catch(e){ console.error(e); estado('err'); }
+})();
 </script>
 </body>
 </html>
