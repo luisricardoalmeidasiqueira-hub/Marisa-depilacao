@@ -710,7 +710,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <div class="faq" data-k="pagamentos quem deve devendo receber central lista fiado"><b>❓ Onde vejo os pagamentos que tenho a receber?</b><p>Toque em <b>💸 A receber</b>, na barra de baixo (o número vermelho mostra quantas clientes; fica com 🔔 quando alguém combinou pagar hoje). Mostra o total pendente e cada cliente com o que deve. Toque em <b>Receber</b> quando ela pagar. Ali também tem <b>➕ Dívida antiga</b> (só para quem já devia antes do app).</p></div>
         <div class="faq" data-k="aviso pagamento sininho lembrar receber dia combinado cobrar notificacao"><b>❓ O app me avisa no dia que a cliente combinou pagar?</b><p><b>Sim.</b> Quando você coloca a data em <b>"Combinou pagar até"</b>, no dia o celular avisa (com o sininho de pagamento ligado) e o <b>💸 A receber</b> da barra de baixo ganha um <b>🔔 vermelho piscando</b>. O sininho de pagamento fica dentro de <b>💸 A receber</b> (já vem ligado). Para aviso garantido mesmo com o app fechado, no pagamento toque em <b>📅 Lembrete no Google Agenda</b>.</p></div>
         <div class="faq" data-k="confirmar todas cedo manha mensagem confirmacao qualquer hora antes"><b>❓ Posso mandar a confirmação cedo para todas as clientes do dia?</b><p><b>Pode.</b> Na agenda, toque em <b>💬 Confirmar as clientes de hoje</b> (botão verde claro, em cima). Aparece a lista do dia: toque em <b>💬 Enviar</b> em cada uma, envie no WhatsApp e volte para a próxima. Quem já recebeu fica com <b>✓ Enviada</b>. Funciona a qualquer hora e também para outros dias (toque no dia no calendário). O aviso de 1 hora antes continua existindo.</p></div>
-        <div class="faq" data-k="mudar editar mensagem texto confirmacao hora horario aparecer escrever"><b>❓ Como mudo o texto da mensagem? E o horário aparece sozinho?</b><p><b>☰ Mais → ✉️ Mensagens.</b> Escreva do seu jeito. Onde o app deve colocar o horário, toque no botão <b>🕐 hora</b> (aparece <b>{hora}</b>) (se escrever "...h", o app também entende e troca pelo horário). Igual para <b>👤 nome</b> e <b>📅 dia</b>. Embaixo aparece em verde <b>como a cliente vai receber</b>. Salva sozinho (ou toque em <b>💾 Salvar mensagens</b>). Mandando às 8h para a cliente das 13h, a mensagem vai com <b>13h</b>. Antes de enviar, no WhatsApp ainda dá pra mudar qualquer palavra.</p></div>
+        <div class="faq" data-k="mudar editar mensagem texto confirmacao hora horario aparecer escrever"><b>❓ Como mudo o texto da mensagem? E o horário aparece sozinho?</b><p><b>☰ Mais → ✉️ Mensagens.</b> Escreva do seu jeito. Onde o app deve colocar o horário, toque no botão <b>🕐 hora</b> (aparece <b>{hora}</b>) (se escrever "...h", {horas}, {Hora} ou {horário}, o app também entende e troca pelo horário). Igual para <b>👤 nome</b> e <b>📅 dia</b>. Embaixo aparece em verde <b>como a cliente vai receber</b>. Salva sozinho (ou toque em <b>💾 Salvar mensagens</b>). Mandando às 8h para a cliente das 13h, a mensagem vai com <b>13h</b>. Antes de enviar, no WhatsApp ainda dá pra mudar qualquer palavra.</p></div>
         <div class="faq" data-k="caixa dia hoje recebido do dia reserva do dia porcentagem mes"><b>❓ Quanto recebi hoje? E a reserva do dia?</b><p>Aba <b>💰 Caixa</b>: em cima aparece o <b>Caixa de hoje</b> (recebido, a receber, atendimentos e a <b>🧴 reserva p/ material do dia</b> com quanto fica para você hoje). Use as setinhas <b>‹ ›</b> para ver outros dias. Logo abaixo, menor, fica o resumo do <b>mês</b>.</p></div>
         <div class="faq" data-k="apagar excluir lixeira registro historico um so apagar errado"><b>❓ Como apago só um registro?</b><p>Procure a <b>🗑️ lixeira</b> ao lado do que quer apagar: no <b>histórico</b> da ficha (cada atendimento), nas <b>avaliações</b>, nos <b>pagamentos a receber</b>, nos <b>cancelados e faltas</b> e nos <b>lembretes</b>. O app pergunta antes de apagar. Na agenda, use os <b>⋯</b> → <b>🗑️ Excluir horário</b>. O botão "Apagar todos os dados" da ficha apaga a cliente inteira — use só se ela pedir.</p></div>
         <div class="faq" data-k="nomes clientes atendidas quantas atendidas mes registro lista quem veio"><b>❓ Onde vejo o nome das clientes atendidas e quantas foram no mês?</b><p>Aba <b>💰 Caixa</b> → no resumo do mês toque em <b>✅ Clientes atendidas no mês · ver nomes</b> (ou no quadro <b>Atendimentos</b> do dia). Aparece quantos atendimentos, quantas clientes e quanto entrou, com a lista <b>👩 Por cliente</b> (mostra quantas vezes cada uma veio) ou <b>📅 Por dia</b>. As setinhas ‹ › mudam o mês (ou o dia). Conta só quem foi marcada como <b>✅ Presente</b>.</p></div>
@@ -1534,7 +1534,17 @@ function tags(a){
 }
 function fmtH(h){ if(!h) return ''; const [a,b]=h.split(':'); return (+a)+'h'+(b&&b!=='00'?b:''); }
 function diaTexto(d){ if(d===HOJE) return 'hoje'; if(d===iso(addDias(new Date(HOJE+'T12:00'),1))) return 'amanhã'; return 'dia '+dataBR(d); }
-function preencher(t,a){ return t.replace(/\.{2,}\s*h\b|…\s*h\b/g,'{hora}').replace(/\{nome\}/g,a.nome.split(' ')[0]).replace(/\{dia\}/g,diaTexto(a.data)).replace(/\{hora\}/g,fmtH(a.hora)).replace(/\{servico\}/g,a.serv.map(i=>sv(i).n.toLowerCase()).join(' e ')); }
+function normTags(t){
+  const sem=x=>x.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,'');
+  const mapa={hora:'hora',horas:'hora',horario:'hora',horarios:'hora',h:'hora',
+    nome:'nome',nomes:'nome',cliente:'nome',
+    dia:'dia',dias:'dia',data:'dia',
+    servico:'servico',servicos:'servico',procedimento:'servico',
+    horarioslivres:'horarios',horarios_livres:'horarios'};
+  t=String(t||'').replace(/[\{\[\(]\s*([A-Za-zÀ-ú_ ]{1,20}?)\s*[\}\]\)]/g,(m,k)=>{ const v=mapa[sem(k)]; return v?'{'+v+'}':m; });
+  return t.replace(/\{nome\}(?=[A-Za-zÀ-ú])/g,'{nome}. ');
+}
+function preencher(t,a){ t=normTags(t); return t.replace(/\.{2,}\s*h\b|…\s*h\b/g,'{hora}').replace(/\{nome\}/g,a.nome.split(' ')[0]).replace(/\{dia\}/g,diaTexto(a.data)).replace(/\{hora\}/g,fmtH(a.hora)).replace(/\{servico\}/g,a.serv.map(i=>sv(i).n.toLowerCase()).join(' e ')); }
 const linhaEnd=()=> CFG.endMsg&&CFG.endereco ? '\n\n📍 '+CFG.endereco+'\n'+mapaURL() : '';
 const mapaURL=()=> 'https://maps.google.com/?q='+(CFG.endereco||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9 ]+/g,' ').trim().split(/\s+/).join('+');
 const MSG_SUMIDA_PADRAO="Oi, {nome}! Tudo bem? 💕 Estou com saudade de você por aqui! Já faz um tempinho desde {servico}. Que tal marcar um horário esta semana? Vou adorar te atender!";
@@ -2362,7 +2372,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='85', APP_VERSAO_TXT='6.4', APP_DATA='23/10/2026'; // APP_VERSAO='85' (compatibilidade com versões antigas)
+const APP_BUILD='86', APP_VERSAO_TXT='6.5', APP_DATA='24/10/2026'; // APP_VERSAO='86' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 const _bta=document.getElementById('btnTopoAtu'); if(_bta) _bta.textContent='🔄 v'+APP_VERSAO_TXT;
 
@@ -2809,7 +2819,7 @@ $('#ofSemNoite').onclick=()=>{ ofertaLiv.filter(h=>h>='18:00').forEach(h=>oferta
 $('#ofEnviar').onclick=()=>{
   const liv=ofertaLiv.filter(h=>ofertaSel.has(h)); if(!liv.length) return aviso('Toque nos horários que quer mandar');
   const grp=[['☀️ Manhã',h=>h<'12:00'],['🌤️ Tarde',h=>h>='12:00'&&h<'18:00'],['🌙 Noite',h=>h>='18:00']].map(([n,f])=>{ const L=liv.filter(f); return L.length?`${n}: ${L.map(fmtH).join(' · ')}`:''; }).filter(Boolean).join('\n');
-  const txt=(CFG.msgLivres||MSG_LIVRES_PADRAO).replace(/\{dia\}/g,diaTxtOferta()).replace(/\{horarios\}/g,grp)+(CFG.assinatura?'\n\n'+CFG.assinatura:'');
+  const txt=normTags(CFG.msgLivres||MSG_LIVRES_PADRAO).replace(/\{dia\}/g,diaTxtOferta()).replace(/\{horarios\}/g,grp)+(CFG.assinatura?'\n\n'+CFG.assinatura:'');
   fecharFolhas(); window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
 };
 
