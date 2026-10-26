@@ -901,6 +901,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       <label for="cfgLivres">Horários livres (botão verde 💬 Mandar horários livres)</label>
       <textarea id="cfgLivres" rows="6"></textarea>
       <div class="ins-bts" data-alvo="cfgLivres"><span>Colocar:</span><button type="button" data-ins="{dia}">📅 dia</button><button type="button" data-ins="{horarios}">🕐 lista de horários</button></div>
+      <div class="previa" id="prevLivres"></div>
       <button class="btn" id="cfgMsgsSalvar" style="margin-top:12px">💾 Salvar mensagens</button>
       <p style="color:var(--suave);font-size:.82rem;margin:4px 0 0">Aqui use <b>{dia}</b> (hoje, amanhã ou a data) e <b>{horarios}</b> (a lista de horários).</p>
       <button class="chip" id="cfgMsgsPadrao" style="margin-top:10px">Voltar às mensagens padrão</button>
@@ -1799,9 +1800,19 @@ $('#btnMais').onclick=()=>{
   $('#t-mais').classList.add('ativa'); $('#cfgAss').value=CFG.assinatura||''; carregaCfgSumida(); carregaEstudio(); window.scrollTo(0,0);
 };
 function carregaMsgs(){ setTimeout(previasMsg,0); $('#cfgPosDias').value=String(posDias()); $('#cfgConf').value=CFG.msgConf; $('#cfgPos').value=CFG.msgPos; $('#cfgLivres').value=CFG.msgLivres||MSG_LIVRES_PADRAO; garantirHora($('#cfgAbre'),CFG.abre); garantirHora($('#cfgFecha'),CFG.fecha); $('#cfgAbre').value=CFG.abre; $('#cfgFecha').value=CFG.fecha; }
+// Monta a mensagem de horários livres de um jeito que nunca falha:
+// se ela usar {horarios} certinho, respeita o texto dela; se usar {hora}, {dia} misturado ou esquecer, o app coloca o dia e a lista no final.
+function montaLivres(modelo,dia,lista){
+  let t=normTags(modelo).replace(/\{hora\}/g,'{horarios}');
+  if((t.match(/\{horarios\}/g)||[]).length===1){ return t.replace(/\{dia\}/g,dia).replace('{horarios}','\n'+lista+'\n').replace(/[ \t]+\n/g,'\n').replace(/\n[ \t]+/g,'\n').replace(/\n{3,}/g,'\n\n').trim(); }
+  t=t.replace(/\{horarios\}|\{dia\}/g,'').replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
+  const d=dia.charAt(0).toUpperCase()+dia.slice(1);
+  return (t?t+'\n\n':'')+'📅 '+d+'\n'+lista;
+}
 function previasMsg(){ const ex={nome:'Letícia Souza',data:HOJE,hora:'13:00',serv:['s19']};
   $('#prevConf').textContent=preencher($('#cfgConf').value||MSG_CONF_PADRAO,ex);
-  $('#prevPos').textContent=preencher($('#cfgPos').value||MSG_POS_PADRAO,ex); }
+  $('#prevPos').textContent=preencher($('#cfgPos').value||MSG_POS_PADRAO,ex);
+  if($('#prevLivres')) $('#prevLivres').textContent=montaLivres($('#cfgLivres').value||MSG_LIVRES_PADRAO,'amanhã','☀️ Manhã: 9h · 9h30\n🌤️ Tarde: 13h · 14h30'); }
 function guardarMsgs(avisar){ CFG.msgConf=$('#cfgConf').value.trim()||MSG_CONF_PADRAO; CFG.msgPos=$('#cfgPos').value.trim()||MSG_POS_PADRAO; CFG.msgLivres=$('#cfgLivres').value.trim()||MSG_LIVRES_PADRAO; salvarCfg(); if(avisar){ render(); aviso('💾 Mensagens salvas'); } }
 ['#cfgConf','#cfgPos','#cfgLivres'].forEach(id=>{ $(id).addEventListener('input',()=>{ previasMsg(); clearTimeout(window._tMsg); window._tMsg=setTimeout(()=>guardarMsgs(false),600); }); $(id).addEventListener('change',()=>guardarMsgs(true)); });
 $('#cfgMsgsSalvar').onclick=()=>guardarMsgs(true);
@@ -2372,7 +2383,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='86', APP_VERSAO_TXT='6.5', APP_DATA='24/10/2026'; // APP_VERSAO='86' (compatibilidade com versões antigas)
+const APP_BUILD='87', APP_VERSAO_TXT='6.6', APP_DATA='26/10/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 const _bta=document.getElementById('btnTopoAtu'); if(_bta) _bta.textContent='🔄 v'+APP_VERSAO_TXT;
 
@@ -2819,7 +2830,7 @@ $('#ofSemNoite').onclick=()=>{ ofertaLiv.filter(h=>h>='18:00').forEach(h=>oferta
 $('#ofEnviar').onclick=()=>{
   const liv=ofertaLiv.filter(h=>ofertaSel.has(h)); if(!liv.length) return aviso('Toque nos horários que quer mandar');
   const grp=[['☀️ Manhã',h=>h<'12:00'],['🌤️ Tarde',h=>h>='12:00'&&h<'18:00'],['🌙 Noite',h=>h>='18:00']].map(([n,f])=>{ const L=liv.filter(f); return L.length?`${n}: ${L.map(fmtH).join(' · ')}`:''; }).filter(Boolean).join('\n');
-  const txt=normTags(CFG.msgLivres||MSG_LIVRES_PADRAO).replace(/\{dia\}/g,diaTxtOferta()).replace(/\{horarios\}/g,grp)+(CFG.assinatura?'\n\n'+CFG.assinatura:'');
+  const txt=montaLivres(CFG.msgLivres||MSG_LIVRES_PADRAO,diaTxtOferta(),grp)+(CFG.assinatura?'\n\n'+CFG.assinatura:'');
   fecharFolhas(); window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
 };
 
