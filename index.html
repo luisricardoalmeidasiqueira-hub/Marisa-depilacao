@@ -622,8 +622,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 
     <div id="blocoNiver"></div>
 
-    <div class="secao"><h2>Hora de chamar de volta</h2><small>retorno</small></div>
-    <div class="retornos" id="listaRet"></div>
+    <div class="secao" style="display:none"><h2>Hora de chamar de volta</h2><small>retorno</small></div>
+    <div class="retornos" id="listaRet" style="display:none"></div>
 
     <div class="secao"><h2>Clientes sumidas 💔</h2><small id="sumTol"></small></div>
     <div class="retornos" id="listaSum"></div>
@@ -768,7 +768,6 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Pós-atendimento 💬:</b> no dia seguinte aparece uma faixa pequena <b>"💬 Pós-atendimento: 2 clientes…"</b>. Toque nela e em <b>Enviar</b> (ou ✕ para tirar sem mandar). Quantos dias ela aparece (1, 2, 3 ou não aparecer) você escolhe em <b>☰ Mais → ✉️ Mensagens</b>. E dá pra mandar quando quiser pelos <b>⋯ → 💬 Mandar pós-atendimento</b>.</li>
         <li><b>Aviso 1 hora antes:</b> quando falta 1 hora, aparece um cartão verde no topo da Agenda. Toque em <b>Enviar lembrete no WhatsApp</b> e a cliente fica marcada <b>✓ avisada</b>. O aviso funciona com o app aberto ou em segundo plano.</li>
         <li><b>Aniversário 🎂:</b> no dia, aparece um cartão com a mensagem de parabéns e 10% de desconto de presente.</li>
-        <li><b>Hora de chamar de volta:</b> clientes que estão na época de refazer o serviço, com o botão <b>Chamar</b>.</li>
         <li><b>Clientes sumidas 💔:</b> quem passou do retorno e não voltou. O botão <b>Mandar mensagem</b> envia a mensagem de saudade, e a cliente fica <b>✓ Chamada</b> por 30 dias, para não repetir.</li>
               <li>Todas as mensagens vão com <b>endereço</b>, <b>link do mapa</b> e a assinatura <b>"Marisa Depilação e Designer de Sobrancelha 💕"</b>. A assinatura pode ser mudada em <b>Mais → WhatsApp Business</b>.</li>
       </ul></div></details>
@@ -2383,7 +2382,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='87', APP_VERSAO_TXT='6.6', APP_DATA='26/10/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
+const APP_BUILD='88', APP_VERSAO_TXT='6.7', APP_DATA='04/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 const _bta=document.getElementById('btnTopoAtu'); if(_bta) _bta.textContent='🔄 v'+APP_VERSAO_TXT;
 
