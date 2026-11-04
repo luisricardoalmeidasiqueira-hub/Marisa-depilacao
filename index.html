@@ -622,8 +622,8 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
 
     <div id="blocoNiver"></div>
 
-    <div class="secao" style="display:none"><h2>Hora de chamar de volta</h2><small>retorno</small></div>
-    <div class="retornos" id="listaRet" style="display:none"></div>
+    <div class="secao" style="display:none!important"><h2>Hora de chamar de volta</h2><small>retorno</small></div>
+    <div class="retornos" id="listaRet" style="display:none!important"></div>
 
     <div class="secao"><h2>Clientes sumidas 💔</h2><small id="sumTol"></small></div>
     <div class="retornos" id="listaSum"></div>
@@ -1949,7 +1949,7 @@ function msgLembrete(a){
   return `Oi, ${a.nome.split(' ')[0]}! Passando pra lembrar do seu horário hoje às ${fmtH(a.hora)} (${nomes}). Te espero daqui a pouquinho! 💕${linhaEnd()}`;
 }
 function esconderVazios(){
-  ['#listaRet','#listaSum','#listaProx'].forEach(id=>{ const el=$(id); if(!el) return;
+  ['#listaSum','#listaProx'].forEach(id=>{ const el=$(id); if(!el) return;
     const vazio=!el.children.length||!!el.querySelector('.vazio');
     el.style.display=vazio?'none':''; const t=el.previousElementSibling; if(t&&t.classList.contains('secao')) t.style.display=vazio?'none':''; });
 }
@@ -2382,7 +2382,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='88', APP_VERSAO_TXT='6.7', APP_DATA='04/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
+const APP_BUILD='89', APP_VERSAO_TXT='6.8', APP_DATA='04/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 const _bta=document.getElementById('btnTopoAtu'); if(_bta) _bta.textContent='🔄 v'+APP_VERSAO_TXT;
 
