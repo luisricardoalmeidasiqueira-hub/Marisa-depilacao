@@ -778,7 +778,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Aviso 1 hora antes:</b> quando falta 1 hora, aparece um cartão verde no topo da Agenda. Toque em <b>Enviar lembrete no WhatsApp</b> e a cliente fica marcada <b>✓ avisada</b>. O aviso funciona com o app aberto ou em segundo plano.</li>
         <li><b>Aniversário 🎂:</b> no dia, aparece um cartão com a mensagem de parabéns e 10% de desconto de presente.</li>
         <li><b>🎁 Aniversário perto do horário:</b> se a cliente marcar horário na semana do aniversário (até 7 dias antes ou depois), aparece no horário dela, na agenda, a faixinha <b>"🎁 Aniversário…"</b>.</li>
-        <li><b>🎂 Aniversários:</b> logo no topo da tela inicial, embaixo do quadro de hoje, aparecem as clientes que fazem aniversário hoje e nos próximos 30 dias, com o botão <b>💬 Parabéns</b> e <b>Ver todas do mês</b>.</li>
+        
         <li><b>Clientes sumidas 💔:</b> quem passou do retorno e não voltou. O botão <b>Mandar mensagem</b> envia a mensagem de saudade, e a cliente fica <b>✓ Chamada</b> por 30 dias, para não repetir.</li>
               <li>Todas as mensagens vão com <b>endereço</b>, <b>link do mapa</b> e a assinatura <b>"Marisa Depilação e Designer de Sobrancelha 💕"</b>. A assinatura pode ser mudada em <b>Mais → WhatsApp Business</b>.</li>
       </ul></div></details>
@@ -1733,6 +1733,7 @@ function render(){
 // Próximos aniversários (acrescentado na 6.9 — não substitui o cartão do dia)
 function renderProxNiver(){
   const el=$('#blocoProxNiver'); if(!el) return;
+  el.innerHTML=''; return; // 7.1: a tia pediu para tirar o quadro da tela principal (fica só o cartão do dia e a faixinha no horário)
   const h=new Date(HOJE+'T12:00');
   const L=clientes().filter(c=>c.nasc&&/^\d{4}-\d{2}-\d{2}$/.test(c.nasc)).map(c=>{
     let d=new Date(h.getFullYear()+'-'+c.nasc.slice(5)+'T12:00'); if(isNaN(d)) return null;
@@ -2427,7 +2428,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='91', APP_VERSAO_TXT='7.0', APP_DATA='13/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
+const APP_BUILD='92', APP_VERSAO_TXT='7.1', APP_DATA='13/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 const _bta=document.getElementById('btnTopoAtu'); if(_bta) _bta.textContent='🔄 v'+APP_VERSAO_TXT;
 
