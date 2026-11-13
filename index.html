@@ -485,6 +485,7 @@ button.cuid{display:block;width:100%;text-align:left;border:0;font:inherit;font-
 .niver{background:var(--po);border-radius:18px;padding:14px;margin-bottom:10px}
 .niver b{display:block;font-size:1.05rem}
 .niver span{font-size:.85rem;color:var(--suave)}
+.niv-ag{display:inline-block;margin:4px 0 2px;background:#FFF1D6;color:#8A5300;font-weight:800;font-size:.82rem;border-radius:8px;padding:3px 8px}
 .pniv{background:var(--po);border-radius:18px;padding:12px 14px;margin-bottom:10px}
 .pniv .t{font-weight:800;margin-bottom:6px}
 .pniv .it{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid rgba(0,0,0,.06)}
@@ -776,6 +777,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Pós-atendimento 💬:</b> no dia seguinte aparece uma faixa pequena <b>"💬 Pós-atendimento: 2 clientes…"</b>. Toque nela e em <b>Enviar</b> (ou ✕ para tirar sem mandar). Quantos dias ela aparece (1, 2, 3 ou não aparecer) você escolhe em <b>☰ Mais → ✉️ Mensagens</b>. E dá pra mandar quando quiser pelos <b>⋯ → 💬 Mandar pós-atendimento</b>.</li>
         <li><b>Aviso 1 hora antes:</b> quando falta 1 hora, aparece um cartão verde no topo da Agenda. Toque em <b>Enviar lembrete no WhatsApp</b> e a cliente fica marcada <b>✓ avisada</b>. O aviso funciona com o app aberto ou em segundo plano.</li>
         <li><b>Aniversário 🎂:</b> no dia, aparece um cartão com a mensagem de parabéns e 10% de desconto de presente.</li>
+        <li><b>🎁 Aniversário perto do horário:</b> se a cliente marcar horário na semana do aniversário (até 7 dias antes ou depois), aparece no horário dela, na agenda, a faixinha <b>"🎁 Aniversário…"</b>.</li>
         <li><b>🎂 Aniversários:</b> logo no topo da tela inicial, embaixo do quadro de hoje, aparecem as clientes que fazem aniversário hoje e nos próximos 30 dias, com o botão <b>💬 Parabéns</b> e <b>Ver todas do mês</b>.</li>
         <li><b>Clientes sumidas 💔:</b> quem passou do retorno e não voltou. O botão <b>Mandar mensagem</b> envia a mensagem de saudade, e a cliente fica <b>✓ Chamada</b> por 30 dias, para não repetir.</li>
               <li>Todas as mensagens vão com <b>endereço</b>, <b>link do mapa</b> e a assinatura <b>"Marisa Depilação e Designer de Sobrancelha 💕"</b>. A assinatura pode ser mudada em <b>Mais → WhatsApp Business</b>.</li>
@@ -1489,6 +1491,20 @@ let CLI;
 try { CLI = JSON.parse(localStorage.getItem('marisa-clientes')) || {}; } catch(e){ CLI = {}; }
 function salvarCli(){ try{ localStorage.setItem('marisa-clientes',JSON.stringify(CLI)); return true; }catch(e){ return false; } }
 const cad = tel => CLI[tel] || {};
+// 6.10: aniversário perto do dia do horário (até 7 dias antes ou depois) — para a lembrancinha
+function niverPerto(tel,dataISO){
+  const c=cad(tel); if(!c.nasc||!/^\d{4}-\d{2}-\d{2}$/.test(c.nasc)||!dataISO) return null;
+  const base=new Date(dataISO+'T12:00'); let melhor=null;
+  [-1,0,1].forEach(k=>{ const d=new Date((base.getFullYear()+k)+'-'+c.nasc.slice(5)+'T12:00'); if(isNaN(d)) return;
+    const dif=Math.round((d-base)/864e5); if(Math.abs(dif)<=7&&(!melhor||Math.abs(dif)<Math.abs(melhor.dif))) melhor={d,dif}; });
+  return melhor;
+}
+function niverPertoHTML(a){
+  const n=niverPerto(a.tel,a.data); if(!n) return '';
+  const dd=String(n.d.getDate()).padStart(2,'0')+'/'+String(n.d.getMonth()+1).padStart(2,'0');
+  const q=n.dif===0?'é no dia do horário! 🎉':n.dif===1?'é no dia seguinte ('+dd+')':n.dif===-1?'foi no dia anterior ('+dd+')':n.dif>0?'é daqui a '+n.dif+' dias do horário ('+dd+')':'foi '+(-n.dif)+' dias antes do horário ('+dd+')';
+  return `<div class="niv-ag">🎁 Aniversário ${q}</div>`;
+}
 const niverHoje = c => c.nasc && c.nasc.slice(5)===HOJE.slice(5);
 const niverMes = c => c.nasc && c.nasc.slice(5,7)===HOJE.slice(5,7);
 function cuidados(c){ const l=[]; if(c.sens)l.push('Pele sensível'); if(c.acido)l.push('Usa ácido/retinol'); if(c.gest)l.push('Gestante'); if(c.cera&&c.cera!=='Sem preferência')l.push(/^cera/i.test(c.cera)?c.cera:'Cera '+c.cera.toLowerCase()); return l; }
@@ -1579,7 +1595,7 @@ function itemAgenda(a,mostrarDia){
   return `<li class="ag ${a.feito?'concluido':''} ${fora(a)?'faltou':''}">
     <div class="hora">${mostrarDia?`<div style="font-size:.75rem;color:var(--suave)">${semana(a.data)} ${dataBR(a.data)}</div>`:''}${fmtH(a.hora)}</div>
     <div>
-      <div class="nome">${a.nome}${estrHTML(MAPA[a.tel])}${niverHoje(cad(a.tel))?' 🎂':''}${tags(a)}${a.falta?'<span class="tag falta">faltou</span>':a.cancelado?'<span class="tag falta">cancelado</span>':''}${a.avisado?'<span class="ok-av">✓ avisada</span>':''}</div>
+      <div class="nome">${a.nome}${estrHTML(MAPA[a.tel])}${niverHoje(cad(a.tel))?' 🎂':''}${tags(a)}${a.falta?'<span class="tag falta">faltou</span>':a.cancelado?'<span class="tag falta">cancelado</span>':''}${a.avisado?'<span class="ok-av">✓ avisada</span>':''}</div>${a.cancelado||a.falta?'':niverPertoHTML(a)}
       <div class="serv">${nomes} · ${a.promo!=null?`<s>${brl(valorCheio(a))}</s> <b style="color:var(--ok)">${brl(valor(a))}</b> 💝`:brl(valor(a))}</div>
       ${a.obs?`<div class="serv">📝 ${a.obs}</div>`:''}
       ${fora(a)||a.feito?'':`<button class="tempo-l ${a.duracao?'pers':''}" data-tempo="${a.id}">⏱️ ${fmtH(a.hora)} às ${fmtH(fimH(a))} · ${duracao(a)} min ✏️</button>`}
@@ -1726,7 +1742,9 @@ function renderProxNiver(){
   el.innerHTML='<div class="pniv"><div class="t">🎂 Aniversários</div>'+(L.length?'':'<div class="it"><span><small>Nenhuma cliente faz aniversário nos próximos 30 dias.</small></span></div>')+L.map(({c,d,falta})=>{
     const dia=d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'}).replace('.','');
     const msg=`Parabéns, ${c.nome.split(' ')[0]}! 🎉🎂 Desejo um ano lindo pra você! De presente, você ganha 10% de desconto no seu próximo horário este mês.`;
-    return `<div class="it"><span><b>${c.nome}</b><small>${falta===0?'<b style="color:var(--alerta)">🎉 É HOJE!</b>':dia+' · '+(falta===1?'amanhã':'em '+falta+' dias')}</small></span><a href="${zap(c,msg)}" target="_blank" rel="noopener">💬 Parabéns</a></div>`;
+    const hor=dados.filter(a=>a.tel===c.tel&&a.data>=HOJE&&!a.cancelado&&!a.falta).sort((x,y)=>x.data.localeCompare(y.data))[0];
+    const horTxt=hor?`<small style="color:#8A5300;font-weight:800">📅 tem horário ${hor.data===HOJE?'hoje':dataBR(hor.data)}</small>`:'';
+    return `<div class="it"><span><b>${c.nome}</b><small>${falta===0?'<b style="color:var(--alerta)">🎉 É HOJE!</b>':dia+' · '+(falta===1?'amanhã':'em '+falta+' dias')}</small>${horTxt}</span><a href="${zap(c,msg)}" target="_blank" rel="noopener">💬 Parabéns</a></div>`;
   }).join('')+'<button class="todas" type="button" id="verNiverMes">Ver todas do mês</button></div>';
   $('#verNiverMes').onclick=()=>{ const t=document.querySelector('nav.abas [data-t="clientes"]'); if(t) t.click();
     setTimeout(()=>{ const f=document.querySelector('#filtros [data-f="niver"]'); if(f) f.click(); },150); };
@@ -2409,7 +2427,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='90', APP_VERSAO_TXT='6.9', APP_DATA='13/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
+const APP_BUILD='91', APP_VERSAO_TXT='7.0', APP_DATA='13/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 const _bta=document.getElementById('btnTopoAtu'); if(_bta) _bta.textContent='🔄 v'+APP_VERSAO_TXT;
 
