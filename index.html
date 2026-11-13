@@ -485,6 +485,13 @@ button.cuid{display:block;width:100%;text-align:left;border:0;font:inherit;font-
 .niver{background:var(--po);border-radius:18px;padding:14px;margin-bottom:10px}
 .niver b{display:block;font-size:1.05rem}
 .niver span{font-size:.85rem;color:var(--suave)}
+.pniv{background:var(--po);border-radius:18px;padding:12px 14px;margin-bottom:10px}
+.pniv .t{font-weight:800;margin-bottom:6px}
+.pniv .it{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid rgba(0,0,0,.06)}
+.pniv .it:first-of-type{border-top:0}
+.pniv .it small{display:block;color:var(--suave)}
+.pniv .it a{flex:none;background:#25D366;color:#fff;font-weight:800;border-radius:10px;padding:7px 10px;text-decoration:none;font-size:.85rem}
+.pniv .todas{display:block;width:100%;margin-top:8px;border:1px solid var(--ameixa);background:transparent;color:var(--ameixa);font-weight:800;border-radius:12px;padding:9px}
 .fic-topo{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .fic-topo h2{margin:0}
 .fic-sub{color:var(--suave);font-size:.9rem;margin:2px 0 12px}
@@ -604,6 +611,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
       </div>
     </div>
 
+    <div id="blocoProxNiver"></div>
     <div id="blocoLemb"></div>
     <div id="blocoPos"></div>
 
@@ -768,6 +776,7 @@ button.sv{width:100%;text-align:left;font:inherit;color:inherit}
         <li><b>Pós-atendimento 💬:</b> no dia seguinte aparece uma faixa pequena <b>"💬 Pós-atendimento: 2 clientes…"</b>. Toque nela e em <b>Enviar</b> (ou ✕ para tirar sem mandar). Quantos dias ela aparece (1, 2, 3 ou não aparecer) você escolhe em <b>☰ Mais → ✉️ Mensagens</b>. E dá pra mandar quando quiser pelos <b>⋯ → 💬 Mandar pós-atendimento</b>.</li>
         <li><b>Aviso 1 hora antes:</b> quando falta 1 hora, aparece um cartão verde no topo da Agenda. Toque em <b>Enviar lembrete no WhatsApp</b> e a cliente fica marcada <b>✓ avisada</b>. O aviso funciona com o app aberto ou em segundo plano.</li>
         <li><b>Aniversário 🎂:</b> no dia, aparece um cartão com a mensagem de parabéns e 10% de desconto de presente.</li>
+        <li><b>🎂 Aniversários:</b> logo no topo da tela inicial, embaixo do quadro de hoje, aparecem as clientes que fazem aniversário hoje e nos próximos 30 dias, com o botão <b>💬 Parabéns</b> e <b>Ver todas do mês</b>.</li>
         <li><b>Clientes sumidas 💔:</b> quem passou do retorno e não voltou. O botão <b>Mandar mensagem</b> envia a mensagem de saudade, e a cliente fica <b>✓ Chamada</b> por 30 dias, para não repetir.</li>
               <li>Todas as mensagens vão com <b>endereço</b>, <b>link do mapa</b> e a assinatura <b>"Marisa Depilação e Designer de Sobrancelha 💕"</b>. A assinatura pode ser mudada em <b>Mais → WhatsApp Business</b>.</li>
       </ul></div></details>
@@ -1611,6 +1620,7 @@ function render(){
     return `<div class="niver"><b>🎂 Aniversário de ${c.nome}</b><span>Mande os parabéns com um desconto de presente</span>
     <a class="enviar" style="display:block;text-align:center;text-decoration:none;background:#25D366;color:#fff;font-weight:800;border-radius:12px;padding:11px;margin-top:10px" href="${zap(c,msg)}" target="_blank" rel="noopener">Enviar parabéns no WhatsApp</a></div>`;
   }).join('');
+  renderProxNiver();
   renderCal();
 
   const prox=dados.filter(a=>a.data>HOJE).sort((x,y)=>chaveH(x).localeCompare(chaveH(y)));
@@ -1704,6 +1714,23 @@ function render(){
   $('#ranking').innerHTML=rk.map(([i,q])=>{const s=sv(i);return `<div style="display:flex;justify-content:space-between;font-weight:700;font-size:.9rem"><span>${s.n}</span><span>${q}x</span></div><div class="barra"><i style="width:${q/mx*100}%;background:${s.cat==='Depilação'?'var(--mel)':'var(--ameixa)'}"></i></div>`}).join('');
 }
 
+// Próximos aniversários (acrescentado na 6.9 — não substitui o cartão do dia)
+function renderProxNiver(){
+  const el=$('#blocoProxNiver'); if(!el) return;
+  const h=new Date(HOJE+'T12:00');
+  const L=clientes().filter(c=>c.nasc&&/^\d{4}-\d{2}-\d{2}$/.test(c.nasc)).map(c=>{
+    let d=new Date(h.getFullYear()+'-'+c.nasc.slice(5)+'T12:00'); if(isNaN(d)) return null;
+    if(d<h) d=new Date((h.getFullYear()+1)+'-'+c.nasc.slice(5)+'T12:00');
+    return {c,d,falta:Math.round((d-h)/864e5)};
+  }).filter(x=>x&&x.falta<=30).sort((a,b)=>a.falta-b.falta).slice(0,6);
+  el.innerHTML='<div class="pniv"><div class="t">🎂 Aniversários</div>'+(L.length?'':'<div class="it"><span><small>Nenhuma cliente faz aniversário nos próximos 30 dias.</small></span></div>')+L.map(({c,d,falta})=>{
+    const dia=d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'}).replace('.','');
+    const msg=`Parabéns, ${c.nome.split(' ')[0]}! 🎉🎂 Desejo um ano lindo pra você! De presente, você ganha 10% de desconto no seu próximo horário este mês.`;
+    return `<div class="it"><span><b>${c.nome}</b><small>${falta===0?'<b style="color:var(--alerta)">🎉 É HOJE!</b>':dia+' · '+(falta===1?'amanhã':'em '+falta+' dias')}</small></span><a href="${zap(c,msg)}" target="_blank" rel="noopener">💬 Parabéns</a></div>`;
+  }).join('')+'<button class="todas" type="button" id="verNiverMes">Ver todas do mês</button></div>';
+  $('#verNiverMes').onclick=()=>{ const t=document.querySelector('nav.abas [data-t="clientes"]'); if(t) t.click();
+    setTimeout(()=>{ const f=document.querySelector('#filtros [data-f="niver"]'); if(f) f.click(); },150); };
+}
 function clientes(){
   const m={};
   const base = tel => m[tel] || (m[tel]={nome:'',tel,vezes:0,total:0,ult:'',faltas:0,sob:0,futuro:false,ultAt:null});
@@ -2382,7 +2409,7 @@ document.querySelectorAll('.folha').forEach(f=>{
 });
 
 // ===== Versão do app (mude junto com o sw.js) =====
-const APP_BUILD='89', APP_VERSAO_TXT='6.8', APP_DATA='04/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
+const APP_BUILD='90', APP_VERSAO_TXT='6.9', APP_DATA='13/11/2026'; // APP_VERSAO='87' (compatibilidade com versões antigas)
 document.querySelectorAll('.ver-app').forEach(e=>e.textContent=`Versão ${APP_VERSAO_TXT} · atualizado em ${APP_DATA}`);
 const _bta=document.getElementById('btnTopoAtu'); if(_bta) _bta.textContent='🔄 v'+APP_VERSAO_TXT;
 
